@@ -1,0 +1,21 @@
+{
+  "name": "doganoo/php-algorithms",
+  "description": "A collection of common algorithms implemented in PHP. The collection is based on \"Cracking the Coding Interview\" by Gayle Laakmann McDowell",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dogan Ucar",
+      "email": "dogan@dogan-ucar.de"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "doganoo\\PHPAlgorithms\\": "src/"
+    }
+  },
+  "minimum-stability": "stable",
+  "require-dev": {
+    "phpunit/phpunit": "6.5"
+  }
+}
