@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar
+ * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,76 +23,87 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\LinkedLists;
+namespace doganoo\PHPAlgorithms\Maps;
 
 
-class Node
-{
+use doganoo\PHPAlgorithms\Exception\InvalidKeyTypeException;
+
+/**
+ * Node class that contains a key, value and the next instance.
+ *
+ * Class Node
+ * @package doganoo\PHPAlgorithms\Maps
+ */
+class Node {
     private $value = 0;
     private $key;
     private $next = null;
-    private $previous = null;
 
-    public function getKey(): int
-    {
-        return $this->key;
-    }
-
-    public function setKey(int $key)
-    {
+    /**
+     * sets the nodes key. The key has to be a scalar type otherwise the method throws an InvalidKeyTypeException.
+     *
+     * @param $key
+     * @throws InvalidKeyTypeException
+     */
+    public function setKey($key) {
+        if (!\is_scalar($key)) {
+            throw new InvalidKeyTypeException("key is not a scalar type");
+        }
         $this->key = $key;
     }
 
-    public function getValue(): string
-    {
-        return $this->value;
+    /**
+     * returns the key
+     *
+     * @return mixed
+     */
+    public function getKey() {
+        return $this->key;
     }
 
-    public function setValue(string $value)
-    {
+    /**
+     * sets the nodes value
+     *
+     * @param $value
+     */
+    public function setValue($value) {
         $this->value = $value;
     }
 
-    public function setNext(?Node $node)
-    {
+    /**
+     * returns the value
+     *
+     * @return int
+     */
+    public function getValue() {
+        return $this->value;
+    }
+
+    /**
+     * sets the next node
+     *
+     * @param Node|null $node
+     */
+    public function setNext(?Node $node) {
         $this->next = $node;
     }
 
-    public function getNext(): ?Node
-    {
+    /**
+     * returns the next node
+     *
+     * @return Node|null
+     */
+    public function getNext(): ?Node {
         return $this->next;
     }
 
-    public function setPrevious(Node $node)
-    {
-        $this->previous = $node;
-    }
-
-    public function getPrevious(): ?Node
-    {
-        return $this->previous;
-    }
-
-    public function __toString()
-    {
-        return $this->prepareString();
-    }
-
-    private function prepareString()
-    {
-        $node = $this->next;
-        $string = $this->value . ", ";
-
-        while ($node !== null) {
-            $string .= $node->getValue() . ", ";
-            $node = $node->getNext();
-        }
-
-        return $string;
-    }
-
-    public function size()
-    {
+    /**
+     * counts the number of nodes
+     *
+     * @return int
+     */
+    public function size() {
+        /** @var Node $node */
         $node = $this->next;
         $size = 0;
 

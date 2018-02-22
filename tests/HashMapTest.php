@@ -1,8 +1,11 @@
 <?php
+
+use doganoo\PHPAlgorithms\Maps\HashMap;
+
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar
+ * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,16 +25,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+class HashMapTest extends \PHPUnit\Framework\TestCase {
 
-class HashMapTest extends \PHPUnit\Framework\TestCase
-{
+    public function testAddition() {
+        $class = stdClass::class;
 
-    public function testMap()
-    {
-        $map = new \doganoo\PHPAlgorithms\LinkedLists\HashMap();
-        $map->add(1, "string");
-        $node = $map->get("string");
-        $this->assertTrue($node == "string");
+        $hashMap = new HashMap();
+        $boolean = $hashMap->add(1, $class);
+        $this->assertTrue($boolean);
+
+    }
+
+    public function testContains() {
+        $class = stdClass::class;
+
+        $hashMap = new HashMap();
+        $hashMap->add(1, $class);
+        $boolean = $hashMap->contains($class);
+        $this->assertTrue($boolean);
+    }
+
+    public function testGetNodeByValue() {
+        $class = stdClass::class;
+
+        $hashMap = new HashMap();
+        $hashMap->add(1, $class);
+        $node = $hashMap->getNodeByValue($class);
+        $this->assertTrue($node !== null);
+    }
+
+    public function testRemove() {
+        $class = stdClass::class;
+
+        $hashMap = new HashMap();
+        $hashMap->add(1, $class);
+        $boolean = $hashMap->remove($class);
+        $this->assertTrue($boolean);
     }
 
 }
