@@ -33,6 +33,7 @@ namespace doganoo\PHPAlgorithms\Maps;
  * TODO implement keySet
  * TODO implement entrySet
  * TODO implement values
+ * TODO implement Java-like generics for key and value
  *
  * @package doganoo\PHPAlgorithms\Maps
  */
@@ -60,6 +61,11 @@ class HashMap {
      */
     private function initializeBucket() {
         $this->bucket = [];
+    }
+
+    public function addNode(Node $node): bool {
+        $added = $this->add($node->getKey(), $node->getValue());
+        return $added;
     }
 
     /**
@@ -327,6 +333,7 @@ class HashMap {
         if (!isset($this->bucket[$arrayIndex])) {
             return true;
         }
+
         /** @var Node $previous */
         /** @var Node $head */
         $previous = $head = $this->bucket[$arrayIndex];
@@ -391,5 +398,4 @@ class HashMap {
     public function clear() {
         $this->initializeBucket();
     }
-
 }

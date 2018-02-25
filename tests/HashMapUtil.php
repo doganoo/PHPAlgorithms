@@ -1,6 +1,7 @@
 <?php
 
 use doganoo\PHPAlgorithms\Maps\HashMap;
+use doganoo\PHPAlgorithms\Maps\Node;
 
 /**
  * MIT License
@@ -25,39 +26,16 @@ use doganoo\PHPAlgorithms\Maps\HashMap;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-class HashMapTest extends \PHPUnit\Framework\TestCase {
-
-    public function testAddition() {
-        $class = stdClass::class;
-
+class HashMapUtil {
+    public static function getHashMap(int $number) {
         $hashMap = new HashMap();
-        $boolean = $hashMap->add(1, $class);
-        $this->assertTrue($boolean);
-
-    }
-
-    public function testContains() {
-        $class = stdClass::class;
-
-        $hashMap = new HashMap();
-        $hashMap->add(1, $class);
-        $boolean = $hashMap->containsValue($class);
-        $this->assertTrue($boolean);
-    }
-
-    public function testGetNodeByValue() {
-        $class = stdClass::class;
-
-        $hashMap = new HashMap();
-        $hashMap->add(1, $class);
-        $node = $hashMap->getNodeByValue($class);
-        $this->assertTrue($node !== null);
-    }
-
-    public function testRemove() {
-        $hashMap = HashMapUtil::getHashMap(500);
-        $boolean = $hashMap->remove(320);
-        $this->assertTrue($boolean);
+        for ($i = 0; $i < $number; $i++) {
+            $node = new Node();
+            $node->setKey($i);
+            $node->setValue(md5($i));
+            $hashMap->addNode($node);
+        }
+        return $hashMap;
     }
 
 }
