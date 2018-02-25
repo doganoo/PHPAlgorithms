@@ -3,3 +3,4 @@
 /vendor/
 
 composer.lock
+main.php

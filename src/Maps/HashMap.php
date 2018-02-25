@@ -30,6 +30,10 @@ namespace doganoo\PHPAlgorithms\Maps;
  *
  * Class HashMap
  *
+ * TODO implement keySet
+ * TODO implement entrySet
+ * TODO implement values
+ *
  * @package doganoo\PHPAlgorithms\Maps
  */
 class HashMap {
@@ -47,9 +51,16 @@ class HashMap {
      * HashMap constructor creates an empty array.
      */
     public function __construct() {
-        $this->bucket = [];
+        $this->initializeBucket();
     }
 
+    /**
+     * initializes the bucket in setting the
+     * bucket attribute to an empty array.
+     */
+    private function initializeBucket() {
+        $this->bucket = [];
+    }
 
     /**
      * adds a new value assigned to a key. The key has to be a scalar
@@ -63,21 +74,19 @@ class HashMap {
      * @return bool
      */
     public function add($key, $value): bool {
-        /*
-         * first, the keys hash is calculated by a
-         * private method. Next, the array index
-         * (bucket index) is calculated from this hash.
-         *
-         * Doing this avoids hash collisions.
-         */
-        $hash = $this->getHash($key);
-        $arrayIndex = $this->getArrayIndex($hash);
+        $arrayIndex = $this->getBucketIndex($key);
         /** @var Node $head */
         $head = null;
 
-        if ($this->contains($value)) {
+        /*
+         * the method checks the value if it is already
+         * in the map or not.
+         *
+         * Notice that contains() looks for the value, not
+         * key as below.
+         */
+        if ($this->containsValue($value)) {
             //if the key is already in the list, then ignore
-            //TODO better override?
             return true;
         }
 
@@ -98,27 +107,44 @@ class HashMap {
             return true;
         }
 
-        /*
-         * if there is is already a head, check first if
-         * the key is already in the node list.
-         */
-        if ($head !== null) {
-            //first check if there is already a node with the given key
-            //if yes: do not create a new Node and simply overwrite
-            //if not: create a new node and add it to the top of the node list
-            if ($this->checkForDuplicate($head, $key)) {
-                $head->setValue($value);
-                $this->bucket[$arrayIndex] = $head;
-            } else {
-                $newNode = new Node();
-                $newNode->setKey($key);
-                $newNode->setValue($value);
-                $newNode->setNext($head);
-                $this->bucket[$arrayIndex] = $newNode;
+        //first check if there is already a node with the given key
+        //if yes: do not create a new Node and simply overwrite
+        //if not: create a new node and add it to the top of the node list
+        $headContainsKey = $this->containsKey($head, $key);
+        if ($headContainsKey) {
+            $replacedNode = $this->replaceValue($head, $key, $value);
+            if ($replacedNode !== null) {
+                $this->bucket[$arrayIndex] = $replacedNode;
+                return true;
             }
-            return true;
+            return false;
+        } else {
+            $newNode = new Node();
+            $newNode->setKey($key);
+            $newNode->setValue($value);
+            $newNode->setNext($head);
+            $this->bucket[$arrayIndex] = $newNode;
         }
         return true;
+    }
+
+    /**
+     * returns the bucket array index
+     *
+     * @param $key
+     * @return int
+     */
+    private function getBucketIndex($key) {
+        /*
+         * first, the keys hash is calculated by a
+         * private method. Next, the array index
+         * (bucket index) is calculated from this hash.
+         *
+         * Doing this avoids hash collisions.
+         */
+        $hash = $this->getHash($key);
+        $arrayIndex = $this->getArrayIndex($hash);
+        return $arrayIndex;
     }
 
     /**
@@ -145,16 +171,10 @@ class HashMap {
     /**
      * determines whether the HashMap contains a value.
      *
-     * TODO improvement suggestion: get the appropriate bucket and search only in this bucket
-     *
      * @param $value
      * @return bool
      */
-    public function contains($value): bool {
-        //TODO check more instance types
-        if ($value instanceof Node) {
-            $value = $value->getValue();
-        }
+    public function containsValue($value): bool {
 
         /**
          * @var string $arrayIndex
@@ -192,15 +212,13 @@ class HashMap {
     /**
      * checks whether a given key is available in a node.
      *
-     * TODO remove parameter node and check the bucket list?
-     *
      * @param Node $node
      * @param int  $key
      * @return bool
      */
-    private function checkForDuplicate(Node $node, int $key) {
+    private function containsKey(Node $node, int $key) {
         if ($node->getNext() !== null) {
-            return $this->checkForDuplicate($node->getNext(), $key);
+            return $this->containsKey($node->getNext(), $key);
         }
         if ($node->getKey() === $key) {
             return true;
@@ -208,19 +226,29 @@ class HashMap {
         return false;
     }
 
+    private function replaceValue(Node $node, $key, $value): Node {
+        echo $node->size();
+        $newNode = $node;
+        while ($node !== null) {
+            echo "if ({$node->getKey()} === $key) {\n";
+            if ($node->getKey() === $key) {
+                $node->setValue($value);
+            }
+            $node = $node->getNext();
+            $newNode->setNext($node);
+        }
+        return $newNode;
+    }
+
     /**
      * this method returns the node if it is presentable in the list or null, if not.
+     * Please note: this method returns the first node that has the occurrence of the value
      *
-     * TODO improvement suggestion: get the appropriate bucket and search only in this bucket
      *
      * @param $value
      * @return Node|null
      */
     public function getNodeByValue($value): ?Node {
-        //TODO check more instance types
-        if ($value instanceof Node) {
-            $value = $value->getValue();
-        }
         /**
          * @var string $arrayIndex
          * @var Node   $node
@@ -250,66 +278,118 @@ class HashMap {
         return null;
     }
 
+    public function get($key): ?Node {
+        $arrayIndex = $this->getBucketIndex($key);
+        /*
+         * the head is requested from the array based on
+         * the array index hash.
+         */
+        /** @var Node $head */
+        $head = $this->bucket[$arrayIndex];
+
+        /*
+         * iterate over the head until it is null.
+         * If a value is found, return the node (head).
+         * If not, the loop terminates and the method
+         * returns null.
+         */
+        while ($head !== null) {
+            if ($head->getKey() === $key) {
+                return $head;
+            }
+            $head = $head->getNext();
+        }
+        /*
+         * this line is only reached when the node
+         * does not contain the key
+         */
+        return null;
+    }
+
     /**
-     * removes a given value from the node list
+     * removes a node by a given key
      *
-     * @param $value
+     * @param $key
      * @return bool
      */
-    public function remove($value): bool {
-        //TODO check more instance types
-        if ($value instanceof Node) {
-            $value = $value->getValue();
-        }
-        /**
-         * @var string $arrayIndex
-         * @var Node   $node
+    public function remove($key): bool {
+        //get the corresponding index to key
+        $arrayIndex = $this->getBucketIndex($key);
+
+        /*
+         *if the array index is not available in the
+         * bucket list, end the method and return true.
+         * True due to the operation was successful, meaning
+         * that $key is not in the list.
+         * False would indicate that there was an error
+         * and the node is still in the list
          */
-        foreach ($this->bucket as $arrayIndex => $node) {
-
-            /**
-             * first, the nodes are initialized equally to the
-             * head of the bucket.
-             *
-             * @var Node $current
-             */
-            $current = $previous = $node;
-
-            /*
-             * The while loop iterates over all nodes until the
-             * value is found.
-             *
-             * TODO schauen, ob $current !== null ist
-             */
-            while ($current->getValue() != $value) {
-                /*
-                 * since a node is going to be removed from the
-                 * node chain, the previous element has to be
-                 * on hold.
-                 * After previous is set to the actual element,
-                 * the current element pointer can moved to the
-                 * next one.
-                 *
-                 * If the value is found, $previous points to
-                 * the previous element of the value that is
-                 * searched and current points to the next element
-                 * after that one who should be deleted.
-                 */
-                $previous = $current;
-                $current = $current->getNext();
-            }
-
-            /*
-             * If the value that should be deleted is not in the list,
-             * this set instruction assigns the next node to the actual.
-             *
-             * If the while loop has ended early, the next node is
-             * assigned to the previous node of the node that
-             * should be deleted.
-             */
-            $previous->setNext($current->getNext());
+        if (!isset($this->bucket[$arrayIndex])) {
+            return true;
         }
-        //TODO determine if the value has been removed or not
-        return true;
+        /** @var Node $previous */
+        /** @var Node $head */
+        $previous = $head = $this->bucket[$arrayIndex];
+        $i = 1;
+        $headSize = $head->size();
+        /*
+         * there is one special case for the HashMap:
+         * if there is only one node in the bucket, then
+         * check if the nodes key equals to the key that
+         * should be deleted.
+         * If this is the case, set the bucket to null
+         * because the only one node is removed.
+         * If this is not the key, return false as there
+         * is no node to remove.
+         */
+        if ($head->size() == 1) {
+            if ($head->getKey() === $key) {
+                $this->bucket[$arrayIndex] = null;
+                return true;
+            }
+            return false;
+        }
+
+        /*
+         * The while loop iterates over all nodes until the
+         * value is found.
+         */
+        while ($head !== null && $head->getKey() !== $key) {
+            /*
+             * since a node is going to be removed from the
+             * node chain, the previous element has to be
+             * on hold.
+             * After previous is set to the actual element,
+             * the current element pointer can moved to the
+             * next one.
+             *
+             * If the value is found, $previous points to
+             * the previous element of the value that is
+             * searched and current points to the next element
+             * after that one who should be deleted.
+             */
+            $previous = $head;
+            $head = $head->getNext();
+            $i++;
+        }
+
+        /*
+         * If the value that should be deleted is not in the list,
+         * this set instruction assigns the next node to the actual.
+         *
+         * If the while loop has ended early, the next node is
+         * assigned to the previous node of the node that
+         * should be deleted.
+         */
+        $previous->setNext($head->getNext());
+        return $i !== $headSize;
     }
+
+    /**
+     * removes all buckets and their nodes.
+     */
+    public function clear() {
+        $this->initializeBucket();
+    }
+
 }

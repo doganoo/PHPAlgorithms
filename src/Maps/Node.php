@@ -105,7 +105,7 @@ class Node {
     public function size() {
         /** @var Node $node */
         $node = $this->next;
-        $size = 0;
+        $size = 1;
 
         while ($node !== null) {
             $size++;

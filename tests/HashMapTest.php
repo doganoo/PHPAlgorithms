@@ -41,7 +41,7 @@ class HashMapTest extends \PHPUnit\Framework\TestCase {
 
         $hashMap = new HashMap();
         $hashMap->add(1, $class);
-        $boolean = $hashMap->contains($class);
+        $boolean = $hashMap->containsValue($class);
         $this->assertTrue($boolean);
     }
 
@@ -59,7 +59,7 @@ class HashMapTest extends \PHPUnit\Framework\TestCase {
 
         $hashMap = new HashMap();
         $hashMap->add(1, $class);
-        $boolean = $hashMap->remove($class);
+        $boolean = $hashMap->remove(1);
         $this->assertTrue($boolean);
     }
 
