@@ -26,31 +26,17 @@
 namespace doganoo\PHPAlgorithms\Maps;
 
 
-use doganoo\PHPAlgorithms\Exception\InvalidKeyTypeException;
-
 /**
  * Node class that contains a key, value and the next instance.
  *
  * Class Node
+ *
  * @package doganoo\PHPAlgorithms\Maps
  */
 class Node {
     private $value = 0;
     private $key;
     private $next = null;
-
-    /**
-     * sets the nodes key. The key has to be a scalar type otherwise the method throws an InvalidKeyTypeException.
-     *
-     * @param $key
-     * @throws InvalidKeyTypeException
-     */
-    public function setKey($key) {
-        if (!\is_scalar($key)) {
-            throw new InvalidKeyTypeException("key is not a scalar type");
-        }
-        $this->key = $key;
-    }
 
     /**
      * returns the key
@@ -62,12 +48,12 @@ class Node {
     }
 
     /**
-     * sets the nodes value
+     * sets the nodes key. The key has to be a scalar type otherwise the method throws an InvalidKeyTypeException.
      *
-     * @param $value
+     * @param int $key
      */
-    public function setValue($value) {
-        $this->value = $value;
+    public function setKey(int $key) {
+        $this->key = $key;
     }
 
     /**
@@ -80,21 +66,12 @@ class Node {
     }
 
     /**
-     * sets the next node
+     * sets the nodes value
      *
-     * @param Node|null $node
+     * @param $value
      */
-    public function setNext(?Node $node) {
-        $this->next = $node;
-    }
-
-    /**
-     * returns the next node
-     *
-     * @return Node|null
-     */
-    public function getNext(): ?Node {
-        return $this->next;
+    public function setValue($value) {
+        $this->value = $value;
     }
 
     /**
@@ -112,5 +89,23 @@ class Node {
             $node = $node->getNext();
         }
         return $size;
+    }
+
+    /**
+     * returns the next node
+     *
+     * @return Node|null
+     */
+    public function getNext(): ?Node {
+        return $this->next;
+    }
+
+    /**
+     * sets the next node
+     *
+     * @param Node|null $node
+     */
+    public function setNext(?Node $node) {
+        $this->next = $node;
     }
 }

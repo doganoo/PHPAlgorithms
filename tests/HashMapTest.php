@@ -29,16 +29,13 @@ class HashMapTest extends \PHPUnit\Framework\TestCase {
 
     public function testAddition() {
         $class = stdClass::class;
-
         $hashMap = new HashMap();
         $boolean = $hashMap->add(1, $class);
         $this->assertTrue($boolean);
-
     }
 
     public function testContains() {
         $class = stdClass::class;
-
         $hashMap = new HashMap();
         $hashMap->add(1, $class);
         $boolean = $hashMap->containsValue($class);
@@ -47,7 +44,6 @@ class HashMapTest extends \PHPUnit\Framework\TestCase {
 
     public function testGetNodeByValue() {
         $class = stdClass::class;
-
         $hashMap = new HashMap();
         $hashMap->add(1, $class);
         $node = $hashMap->getNodeByValue($class);
@@ -58,6 +54,18 @@ class HashMapTest extends \PHPUnit\Framework\TestCase {
         $hashMap = HashMapUtil::getHashMap(500);
         $boolean = $hashMap->remove(320);
         $this->assertTrue($boolean);
+    }
+
+    public function testKeyTypes() {
+        $hashMap = new HashMap();
+        $added = $hashMap->add(new stdClass(), "stdClass");
+        $this->assertTrue($added);
+    }
+
+    public function testKeySet() {
+        $hashMap = HashMapUtil::getHashMap(10);
+        $keySet = $hashMap->keySet();
+        $this->assertTrue(count($keySet) == 10);
     }
 
 }

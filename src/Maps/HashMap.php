@@ -25,15 +25,19 @@
 
 namespace doganoo\PHPAlgorithms\Maps;
 
+use doganoo\PHPAlgorithms\Util\MapUtil;
+
 /**
  * HashMap class - implementation of a map using hashes in order to avoid collisions
  *
+ * If you want to read more about the theory behind visit: https://dogan-ucar.de/php-hashmap-implementation/
+ *
  * Class HashMap
  *
- * TODO implement keySet
  * TODO implement entrySet
  * TODO implement values
  * TODO implement Java-like generics for key and value
+ * TODO (optional) implement universal hashing
  *
  * @package doganoo\PHPAlgorithms\Maps
  */
@@ -63,6 +67,13 @@ class HashMap {
         $this->bucket = [];
     }
 
+    /**
+     * adds a node to the hash map
+     *
+     * @param Node $node
+     * @return bool
+     * @throws \doganoo\PHPAlgorithms\Exception\InvalidKeyTypeException
+     */
     public function addNode(Node $node): bool {
         $added = $this->add($node->getKey(), $node->getValue());
         return $added;
@@ -72,15 +83,13 @@ class HashMap {
      * adds a new value assigned to a key. The key has to be a scalar
      * value otherwise the method throws an InvalidKeyTypeException.
      *
-     * TODO catch exception
-     *
      * @param $key
      * @param $value
-     * @throws \doganoo\PHPAlgorithms\Exception\InvalidKeyTypeException
      * @return bool
      */
     public function add($key, $value): bool {
         $arrayIndex = $this->getBucketIndex($key);
+        $key = MapUtil::normalizeKey($key);
         /** @var Node $head */
         $head = null;
 
@@ -135,14 +144,25 @@ class HashMap {
     }
 
     /**
-     * returns the bucket array index
+     * returns the bucket array index by using the "division method".
+     *
+     * note that the division method has limitations: if the hash function
+     * calculates the hashes in a constant way, the way how keys are created
+     * can be chosen so that they hash to the same bucket. Thus, the worst-case
+     * scenario of having n nodes in one chain would be true.
+     * Solution: use universal hashing
      *
      * @param $key
      * @return int
      */
     private function getBucketIndex($key) {
         /*
-         * first, the keys hash is calculated by a
+         * first, it must be ensured that the
+         * key is an integer.
+         */
+        $key = MapUtil::normalizeKey($key);
+        /*
+         * next, the keys hash is calculated by a
          * private method. Next, the array index
          * (bucket index) is calculated from this hash.
          *
@@ -233,10 +253,8 @@ class HashMap {
     }
 
     private function replaceValue(Node $node, $key, $value): Node {
-        echo $node->size();
         $newNode = $node;
         while ($node !== null) {
-            echo "if ({$node->getKey()} === $key) {\n";
             if ($node->getKey() === $key) {
                 $node->setValue($value);
             }
@@ -398,4 +416,25 @@ class HashMap {
     public function clear() {
         $this->initializeBucket();
     }
+
+    /**
+     * basic implementation of Java-like keySet().
+     * The method returns an array containing the node keys.
+     *
+     * TODO return (java like generic) set object
+     *
+     * @return array
+     */
+    public function keySet(): array {
+        $keySet = [];
+        /** @var Node $head */
+        foreach ($this->bucket as $head) {
+            while ($head !== null) {
+                $keySet[] = $head->getKey();
+                $head = $head->getNext();
+            }
+        }
+        return $keySet;
+    }
+
 }
