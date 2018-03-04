@@ -1,4 +1,8 @@
 <?php
+
+use doganoo\PHPAlgorithms\StackQueue\Queue;
+use doganoo\PHPAlgorithms\StackQueue\Stack;
+
 /**
  * MIT License
  *
@@ -22,31 +26,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+class StackQueueTest extends \PHPUnit\Framework\TestCase {
+    public function testStack() {
+        $stack = new Stack();
+        $stack->push(new stdClass());
+        $stack->push(new Exception());
+        $this->assertTrue($stack->isEmpty() == false);
 
-use doganoo\PHPAlgorithms\Maps\Node;
+        $class = $stack->peek();
+        $this->assertTrue($class instanceof Exception);
+        $this->assertTrue($stack->isEmpty() == false);
 
-class NodeTest extends \PHPUnit\Framework\TestCase {
-    public function testNodeReference() {
-        $a = new Node();
-        $a->setKey(1);
-        $a->setValue("1");
-
-        $b = new Node();
-        $b->setKey(2);
-        $b->setValue("2");
-
-        $c = new Node();
-        $c->setKey(3);
-        $c->setValue("3");
-
-        $b->setNext($c);
-        $a->setNext($b);
-
-        $d = $a;
-        $d = $d->getNext();
-        $this->assertTrue($d->size() == 2);
-        $this->assertTrue($a->size() == 3);
+        $class = $stack->peek();
+        $this->assertTrue($class instanceof stdClass);
+        $this->assertTrue($stack->isEmpty() == true);
     }
 
+    public function testQueue() {
+        $queue = new Queue();
+        $queue->enqueue(new stdClass());
+        $queue->enqueue(new Exception());
+        $this->assertTrue($queue->isEmpty() == false);
 
+        $class = $queue->dequeue();
+        $this->assertTrue($class instanceof Exception);
+        $this->assertTrue($queue->isEmpty() == false);
+
+        $class = $queue->dequeue();
+        $this->assertTrue($class instanceof stdClass);
+        $this->assertTrue($queue->isEmpty() == true);
+
+
+    }
 }

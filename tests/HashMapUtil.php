@@ -1,8 +1,4 @@
 <?php
-
-use doganoo\PHPAlgorithms\Maps\HashMap;
-use doganoo\PHPAlgorithms\Maps\Node;
-
 /**
  * MIT License
  *
@@ -26,6 +22,10 @@ use doganoo\PHPAlgorithms\Maps\Node;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
+use doganoo\PHPAlgorithms\Maps\HashMap;
+use doganoo\PHPAlgorithms\Maps\Node;
+
 class HashMapUtil {
     public static function getHashMap(int $number) {
         $hashMap = new HashMap();

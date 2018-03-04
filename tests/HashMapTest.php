@@ -1,7 +1,4 @@
 <?php
-
-use doganoo\PHPAlgorithms\Maps\HashMap;
-
 /**
  * MIT License
  *
@@ -25,6 +22,10 @@ use doganoo\PHPAlgorithms\Maps\HashMap;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
+use doganoo\PHPAlgorithms\Maps\HashMap;
+
+
 class HashMapTest extends \PHPUnit\Framework\TestCase {
 
     public function testAddition() {

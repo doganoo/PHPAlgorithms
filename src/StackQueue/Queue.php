@@ -36,10 +36,10 @@ namespace doganoo\PHPAlgorithms\StackQueue;
  *
  *
  * Class Queue
+ *
  * @package StackQueue
  */
-class Queue
-{
+class Queue {
     private $queue = [];
 
     private $size = 0;
@@ -47,61 +47,20 @@ class Queue
     /**
      * this methods adds an item to the queue to the last index
      *
-     * @param int $item
+     * @param $item
      * @return bool
      */
-    public function enqueue(int $item): bool
-    {
+    public function enqueue($item): bool {
         if (!$this->isValid()) {
             return false;
         }
-        $this->queue[] = $item;
+        /*
+         * array_unshift is the better option since it
+         * takes the work for prepending the element to
+         * the beginning of the array
+         */
+        \array_unshift($this->queue, $item);
         return true;
-    }
-
-    /**
-     * this method removes the first element from the queue and returns it
-     *
-     * @return int
-     */
-    public function dequeue(): int
-    {
-        return array_shift($this->queue);
-    }
-
-    /**
-     * returns the first element from the queue
-     *
-     * @return int
-     */
-    public function front(): int
-    {
-        if (isset($this->queue[0])) {
-            return $this->queue[0];
-        }
-        return -1;
-    }
-
-    /**
-     * returns the last item from the queue
-     *
-     * @return int
-     */
-    public function rear(): int
-    {
-        return $this->queue[$this->queueSize()];
-
-    }
-
-    /**
-     * stores the number of items of the queue to the size member of this class and returns it
-     *
-     * @return int
-     */
-    private function queueSize(): int
-    {
-        $this->size = count($this->queue);
-        return $this->size;
     }
 
     /**
@@ -109,28 +68,60 @@ class Queue
      *
      * @return bool
      */
-    private function isValid(): bool
-    {
+    private function isValid(): bool {
         return $this->queue !== null;
     }
 
-    public function printList(): bool
-    {
-        if (!$this->isValid()) {
-            echo "0";
-            echo "\n";
-            return true;
-        }
-        if ($this->queueSize() == 0) {
-            echo "0";
-            echo "\n";
-            return true;
-        }
+    /**
+     * this method removes the first element from the queue and returns it
+     *
+     * @return int
+     */
+    public function dequeue() {
+        $item = array_shift($this->queue);
+        return $item;
+    }
 
-        foreach ($this->queue as $key => $value) {
-            echo "$key => $value";
-            echo "\n";
+    /**
+     * returns the first element from the queue
+     *
+     * @return int
+     */
+    public function front() {
+        if (isset($this->queue[0])) {
+            return $this->queue[0];
         }
-        return true;
+        return null;
+    }
+
+    /**
+     * returns the last item from the queue
+     *
+     * @return int
+     */
+    public function rear() {
+        if (isset($this->queue[$this->queueSize()])) {
+            return $this->queue[$this->queueSize()];
+        }
+        return null;
+    }
+
+    /**
+     * stores the number of items of the queue to the size member of this class and returns it
+     *
+     * @return int
+     */
+    private function queueSize(): int {
+        $this->size = count($this->queue);
+        return $this->size;
+    }
+
+    /**
+     * returns a boolean which indicates whether the queue is empty or not
+     *
+     * @return bool
+     */
+    public function isEmpty(): bool {
+        return $this->queueSize() === 0;
     }
 }

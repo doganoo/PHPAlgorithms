@@ -47,10 +47,10 @@ namespace doganoo\PHPAlgorithms\StackQueue;
  * may be by passed using linked lists but then, it requires more memory since it uses Node instances</ul>
  *
  * Class Stack
+ *
  * @package StackQueue
  */
-class Stack
-{
+class Stack {
     /**
      * The stack is represented as an array. Note that a stack can also be implemented using a linked list.
      *
@@ -59,101 +59,21 @@ class Stack
     private $stack = [];
 
     /**
-     * The stack size is a separate field in the class
-     * @var int $size
-     */
-    private $size = 0;
-
-    /**
      * push() adds an item (actually an integer) to the stack.
      *
-     * @param int $item
+     * @param $item
      * @return bool
      */
-    public function push(int $item): bool
-    {
+    public function push($item): bool {
         if (!$this->isValid()) {
             return false;
         }
+        /*
+         * using array_push is the better option since it
+         * takes the work of adding to the end.
+         */
         array_push($this->stack, $item);
         return true;
-    }
-
-    /**
-     * pop() removes an item from the top of the stack.
-     *
-     * @return bool
-     */
-    public function pop(): bool
-    {
-        if (!$this->isValid()) {
-            return false;
-        }
-        $return = array_pop($this->stack);
-        return $return !== null;
-    }
-
-    /**
-     * peek() returns the element 'on top' of the stack (actually an integer)
-     *
-     * @return int
-     */
-    public function peek(): int
-    {
-        if (!$this->isValid()) {
-            return 0;
-        }
-        if ($this->stackSize() == 0) {
-            return -1;
-        }
-        $value = $this->stack[$this->stackSize() - 1];
-        $this->pop();
-        return $value;
-    }
-
-
-    /**
-     * returns a boolean that determines if the stack is empty or not
-     *
-     * @return bool
-     */
-    public function isEmpty(): bool
-    {
-        return $this->stackSize() === 0;
-    }
-
-    /**
-     * helper method to visualize the stack. Not a needed method in order to work with stacks
-     *
-     * @return bool
-     */
-    public function printStack(): bool
-    {
-        if (!$this->isValid()) {
-            return false;
-        }
-        if ($this->isEmpty()) {
-            echo "0";
-            echo "\n";
-            return true;
-        }
-
-        foreach ($this->stack as $key => $value) {
-            echo "$key => $value\n";
-        }
-        return true;
-
-    }
-
-    /**
-     * stores the number of items in the stack to the size member of this class and returns it
-     *
-     * @return int
-     */
-    private function stackSize(): int
-    {
-        $this->size = count($this->stack);
-        return $this->size;
     }
 
     /**
@@ -161,10 +81,63 @@ class Stack
      *
      * @return bool
      */
-    private function isValid(): bool
-    {
+    private function isValid(): bool {
         return $this->stack !== null;
     }
 
+    /**
+     * peek() returns the element 'on top' of the stack (actually an integer)
+     *
+     */
+    public function peek() {
+        if (!$this->isValid()) {
+            return null;
+        }
+        if ($this->stackSize() == 0) {
+            return null;
+        }
+        $value = $this->stack[$this->stackSize() - 1];
+        $this->pop();
+        return $value;
+    }
 
+    /**
+     * stores the number of items in the stack to the size member of this class and returns it
+     *
+     * @return int
+     */
+    private function stackSize(): int {
+        $size = count($this->stack);
+        return $size;
+    }
+
+    /**
+     * pop() removes an item from the top of the stack.
+     *
+     * @return bool
+     */
+    public function pop(): bool {
+        if (!$this->isValid()) {
+            return false;
+        }
+        if ($this->isEmpty()) {
+            return false;
+        }
+        /*
+         * using array_pop is a better option since
+         * it takes the work for removing from the end
+         * of the array.
+         */
+        $return = array_pop($this->stack);
+        return $return !== null;
+    }
+
+    /**
+     * returns a boolean that determines if the stack is empty or not
+     *
+     * @return bool
+     */
+    public function isEmpty(): bool {
+        return $this->stackSize() === 0;
+    }
 }
