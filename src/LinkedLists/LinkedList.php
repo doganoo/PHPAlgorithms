@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar
+ * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,57 +25,19 @@
 
 namespace doganoo\PHPAlgorithms\LinkedLists;
 
+use doganoo\PHPAlgorithms\Maps\Node;
 
-class LinkedList
-{
+
+/**
+ * Class LinkedList
+ *
+ * TODO sentinels?
+ *
+ * @package doganoo\PHPAlgorithms\LinkedLists
+ */
+abstract class LinkedList {
     /** @var Node */
     private $head = null;
-
-    /**
-     * $node should be added to the end of the list.
-     * Therefore, 3 steps are needed:
-     *
-     *      1.  check if the head equals to null. If so, set head = $node
-     *          and end the function
-     *      2.  create a temporary instance of Node and set it to head
-     *      3.  iterate over temporary node until you have reached the last
-     *          node (iterate until next == null)
-     *
-     * once you have reached the end, set $node as next of your
-     * temporary node
-     *
-     * @param Node $node
-     */
-    public function appendToTail(Node $node)
-    {
-        if ($this->head == null) {
-            $this->head = $node;
-            return;
-        }
-        $n = $this->head;
-        while ($n->getNext() !== null) {
-            $n = $n->getNext();
-        }
-        $n->setNext($node);
-    }
-
-    /**
-     * the prepend method simply checks first if the node is still valid.
-     * If it does not equal to null, the next pointer of the new node is
-     * set to head and the head is set to the new node in order to create
-     * the new head.
-     *
-     * @param Node $node
-     */
-    public function prepend(Node $node)
-    {
-        if ($node == null) {
-            return;
-        }
-
-        $node->setNext($this->head);
-        $this->setHead($node);
-    }
 
     /**
      * there are three pointers needed in order to reverse a
@@ -101,19 +63,36 @@ class LinkedList
      *          ================================
      *             5 -> 4 -> 3 -> 2 -> 1 -> NULL
      */
-    public function reverse()
-    {
+    public function reverse() {
         $prev = null;
         $next = null;
-        $current = $this->head;
+        $current = $this->getHead();
 
-        while ($current != null) {
+        while ($current !== null) {
             $next = $current->getNext();
             $current->setNext($prev);
             $prev = $current;
             $current = $next;
         }
-        $this->head = $prev;
+        $this->setHead($prev);
+    }
+
+    /**
+     * returns the head node or null, if no head is set
+     *
+     * @return Node|null
+     */
+    public function getHead(): ?Node {
+        return $this->head;
+    }
+
+    /**
+     * sets the head
+     *
+     * @param Node|null $node
+     */
+    public function setHead(?Node $node) {
+        $this->head = $node;
     }
 
     /**
@@ -126,19 +105,18 @@ class LinkedList
      *              the node that should be deleted and set head->next to
      *              head->next->next if this is the case.
      *
-     * @param int $data
+     * @param  $data
      * @return bool
      */
-    public function deleteNode(int $data)
-    {
+    public function deleteNode($data): bool {
         if ($this->getHead() === null) {
             return false;
         }
         $head = $this->getHead();
 
-        if ($head->getValue() == $data) {
+        if ($head->getValue() === $data) {
             if ($head->getNext() !== null) {
-                $this->head = $head->getNext();
+                $this->setHead($head->getNext());
                 return true;
             }
         }
@@ -153,25 +131,12 @@ class LinkedList
         return false;
     }
 
-    public function removeDuplicates()
-    {
-        $node = $this->head;
-        $previous = $this->head;
-        $visited = [];
-
-        while ($node !== null) {
-            if (in_array($node->getValue(), $visited)) {
-                $previous->setNext($node->getNext());
-            } else {
-                $visited[] = $node->getValue();
-                $previous = $node;
-            }
-            $node = $node->getNext();
-        }
-    }
-
-    public function removeDuplicatesWithoutBuffer()
-    {
+    /**
+     * The method uses the runner technique in order to iterate over
+     * head twice. If the list contains duplicates, the next-next is set
+     * as the next node of the current node.
+     */
+    public function removeDuplicates() {
         $tortoise = $this->head;
 
         while ($tortoise !== null) {
@@ -199,135 +164,353 @@ class LinkedList
      *          4.  iterate over $p1 until it is null. Within the loop,
      *              set $p1 = $p1->next and $p2 = $p2->next. When the loop
      *              ends, $p2 points to the kth element of the list.
-     *          5.  return $p2.
+     *          5.  iterate over p2 and add all nodes to the list.
+     *          6.  return the list.
      *
-     * @param int $k
-     * @return Node|null
+     * @param int $number
+     * @return LinkedList|null
+     *
      */
-    public function kToLast(int $k)
-    {
-        $p1 = $this->head;
-        $p2 = $this->head;
+    public function getLastElements(int $number): LinkedList {
+        $p1 = $this->getHead();
+        $p2 = $this->getHead();
+        $number = $number > $this->head->size() ? $this->head->size() : $number;
+        $list = $this->getEmptyInstance();
 
-        for ($i = 0; $i < $k; $i++) {
+        for ($i = 0; $i < $number; $i++) {
             if ($p1 == null) {
                 return null;
             }
             $p1 = $p1->getNext();
         }
 
-        while ($p1 != null) {
+        while ($p1 !== null) {
             $p1 = $p1->getNext();
             $p2 = $p2->getNext();
         }
-
-        return $p2;
-    }
-
-    public function kToFirst(int $k)
-    {
-        $p1 = $this->head;
-        $linkedList = new LinkedList();
-
-        /**
-         * notice that the for loop starts at 1, not 0!
-         */
-        for ($i = 0; $i < $k; $i++) {
-            $n = new Node();
-            $n->setValue($p1->getValue());
-            $linkedList->appendToTail($n);
-            $p1 = $p1->getNext();
+        while ($p2 !== null) {
+            $list->append($p2);
+            $p2 = $p2->getNext();
         }
-        $linkedList->printList();
-        return $linkedList;
+
+        return $list;
     }
 
-    public function getNode(int $value)
-    {
-        $head = $this->head;
+    /**
+     * abstract method that requires inheritors to return their type
+     *
+     * @return LinkedList
+     */
+    protected abstract function getEmptyInstance(): LinkedList;
 
-        while ($head !== null) {
-            if ($head->getValue() == $value) {
-                return $head;
-            }
+    /**
+     * abstract method that requires inheritors to implement the way how
+     * values are prepended to the list
+     *
+     * @param Node|null $node
+     * @return bool
+     */
+    public abstract function append(?Node $node): bool;
+
+    ////This problem cannot be solved if the node to be deleted is
+    ////the last node in the linked list
+    ////node could be marked as dummy
+    // TODO transfer to Node class
+    //public function deleteGivenNode(Node $node) {
+    //    if ($node == null || $node->getNext() == null) {
+    //        return null;
+    //    }
+    //    /**
+    //     * a given node should be deleted from itself.
+    //     * To do this, we simply take the next instance and
+    //     * append it to the actual one
+    //     */
+    //    $tmp = $node->getNext();
+    //    $node->setValue($tmp->getValue());
+    //    $node->setNext($tmp->getNext());
+    //    return $node;
+    //}
+
+    /**
+     * iterates $number times over the head and returns a list that
+     * contains $number elements
+     *
+     * @param int $number
+     * @return LinkedList
+     */
+    public function getFirstElements(int $number): LinkedList {
+        $head = $this->getHead();
+        //if there are more elements requested than the list provides
+        $number = $number > $head->size() ? $head->size() : $number;
+        $list = $this->getEmptyInstance();
+        $i = 0;
+        while ($i < $number) {
+            //TODO append or prepend?
+            $list->append($head, true);
             $head = $head->getNext();
+            $i++;
         }
-
-        return null;
+        return $list;
     }
 
-    //This problem cannot be solved if the node to be deleted is
-    //the last node in the linked list
-    //node could be marked as dummy
-    public function deleteGivenNode(Node $node)
-    {
-        if ($node == null || $node->getNext() == null) {
-            return null;
-        }
-        /**
-         * a given node should be deleted from itself.
-         * To do this, we simply take the next instance and
-         * append it to the actual one
-         */
-        $tmp = $node->getNext();
-        $node->setValue($tmp->getValue());
-        $node->setNext($tmp->getNext());
-        return $node;
-    }
+    /**
+     * abstract method that requires inheritors to implement the way how
+     * values are prepended to the list
+     *
+     * @param Node|null $node
+     * @return bool
+     */
+    public abstract function prepend(?Node $node): bool;
 
-    public function partitionAtValue(int $value)
-    {
-        $linkedList = new LinkedList();
-        $head = $this->head;
+    //TODO FIXME partition works actually only for singly linked lists
+    //public function partition(int $value) {
+    //    $head = $this->getHead();
+    //    $list = $this->getEmptyInstance();
+    //    $i = 0;
+    //    while ($head !== null) {
+    //        $node = new Node();
+    //        $node->setKey($head->getKey());
+    //        $node->setValue($head->getValue());
+    //        if ($head->getValue() < $value) {
+    //            $list->prepend($node);
+    //        } else {
+    //            $list->append($node);
+    //        }
+    //        $head = $head->getNext();
+    //        $i++;
+    //    }
+    //    return $list;
+    //}
 
-        while ($head !== null) {
-            $node = new Node();
-            $node->setValue($head->getValue());
-            if ($head->getValue() < $value) {
-                $linkedList->prepend($node);
-            } else {
-                $linkedList->appendToTail($node);
-            }
-            $head = $head->getNext();
-        }
-        return $linkedList;
-    }
-
-    public function size()
-    {
+    /**
+     * returns the number of elements in a list
+     *
+     * @return int
+     */
+    public function size() {
         if ($this->isEmpty()) {
             return 0;
         }
         return $this->head->size();
     }
 
-    public function isEmpty()
-    {
+    /**
+     * if the list is empty or not
+     *
+     * @return bool
+     */
+    public function isEmpty() {
         return $this->head == null;
     }
 
-    public function setHead(Node $node)
-    {
-        $this->head = $node;
+    /**
+     * adds a Node instance to the list
+     *
+     * TODO decide whether using add or append/prepend
+     *
+     * @param Node $node
+     */
+    public function addNode(Node $node) {
+        $this->add($node->getKey(), $node->getValue());
     }
 
-    public function getHead(): ?Node
-    {
-        return $this->head;
+    /**
+     * adds a key/value pair to the hashmap.
+     *
+     * TODO decide whether this method or append/prepend should be used
+     *
+     * @param $key
+     * @param $value
+     */
+    public function add($key, $value) {
+        //TODO handle serialize and unserialize
+        if (\is_object($value)) {
+            $value = \serialize($value);
+        }
+        $node = new Node();
+        $node->setKey($key);
+        $node->setValue($value);
+        $this->append($node);
     }
 
-    public function printList()
-    {
+    /**
+     * searches the list for a node by a given key
+     *
+     * @param $value
+     * @return Node|null
+     */
+    public function getNodeByValue($value): ?Node {
+        if (!$this->containsValue($value)) {
+            return null;
+        }
+        $tmp = $this->getHead();
+        while ($tmp !== null) {
+            //TODO FIXME unserialize
+            if ($tmp->getValue() === $value) {
+                //if the value is found then return it
+                return $tmp;
+            }
+            $tmp = $tmp->getNext();
+        }
+        return null;
+    }
+
+    /**
+     * searches the list for a given value
+     *
+     * @param $value
+     * @return bool
+     */
+    public function containsValue($value): bool {
+        $node = $this->getHead();
+        while ($node !== null) {
+            //TODO unserialize
+            if ($node->getValue() === $value) {
+                return true;
+            }
+            $node = $node->getNext();
+        }
+        return false;
+    }
+
+    /**
+     * returns a node by a given key
+     *
+     * @param $key
+     * @return Node|null
+     */
+    public function getNodeByKey($key): ?Node {
+        if (!$this->containsKey($key)) {
+            return null;
+        }
         $head = $this->getHead();
-
-        $i = 0;
         while ($head !== null) {
-            $i++;
-            echo $head->getValue();
-            echo "\n";
+            //if the value is found then return it
+            if ($head->getKey() === $key) {
+                return $head;
+            }
             $head = $head->getNext();
         }
-
+        return null;
     }
 
+    /**
+     * searches the list for a given key
+     *
+     * @param $key
+     * @return bool
+     */
+    public function containsKey($key): bool {
+        $node = $this->getHead();
+        while ($node !== null) {
+            if ($node->getKey() === $key) {
+                return true;
+            }
+            $node = $node->getNext();
+        }
+        return false;
+    }
+
+    /**
+     * removes a node from the list by a given key
+     *
+     * @param $key
+     * @return bool
+     */
+    public function remove($key): bool {
+        /** @var Node $previous */
+        $previous = $head = $this->getHead();
+        if ($head === null) {
+            return true;
+        }
+        $i = 1;
+        $headSize = $head->size();
+
+        /*
+         * The while loop iterates over all nodes until the
+         * value is found.
+         */
+        while ($head !== null && $head->getKey() !== $key) {
+            /*
+             * since a node is going to be removed from the
+             * node chain, the previous element has to be
+             * on hold.
+             * After previous is set to the actual element,
+             * the current element pointer can moved to the
+             * next one.
+             *
+             * If the value is found, $previous points to
+             * the previous element of the value that is
+             * searched and current points to the next element
+             * after that one who should be deleted.
+             */
+            $previous = $head;
+            $head = $head->getNext();
+            $i++;
+        }
+
+        /*
+         * If the value that should be deleted is not in the list,
+         * this set instruction assigns the next node to the actual.
+         *
+         * If the while loop has ended early, the next node is
+         * assigned to the previous node of the node that
+         * should be deleted (if there is a node present).
+         */
+        if ($head !== null) {
+            $previous->setNext($head->getNext());
+        }
+        return $i !== $headSize;
+    }
+
+    /**
+     * replaces a value for a key
+     *
+     * @param $key
+     * @param $value
+     * @return bool
+     */
+    public function replaceValue($key, $value): bool {
+        $replaced = false;
+        $node = $this->getHead();
+        while ($node !== null) {
+            if ($node->getKey() === $key) {
+                $node->setValue($value);
+                $replaced = true;
+            }
+            $node = $node->getNext();
+        }
+        return $replaced;
+    }
+
+    /**
+     * string representation of a LinkedList instance
+     *
+     * @return string
+     */
+    public function __toString() {
+        $head = $this->getHead();
+        $string = "";
+        while ($head !== null) {
+            $string .= $head . "\n";
+            $head = $head->getNext();
+        }
+        return $string;
+    }
+
+    //protected function removeDuplicates() {
+    //    $node = $this->head;
+    //    $previous = $this->head;
+    //    $visited = [];
+    //
+    //    while ($node !== null) {
+    //        if (in_array($node->getValue(), $visited)) {
+    //            $previous->setNext($node->getNext());
+    //        } else {
+    //            $visited[] = $node->getValue();
+    //            $previous = $node;
+    //        }
+    //        $node = $node->getNext();
+    //    }
+    //}
 }

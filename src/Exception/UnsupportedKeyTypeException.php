@@ -23,19 +23,13 @@
  * SOFTWARE.
  */
 
-use doganoo\PHPAlgorithms\Maps\HashMap;
-use doganoo\PHPAlgorithms\Maps\Node;
+namespace doganoo\PHPAlgorithms\Exception;
 
-class HashMapUtil {
-    public static function getHashMap(int $number) {
-        $hashMap = new HashMap();
-        for ($i = 0; $i < $number; $i++) {
-            $node = new Node();
-            $node->setKey($i);
-            $node->setValue(md5($i));
-            $hashMap->addNode($node);
-        }
-        return $hashMap;
-    }
+/**
+ * Class UnsupportedKeyTypeException
+ *
+ * @package doganoo\PHPAlgorithms\Exception
+ */
+class UnsupportedKeyTypeException extends \Exception {
 
 }

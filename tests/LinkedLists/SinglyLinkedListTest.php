@@ -23,13 +23,34 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Exception;
-
 /**
- * Class InvalidKeyTypeException
- *
- * @package doganoo\PHPAlgorithms\Exception
+ * Class SinglyLinkedListTest PHPUnit test class
  */
-class InvalidKeyTypeException extends \Exception {
+class SinglyLinkedListTest extends \PHPUnit\Framework\TestCase {
+    /**
+     * tests appending a new node to the list
+     *
+     * note that the underlying LinkedList methods are already tested
+     * by DoublyLinkedListTest class and do not need to be tested here.
+     */
+    public function testAppend() {
+        $list = LinkedListUtil::getSinglyLinkedList();
+        $node = LinkedListUtil::getNode(4, 1);
+        $list->append($node);
+        $this->assertTrue($list->size() === 4);
+        $this->assertTrue($list->getHead()->getKey() === 1);
+        $this->assertTrue($list->getHead()->getValue() === "one");
+    }
 
+    /**
+     * tests prepending a new node to the list
+     */
+    public function testPrepend() {
+        $list = LinkedListUtil::getSinglyLinkedList();
+        $node = LinkedListUtil::getNode(4, 1);
+        $list->prepend($node);
+        $this->assertTrue($list->size() === 4);
+        $this->assertTrue($list->getHead()->getKey() === 4);
+        $this->assertTrue($list->getHead()->getValue() === 1);
+    }
 }

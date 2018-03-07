@@ -25,6 +25,7 @@
 
 namespace doganoo\PHPAlgorithms\Maps;
 
+use doganoo\PHPAlgorithms\LinkedLists\SinglyLinkedList;
 use doganoo\PHPAlgorithms\Util\MapUtil;
 
 /**
@@ -73,6 +74,7 @@ class HashMap {
      * @param Node $node
      * @return bool
      * @throws \doganoo\PHPAlgorithms\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\Exception\UnsupportedKeyTypeException
      */
     public function addNode(Node $node): bool {
         $added = $this->add($node->getKey(), $node->getValue());
@@ -86,13 +88,17 @@ class HashMap {
      * @param $key
      * @param $value
      * @return bool
+     * @throws \doganoo\PHPAlgorithms\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\Exception\UnsupportedKeyTypeException
      */
     public function add($key, $value): bool {
         $arrayIndex = $this->getBucketIndex($key);
         $key = MapUtil::normalizeKey($key);
-        /** @var Node $head */
-        $head = null;
-
+        if (isset($this->bucket[$arrayIndex])) {
+            $list = $this->bucket[$arrayIndex];
+        } else {
+            $list = new SinglyLinkedList();
+        }
         /*
          * the method checks the value if it is already
          * in the map or not.
@@ -100,46 +106,11 @@ class HashMap {
          * Notice that contains() looks for the value, not
          * key as below.
          */
-        if ($this->containsValue($value)) {
-            //if the key is already in the list, then ignore
+        if ($list->containsValue($value)) {
             return true;
         }
-
-        //query the head if it is available in the bucket list
-        if (isset($this->bucket[$arrayIndex])) {
-            $head = $this->bucket[$arrayIndex];
-        }
-        /*
-         * if the head is not available in the bucket list
-         * create a new one, add it to the bucket list
-         * and return true
-         */
-        if ($head === null) {
-            $head = new Node();
-            $head->setKey($key);
-            $head->setValue($value);
-            $this->bucket[$arrayIndex] = $head;
-            return true;
-        }
-
-        //first check if there is already a node with the given key
-        //if yes: do not create a new Node and simply overwrite
-        //if not: create a new node and add it to the top of the node list
-        $headContainsKey = $this->containsKey($head, $key);
-        if ($headContainsKey) {
-            $replacedNode = $this->replaceValue($head, $key, $value);
-            if ($replacedNode !== null) {
-                $this->bucket[$arrayIndex] = $replacedNode;
-                return true;
-            }
-            return false;
-        } else {
-            $newNode = new Node();
-            $newNode->setKey($key);
-            $newNode->setValue($value);
-            $newNode->setNext($head);
-            $this->bucket[$arrayIndex] = $newNode;
-        }
+        $list->add($key, $value);
+        $this->bucket[$arrayIndex] = $list;
         return true;
     }
 
@@ -154,6 +125,8 @@ class HashMap {
      *
      * @param $key
      * @return int
+     * @throws \doganoo\PHPAlgorithms\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\Exception\UnsupportedKeyTypeException
      */
     private function getBucketIndex($key) {
         /*
@@ -203,29 +176,17 @@ class HashMap {
     public function containsValue($value): bool {
 
         /**
-         * @var string $arrayIndex
-         * @var Node   $node
+         * @var string           $arrayIndex
+         * @var SinglyLinkedList $list
          */
-        foreach ($this->bucket as $arrayIndex => $node) {
-            /* the node ist assigned to a temporary variable
-             * in order to loop over the while loop.
-             *
-             * $node is the first element in the bucket. The bucket
+        foreach ($this->bucket as $arrayIndex => $list) {
+            /* $list is the first element in the bucket. The bucket
              * can contain max $maxSize entries and each entry has zero
              * or one nodes which can have zero, one or multiple
              * successors.
-             *
-             * The $tmp variable is used to iterate over an entire
-             * bucket before jumping to the next.
              */
-            $tmp = $node;
-            while ($tmp !== null) {
-                //return true if the searched value is found
-                if ($tmp->getValue() == $value) {
-                    return true;
-                }
-                //get the next node
-                $tmp = $tmp->getNext();
+            if ($list->containsValue($value)) {
+                return true;
             }
         }
         /*
@@ -233,35 +194,6 @@ class HashMap {
          * the searched value is not in the list.
          */
         return false;
-    }
-
-    /**
-     * checks whether a given key is available in a node.
-     *
-     * @param Node $node
-     * @param int  $key
-     * @return bool
-     */
-    private function containsKey(Node $node, int $key) {
-        if ($node->getNext() !== null) {
-            return $this->containsKey($node->getNext(), $key);
-        }
-        if ($node->getKey() === $key) {
-            return true;
-        }
-        return false;
-    }
-
-    private function replaceValue(Node $node, $key, $value): Node {
-        $newNode = $node;
-        while ($node !== null) {
-            if ($node->getKey() === $key) {
-                $node->setValue($value);
-            }
-            $node = $node->getNext();
-            $newNode->setNext($node);
-        }
-        return $newNode;
     }
 
     /**
@@ -274,60 +206,53 @@ class HashMap {
      */
     public function getNodeByValue($value): ?Node {
         /**
-         * @var string $arrayIndex
-         * @var Node   $node
+         * @var string           $arrayIndex
+         * @var SinglyLinkedList $list
          */
-        foreach ($this->bucket as $arrayIndex => $node) {
-            /* the node ist assigned to a temporary variable
-             * in order to loop over the while loop.
-             *
-             * $node is the first element in the bucket. The bucket
+        foreach ($this->bucket as $arrayIndex => $list) {
+            /*
+             * $list is the first element in the bucket. The bucket
              * can contain max $maxSize entries and each entry has zero
              * or one nodes which can have zero, one or multiple
              * successors.
              *
-             * The $tmp variable is used to iterate over an entire
-             * bucket before jumping to the next.
              */
-            $tmp = $node;
-            while ($tmp !== null) {
-                if ($tmp->getValue() == $value) {
-                    //if the value is found then return it
-                    return $tmp;
-                }
-                $tmp = $tmp->getNext();
+            if (!$list->containsValue($value)) {
+                continue;
             }
+            $node = $list->getNodeByValue($value);
+            return $node;
         }
         //return null if there is no value
         return null;
     }
 
-    public function get($key): ?Node {
+    /**
+     * searches the hash map for a node by a given key.
+     *
+     * @param $key
+     * @return Node|null
+     * @throws \doganoo\PHPAlgorithms\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\Exception\UnsupportedKeyTypeException
+     */
+    public function getNodeByKey($key): ?Node {
         $arrayIndex = $this->getBucketIndex($key);
+        $key = MapUtil::normalizeKey($key);
         /*
-         * the head is requested from the array based on
+         * the list is requested from the array based on
          * the array index hash.
          */
-        /** @var Node $head */
-        $head = $this->bucket[$arrayIndex];
-
-        /*
-         * iterate over the head until it is null.
-         * If a value is found, return the node (head).
-         * If not, the loop terminates and the method
-         * returns null.
-         */
-        while ($head !== null) {
-            if ($head->getKey() === $key) {
-                return $head;
-            }
-            $head = $head->getNext();
+        /** @var SinglyLinkedList $list */
+        if (!isset($this->bucket[$arrayIndex])) {
+            return null;
         }
-        /*
-         * this line is only reached when the node
-         * does not contain the key
-         */
-        return null;
+        $list = $this->bucket[$arrayIndex];
+
+        if (!$list->containsKey($key)) {
+            return null;
+        }
+        $node = $list->getNodeByKey($key);
+        return $node;
     }
 
     /**
@@ -335,6 +260,8 @@ class HashMap {
      *
      * @param $key
      * @return bool
+     * @throws \doganoo\PHPAlgorithms\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\Exception\UnsupportedKeyTypeException
      */
     public function remove($key): bool {
         //get the corresponding index to key
@@ -351,12 +278,10 @@ class HashMap {
         if (!isset($this->bucket[$arrayIndex])) {
             return true;
         }
-
-        /** @var Node $previous */
+        /** @var SinglyLinkedList $list */
+        $list = $this->bucket[$arrayIndex];
         /** @var Node $head */
-        $previous = $head = $this->bucket[$arrayIndex];
-        $i = 1;
-        $headSize = $head->size();
+        $head = $list->getHead();
         /*
          * there is one special case for the HashMap:
          * if there is only one node in the bucket, then
@@ -367,47 +292,11 @@ class HashMap {
          * If this is not the key, return false as there
          * is no node to remove.
          */
-        if ($head->size() == 1) {
-            if ($head->getKey() === $key) {
-                $this->bucket[$arrayIndex] = null;
-                return true;
-            }
-            return false;
+        if ($list->size() == 1 && $head->getKey() === $key) {
+            $this->bucket[$arrayIndex] = null;
+            return true;
         }
-
-        /*
-         * The while loop iterates over all nodes until the
-         * value is found.
-         */
-        while ($head !== null && $head->getKey() !== $key) {
-            /*
-             * since a node is going to be removed from the
-             * node chain, the previous element has to be
-             * on hold.
-             * After previous is set to the actual element,
-             * the current element pointer can moved to the
-             * next one.
-             *
-             * If the value is found, $previous points to
-             * the previous element of the value that is
-             * searched and current points to the next element
-             * after that one who should be deleted.
-             */
-            $previous = $head;
-            $head = $head->getNext();
-            $i++;
-        }
-
-        /*
-         * If the value that should be deleted is not in the list,
-         * this set instruction assigns the next node to the actual.
-         *
-         * If the while loop has ended early, the next node is
-         * assigned to the previous node of the node that
-         * should be deleted.
-         */
-        $previous->setNext($head->getNext());
-        return $i !== $headSize;
+        return $list->remove($key);
     }
 
     /**
@@ -427,8 +316,10 @@ class HashMap {
      */
     public function keySet(): array {
         $keySet = [];
-        /** @var Node $head */
-        foreach ($this->bucket as $head) {
+        /** @var SinglyLinkedList $list */
+        foreach ($this->bucket as $list) {
+            /** @var Node $head */
+            $head = $list->getHead();
             while ($head !== null) {
                 $keySet[] = $head->getKey();
                 $head = $head->getNext();
@@ -436,5 +327,4 @@ class HashMap {
         }
         return $keySet;
     }
-
 }

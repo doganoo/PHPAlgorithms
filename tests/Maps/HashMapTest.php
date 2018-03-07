@@ -25,9 +25,13 @@
 
 use doganoo\PHPAlgorithms\Maps\HashMap;
 
-
+/**
+ * Class HashMapTest PHPUnit test class
+ */
 class HashMapTest extends \PHPUnit\Framework\TestCase {
-
+    /**
+     * tests adding new elements to the map
+     */
     public function testAddition() {
         $class = stdClass::class;
         $hashMap = new HashMap();
@@ -35,6 +39,9 @@ class HashMapTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($boolean);
     }
 
+    /**
+     * tests querying the map for a value
+     */
     public function testContains() {
         $class = stdClass::class;
         $hashMap = new HashMap();
@@ -43,6 +50,9 @@ class HashMapTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($boolean);
     }
 
+    /**
+     * tests retrieving a node from the map
+     */
     public function testGetNodeByValue() {
         $class = stdClass::class;
         $hashMap = new HashMap();
@@ -51,18 +61,27 @@ class HashMapTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($node !== null);
     }
 
+    /**
+     * tests removing a value from the map
+     */
     public function testRemove() {
         $hashMap = HashMapUtil::getHashMap(500);
         $boolean = $hashMap->remove(320);
         $this->assertTrue($boolean);
     }
 
+    /**
+     * tests adding different key types to the map
+     */
     public function testKeyTypes() {
         $hashMap = new HashMap();
         $added = $hashMap->add(new stdClass(), "stdClass");
         $this->assertTrue($added);
     }
 
+    /**
+     * tests retrieving all keys from the map
+     */
     public function testKeySet() {
         $hashMap = HashMapUtil::getHashMap(10);
         $keySet = $hashMap->keySet();

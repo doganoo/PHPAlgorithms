@@ -59,7 +59,7 @@ class Stack {
     private $stack = [];
 
     /**
-     * push() adds an item (actually an integer) to the stack.
+     * push() adds an item to the stack.
      *
      * @param $item
      * @return bool
@@ -86,7 +86,7 @@ class Stack {
     }
 
     /**
-     * peek() returns the element 'on top' of the stack (actually an integer)
+     * peek() returns the element 'on top' of the stack
      *
      */
     public function peek() {

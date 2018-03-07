@@ -25,7 +25,13 @@
 
 use doganoo\PHPAlgorithms\Maps\Node;
 
+/**
+ * Class NodeTest PHPUnit test class
+ */
 class NodeTest extends \PHPUnit\Framework\TestCase {
+    /**
+     * tests node assignments
+     */
     public function testNodeReference() {
         $a = new Node();
         $a->setKey(1);

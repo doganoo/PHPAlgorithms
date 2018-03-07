@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\Util;
 
 use doganoo\PHPAlgorithms\Exception\InvalidKeyTypeException;
+use doganoo\PHPAlgorithms\Exception\UnsupportedKeyTypeException;
 
 /**
  * Class Util
@@ -39,6 +40,23 @@ class MapUtil {
     private function __construct() {
     }
 
+    /**
+     * normalizes a given key to a int. This method converts currently the following
+     * types to a int:
+     *
+     * <ul>objects</ul>
+     * <ul>arrays</ul>
+     * <ul>doubles</ul>
+     * <ul>floats</ul>
+     * <ul>boolean</ul>
+     * <ul>resource|null</ul>
+     * <ul>int</ul>
+     *
+     * @param $key
+     * @return int
+     * @throws InvalidKeyTypeException
+     * @throws UnsupportedKeyTypeException
+     */
     public static function normalizeKey($key): int {
         /* ensuring that the key is an integer.
          * Therefore, some helper methods convert the key if
@@ -58,29 +76,27 @@ class MapUtil {
             $key = MapUtil::booleanToKey($key);
         } else if (\is_resource($key) || $key === null) {
             $key = MapUtil::booleanToKey(true);
+        } else if (\is_int($key)) {
+            return $key;
+        } else {
+            throw new UnsupportedKeyTypeException();
         }
         return $key;
     }
 
+    /**
+     * This methods converts an object to a string using serialization
+     *
+     * @param $object
+     * @return string
+     * @throws InvalidKeyTypeException
+     */
     public static function objectToString($object): string {
         //TODO do type hinting when possible
         if (!\is_object($object)) {
             throw new InvalidKeyTypeException("key has to be an object, " . \gettype($object) . "given");
         }
-        $string = "";
-        $reflection = new \ReflectionClass($object);
-        $methods = $reflection->getMethods();
-        $properties = $reflection->getProperties();
-
-        /** @var \ReflectionMethod $method */
-        foreach ($methods as $method) {
-            $string .= $method->getName();
-        }
-        /** @var \ReflectionProperty $property */
-        foreach ($properties as $property) {
-            $string .= $property->getName() . $property->getValue();
-        }
-        return $reflection->getName() . $string;
+        return \serialize($object);
     }
 
     /**
@@ -99,6 +115,12 @@ class MapUtil {
         return $key;
     }
 
+    /**
+     * converts an array to a valid key for HashMap
+     *
+     * @param array $array
+     * @return string
+     */
     public static function arrayToKey(array $array): string {
         $result = "";
         \array_walk_recursive($array, function ($key, $value) use (&$result) {
@@ -107,10 +129,22 @@ class MapUtil {
         return $result;
     }
 
+    /**
+     * converts a double to a HashMap Key
+     *
+     * @param float $double
+     * @return int
+     */
     public static function doubleToKey(double $double): int {
         return \ceil($double);
     }
 
+    /**
+     * converts a boolean to a HashMap key
+     *
+     * @param bool $bool
+     * @return int
+     */
     public static function booleanToKey(bool $bool): int {
         return $bool ? 1 : 0;
     }

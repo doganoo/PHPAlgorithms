@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar
+ * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,29 +23,35 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\LinkedLists;
+use doganoo\PHPAlgorithms\Maps\HashMap;
+use doganoo\PHPAlgorithms\Maps\LinkedList;
+use doganoo\PHPAlgorithms\Maps\Node;
 
+/**
+ * Class HashMapUtil - utility class for testing hash maps
+ */
+class HashMapUtil {
+    /**
+     * HashMapUtil constructor is private in order to ensure that the class is not instantiable.
+     */
+    public function __construct() {
+    }
 
-class Addition
-{
-    public function addLists(?Node $node1, ?Node $node2, int $carry = 0)
-    {
-        if ($node1 == null || $node2 == null) {
-            return null;
+    /**
+     * creates a hash map with $number elements
+     *
+     * @param int $number
+     * @return HashMap
+     */
+    public static function getHashMap(int $number) {
+        $hashMap = new HashMap();
+        for ($i = 0; $i < $number; $i++) {
+            $node = new Node();
+            $node->setKey($i);
+            $node->setValue(md5($i));
+            $hashMap->addNode($node);
         }
-        $resultNode = new Node();
-
-        $value = $carry;
-
-        $value += $node1->getValue();
-        $value += $node2->getValue();
-
-        $resultNode->setValue($value % 10);
-
-        $more = $this->addLists($node1->getNext(), $node2->getNext(), $value > 10 ? 1 : 0);
-        $resultNode->setNext($more);
-
-        return $resultNode;
+        return $hashMap;
     }
 
 }

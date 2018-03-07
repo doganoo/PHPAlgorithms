@@ -37,6 +37,7 @@ class Node {
     private $value = 0;
     private $key;
     private $next = null;
+    private $previous = null;
 
     /**
      * returns the key
@@ -107,5 +108,34 @@ class Node {
      */
     public function setNext(?Node $node) {
         $this->next = $node;
+    }
+
+    /**
+     * returns the previous node
+     *
+     * @return Node|null
+     */
+    public function getPrevious(): ?Node {
+        return $this->previous;
+    }
+
+    /**
+     * sets the previous node
+     *
+     * @param Node|null $node
+     */
+    public function setPrevious(?Node $node) {
+        $this->previous = $node;
+    }
+
+    /**
+     * string representation of a Node instance
+     *
+     * @return string
+     */
+    public function __toString() {
+        $previous = $this->previous === null ? "" : $this->previous->getKey();
+        $next = $this->next === null ? "" : $this->next->getKey();
+        return "[#key#][#{$this->key}#][#value#][#{$this->value}#][#previous#][#$previous#][#next#][#$next#]";
     }
 }

@@ -1,8 +1,4 @@
 <?php
-
-use doganoo\PHPAlgorithms\StackQueue\Queue;
-use doganoo\PHPAlgorithms\StackQueue\Stack;
-
 /**
  * MIT License
  *
@@ -26,7 +22,17 @@ use doganoo\PHPAlgorithms\StackQueue\Stack;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
+use doganoo\PHPAlgorithms\StackQueue\Queue;
+use doganoo\PHPAlgorithms\StackQueue\Stack;
+
+/**
+ * Class StackQueueTest class testing Stacks and Queues
+ */
 class StackQueueTest extends \PHPUnit\Framework\TestCase {
+    /**
+     * Stack class test
+     */
     public function testStack() {
         $stack = new Stack();
         $stack->push(new stdClass());
@@ -42,6 +48,9 @@ class StackQueueTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($stack->isEmpty() == true);
     }
 
+    /**
+     * Queue class test
+     */
     public function testQueue() {
         $queue = new Queue();
         $queue->enqueue(new stdClass());
