@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\LinkedLists;
+namespace doganoo\PHPAlgorithms\Lists;
 
 
 class RunnerTechnique

@@ -24,7 +24,6 @@
  */
 
 use doganoo\PHPAlgorithms\Maps\HashMap;
-use doganoo\PHPAlgorithms\Maps\LinkedList;
 use doganoo\PHPAlgorithms\Maps\Node;
 
 /**
@@ -42,6 +41,8 @@ class HashMapUtil {
      *
      * @param int $number
      * @return HashMap
+     * @throws \doganoo\PHPAlgorithms\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\Exception\UnsupportedKeyTypeException
      */
     public static function getHashMap(int $number) {
         $hashMap = new HashMap();

@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\LinkedLists;
+namespace doganoo\PHPAlgorithms\Lists\LinkedLists;
 
 use doganoo\PHPAlgorithms\Maps\Node;
 
@@ -246,7 +246,7 @@ abstract class LinkedList {
         $i = 0;
         while ($i < $number) {
             //TODO append or prepend?
-            $list->append($head, true);
+            $list->append($head);
             $head = $head->getNext();
             $i++;
         }

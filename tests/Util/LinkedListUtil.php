@@ -23,8 +23,8 @@
  * SOFTWARE.
  */
 
-use doganoo\PHPAlgorithms\LinkedLists\DoublyLinkedList;
-use doganoo\PHPAlgorithms\LinkedLists\SinglyLinkedList;
+use doganoo\PHPAlgorithms\Lists\LinkedLists\DoublyLinkedList;
+use doganoo\PHPAlgorithms\Lists\LinkedLists\SinglyLinkedList;
 use doganoo\PHPAlgorithms\Maps\Node;
 
 /**

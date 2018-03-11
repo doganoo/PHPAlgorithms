@@ -11,5 +11,6 @@ the following classes are tested in their basic operations. However, feel free t
 - doganoo\PHPAlgorithms\Maps\Node
 - doganoo\PHPAlgorithms\StackQueue\Stack
 - doganoo\PHPAlgorithms\StackQueue\Queue
-- doganoo\PHPAlgorithms\LinkedLists\SinglyLinkedList
-- doganoo\PHPAlgorithms\LinkedLists\DoublyLinkedList
+- doganoo\PHPAlgorithms\Lists\LinkedLists\SinglyLinkedList
+- doganoo\PHPAlgorithms\Lists\LinkedLists\DoublyLinkedList
+- doganoo\PHPAlgorithms\Lists\ArrayLists\ArrayList
