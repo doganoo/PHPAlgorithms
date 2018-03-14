@@ -14,3 +14,4 @@ the following classes are tested in their basic operations. However, feel free t
 - doganoo\PHPAlgorithms\Lists\LinkedLists\SinglyLinkedList
 - doganoo\PHPAlgorithms\Lists\LinkedLists\DoublyLinkedList
 - doganoo\PHPAlgorithms\Lists\ArrayLists\ArrayList
+- doganoo\PHPAlgorithms\Lists\ArrayLists\StringBuilder

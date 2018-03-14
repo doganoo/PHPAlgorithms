@@ -152,7 +152,7 @@ class ArrayListTest extends \PHPUnit\Framework\TestCase {
         $arrayList->add("three");
         $arrayList->add("four");
 
-        $subList = $arrayList->subList(1, 2);
+        $subList = $arrayList->subList(1, 3);
         $this->assertTrue($subList->size() === 2);
         $this->assertTrue($subList->get(0) === "two");
         $this->assertTrue($subList->get(1) === "three");

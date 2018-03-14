@@ -26,6 +26,8 @@
 namespace doganoo\PHPAlgorithms\Lists\ArrayLists;
 
 
+use doganoo\PHPAlgorithms\Exception\IndexOutOfBoundsException;
+use doganoo\PHPAlgorithms\Util\Logger;
 use Traversable;
 
 /**
@@ -62,19 +64,24 @@ class ArrayList implements \IteratorAggregate {
     /**
      * adds $item to the array at the index at $index
      *
+     * TODO insert or override?
+     *
      * @param int $index
      * @param     $item
      * @return bool
+     * @throws IndexOutOfBoundsException
      */
     public function addToIndex(int $index, $item): bool {
         $oldSize = $this->size();
         if ($oldSize - 1 < $index) {
             $this->add($item);
             return true;
+        } else if ($index > $oldSize - 1) {
+            throw new IndexOutOfBoundsException();
         }
-        $array = \array_slice($this->array, $index, $oldSize, true);
-        $this->array[$index] = $item;
-        $this->array = \array_merge($this->array, $array);
+        $front = \array_slice($this->array, 0, $index, true);
+        $back = \array_slice($this->array, $index, $oldSize, true);
+        $this->array = \array_merge($front, [$item], $back);
         $this->trimToSize();
         return ($oldSize + 1) === $this->size();
     }
@@ -287,9 +294,12 @@ class ArrayList implements \IteratorAggregate {
      * @return ArrayList
      */
     public function subList(int $start, int $end): ArrayList {
-        //TODO preserve keys?
-        $array = \array_slice($this->array, $start, $end, true);
         $arrayList = new ArrayList();
+        if (($start === $end) || ($start > $end)) {
+            return $arrayList;
+        }
+        //TODO preserve keys?
+        $array = \array_slice($this->array, $start, $end - $start , true);
         $arrayList->addAllArray($array);
         $arrayList->trimToSize();
         return $arrayList;
