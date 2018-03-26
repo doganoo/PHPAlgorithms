@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-use doganoo\PHPAlgorithms\Maps\HashMap;
+use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
 
 /**
  * Class HashMapTest PHPUnit test class

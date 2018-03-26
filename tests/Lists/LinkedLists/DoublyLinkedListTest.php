@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-use doganoo\PHPAlgorithms\Maps\Node;
+use doganoo\PHPAlgorithms\Datastructure\lists\Node;
 
 /**
  * Class DoublyLinkedListTest PHPUnit test class for doubly linked lists

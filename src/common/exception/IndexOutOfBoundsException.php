@@ -23,36 +23,12 @@
  * SOFTWARE.
  */
 
-use doganoo\PHPAlgorithms\Datastructure\lists\Node;
-use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
-
+namespace doganoo\PHPAlgorithms\Common\Exception;
 /**
- * Class HashMapUtil - utility class for testing hash maps
+ * Class IndexOutOfBoundsException
+ *
+ * @package doganoo\PHPAlgorithms\common\Exception
  */
-class HashMapUtil {
-    /**
-     * HashMapUtil constructor is private in order to ensure that the class is not instantiable.
-     */
-    public function __construct() {
-    }
-
-    /**
-     * creates a hash map with $number elements
-     *
-     * @param int $number
-     * @return HashMap
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
-     */
-    public static function getHashMap(int $number) {
-        $hashMap = new HashMap();
-        for ($i = 0; $i < $number; $i++) {
-            $node = new Node();
-            $node->setKey($i);
-            $node->setValue(md5($i));
-            $hashMap->addNode($node);
-        }
-        return $hashMap;
-    }
+class IndexOutOfBoundsException extends \Exception {
 
 }

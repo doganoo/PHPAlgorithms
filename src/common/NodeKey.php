@@ -23,36 +23,32 @@
  * SOFTWARE.
  */
 
-use doganoo\PHPAlgorithms\Datastructure\lists\Node;
-use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
+namespace doganoo\PHPAlgorithms\Common;
 
-/**
- * Class HashMapUtil - utility class for testing hash maps
- */
-class HashMapUtil {
+
+use doganoo\PHPAlgorithms\Common\Util\MapUtil;
+
+class NodeKey {
     /**
-     * HashMapUtil constructor is private in order to ensure that the class is not instantiable.
+     * @var int
      */
-    public function __construct() {
+    private $key = 0;
+
+    /**
+     * NodeKey constructor.
+     *
+     * @param $value
+     * @throws Exception\InvalidKeyTypeException
+     * @throws Exception\UnsupportedKeyTypeException
+     */
+    public function __construct($value) {
+        $key = MapUtil::normalizeKey($value);
+        $this->key = $key;
     }
 
-    /**
-     * creates a hash map with $number elements
-     *
-     * @param int $number
-     * @return HashMap
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
-     */
-    public static function getHashMap(int $number) {
-        $hashMap = new HashMap();
-        for ($i = 0; $i < $number; $i++) {
-            $node = new Node();
-            $node->setKey($i);
-            $node->setValue(md5($i));
-            $hashMap->addNode($node);
-        }
-        return $hashMap;
+    public function __toString() {
+        $string = (string)$this->key;
+        return $string;
     }
 
 }

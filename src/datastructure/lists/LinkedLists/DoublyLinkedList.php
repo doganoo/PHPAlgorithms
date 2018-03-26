@@ -23,72 +23,87 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Lists\LinkedLists;
+namespace doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists;
 
 
-use doganoo\PHPAlgorithms\Maps\Node;
+use doganoo\PHPAlgorithms\Datastructure\lists\Node;
 
 /**
- * Class SinglyLinkedList
+ * Class DoublyLinkedList
  *
  * @package doganoo\PHPAlgorithms\LinkedLists
  */
-class SinglyLinkedList extends LinkedList {
-    /**
-     * $node is added to the end of the list.
-     * The method checks the following:
-     *
-     *      1.  given node is null. Terminate method and return false
-     *      2.  head equals to null. Set head = $node, terminate and return true
-     *      3.  iterate over temporary node until you have reached the last
-     *          node (iterate until next !== null)
-     *
-     * once you have reached the end, set $node as next of your
-     * temporary node
-     *
-     * @param Node $node
-     * @return bool
-     */
+class DoublyLinkedList extends LinkedList {
     public function append(?Node $node): bool {
         if ($node === null) {
             return false;
         }
-        $head = $this->getHead();
-        if ($head === null) {
-            $this->setHead($node);
+        /*
+         * need to clone the object otherwise the object
+         * references are going crazy.
+         *
+         * Furthermore, setting previous and next to null
+         * as they will be set later.
+         */
+        $newNode = clone $node;
+        $newNode->setPrevious(null);
+        $newNode->setNext(null);
+
+        if ($this->getHead() === null) {
+            $this->setHead($newNode);
             return true;
         }
+
+        $head = $this->getHead();
+        $i = 0;
         while ($head->getNext() !== null) {
+            if ($i == 10) break;
             $head = $head->getNext();
+            $i++;
         }
-        $head->setNext($node);
+        $newNode->setPrevious($head);
+        $head->setNext($newNode);
         return true;
     }
 
     /**
-     * the prepend method simply checks first if the node is still valid.
-     * If it does not equal to null, the next pointer of the new node is
-     * set to head and the head is set to the new node in order to create
-     * the new head.
+     * prepends a node on top of the list
      *
-     * @param Node $node
+     * @param \doganoo\PHPAlgorithms\Datastructure\lists\Node|null $node
      * @return bool
      */
     public function prepend(?Node $node): bool {
         if ($node === null) {
             return false;
         }
-        $node->setNext($this->getHead());
-        $this->setHead($node);
+        /*
+         * need to clone the object otherwise the object
+         * references are going crazy.
+         *
+         * Furthermore, setting previous and next to null
+         * as they will be set later.
+         */
+        $newNode = clone $node;
+        $newNode->setPrevious(null);
+        $newNode->setNext(null);
+
+        if ($this->getHead() === null) {
+            $this->setHead($newNode);
+            return true;
+        }
+        $head = $this->getHead();
+        $head->setPrevious($newNode);
+        $newNode->setNext($head);
+        $this->setHead($newNode);
         return true;
     }
 
     /**
-     * returns a new instance of SinglyLinkedList
+     * returns a new instance of DoublyLinkedList
      *
      * @return LinkedList
      */
     protected function getEmptyInstance(): LinkedList {
-        return new SinglyLinkedList();
+        return new DoublyLinkedList();
     }
 }

@@ -23,9 +23,9 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Lists\LinkedLists;
+namespace doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists;
 
-use doganoo\PHPAlgorithms\Maps\Node;
+use doganoo\PHPAlgorithms\Datastructure\lists\Node;
 
 
 /**
@@ -36,7 +36,7 @@ use doganoo\PHPAlgorithms\Maps\Node;
  * @package doganoo\PHPAlgorithms\LinkedLists
  */
 abstract class LinkedList {
-    /** @var Node */
+    /** @var \doganoo\PHPAlgorithms\Datastructure\lists\Node */
     private $head = null;
 
     /**
@@ -80,7 +80,7 @@ abstract class LinkedList {
     /**
      * returns the head node or null, if no head is set
      *
-     * @return Node|null
+     * @return \doganoo\PHPAlgorithms\Datastructure\lists\Node|null
      */
     public function getHead(): ?Node {
         return $this->head;
@@ -89,7 +89,7 @@ abstract class LinkedList {
     /**
      * sets the head
      *
-     * @param Node|null $node
+     * @param \doganoo\PHPAlgorithms\Datastructure\lists\Node|null $node
      */
     public function setHead(?Node $node) {
         $this->head = $node;
@@ -207,7 +207,7 @@ abstract class LinkedList {
      * abstract method that requires inheritors to implement the way how
      * values are prepended to the list
      *
-     * @param Node|null $node
+     * @param \doganoo\PHPAlgorithms\Datastructure\lists\Node|null $node
      * @return bool
      */
     public abstract function append(?Node $node): bool;
@@ -257,7 +257,7 @@ abstract class LinkedList {
      * abstract method that requires inheritors to implement the way how
      * values are prepended to the list
      *
-     * @param Node|null $node
+     * @param \doganoo\PHPAlgorithms\Datastructure\lists\Node|null $node
      * @return bool
      */
     public abstract function prepend(?Node $node): bool;
@@ -308,7 +308,7 @@ abstract class LinkedList {
      *
      * TODO decide whether using add or append/prepend
      *
-     * @param Node $node
+     * @param \doganoo\PHPAlgorithms\Datastructure\lists\Node $node
      */
     public function addNode(Node $node) {
         $this->add($node->getKey(), $node->getValue());
@@ -337,7 +337,7 @@ abstract class LinkedList {
      * searches the list for a node by a given key
      *
      * @param $value
-     * @return Node|null
+     * @return \doganoo\PHPAlgorithms\Datastructure\lists\Node|null
      */
     public function getNodeByValue($value): ?Node {
         if (!$this->containsValue($value)) {
@@ -377,7 +377,7 @@ abstract class LinkedList {
      * returns a node by a given key
      *
      * @param $key
-     * @return Node|null
+     * @return \doganoo\PHPAlgorithms\Datastructure\lists\Node|null
      */
     public function getNodeByKey($key): ?Node {
         if (!$this->containsKey($key)) {
@@ -418,7 +418,7 @@ abstract class LinkedList {
      * @return bool
      */
     public function remove($key): bool {
-        /** @var Node $previous */
+        /** @var \doganoo\PHPAlgorithms\Datastructure\lists\Node $previous */
         $previous = $head = $this->getHead();
         if ($head === null) {
             return true;

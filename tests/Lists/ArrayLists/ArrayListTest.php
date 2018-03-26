@@ -1,6 +1,6 @@
 <?php
 
-use doganoo\PHPAlgorithms\Lists\ArrayLists\ArrayList;
+use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
 
 /**
  * MIT License

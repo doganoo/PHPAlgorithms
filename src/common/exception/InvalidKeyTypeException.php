@@ -23,13 +23,13 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Exception;
+namespace doganoo\PHPAlgorithms\Common\Exception;
 
 /**
- * Class UnsupportedKeyTypeException
+ * Class InvalidKeyTypeException
  *
- * @package doganoo\PHPAlgorithms\Exception
+ * @package doganoo\PHPAlgorithms\common\Exception
  */
-class UnsupportedKeyTypeException extends \Exception {
+class InvalidKeyTypeException extends \Exception {
 
 }

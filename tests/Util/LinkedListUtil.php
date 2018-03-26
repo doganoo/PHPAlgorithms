@@ -23,9 +23,9 @@
  * SOFTWARE.
  */
 
-use doganoo\PHPAlgorithms\Lists\LinkedLists\DoublyLinkedList;
-use doganoo\PHPAlgorithms\Lists\LinkedLists\SinglyLinkedList;
-use doganoo\PHPAlgorithms\Maps\Node;
+use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists\DoublyLinkedList;
+use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists\SinglyLinkedList;
+use doganoo\PHPAlgorithms\Datastructure\lists\Node;
 
 /**
  * Class LinkedListUtil - utility class for testing linked lists

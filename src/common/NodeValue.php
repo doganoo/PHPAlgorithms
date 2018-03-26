@@ -23,12 +23,30 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Exception;
-/**
- * Class IndexOutOfBoundsException
- *
- * @package doganoo\PHPAlgorithms\Exception
- */
-class IndexOutOfBoundsException extends \Exception {
+namespace doganoo\PHPAlgorithms\Common;
 
+
+use doganoo\PHPAlgorithms\Common\Util\MapUtil;
+
+class NodeValue {
+    private $value = null;
+
+    /**
+     * NodeValue constructor.
+     *
+     * @param $value
+     * @throws Exception\InvalidKeyTypeException
+     * @throws Exception\UnsupportedKeyTypeException
+     */
+    public function __construct($value) {
+        $this->value = MapUtil::normalizeValue($value);
+    }
+
+    public function equals(NodeValue $value): bool {
+        return $this->value === $value->get();
+    }
+
+    public function get(): string {
+        return $this->value;
+    }
 }

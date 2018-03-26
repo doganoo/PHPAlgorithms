@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Lists\ArrayLists;
+namespace doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists;
 
 /**
  * Class StringBuilder
@@ -114,7 +114,7 @@ class StringBuilder {
      *
      * @param int    $index
      * @param string $string
-     * @throws \doganoo\PHPAlgorithms\Exception\IndexOutOfBoundsException
+     * @throws \doganoo\PHPAlgorithms\common\Exception\IndexOutOfBoundsException
      */
     public function insert(int $index, string $string) {
         if (\strlen($string) > 1) {

@@ -23,13 +23,44 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Exception;
+namespace doganoo\PHPAlgorithms\Common\Util;
 
 /**
- * Class InvalidKeyTypeException
+ * Class Logger
  *
- * @package doganoo\PHPAlgorithms\Exception
+ * @package doganoo\PHPAlgorithms\Util
  */
-class InvalidKeyTypeException extends \Exception {
+class Logger {
+    private static $level = 0;
+
+    /**
+     * Logger constructor prevents class instantiation
+     */
+    private function __construct() {
+    }
+
+    /**
+     * logs a message with log level DEBUG
+     *
+     * @param $message
+     */
+    public static function debug($message) {
+        self::log($message, 1);
+    }
+
+    /**
+     * logs a message to the console
+     *
+     * @param string $message
+     * @param int    $level
+     */
+    private static function log(string $message, int $level) {
+        if ($level >= self::$level) {
+            echo (new \DateTime())->format("Y-m-d H:i:s");
+            echo " : ";
+            echo $message;
+            echo "\n";
+        }
+    }
 
 }

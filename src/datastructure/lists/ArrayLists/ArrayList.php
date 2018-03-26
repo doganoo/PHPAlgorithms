@@ -23,11 +23,10 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Lists\ArrayLists;
+namespace doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists;
 
 
-use doganoo\PHPAlgorithms\Exception\IndexOutOfBoundsException;
-use doganoo\PHPAlgorithms\Util\Logger;
+use doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException;
 use Traversable;
 
 /**

@@ -23,10 +23,11 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Maps;
+namespace doganoo\PHPAlgorithms\Datastructure\Maps;
 
-use doganoo\PHPAlgorithms\Lists\LinkedLists\SinglyLinkedList;
-use doganoo\PHPAlgorithms\Util\MapUtil;
+use doganoo\PHPAlgorithms\Common\Util\MapUtil;
+use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists\SinglyLinkedList;
+use doganoo\PHPAlgorithms\Datastructure\lists\Node;
 
 /**
  * HashMap class - implementation of a map using hashes in order to avoid collisions
@@ -73,8 +74,8 @@ class HashMap {
      *
      * @param Node $node
      * @return bool
-     * @throws \doganoo\PHPAlgorithms\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\Exception\UnsupportedKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
      */
     public function addNode(Node $node): bool {
         $added = $this->add($node->getKey(), $node->getValue());
@@ -88,8 +89,8 @@ class HashMap {
      * @param $key
      * @param $value
      * @return bool
-     * @throws \doganoo\PHPAlgorithms\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\Exception\UnsupportedKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
      */
     public function add($key, $value): bool {
         $arrayIndex = $this->getBucketIndex($key);
@@ -125,8 +126,8 @@ class HashMap {
      *
      * @param $key
      * @return int
-     * @throws \doganoo\PHPAlgorithms\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\Exception\UnsupportedKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
      */
     private function getBucketIndex($key) {
         /*
@@ -232,8 +233,8 @@ class HashMap {
      *
      * @param $key
      * @return Node|null
-     * @throws \doganoo\PHPAlgorithms\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\Exception\UnsupportedKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
      */
     public function getNodeByKey($key): ?Node {
         $arrayIndex = $this->getBucketIndex($key);
@@ -260,8 +261,8 @@ class HashMap {
      *
      * @param $key
      * @return bool
-     * @throws \doganoo\PHPAlgorithms\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\Exception\UnsupportedKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
      */
     public function remove($key): bool {
         //get the corresponding index to key

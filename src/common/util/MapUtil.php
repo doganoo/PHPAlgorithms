@@ -23,10 +23,10 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Util;
+namespace doganoo\PHPAlgorithms\Common\Util;
 
-use doganoo\PHPAlgorithms\Exception\InvalidKeyTypeException;
-use doganoo\PHPAlgorithms\Exception\UnsupportedKeyTypeException;
+use doganoo\PHPAlgorithms\Common\Exception\InvalidKeyTypeException;
+use doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException;
 
 /**
  * Class Util
@@ -148,4 +148,48 @@ class MapUtil {
     public static function booleanToKey(bool $bool): int {
         return $bool ? 1 : 0;
     }
+
+    /**
+     * normalizes a given key to a int. This method converts currently the following
+     * types to a int:
+     *
+     * <ul>objects</ul>
+     * <ul>arrays</ul>
+     * <ul>doubles</ul>
+     * <ul>floats</ul>
+     * <ul>boolean</ul>
+     * <ul>resource|null</ul>
+     * <ul>int</ul>
+     *
+     * @param $value
+     * @return string
+     * @throws InvalidKeyTypeException
+     * @throws UnsupportedKeyTypeException
+     */
+    public static function normalizeValue($value): string {
+        /* ensuring that the key is an integer.
+         * Therefore, some helper methods convert the key if
+         * necessary.
+         */
+        if (\is_object($value)) {
+            $value = \serialize($value);
+        } else if (\is_array($value)) {
+            $value = \json_encode($value);
+        } else if (\is_double($value)) {
+            $value = (string)$value;
+        } else if (\is_float($value)) {
+            $value = (string)$value;
+        } else if (\is_bool($value)) {
+            $value = $value ? "true" : "false";
+        } else if (\is_resource($value) || $value === null) {
+            //TODO resource/null
+            $value = $value;
+        } else if (\is_int($value)) {
+            return (string)$value;
+        } else {
+            throw new UnsupportedKeyTypeException();
+        }
+        return $value;
+    }
+
 }
