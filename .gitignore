@@ -1,6 +1,7 @@
 .idea/
 
 /vendor/
+/aufgaben/
 
 composer.lock
 main.php

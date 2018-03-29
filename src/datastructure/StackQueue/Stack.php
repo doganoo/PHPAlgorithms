@@ -106,7 +106,7 @@ class Stack {
      *
      * @return int
      */
-    private function stackSize(): int {
+    public function stackSize(): int {
         $size = count($this->stack);
         return $size;
     }

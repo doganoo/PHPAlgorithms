@@ -111,7 +111,7 @@ class Queue {
      *
      * @return int
      */
-    private function queueSize(): int {
+    public function queueSize(): int {
         $this->size = count($this->queue);
         return $this->size;
     }
