@@ -62,7 +62,9 @@ class MapUtil {
          * Therefore, some helper methods convert the key if
          * necessary.
          */
-        if (\is_object($key)) {
+        if (\is_string($key)) {
+            return $key;
+        } else if (\is_object($key)) {
             $objectString = MapUtil::objectToString($key);
             $key = MapUtil::stringToKey($objectString);
         } else if (\is_array($key)) {
