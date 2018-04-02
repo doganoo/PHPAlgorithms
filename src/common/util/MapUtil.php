@@ -63,7 +63,7 @@ class MapUtil {
          * necessary.
          */
         if (\is_string($key)) {
-            return MapUtil::stringToKey($key)
+            $key = MapUtil::stringToKey($key);
         } else if (\is_object($key)) {
             $objectString = MapUtil::objectToString($key);
             $key = MapUtil::stringToKey($objectString);
