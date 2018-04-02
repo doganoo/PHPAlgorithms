@@ -198,6 +198,34 @@ class HashMap {
     }
 
     /**
+     * determines whether the HashMap contains a key.
+     *
+     * @param $key
+     * @return bool
+     */
+    public function containsKey($key): bool {
+        /**
+         * @var string           $arrayIndex
+         * @var SinglyLinkedList $list
+         */
+        foreach ($this->bucket as $arrayIndex => $list) {
+            /* $list is the first element in the bucket. The bucket
+             * can contain max $maxSize entries and each entry has zero
+             * or one nodes which can have zero, one or multiple
+             * successors.
+             */
+            if ($list->containsKey($key)) {
+                return true;
+            }
+        }
+        /*
+         * If no bucket contains the value then return false because
+         * the searched value is not in the list.
+         */
+        return false;
+    }
+
+    /**
      * this method returns the node if it is presentable in the list or null, if not.
      * Please note: this method returns the first node that has the occurrence of the value
      *
