@@ -63,7 +63,7 @@ class MapUtil {
          * necessary.
          */
         if (\is_string($key)) {
-            return $key;
+            return MapUtil::stringToKey($key)
         } else if (\is_object($key)) {
             $objectString = MapUtil::objectToString($key);
             $key = MapUtil::stringToKey($objectString);
@@ -87,21 +87,6 @@ class MapUtil {
     }
 
     /**
-     * This methods converts an object to a string using serialization
-     *
-     * @param $object
-     * @return string
-     * @throws InvalidKeyTypeException
-     */
-    public static function objectToString($object): string {
-        //TODO do type hinting when possible
-        if (!\is_object($object)) {
-            throw new InvalidKeyTypeException("key has to be an object, " . \gettype($object) . "given");
-        }
-        return \serialize($object);
-    }
-
-    /**
      * converts a string to a hash map key by summing all
      * ASCII values of each character.
      *
@@ -115,6 +100,21 @@ class MapUtil {
             $key += \ord($char);
         }
         return $key;
+    }
+
+    /**
+     * This methods converts an object to a string using serialization
+     *
+     * @param $object
+     * @return string
+     * @throws InvalidKeyTypeException
+     */
+    public static function objectToString($object): string {
+        //TODO do type hinting when possible
+        if (!\is_object($object)) {
+            throw new InvalidKeyTypeException("key has to be an object, " . \gettype($object) . "given");
+        }
+        return \serialize($object);
     }
 
     /**
