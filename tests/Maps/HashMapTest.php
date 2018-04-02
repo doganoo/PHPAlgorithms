@@ -88,4 +88,17 @@ class HashMapTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue(count($keySet) == 10);
     }
 
+    public function testClosure() {
+        $hashMap = new HashMap();
+        $added = $hashMap->add("test", function () {
+            return new stdClass();
+        });
+        $this->assertTrue($added);
+        $added = $hashMap->add("test2", new class {
+            public function x() {
+            }
+        });
+        $this->assertTrue($added);
+    }
+
 }
