@@ -51,9 +51,9 @@ class Node {
     /**
      * sets the nodes key. The key has to be a scalar type otherwise the method throws an InvalidKeyTypeException.
      *
-     * @param int $key
+     * @param mixed $key
      */
-    public function setKey(int $key) {
+    public function setKey($key) {
         $this->key = $key;
     }
 

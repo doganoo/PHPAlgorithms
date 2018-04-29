@@ -39,6 +39,18 @@ class HashMapTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($boolean);
     }
 
+    public function testSize() {
+        $class = stdClass::class;
+        $hashMap = new HashMap();
+        $boolean = $hashMap->add(1, $class);
+        $boolean = $hashMap->add(2, $class);
+        $boolean = $hashMap->add(3, $class);
+        $boolean = $hashMap->add(4, $class);
+        $boolean = $hashMap->add(5, $class);
+
+        $this->assertTrue($hashMap->size() === 5);
+    }
+
     /**
      * tests querying the map for a value
      */

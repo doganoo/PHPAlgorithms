@@ -53,4 +53,15 @@ class SinglyLinkedListTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($list->getHead()->getKey() === 4);
         $this->assertTrue($list->getHead()->getValue() === 1);
     }
+
+    public function testContains() {
+        $list = LinkedListUtil::getSinglyLinkedList();
+        $contains = $list->containsKey(1);
+        $this->assertTrue($contains === true);
+
+        $list->add("test", 2);
+        $this->assertTrue($list->size() === 4);
+        $this->assertTrue($list->containsKey("testw") === false);
+        $this->assertTrue($list->containsKey("test") === true);
+    }
 }

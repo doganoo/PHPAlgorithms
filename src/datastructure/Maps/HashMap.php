@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Maps;
 
 use doganoo\PHPAlgorithms\Common\Util\MapUtil;
+use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists\LinkedList;
 use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists\SinglyLinkedList;
 use doganoo\PHPAlgorithms\Datastructure\lists\Node;
 
@@ -76,6 +77,7 @@ class HashMap {
      * @return bool
      * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
      * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
+     * @throws \ReflectionException
      */
     public function addNode(Node $node): bool {
         $added = $this->add($node->getKey(), $node->getValue());
@@ -89,12 +91,10 @@ class HashMap {
      * @param $key
      * @param $value
      * @return bool
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
+     * @throws \ReflectionException
      */
     public function add($key, $value): bool {
         $arrayIndex = $this->getBucketIndex($key);
-        $key = MapUtil::normalizeKey($key);
         if (isset($this->bucket[$arrayIndex])) {
             $list = $this->bucket[$arrayIndex];
         } else {
@@ -126,15 +126,8 @@ class HashMap {
      *
      * @param $key
      * @return int
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
      */
     private function getBucketIndex($key) {
-        /*
-         * first, it must be ensured that the
-         * key is an integer.
-         */
-        $key = MapUtil::normalizeKey($key);
         /*
          * next, the keys hash is calculated by a
          * private method. Next, the array index
@@ -155,6 +148,7 @@ class HashMap {
      * @return int
      */
     private function getHash($key): int {
+        $key = MapUtil::normalizeKey($key);
         return crc32($key);
     }
 
@@ -166,6 +160,24 @@ class HashMap {
      */
     private function getArrayIndex(int $hash): int {
         return $hash % $this->maxSize;
+
+    }
+
+    /**
+     * returns the number of elements in the map
+     *
+     * @return int
+     */
+    public function size(): int {
+        $size = 0;
+        /**
+         * @var string      $hash
+         * @var  LinkedList $list
+         */
+        foreach ($this->bucket as $hash => $list) {
+            $size += $list->size();
+        }
+        return $size;
     }
 
     /**
@@ -209,6 +221,9 @@ class HashMap {
          * @var SinglyLinkedList $list
          */
         foreach ($this->bucket as $arrayIndex => $list) {
+            if (null === $list) {
+                continue;
+            }
             /* $list is the first element in the bucket. The bucket
              * can contain max $maxSize entries and each entry has zero
              * or one nodes which can have zero, one or multiple
@@ -266,7 +281,6 @@ class HashMap {
      */
     public function getNodeByKey($key): ?Node {
         $arrayIndex = $this->getBucketIndex($key);
-        $key = MapUtil::normalizeKey($key);
         /*
          * the list is requested from the array based on
          * the array index hash.
@@ -289,8 +303,6 @@ class HashMap {
      *
      * @param $key
      * @return bool
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
      */
     public function remove($key): bool {
         //get the corresponding index to key
@@ -347,6 +359,9 @@ class HashMap {
         $keySet = [];
         /** @var SinglyLinkedList $list */
         foreach ($this->bucket as $list) {
+            if (null === $list) {
+                continue;
+            }
             /** @var Node $head */
             $head = $list->getHead();
             while ($head !== null) {

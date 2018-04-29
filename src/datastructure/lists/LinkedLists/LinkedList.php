@@ -25,6 +25,7 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists;
 
+use doganoo\PHPAlgorithms\Common\NodeKey;
 use doganoo\PHPAlgorithms\Datastructure\lists\Node;
 
 
@@ -337,6 +338,7 @@ abstract class LinkedList {
                 $value = \serialize($value);
             }
         }
+
         $node = new Node();
         $node->setKey($key);
         $node->setValue($value);
