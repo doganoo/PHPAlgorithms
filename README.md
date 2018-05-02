@@ -15,3 +15,7 @@ the following classes are tested in their basic operations. However, feel free t
 - doganoo\PHPAlgorithms\Lists\LinkedLists\DoublyLinkedList
 - doganoo\PHPAlgorithms\Lists\ArrayLists\ArrayList
 - doganoo\PHPAlgorithms\Lists\ArrayLists\StringBuilder
+- doganoo\PHPAlgorithms\datastructure\Sets\HashSet
+- doganoo\PHPAlgorithms\datastructure\trees\Tree\Node
+- doganoo\PHPAlgorithms\datastructure\trees\BinaryTree\Node
+- doganoo\PHPAlgorithms\datastructure\trees\BinaryTree\BinarySearchNode

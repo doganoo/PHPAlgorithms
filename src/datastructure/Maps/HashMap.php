@@ -92,6 +92,8 @@ class HashMap {
      * @param $value
      * @return bool
      * @throws \ReflectionException
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException
      */
     public function add($key, $value): bool {
         $arrayIndex = $this->getBucketIndex($key);
@@ -126,6 +128,8 @@ class HashMap {
      *
      * @param $key
      * @return int
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException
      */
     private function getBucketIndex($key) {
         /*
@@ -146,6 +150,8 @@ class HashMap {
      *
      * @param $key
      * @return int
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException
      */
     private function getHash($key): int {
         $key = MapUtil::normalizeKey($key);

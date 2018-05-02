@@ -186,11 +186,12 @@ class ArrayList implements \IteratorAggregate {
     /**
      * whether the array contains $value or not. The verification is made strictly (type check).
      *
-     * @param $value
+     * @param      $value
+     * @param bool $strict
      * @return bool
      */
-    public function containsValue($value): bool {
-        return \in_array($value, $this->array, true);
+    public function containsValue($value, bool $strict = true): bool {
+        return \in_array($value, $this->array, $strict);
     }
 
     /**
@@ -298,7 +299,7 @@ class ArrayList implements \IteratorAggregate {
             return $arrayList;
         }
         //TODO preserve keys?
-        $array = \array_slice($this->array, $start, $end - $start , true);
+        $array = \array_slice($this->array, $start, $end - $start, true);
         $arrayList->addAllArray($array);
         $arrayList->trimToSize();
         return $arrayList;

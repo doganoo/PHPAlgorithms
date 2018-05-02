@@ -25,7 +25,6 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists;
 
-use doganoo\PHPAlgorithms\Common\NodeKey;
 use doganoo\PHPAlgorithms\Datastructure\lists\Node;
 
 
@@ -357,8 +356,16 @@ abstract class LinkedList {
         }
         $tmp = $this->getHead();
         while ($tmp !== null) {
-            //TODO FIXME unserialize
-            if ($tmp->getValue() === $value) {
+            $val = $tmp->getValue();
+            //TODO FIXME implement and test!
+            //if (\is_string($val)) {
+            //    $serialized = MapUtil::isSerialized($val);
+            //    if ($serialized) {
+            //        \ob_flush();
+            //        $val = \unserialize($val);
+            //    }
+            //}
+            if ($val === $value) {
                 //if the value is found then return it
                 return $tmp;
             }

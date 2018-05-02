@@ -36,6 +36,7 @@ class HashMapTest extends \PHPUnit\Framework\TestCase {
         $class = stdClass::class;
         $hashMap = new HashMap();
         $boolean = $hashMap->add(1, $class);
+        $has = $hashMap->getNodeByValue($class);
         $this->assertTrue($boolean);
     }
 
