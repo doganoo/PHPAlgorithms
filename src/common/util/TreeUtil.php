@@ -23,23 +23,32 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Trees\Traversal;
+namespace doganoo\PHPAlgorithms\common\util;
 
 
-use doganoo\PHPAlgorithms\Trees\Node;
+use doganoo\PHPAlgorithms\datastructure\trees\BinarySearchTree;
 
-class PostOrderTraversal
-{
-    public function traverse(Node $node)
-    {
-        if ($node->getLeft() !== null) {
-            $this->traverse($node->getLeft());
-        }
-        if ($node->getRight() !== null) {
-            $this->traverse($node->getRight());
-        }
-        echo $node->getValue();
-        echo "\n";
+/**
+ * Class TreeUtil
+ *
+ * @package doganoo\PHPAlgorithms\common\util
+ */
+class TreeUtil {
+    /**
+     * TreeUtil constructor.
+     */
+    private function __construct() {
     }
 
+    /**
+     * @return BinarySearchTree
+     */
+    public static function getBinarySearchTree(): BinarySearchTree {
+        $bst = new BinarySearchTree();
+        $bst->insert(5);
+        $bst->insert(2);
+        $bst->insert(6);
+        $bst->insert(1);
+        return $bst;
+    }
 }

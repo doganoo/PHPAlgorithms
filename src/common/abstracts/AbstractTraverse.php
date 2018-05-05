@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
+ * Copyright (c) 2018 Dogan Ucar
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,66 +23,50 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\datastructure\trees\BinaryTree;
+namespace doganoo\PHPAlgorithms\common\abstracts;
+
+
+use doganoo\PHPAlgorithms\Common\Util\Logger;
+use doganoo\PHPAlgorithms\datastructure\trees\BinaryTree\BinarySearchNode;
 
 /**
- * Class Node
+ * Class AbstractTraverse
  *
- * @package doganoo\PHPAlgorithms\datastructure\trees\BinaryTree
+ * @package doganoo\PHPAlgorithms\common\abstracts
  */
-class Node {
-    private $value = PHP_INT_MIN;
-    private $left = null;
-    private $right = null;
+abstract class AbstractTraverse {
+    /** @var $callable callable|null */
+    protected $callable = null;
 
     /**
-     * Node constructor.
-     *
+     * @return mixed
+     */
+    public abstract function traverse();
+
+    /**
+     * @param BinarySearchNode|null $node
+     * @return mixed
+     */
+    public abstract function _traverse(?BinarySearchNode $node);
+
+    /**
      * @param $value
      */
-    public function __construct($value) {
-        $this->value = $value;
+    public function visit($value) {
+        $callable = $this->callable;
+        if (null === $this->callable) {
+            $callable = function ($otherValue) {
+                Logger::debug($otherValue);
+            };
+        }
+        $callable($value);
     }
 
     /**
-     * @return null
+     * @param callable $callable
      */
-    public function getLeft() {
-        return $this->left;
+    public function setCallable(callable $callable) {
+        $this->callable = $callable;
     }
 
-    /**
-     * @param null $left
-     */
-    public function setLeft($left): void {
-        $this->left = $left;
-    }
-
-    /**
-     * @return null
-     */
-    public function getRight() {
-        return $this->right;
-    }
-
-    /**
-     * @param null $right
-     */
-    public function setRight($right): void {
-        $this->right = $right;
-    }
-
-    /**
-     * @return int
-     */
-    public function getValue(): int {
-        return $this->value;
-    }
-
-    /**
-     * @param int $value
-     */
-    public function setValue(int $value): void {
-        $this->value = $value;
-    }
 }

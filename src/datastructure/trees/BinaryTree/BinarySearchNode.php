@@ -44,71 +44,114 @@ class BinarySearchNode {
     }
 
     /**
+     * @return int
+     */
+    public function getValue(): int {
+        return $this->value;
+    }
+
+    /**
      * @param int $value
-     * @return bool
      */
-    public function add(int $value) {
-        if ($value === $this->value) {
-            return false;
-        }
-        if ($value < $this->value) {
-            if (null === $this->left) {
-                $this->left = new BinarySearchNode($value);
-                return true;
-            } else {
-                $this->left->add($value);
-            }
-        } else {
-            if (null === $this->right) {
-                $this->right = new BinarySearchNode($value);
-                return true;
-            } else {
-                $this->right->add($value);
-            }
-            return false;
-        }
+    public function setValue(int $value): void {
+        $this->value = $value;
     }
 
     /**
-     * @param int              $value
-     * @param BinarySearchNode $node
-     * @return BinarySearchNode|null
+     * @return null
      */
-    public function search(int $value, BinarySearchNode $node) {
-        if (null === $node) {
-            return null;
-        }
-        if ($node->value === $value) {
-            return $node;
-        }
-        if ($value < $node->value) {
-            return $this->search($value, $node->left);
-        } else {
-            return $this->search($value, $node->right);
-        }
+    public function getLeft() {
+        return $this->left;
     }
 
     /**
-     * @return int
+     * @param null $left
      */
-    public function getMinimum() {
-        /** @var BinarySearchNode $tmp */
-        $tmp = $this->left;
-        while (null !== $tmp) {
-            $tmp = $tmp->left;
-        }
-        return $tmp->value;
+    public function setLeft($left): void {
+        $this->left = $left;
     }
 
     /**
-     * @return int
+     * @return null
      */
-    public function getMaximum() {
-        /** @var BinarySearchNode $tmp */
-        $tmp = $this->right;
-        while (null !== $tmp) {
-            $tmp = $tmp->right;
-        }
-        return $tmp->value;
+    public function getRight() {
+        return $this->right;
     }
+
+    /**
+     * @param null $right
+     */
+    public function setRight($right): void {
+        $this->right = $right;
+    }
+
+
+    ///**
+    // * @param int $value
+    // * @return bool
+    // */
+    //public function add(int $value) {
+    //    if ($value === $this->value) {
+    //        return false;
+    //    }
+    //    if ($value < $this->value) {
+    //        if (null === $this->left) {
+    //            $this->left = new BinarySearchNode($value);
+    //            return true;
+    //        } else {
+    //            $this->left->add($value);
+    //        }
+    //    } else {
+    //        if (null === $this->right) {
+    //            $this->right = new BinarySearchNode($value);
+    //            return true;
+    //        } else {
+    //            $this->right->add($value);
+    //        }
+    //        return false;
+    //    }
+    //}
+    //
+    ///**
+    // * @param int              $value
+    // * @param BinarySearchNode $node
+    // * @return BinarySearchNode|null
+    // */
+    //public function search(int $value, BinarySearchNode $node) {
+    //    if (null === $node) {
+    //        return null;
+    //    }
+    //    if ($node->value === $value) {
+    //        return $node;
+    //    }
+    //    if ($value < $node->value) {
+    //        return $this->search($value, $node->left);
+    //    } else {
+    //        return $this->search($value, $node->right);
+    //    }
+    //}
+    //
+    ///**
+    // * @return int
+    // */
+    //public function getMinimum() {
+    //    /** @var BinarySearchNode $tmp */
+    //    $tmp = $this->left;
+    //    while (null !== $tmp) {
+    //        $tmp = $tmp->left;
+    //    }
+    //    return $tmp->value;
+    //}
+    //
+    ///**
+    // * @return int
+    // */
+    //public function getMaximum() {
+    //    /** @var BinarySearchNode $tmp */
+    //    $tmp = $this->right;
+    //    while (null !== $tmp) {
+    //        $tmp = $tmp->right;
+    //    }
+    //    return $tmp->value;
+    //}
 }

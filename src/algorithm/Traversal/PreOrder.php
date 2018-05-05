@@ -23,22 +23,49 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Trees\Traversal;
+namespace doganoo\PHPAlgorithms\Algorithm\Traversal;
 
+use doganoo\PHPAlgorithms\common\abstracts\AbstractTraverse;
+use doganoo\PHPAlgorithms\datastructure\trees\BinarySearchTree;
+use doganoo\PHPAlgorithms\datastructure\trees\BinaryTree\BinarySearchNode;
 
-use doganoo\PHPAlgorithms\Trees\Node;
+/**
+ * Class PreOrder
+ *
+ * @package doganoo\PHPAlgorithms\Algorithm\Traversal
+ */
+class PreOrder extends AbstractTraverse {
+    /** @var BinarySearchTree|null */
+    private $tree = null;
 
-class PreOrderTraversal
-{
-    public function traverse(Node $node)
-    {
-        echo $node->getValue();
-        echo "\n";
-        if ($node->getLeft() !== null) {
-            $this->traverse($node->getLeft());
+    /**
+     * PreOrder constructor.
+     *
+     * @param BinarySearchTree $tree
+     */
+    public function __construct(BinarySearchTree $tree) {
+        $this->tree = $tree;
+    }
+
+    /**
+     * traverses a tre in preorder
+     */
+    public function traverse() {
+        $this->_traverse($this->tree->getRoot());
+    }
+
+    /**
+     * helper method
+     *
+     * @param BinarySearchNode|null $node
+     */
+    public function _traverse(?BinarySearchNode $node) {
+        parent::visit($node->getValue());
+        if (null !== $node->getLeft()) {
+            $this->_traverse($node->getLeft());
         }
-        if ($node->getRight() !== null) {
-            $this->traverse($node->getRight());
+        if (null !== $node->getRight()) {
+            $this->_traverse($node->getRight());
         }
     }
 }

@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
+ * Copyright (c) 2018 Dogan Ucar
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,66 +23,50 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\datastructure\trees\BinaryTree;
+namespace doganoo\PHPAlgorithms\Algorithm\Traversal;
+
+
+use doganoo\PHPAlgorithms\common\abstracts\AbstractTraverse;
+use doganoo\PHPAlgorithms\datastructure\trees\BinarySearchTree;
+use doganoo\PHPAlgorithms\datastructure\trees\BinaryTree\BinarySearchNode;
 
 /**
- * Class Node
+ * Class InOrder
  *
- * @package doganoo\PHPAlgorithms\datastructure\trees\BinaryTree
+ * @package doganoo\PHPAlgorithms\Algorithm\Traversal
  */
-class Node {
-    private $value = PHP_INT_MIN;
-    private $left = null;
-    private $right = null;
+class InOrder extends AbstractTraverse {
+    /** @var BinarySearchTree|null */
+    private $binarySearchTree = null;
 
     /**
-     * Node constructor.
+     * InOrder constructor.
      *
-     * @param $value
+     * @param BinarySearchTree $tree
      */
-    public function __construct($value) {
-        $this->value = $value;
+    public function __construct(BinarySearchTree $tree) {
+        $this->binarySearchTree = $tree;
     }
 
     /**
-     * @return null
+     * traverses the tree in in order
      */
-    public function getLeft() {
-        return $this->left;
+    public function traverse() {
+        $this->_traverse($this->binarySearchTree->getRoot());
     }
 
     /**
-     * @param null $left
+     * helper method for travering
+     *
+     * @param BinarySearchNode|null $node
      */
-    public function setLeft($left): void {
-        $this->left = $left;
-    }
-
-    /**
-     * @return null
-     */
-    public function getRight() {
-        return $this->right;
-    }
-
-    /**
-     * @param null $right
-     */
-    public function setRight($right): void {
-        $this->right = $right;
-    }
-
-    /**
-     * @return int
-     */
-    public function getValue(): int {
-        return $this->value;
-    }
-
-    /**
-     * @param int $value
-     */
-    public function setValue(int $value): void {
-        $this->value = $value;
+    public function _traverse(?BinarySearchNode $node) {
+        if (null !== $node->getLeft()) {
+            $this->_traverse($node->getLeft());
+        }
+        parent::visit($node->getValue());
+        if (null !== $node->getRight()) {
+            $this->_traverse($node->getRight());
+        }
     }
 }
