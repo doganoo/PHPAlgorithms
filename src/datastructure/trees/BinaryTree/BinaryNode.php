@@ -25,12 +25,14 @@
 
 namespace doganoo\PHPAlgorithms\datastructure\trees\BinaryTree;
 
+use doganoo\PHPAlgorithms\common\interfaces\IBinaryNode;
+
 /**
  * Class Node
  *
  * @package doganoo\PHPAlgorithms\datastructure\trees\BinaryTree
  */
-class Node {
+class BinaryNode implements IBinaryNode {
     private $value = PHP_INT_MIN;
     private $left = null;
     private $right = null;
@@ -45,30 +47,30 @@ class Node {
     }
 
     /**
-     * @return null
+     * @return IBinaryNode|null
      */
-    public function getLeft() {
+    public function getLeft(): ?IBinaryNode {
         return $this->left;
     }
 
     /**
-     * @param null $left
+     * @param IBinaryNode|null $left
      */
-    public function setLeft($left): void {
+    public function setLeft(?IBinaryNode $left): void {
         $this->left = $left;
     }
 
     /**
-     * @return null
+     * @return IBinaryNode|null
      */
-    public function getRight() {
+    public function getRight(): ?IBinaryNode {
         return $this->right;
     }
 
     /**
-     * @param null $right
+     * @param IBinaryNode|null $right
      */
-    public function setRight($right): void {
+    public function setRight(?IBinaryNode $right): void {
         $this->right = $right;
     }
 

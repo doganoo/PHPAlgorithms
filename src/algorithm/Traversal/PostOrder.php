@@ -27,8 +27,8 @@ namespace doganoo\PHPAlgorithms\Algorithm\Traversal;
 
 
 use doganoo\PHPAlgorithms\common\abstracts\AbstractTraverse;
-use doganoo\PHPAlgorithms\datastructure\trees\BinarySearchTree;
-use doganoo\PHPAlgorithms\datastructure\trees\BinaryTree\BinarySearchNode;
+use doganoo\PHPAlgorithms\common\interfaces\IBinaryNode;
+use doganoo\PHPAlgorithms\common\interfaces\IBinaryTree;
 
 /**
  * Class PostOrder
@@ -36,15 +36,15 @@ use doganoo\PHPAlgorithms\datastructure\trees\BinaryTree\BinarySearchNode;
  * @package doganoo\PHPAlgorithms\Algorithm\Traversal
  */
 class PostOrder extends AbstractTraverse {
-    /** @var BinarySearchTree|null */
+    /** @var IBinaryTree|null */
     private $tree = null;
 
     /**
      * PostOrder constructor.
      *
-     * @param BinarySearchTree $tree
+     * @param IBinaryTree $tree
      */
-    public function __construct(BinarySearchTree $tree) {
+    public function __construct(IBinaryTree $tree) {
         $this->tree = $tree;
     }
 
@@ -58,15 +58,17 @@ class PostOrder extends AbstractTraverse {
     /**
      * helper method
      *
-     * @param BinarySearchNode|null $node
+     * @param IBinaryNode|null $node
      */
-    public function _traverse(?BinarySearchNode $node) {
-        if (null !== $node->getLeft()) {
-            $this->_traverse($node->getLeft());
+    public function _traverse(?IBinaryNode $node) {
+        if (null !== $node) {
+            if (null !== $node->getLeft()) {
+                $this->_traverse($node->getLeft());
+            }
+            if (null !== $node->getRight()) {
+                $this->_traverse($node->getRight());
+            }
+            parent::visit($node->getValue());
         }
-        if (null !== $node->getRight()) {
-            $this->_traverse($node->getRight());
-        }
-        parent::visit($node->getValue());
     }
 }

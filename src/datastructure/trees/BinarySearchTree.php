@@ -26,6 +26,8 @@
 namespace doganoo\PHPAlgorithms\datastructure\trees;
 
 
+use doganoo\PHPAlgorithms\common\interfaces\IBinaryNode;
+use doganoo\PHPAlgorithms\common\interfaces\IBinaryTree;
 use doganoo\PHPAlgorithms\datastructure\trees\BinaryTree\BinarySearchNode;
 
 /**
@@ -33,7 +35,7 @@ use doganoo\PHPAlgorithms\datastructure\trees\BinaryTree\BinarySearchNode;
  *
  * @package doganoo\PHPAlgorithms\datastructure\trees
  */
-class BinarySearchTree {
+class BinarySearchTree implements IBinaryTree {
     /** @var BinarySearchNode|null */
     private $root = null;
 
@@ -60,9 +62,9 @@ class BinarySearchTree {
     }
 
     /**
-     * @return null
+     * @return IBinaryNode|null
      */
-    public function getRoot() {
+    public function getRoot(): ?IBinaryNode {
         return $this->root;
     }
 
@@ -73,30 +75,37 @@ class BinarySearchTree {
         $this->root = $root;
     }
 
+    public function insertValue($value) {
+        $this->insert(new BinarySearchNode($value));
+    }
+
     /**
      * inserts a new value
      *
-     * @param int $value
+     * @param IBinaryNode|null $node
      * @return bool
      */
-    public function insert(int $value): bool {
+    public function insert(?IBinaryNode $node) {
+        if (!$node instanceof BinarySearchNode) {
+            return false;
+        }
         if (null === $this->getRoot()) {
-            $this->setRoot(new BinarySearchNode($value));
+            $this->setRoot($node);
             return true;
         }
         /** @var BinarySearchNode $current */
         $current = $this->getRoot();
-        if ($value < $current->getValue()) {
+        if ($node->getValue() < $current->getValue()) {
             while (null !== $current->getLeft()) {
                 $current = $current->getLeft();
             }
-            $current->setLeft(new BinarySearchNode($value));
+            $current->setLeft($node);
             return true;
-        } else if ($value > $current->getValue()) {
+        } else if ($node->getValue() > $current->getValue()) {
             while (null !== $current->getRight()) {
                 $current = $current->getRight();
             }
-            $current->setRight(new BinarySearchNode($value));
+            $current->setRight($node);
             return true;
         }
         return false;

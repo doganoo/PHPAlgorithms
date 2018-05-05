@@ -23,10 +23,9 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\common\util;
-
 
 use doganoo\PHPAlgorithms\datastructure\trees\BinarySearchTree;
+use doganoo\PHPAlgorithms\datastructure\trees\BinaryTree;
 
 /**
  * Class TreeUtil
@@ -45,10 +44,22 @@ class TreeUtil {
      */
     public static function getBinarySearchTree(): BinarySearchTree {
         $bst = new BinarySearchTree();
-        $bst->insert(5);
-        $bst->insert(2);
-        $bst->insert(6);
-        $bst->insert(1);
+        $bst->insertValue(5);
+        $bst->insertValue(2);
+        $bst->insertValue(6);
+        $bst->insertValue(1);
         return $bst;
+    }
+
+    /**
+     * @return BinaryTree
+     */
+    public static function getBinaryTree(): BinaryTree {
+        $bt = new BinaryTree();
+        $bt->insertValue(5);
+        $bt->insertValue(2);
+        $bt->insertValue(6);
+        $bt->insertValue(1);
+        return $bt;
     }
 }

@@ -26,27 +26,30 @@
 use doganoo\PHPAlgorithms\Algorithm\Traversal\InOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PostOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PreOrder;
-use doganoo\PHPAlgorithms\datastructure\trees\BinaryTree;
+use doganoo\PHPAlgorithms\common\util\TreeUtil;
+use doganoo\PHPAlgorithms\datastructure\trees\BinarySearchTree;
 
-
-class BinaryTreeTest extends \PHPUnit\Framework\TestCase {
+/**
+ * Class BinaryTreeTest
+ */
+class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * tests addition and height
      */
     public function testAdd() {
-        /** @var BinaryTree $bst */
-        $bst = TreeUtil::getBinaryTree();
+        /** @var BinarySearchTree $bst */
+        $bst = \TreeUtil::getBinarySearchTree();
         $node = $bst->search(1);
         $this->assertTrue($node !== null);
+        $this->assertTrue($bst->height() === 3);
     }
 
     /**
      * tests in order traversal
      */
     public function testInOrder() {
-        /** @var BinaryTree $bst */
-        $bst = TreeUtil::getBinaryTree();
+        $bst = \TreeUtil::getBinarySearchTree();
         $array = [];
         $traversal = new InOrder($bst);
         $traversal->setCallable(function ($value) use (&$array) {
@@ -60,8 +63,7 @@ class BinaryTreeTest extends \PHPUnit\Framework\TestCase {
      * tests pre order traversal
      */
     public function testPreOrder() {
-        /** @var BinaryTree $bst */
-        $bst = TreeUtil::getBinaryTree();
+        $bst = \TreeUtil::getBinarySearchTree();
         $array = [];
         $traversal = new PreOrder($bst);
         $traversal->setCallable(function ($value) use (&$array) {
@@ -75,8 +77,7 @@ class BinaryTreeTest extends \PHPUnit\Framework\TestCase {
      * tests post order traversal
      */
     public function testPostOrder() {
-        /** @var BinaryTree $bst */
-        $bst = TreeUtil::getBinaryTree();
+        $bst = \TreeUtil::getBinarySearchTree();
         $array = [];
         $traversal = new PostOrder($bst);
         $traversal->setCallable(function ($value) use (&$array) {

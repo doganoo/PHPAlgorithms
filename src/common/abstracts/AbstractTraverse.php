@@ -26,8 +26,8 @@
 namespace doganoo\PHPAlgorithms\common\abstracts;
 
 
+use doganoo\PHPAlgorithms\common\interfaces\IBinaryNode;
 use doganoo\PHPAlgorithms\Common\Util\Logger;
-use doganoo\PHPAlgorithms\datastructure\trees\BinaryTree\BinarySearchNode;
 
 /**
  * Class AbstractTraverse
@@ -44,10 +44,10 @@ abstract class AbstractTraverse {
     public abstract function traverse();
 
     /**
-     * @param BinarySearchNode|null $node
+     * @param IBinaryNode|null $node
      * @return mixed
      */
-    public abstract function _traverse(?BinarySearchNode $node);
+    public abstract function _traverse(?IBinaryNode $node);
 
     /**
      * @param $value

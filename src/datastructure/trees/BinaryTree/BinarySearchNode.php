@@ -24,12 +24,15 @@
  */
 
 namespace doganoo\PHPAlgorithms\datastructure\trees\BinaryTree;
+
+use doganoo\PHPAlgorithms\common\interfaces\IBinaryNode;
+
 /**
  * Class BinarySearchNode
  *
  * @package doganoo\PHPAlgorithms\datastructure\trees\BinaryTree
  */
-class BinarySearchNode {
+class BinarySearchNode implements IBinaryNode {
     private $value;
     private $left = null;
     private $right = null;
@@ -58,100 +61,30 @@ class BinarySearchNode {
     }
 
     /**
-     * @return null
+     * @return IBinaryNode|null
      */
-    public function getLeft() {
+    public function getLeft(): ?IBinaryNode {
         return $this->left;
     }
 
     /**
-     * @param null $left
+     * @param IBinaryNode|null $left
      */
-    public function setLeft($left): void {
+    public function setLeft(?IBinaryNode $left): void {
         $this->left = $left;
     }
 
     /**
-     * @return null
+     * @return IBinaryNode|null
      */
-    public function getRight() {
+    public function getRight(): ?IBinaryNode {
         return $this->right;
     }
 
     /**
-     * @param null $right
+     * @param IBinaryNode|null $right
      */
-    public function setRight($right): void {
+    public function setRight(?IBinaryNode $right): void {
         $this->right = $right;
     }
-
-
-    ///**
-    // * @param int $value
-    // * @return bool
-    // */
-    //public function add(int $value) {
-    //    if ($value === $this->value) {
-    //        return false;
-    //    }
-    //    if ($value < $this->value) {
-    //        if (null === $this->left) {
-    //            $this->left = new BinarySearchNode($value);
-    //            return true;
-    //        } else {
-    //            $this->left->add($value);
-    //        }
-    //    } else {
-    //        if (null === $this->right) {
-    //            $this->right = new BinarySearchNode($value);
-    //            return true;
-    //        } else {
-    //            $this->right->add($value);
-    //        }
-    //        return false;
-    //    }
-    //}
-    //
-    ///**
-    // * @param int              $value
-    // * @param BinarySearchNode $node
-    // * @return BinarySearchNode|null
-    // */
-    //public function search(int $value, BinarySearchNode $node) {
-    //    if (null === $node) {
-    //        return null;
-    //    }
-    //    if ($node->value === $value) {
-    //        return $node;
-    //    }
-    //    if ($value < $node->value) {
-    //        return $this->search($value, $node->left);
-    //    } else {
-    //        return $this->search($value, $node->right);
-    //    }
-    //}
-    //
-    ///**
-    // * @return int
-    // */
-    //public function getMinimum() {
-    //    /** @var BinarySearchNode $tmp */
-    //    $tmp = $this->left;
-    //    while (null !== $tmp) {
-    //        $tmp = $tmp->left;
-    //    }
-    //    return $tmp->value;
-    //}
-    //
-    ///**
-    // * @return int
-    // */
-    //public function getMaximum() {
-    //    /** @var BinarySearchNode $tmp */
-    //    $tmp = $this->right;
-    //    while (null !== $tmp) {
-    //        $tmp = $tmp->right;
-    //    }
-    //    return $tmp->value;
-    //}
 }

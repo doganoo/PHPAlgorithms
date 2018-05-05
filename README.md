@@ -3,19 +3,4 @@ A collection of common algorithms implemented in PHP. The collection is based on
 
 The library is in a beta state. Missing something? Create a pull request!
 
-## Usable Classes
-
-the following classes are tested in their basic operations. However, feel free to run further tests (such as corner cases) and open an issue if you think there is a bug. 
-
-- doganoo\PHPAlgorithms\Maps\HashMap
-- doganoo\PHPAlgorithms\Maps\Node
-- doganoo\PHPAlgorithms\StackQueue\Stack
-- doganoo\PHPAlgorithms\StackQueue\Queue
-- doganoo\PHPAlgorithms\Lists\LinkedLists\SinglyLinkedList
-- doganoo\PHPAlgorithms\Lists\LinkedLists\DoublyLinkedList
-- doganoo\PHPAlgorithms\Lists\ArrayLists\ArrayList
-- doganoo\PHPAlgorithms\Lists\ArrayLists\StringBuilder
-- doganoo\PHPAlgorithms\datastructure\Sets\HashSet
-- doganoo\PHPAlgorithms\datastructure\trees\Tree\Node
-- doganoo\PHPAlgorithms\datastructure\trees\BinaryTree\Node
-- doganoo\PHPAlgorithms\datastructure\trees\BinaryTree\BinarySearchNode
+You can find the package on Packagist: https://packagist.org/packages/doganoo/php-algorithms 
