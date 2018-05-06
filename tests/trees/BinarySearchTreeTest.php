@@ -26,7 +26,6 @@
 use doganoo\PHPAlgorithms\Algorithm\Traversal\InOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PostOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PreOrder;
-use doganoo\PHPAlgorithms\common\util\TreeUtil;
 use doganoo\PHPAlgorithms\datastructure\trees\BinarySearchTree;
 
 /**
