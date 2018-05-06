@@ -27,6 +27,7 @@ namespace doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists;
 
 
 use doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException;
+use doganoo\PHPAlgorithms\Common\Util\Logger;
 use Traversable;
 
 /**
@@ -38,51 +39,51 @@ use Traversable;
  * However, for completeness I have decided to implement the class. There are other advantages, such as defined
  * array indices (numeric), trimming the fields and others.
  *
+ * TODO actually this class can not handle negative indices (keys). Need to fix that.
+ *
  * @package doganoo\PHPAlgorithms\Lists\ArrayLists
  */
 class ArrayList implements \IteratorAggregate {
+    /**
+     * @const DEFAULT_ARRAY_SIZE
+     */
+    public const DEFAULT_CAPACITY = 128;
     /**
      * @var null the array where the values are stored
      */
     private $array = null;
 
     /**
+     * @var int the actual size
+     */
+    private $size = 0;
+
+    /**
      * ArrayList constructor initializes the array
      */
     public function __construct() {
-        $this->initialize();
+        $this->clear();
     }
 
     /**
-     * sets the array to an empty array
+     * removes all elements of the array
      */
-    private function initialize() {
-        $this->array = [];
+    public function clear() {
+        $this->size = 0;
+        $this->ensureCapacity(self::DEFAULT_CAPACITY);
     }
 
-    /**
-     * adds $item to the array at the index at $index
-     *
-     * TODO insert or override?
-     *
-     * @param int $index
-     * @param     $item
-     * @return bool
-     * @throws IndexOutOfBoundsException
-     */
-    public function addToIndex(int $index, $item): bool {
-        $oldSize = $this->size();
-        if ($oldSize - 1 < $index) {
-            $this->add($item);
-            return true;
-        } else if ($index > $oldSize - 1) {
-            throw new IndexOutOfBoundsException();
+    private function ensureCapacity(int $newCapacity): bool {
+        if ($newCapacity < $this->size()) {
+            return false;
         }
-        $front = \array_slice($this->array, 0, $index, true);
-        $back = \array_slice($this->array, $index, $oldSize, true);
-        $this->array = \array_merge($front, [$item], $back);
-        $this->trimToSize();
-        return ($oldSize + 1) === $this->size();
+
+        $array = $this->array;
+        $this->array = \array_fill(0, $newCapacity, null);
+        for ($i = 0; $i < $this->size(); $i++) {
+            $this->array[$i] = $array[$i];
+        }
+        return true;
     }
 
     /**
@@ -91,46 +92,7 @@ class ArrayList implements \IteratorAggregate {
      * @return int
      */
     public function size(): int {
-        $this->trimToSize();
-        return \count($this->array);
-    }
-
-    /**
-     * removes all elements in the array that are null or equal to empty string
-     *
-     * @return bool
-     */
-    public function trimToSize(): bool {
-        $array = \array_filter($this->array, function ($value, int $key) {
-            return $value !== null || trim($value) !== "";
-        }, ARRAY_FILTER_USE_BOTH);
-        $array = \array_values($array);
-        $changed = $this->array !== $array;
-        $this->array = $array;
-        return $changed;
-    }
-
-    /**
-     * adds $item to the end of the array
-     *
-     * @param $item
-     * @return bool
-     */
-    public function add($item): bool {
-        $size = $this->size() === 0 ? 0 : $this->size() + 1;
-        if ($size >= 0) {
-            $this->array[$size] = $item;
-            $this->trimToSize();
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * removes all elements of the array
-     */
-    public function clear() {
-        $this->initialize();
+        return $this->size;
     }
 
     /**
@@ -138,9 +100,14 @@ class ArrayList implements \IteratorAggregate {
      *
      * @param int $index
      * @return mixed
+     * @throws IndexOutOfBoundsException
      */
     public function get(int $index) {
+        if ($index < 0 || $index >= $this->size()) {
+            throw new IndexOutOfBoundsException();
+        }
         return $this->array[$index];
+
     }
 
     /**
@@ -149,7 +116,7 @@ class ArrayList implements \IteratorAggregate {
      * @return bool
      */
     public function isEmpty(): bool {
-        return $this->size() === 0 || $this->array === null;
+        return $this->length() === 0 || $this->array === null;
     }
 
     /**
@@ -159,11 +126,10 @@ class ArrayList implements \IteratorAggregate {
      * @return bool
      */
     public function removeAll(ArrayList $arrayList): bool {
-        $removed = true;
+        $removed = false;
         foreach ($arrayList as $value) {
-            $removed &= $this->removeByValue($value);
+            $removed |= $this->removeByValue($value);
         }
-        $this->trimToSize();
         return $removed;
     }
 
@@ -179,7 +145,6 @@ class ArrayList implements \IteratorAggregate {
         }
         $key = $this->indexOf($value);
         $removed = $this->remove($key);
-        $this->trimToSize();
         return $removed;
     }
 
@@ -233,6 +198,15 @@ class ArrayList implements \IteratorAggregate {
     }
 
     /**
+     * removes all elements in the array that are null or equal to empty string
+     *
+     * @return bool
+     */
+    public function trimToSize(): bool {
+        return $this->ensureCapacity($this->size());
+    }
+
+    /**
      * removes all fields in the range of $start and $end
      *
      * @param int $start
@@ -247,7 +221,6 @@ class ArrayList implements \IteratorAggregate {
             }
         }
         $this->array = \array_values($this->array);
-        $this->trimToSize();
         return $removed;
     }
 
@@ -266,7 +239,6 @@ class ArrayList implements \IteratorAggregate {
         }
         $result = $this->array !== $newArray;
         $this->array = $newArray;
-        $this->trimToSize();
         return $result;
     }
 
@@ -276,14 +248,14 @@ class ArrayList implements \IteratorAggregate {
      * @param int $index
      * @param     $value
      * @return bool
+     * @throws IndexOutOfBoundsException
      */
     public function set(int $index, $value): bool {
-        if (isset($this->array[$index])) {
-            $this->array[$index] = $value;
-            $this->trimToSize();
-            return true;
+        if ($index < 0 || $index > $this->size()) {
+            throw new IndexOutOfBoundsException();
         }
-        return false;
+        $this->array[$index] = $value;
+        return true;
     }
 
     /**
@@ -301,7 +273,6 @@ class ArrayList implements \IteratorAggregate {
         //TODO preserve keys?
         $array = \array_slice($this->array, $start, $end - $start, true);
         $arrayList->addAllArray($array);
-        $arrayList->trimToSize();
         return $arrayList;
     }
 
@@ -316,8 +287,43 @@ class ArrayList implements \IteratorAggregate {
         foreach ($array as $value) {
             $added &= $this->add($value);
         }
-        $this->trimToSize();
         return $added;
+    }
+
+    /**
+     * adds $item to the end of the array
+     *
+     * @param $item
+     * @return bool
+     */
+    public function add($item): bool {
+        return $this->addToIndex($this->length(), $item);
+    }
+
+    /**
+     * adds $item to the array at the index at $index
+     *
+     * TODO insert or override?
+     *
+     * @param int $index
+     * @param     $item
+     * @return bool
+     */
+    public function addToIndex(int $index, $item): bool {
+        if (\count($this->array) === $this->size()) {
+            $this->ensureCapacity($this->size() * 2 + 1);
+        }
+        $this->array[$index] = $item;
+        $this->size++;
+        return true;
+    }
+
+    public function length(): int {
+        $array = $this->array;
+        $array = \array_filter($array, function ($value, $key) {
+            return $value !== null;
+        }, \ARRAY_FILTER_USE_BOTH);
+        return \count($array);
     }
 
     /**
@@ -327,11 +333,10 @@ class ArrayList implements \IteratorAggregate {
      * @return bool
      */
     public function addAll(ArrayList $arrayList): bool {
-        $added = true;
+        $added = false;
         foreach ($arrayList as $value) {
-            $added &= $this->add($value);
+            $added |= $this->add($value);
         }
-        $this->trimToSize();
         return $added;
     }
 

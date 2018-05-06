@@ -1,6 +1,7 @@
 <?php
 
 
+use doganoo\PHPAlgorithms\Common\Util\Logger;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\StringBuilder;
 
 class StringBuilderTest extends \PHPUnit\Framework\TestCase {
@@ -40,11 +41,8 @@ class StringBuilderTest extends \PHPUnit\Framework\TestCase {
     public function testReverse() {
         $stringBuilder = new StringBuilder();
         $stringBuilder->append("phpalgorithms");
-        $newStringBuilder = $stringBuilder->reverse();
-        $this->assertTrue($newStringBuilder == "smhtiroglaphp");
-
-        $subSequence = $stringBuilder->subSequence(2, 5);
-        $this->assertTrue($subSequence == "pal");
+        $stringBuilder = $stringBuilder->reverse();
+        $this->assertTrue($stringBuilder == "smhtiroglaphp");
     }
 
     public function testDelete() {
