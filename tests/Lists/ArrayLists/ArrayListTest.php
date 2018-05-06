@@ -28,8 +28,8 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
 class ArrayListTest extends \PHPUnit\Framework\TestCase {
     public function testAdd() {
         $arrayList = new ArrayList();
-        $arrayList->add("value");
-        $this->assertTrue($arrayList->size() === 1);
+        $added = $arrayList->add("value");
+        $this->assertTrue($added === true);
         $value = $arrayList->get(0);
         $this->assertTrue($value === "value");
         $arrayList->add("newxtvalue");
@@ -50,14 +50,14 @@ class ArrayListTest extends \PHPUnit\Framework\TestCase {
 
 
         $arrayListTwo = new ArrayList();
-        $arrayListTwo->add("one");
-        $arrayListTwo->add("two");
-        $arrayListTwo->add("three");
-        $arrayListTwo->add("four");
+        $arrayListTwo->add("five");
+        $arrayListTwo->add("six");
+        $arrayListTwo->add("seven");
+        $arrayListTwo->add("eight");
 
         $arrayList->addAll($arrayListTwo);
 
-        $this->assertTrue($arrayList->size() === 8);
+        $this->assertTrue($arrayList->length() === 8);
     }
 
     public function testClear() {
@@ -66,7 +66,6 @@ class ArrayListTest extends \PHPUnit\Framework\TestCase {
         $arrayList->add("two");
         $arrayList->add("three");
         $arrayList->add("four");
-        $this->assertTrue($arrayList->size() === 4);
         $this->assertTrue($arrayList->isEmpty() !== true);
         $arrayList->clear();
         $this->assertTrue($arrayList->size() === 0);
@@ -79,9 +78,9 @@ class ArrayListTest extends \PHPUnit\Framework\TestCase {
         $arrayList->add("two");
         $arrayList->add("three");
         $arrayList->add("four");
-
         $removed = $arrayList->removeAll($arrayList);
-        $this->assertTrue($arrayList->isEmpty() === true && $removed === true);
+        $this->assertTrue($arrayList->isEmpty() === true);
+        $this->assertTrue($removed === true);
     }
 
     public function testRemoveByValue() {
@@ -93,7 +92,7 @@ class ArrayListTest extends \PHPUnit\Framework\TestCase {
 
         $removed = $arrayList->removeByValue("one");
         $this->assertTrue($arrayList->containsValue("two"));
-        $this->assertTrue($arrayList->size() === 3);
+        $this->assertTrue($arrayList->length() === 3);
         $this->assertTrue($removed);
     }
 
@@ -130,7 +129,7 @@ class ArrayListTest extends \PHPUnit\Framework\TestCase {
             && $arrayList->containsValue("two") === false
             && $arrayList->containsValue("three") === false
             && $arrayList->containsValue("four") === true
-            && $arrayList->size() === 2
+            && $arrayList->length() === 2
         );
     }
 

@@ -25,6 +25,10 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists;
 
+use doganoo\PHPAlgorithms\Common\Util\Logger;
+use doganoo\PHPAlgorithms\Datastructure\StackQueue\Queue;
+use doganoo\PHPAlgorithms\Datastructure\StackQueue\Stack;
+
 /**
  * Class StringBuilder
  *
@@ -75,6 +79,7 @@ class StringBuilder {
      *
      * @param int $index
      * @return mixed
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
      */
     public function charAt(int $index) {
         return $this->arrayList->get($index);
@@ -114,7 +119,6 @@ class StringBuilder {
      *
      * @param int    $index
      * @param string $string
-     * @throws \doganoo\PHPAlgorithms\common\Exception\IndexOutOfBoundsException
      */
     public function insert(int $index, string $string) {
         if (\strlen($string) > 1) {
@@ -129,7 +133,7 @@ class StringBuilder {
      * @return int
      */
     public function length() {
-        return $this->arrayList->size();
+        return $this->arrayList->length();
     }
 
     /**
@@ -152,12 +156,25 @@ class StringBuilder {
     private function arrayListToStringBuilder(ArrayList $arrayList, bool $reverse = false) {
         $stringBuilder = new StringBuilder();
         if ($reverse) {
-            for ($i = $arrayList->size() - 1; $i >= 0; $i--) {
-                $stringBuilder->append($arrayList->get($i));
+            $stack = new Stack();
+            foreach ($arrayList as $item) {
+                if (null !== $item) {
+                    $stack->push($item);
+                }
+            }
+            while (!$stack->isEmpty()) {
+                $stringBuilder->append($stack->peek());
             }
         } else {
-            for ($i = 0; $i < $arrayList->size(); $i++) {
-                $stringBuilder->append($arrayList->get($i));
+            $queue = new Queue();
+            foreach ($arrayList as $item) {
+                if (null !== $item) {
+                    $queue->enqueue($item);
+                }
+
+            }
+            while (!$queue->isEmpty()) {
+                $stringBuilder->append($queue->dequeue());
             }
         }
         return $stringBuilder;
