@@ -25,6 +25,8 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\StackQueue;
 
+use doganoo\PHPAlgorithms\Common\Util\Logger;
+
 
 /**
  * PHP implementation of a stack.
@@ -96,6 +98,7 @@ class Stack {
         if ($this->stackSize() == 0) {
             return null;
         }
+
         $value = $this->stack[$this->stackSize() - 1];
         $this->pop();
         return $value;
