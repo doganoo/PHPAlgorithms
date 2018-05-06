@@ -31,9 +31,16 @@ namespace doganoo\PHPAlgorithms\datastructure\trie;
  * @package doganoo\PHPAlgorithms\datastructure\trie
  */
 class RootNode extends Node {
+    /**
+     * @const ROOT_NODE
+     */
+    public const ROOT_NODE = "ROOT_NODE";
 
+    /**
+     * RootNode constructor.
+     */
     public function __construct() {
         parent::__construct();
-        $this->setValue("root node");
+        $this->setValue(self::ROOT_NODE);
     }
 }

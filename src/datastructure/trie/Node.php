@@ -26,8 +26,6 @@
 namespace doganoo\PHPAlgorithms\datastructure\trie;
 
 
-use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
-
 /**
  * Class Node
  *
@@ -41,7 +39,7 @@ class Node {
      * Node constructor.
      */
     public function __construct() {
-        $this->children = new ArrayList();
+        $this->children = [];
     }
 
     /**
@@ -59,13 +57,23 @@ class Node {
     }
 
     public function getChildNode(int $position): ?Node {
-        return $this->children->get($position);
+        if (isset($this->children[$position])) {
+            return $this->children[$position];
+        }
+        return null;
     }
 
-    public function createChildNode(int $position): bool {
+    public function createChildNode(int $position) {
         $node = new Node();
         $node->setValue($position);
-        $set = $this->children->addToIndex($position, $node);
-        return $set;
+        $this->children[$position] = $node;
+    }
+
+    public function createEndOfWordNode() {
+        $this->children[] = new EndOfWordNode();
+    }
+
+    public function isEndOfNode() {
+        return $this->children[0] instanceof EndOfWordNode;
     }
 }

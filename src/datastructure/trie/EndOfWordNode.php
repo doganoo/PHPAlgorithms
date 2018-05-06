@@ -25,10 +25,22 @@
 
 namespace doganoo\PHPAlgorithms\datastructure\trie;
 
-
+/**
+ * Class EndOfWordNode
+ *
+ * @package doganoo\PHPAlgorithms\datastructure\trie
+ */
 class EndOfWordNode extends Node {
+    /**
+     * @const END_OF_WORD
+     */
+    public const END_OF_WORD = "END_OF_WORD";
+
+    /**
+     * EndOfWordNode constructor.
+     */
     public function __construct() {
         parent::__construct();
-        parent::setValue("end of word");
+        parent::setValue(self::END_OF_WORD);
     }
 }
