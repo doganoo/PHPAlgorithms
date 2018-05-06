@@ -27,7 +27,6 @@ namespace doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists;
 
 
 use doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException;
-use doganoo\PHPAlgorithms\Common\Util\Logger;
 use Traversable;
 
 /**
@@ -40,6 +39,8 @@ use Traversable;
  * array indices (numeric), trimming the fields and others.
  *
  * TODO actually this class can not handle negative indices (keys). Need to fix that.
+ *
+ * see here: https://gist.github.com/wwsun/71ebbaded68930884746
  *
  * @package doganoo\PHPAlgorithms\Lists\ArrayLists
  */
@@ -117,6 +118,14 @@ class ArrayList implements \IteratorAggregate {
      */
     public function isEmpty(): bool {
         return $this->length() === 0 || $this->array === null;
+    }
+
+    public function length(): int {
+        $array = $this->array;
+        $array = \array_filter($array, function ($value, $key) {
+            return $value !== null;
+        }, \ARRAY_FILTER_USE_BOTH);
+        return \count($array);
     }
 
     /**
@@ -316,14 +325,6 @@ class ArrayList implements \IteratorAggregate {
         $this->array[$index] = $item;
         $this->size++;
         return true;
-    }
-
-    public function length(): int {
-        $array = $this->array;
-        $array = \array_filter($array, function ($value, $key) {
-            return $value !== null;
-        }, \ARRAY_FILTER_USE_BOTH);
-        return \count($array);
     }
 
     /**
