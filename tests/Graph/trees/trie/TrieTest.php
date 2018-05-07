@@ -23,24 +23,20 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\datastructure\trie;
-
 /**
- * Class RootNode
- *
- * @package doganoo\PHPAlgorithms\datastructure\trie
+ * Class TrieTest
  */
-class RootNode extends Node {
+class TrieTest extends \PHPUnit\Framework\TestCase {
     /**
-     * @const ROOT_NODE
+     * tests inserting and searching
      */
-    public const ROOT_NODE = "ROOT_NODE";
-
-    /**
-     * RootNode constructor.
-     */
-    public function __construct() {
-        parent::__construct();
-        $this->setValue(self::ROOT_NODE);
+    public function testAdd() {
+        $trie = new \doganoo\PHPAlgorithms\datastructure\Graph\Tree\Trie\Trie();
+        $trie->insert("Test");
+        $found = $trie->search("Test");
+        $this->assertTrue($found === true);
+        $found = $trie->search("Te", true);
+        $this->assertTrue($found === true);
     }
+
 }

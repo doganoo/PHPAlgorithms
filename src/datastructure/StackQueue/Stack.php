@@ -25,8 +25,6 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\StackQueue;
 
-use doganoo\PHPAlgorithms\Common\Util\Logger;
-
 
 /**
  * PHP implementation of a stack.

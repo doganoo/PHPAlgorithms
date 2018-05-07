@@ -23,26 +23,40 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\datastructure\trees\BinaryTree;
+namespace doganoo\PHPAlgorithms\datastructure\Graph\Tree\BinaryTree;
 
 use doganoo\PHPAlgorithms\common\interfaces\IBinaryNode;
 
 /**
- * Class Node
+ * Class BinarySearchNode
  *
- * @package doganoo\PHPAlgorithms\datastructure\trees\BinaryTree
+ * @package doganoo\PHPAlgorithms\datastructure\Graph\Tree\BinaryTree
  */
-class BinaryNode implements IBinaryNode {
-    private $value = PHP_INT_MIN;
+class BinarySearchNode implements IBinaryNode {
+    private $value;
     private $left = null;
     private $right = null;
 
     /**
-     * Node constructor.
+     * BinarySearchNode constructor.
      *
-     * @param $value
+     * @param int $value
      */
-    public function __construct($value) {
+    public function __construct(int $value) {
+        $this->value = $value;
+    }
+
+    /**
+     * @return int
+     */
+    public function getValue(): int {
+        return $this->value;
+    }
+
+    /**
+     * @param int $value
+     */
+    public function setValue(int $value): void {
         $this->value = $value;
     }
 
@@ -72,19 +86,5 @@ class BinaryNode implements IBinaryNode {
      */
     public function setRight(?IBinaryNode $right): void {
         $this->right = $right;
-    }
-
-    /**
-     * @return int
-     */
-    public function getValue(): int {
-        return $this->value;
-    }
-
-    /**
-     * @param int $value
-     */
-    public function setValue(int $value): void {
-        $this->value = $value;
     }
 }

@@ -26,29 +26,27 @@
 use doganoo\PHPAlgorithms\Algorithm\Traversal\InOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PostOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PreOrder;
-use doganoo\PHPAlgorithms\datastructure\trees\BinarySearchTree;
+use doganoo\PHPAlgorithms\datastructure\Graph\Tree\BinaryTree;
 
-/**
- * Class BinaryTreeTest
- */
-class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase {
+
+class BinaryTreeTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * tests addition and height
      */
     public function testAdd() {
-        /** @var BinarySearchTree $bst */
-        $bst = \TreeUtil::getBinarySearchTree();
+        /** @var BinaryTree $bst */
+        $bst = TreeUtil::getBinaryTree();
         $node = $bst->search(1);
         $this->assertTrue($node !== null);
-        $this->assertTrue($bst->height() === 3);
     }
 
     /**
      * tests in order traversal
      */
     public function testInOrder() {
-        $bst = \TreeUtil::getBinarySearchTree();
+        /** @var BinaryTree $bst */
+        $bst = TreeUtil::getBinaryTree();
         $array = [];
         $traversal = new InOrder($bst);
         $traversal->setCallable(function ($value) use (&$array) {
@@ -62,7 +60,8 @@ class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase {
      * tests pre order traversal
      */
     public function testPreOrder() {
-        $bst = \TreeUtil::getBinarySearchTree();
+        /** @var BinaryTree $bst */
+        $bst = TreeUtil::getBinaryTree();
         $array = [];
         $traversal = new PreOrder($bst);
         $traversal->setCallable(function ($value) use (&$array) {
@@ -76,7 +75,8 @@ class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase {
      * tests post order traversal
      */
     public function testPostOrder() {
-        $bst = \TreeUtil::getBinarySearchTree();
+        /** @var BinaryTree $bst */
+        $bst = TreeUtil::getBinaryTree();
         $array = [];
         $traversal = new PostOrder($bst);
         $traversal->setCallable(function ($value) use (&$array) {

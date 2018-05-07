@@ -24,7 +24,7 @@
  */
 
 
-namespace doganoo\PHPAlgorithms\datastructure\trie;
+namespace doganoo\PHPAlgorithms\datastructure\Graph\Tree\Trie;
 
 /**
  * Class Trie

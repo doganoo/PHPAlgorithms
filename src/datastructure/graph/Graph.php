@@ -24,21 +24,16 @@
  */
 
 namespace doganoo\PHPAlgorithms\Graph;
-
-class Graph
-{
+/**
+ * Class Graph
+ *
+ * @package doganoo\PHPAlgorithms\Graph
+ */
+class Graph {
+    /** @var array */
     private $nodes = [];
 
-    private function getNode($id)
-    {
-        if (array_key_exists($id, $this->nodes)) {
-            return $this->nodes[$id];
-        }
-        return null;
-    }
-
-    public function addEdge(int $source, int $destination)
-    {
+    public function addEdge(int $source, int $destination) {
         $sourceNode = $this->getNode($source);
         if ($sourceNode == null) {
             $sourceNode = new Node($source);
@@ -53,8 +48,14 @@ class Graph
         $this->nodes[$destination] = $destinationNode;
     }
 
-    public function hasDfs(int $source, int $destination)
-    {
+    private function getNode($id) {
+        if (array_key_exists($id, $this->nodes)) {
+            return $this->nodes[$id];
+        }
+        return null;
+    }
+
+    public function hasDfs(int $source, int $destination) {
         $sourceNode = $this->getNode($source);
         $destinationNode = $this->getNode($destination);
         if ($destinationNode == null) {
@@ -66,8 +67,7 @@ class Graph
         return $this->hasDfsInternal($sourceNode, $destinationNode, []);
     }
 
-    private function hasDfsInternal(Node $source, Node $destination, array $visited)
-    {
+    private function hasDfsInternal(Node $source, Node $destination, array $visited) {
         if (in_array($source->getValue(), $visited)) {
             return false;
         }
@@ -85,8 +85,7 @@ class Graph
         return false;
     }
 
-    public function hasBfs(int $s, int $d)
-    {
+    public function hasBfs(int $s, int $d) {
         $source = $this->getNode($s);
         $destination = $this->getNode($d);
         $nextToVisit = [];

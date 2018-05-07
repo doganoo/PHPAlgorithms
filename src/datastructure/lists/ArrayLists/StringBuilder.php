@@ -25,7 +25,6 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists;
 
-use doganoo\PHPAlgorithms\Common\Util\Logger;
 use doganoo\PHPAlgorithms\Datastructure\StackQueue\Queue;
 use doganoo\PHPAlgorithms\Datastructure\StackQueue\Stack;
 

@@ -24,33 +24,32 @@
  */
 
 namespace doganoo\PHPAlgorithms\Graph;
-class Node
-{
+/**
+ * Class Node
+ *
+ * @package doganoo\PHPAlgorithms\Graph
+ */
+class Node {
     private $value = 0;
     private $adjacent = [];
 
-    public function __construct(int $value)
-    {
+    public function __construct(int $value) {
         $this->value = $value;
     }
 
-    public function addAdjacent(Node $node)
-    {
+    public function addAdjacent(Node $node) {
         $this->adjacent[] = $node;
     }
 
-    public function getValue()
-    {
+    public function getValue() {
         return $this->value;
     }
 
-    public function getAdjacents()
-    {
+    public function getAdjacents() {
         return $this->adjacent;
     }
 
-    public function __toString()
-    {
+    public function __toString() {
         return "" . $this->value;
     }
 }

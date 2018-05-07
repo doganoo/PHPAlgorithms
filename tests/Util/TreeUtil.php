@@ -24,8 +24,8 @@
  */
 
 
-use doganoo\PHPAlgorithms\datastructure\trees\BinarySearchTree;
-use doganoo\PHPAlgorithms\datastructure\trees\BinaryTree;
+use doganoo\PHPAlgorithms\datastructure\Graph\Tree\BinarySearchTree;
+use doganoo\PHPAlgorithms\datastructure\Graph\Tree\BinaryTree;
 
 /**
  * Class TreeUtil

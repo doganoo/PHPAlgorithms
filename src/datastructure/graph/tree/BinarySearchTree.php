@@ -23,17 +23,17 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\datastructure\trees;
+namespace doganoo\PHPAlgorithms\datastructure\Graph\Tree;
 
 
 use doganoo\PHPAlgorithms\common\interfaces\IBinaryNode;
 use doganoo\PHPAlgorithms\common\interfaces\IBinaryTree;
-use doganoo\PHPAlgorithms\datastructure\trees\BinaryTree\BinarySearchNode;
+use doganoo\PHPAlgorithms\datastructure\Graph\Tree\BinaryTree\BinarySearchNode;
 
 /**
  * Class BinarySearchTree
  *
- * @package doganoo\PHPAlgorithms\datastructure\trees
+ * @package doganoo\PHPAlgorithms\datastructure\Graph\Tree
  */
 class BinarySearchTree implements IBinaryTree {
     /** @var BinarySearchNode|null */

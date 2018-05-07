@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Trees\Tree;
+namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Tree;
 
 
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
@@ -31,7 +31,7 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
 /**
  * Class Node
  *
- * @package doganoo\PHPAlgorithms\Trees\Tree
+ * @package doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Tree
  */
 class Node {
     private $value = null;
