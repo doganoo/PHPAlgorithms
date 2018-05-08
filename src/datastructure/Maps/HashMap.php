@@ -25,8 +25,8 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Maps;
 
+use doganoo\PHPAlgorithms\Common\Abstracts\LinkedList;
 use doganoo\PHPAlgorithms\Common\Util\MapUtil;
-use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists\LinkedList;
 use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists\SinglyLinkedList;
 use doganoo\PHPAlgorithms\Datastructure\lists\Node;
 

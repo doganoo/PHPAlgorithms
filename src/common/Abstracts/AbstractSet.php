@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar
+ * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,26 +23,46 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Trees\Search;
+namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
 
-class BinarySearch
-{
-    public function search(array $array, int $needle, int $low, int $high)
-    {
-        if ($low > $high) {
-            return -1;
-        }
+use doganoo\PHPAlgorithms\common\Interfaces\Set;
 
-        $mid = floor(($low + $high) / 2);
-
-        if ($array[$mid] < $needle) {
-            $this->search($array, $needle, $mid + 1, $high);
-        } else if ($array[$mid] > $needle) {
-            $this->search($array, $needle, $low, $mid - 1);
-        } else {
-            return $mid;
-        }
-
+/**
+ * Class AbstractSet
+ *
+ * @package doganoo\PHPAlgorithms\Common\Abstracts
+ */
+abstract class AbstractSet implements Set {
+    /**
+     * Compares the specified object with this set for equality.
+     *
+     * @param $object
+     * @return bool
+     */
+    public function equals($object): bool {
+        return $this === $object;
     }
+
+    /**
+     * Returns the hash code value for this set.
+     *
+     * @return int
+     */
+    public function hashCode(): int {
+        return \crc32(\spl_object_hash($this));
+    }
+
+    /**
+     * Removes from this set all of its elements that are contained in the specified collection (optional operation).
+     *
+     * @param $elements
+     * @return bool
+     */
+    public function removeAll($elements): bool {
+        foreach ($elements as $element) {
+            $this->remove($element);
+        }
+    }
+
 }

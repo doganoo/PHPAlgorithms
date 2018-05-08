@@ -24,7 +24,6 @@
  */
 
 namespace doganoo\PHPAlgorithms\Common\Exception;
-
 /**
  * Class InvalidKeyTypeException
  *

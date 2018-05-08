@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\datastructure\graph\tree\Heap;
+namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Heap;
 
 use doganoo\PHPAlgorithms\Common\Util\Logger;
 

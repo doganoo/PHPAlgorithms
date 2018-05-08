@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
+ * Copyright (c) 2018 Dogan Ucar
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,30 +23,50 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Common;
+namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
 
-use doganoo\PHPAlgorithms\Common\Util\MapUtil;
+use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
+use doganoo\PHPAlgorithms\Common\Util\Logger;
 
-class NodeValue {
-    private $value = null;
+/**
+ * Class AbstractTraverse
+ *
+ * @package doganoo\PHPAlgorithms\common\abstracts
+ */
+abstract class AbstractTraverse {
+    /** @var $callable callable|null */
+    protected $callable = null;
 
     /**
-     * NodeValue constructor.
-     *
-     * @param $value
-     * @throws Exception\InvalidKeyTypeException
-     * @throws Exception\UnsupportedKeyTypeException
+     * @return mixed
      */
-    public function __construct($value) {
-        $this->value = MapUtil::normalizeValue($value);
+    public abstract function traverse();
+
+    /**
+     * @param IBinaryNode|null $node
+     * @return mixed
+     */
+    public abstract function _traverse(?IBinaryNode $node);
+
+    /**
+     * @param $value
+     */
+    public function visit($value) {
+        $callable = $this->callable;
+        if (null === $this->callable) {
+            $callable = function ($otherValue) {
+                Logger::debug($otherValue);
+            };
+        }
+        $callable($value);
     }
 
-    public function equals(NodeValue $value): bool {
-        return $this->value === $value->get();
+    /**
+     * @param callable $callable
+     */
+    public function setCallable(callable $callable) {
+        $this->callable = $callable;
     }
 
-    public function get(): string {
-        return $this->value;
-    }
 }

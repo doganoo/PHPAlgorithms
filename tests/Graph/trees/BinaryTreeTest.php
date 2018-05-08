@@ -42,7 +42,7 @@ class BinaryTreeTest extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * tests in order traversal
+     * tests in order Traversal
      */
     public function testInOrder() {
         /** @var BinaryTree $bst */
@@ -57,7 +57,7 @@ class BinaryTreeTest extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * tests pre order traversal
+     * tests pre order Traversal
      */
     public function testPreOrder() {
         /** @var BinaryTree $bst */
@@ -72,7 +72,7 @@ class BinaryTreeTest extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * tests post order traversal
+     * tests post order Traversal
      */
     public function testPostOrder() {
         /** @var BinaryTree $bst */

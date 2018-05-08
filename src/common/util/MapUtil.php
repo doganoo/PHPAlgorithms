@@ -137,7 +137,7 @@ class MapUtil {
      * @param float $double
      * @return int
      */
-    public static function doubleToKey(double $double): int {
+    public static function doubleToKey(float $double): int {
         return \ceil($double);
     }
 
@@ -165,7 +165,6 @@ class MapUtil {
      *
      * @param $value
      * @return string
-     * @throws InvalidKeyTypeException
      * @throws UnsupportedKeyTypeException
      */
     public static function normalizeValue($value): string {

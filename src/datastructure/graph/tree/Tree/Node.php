@@ -34,7 +34,13 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
  * @package doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Tree
  */
 class Node {
+    /**
+     * @var null
+     */
     private $value = null;
+    /**
+     * @var ArrayList|null
+     */
     private $children = null;
 
     /**

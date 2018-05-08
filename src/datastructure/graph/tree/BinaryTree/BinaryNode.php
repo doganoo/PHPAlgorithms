@@ -23,9 +23,9 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\datastructure\Graph\Tree\BinaryTree;
+namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree;
 
-use doganoo\PHPAlgorithms\common\interfaces\IBinaryNode;
+use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
 
 /**
  * Class BinaryNode

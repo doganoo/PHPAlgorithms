@@ -23,12 +23,12 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\datastructure\Graph\Tree;
+namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree;
 
 use doganoo\PHPAlgorithms\Algorithm\Traversal\InOrder;
-use doganoo\PHPAlgorithms\common\interfaces\IBinaryNode;
-use doganoo\PHPAlgorithms\common\interfaces\IBinaryTree;
-use doganoo\PHPAlgorithms\datastructure\Graph\Tree\BinaryTree\BinaryNode;
+use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
+use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryTree;
+use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree\BinaryNode;
 
 /**
  * Class BinaryTree

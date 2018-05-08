@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists;
+namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
 use doganoo\PHPAlgorithms\Datastructure\lists\Node;
 

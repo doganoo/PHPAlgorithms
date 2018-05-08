@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Datastructure\lists;
+namespace doganoo\PHPAlgorithms\Datastructure\Lists;
 
 
 /**

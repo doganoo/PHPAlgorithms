@@ -25,10 +25,9 @@
 
 namespace doganoo\PHPAlgorithms\Algorithm\Traversal;
 
-use doganoo\PHPAlgorithms\common\abstracts\AbstractTraverse;
-use doganoo\PHPAlgorithms\common\interfaces\IBinaryNode;
-use doganoo\PHPAlgorithms\common\interfaces\IBinaryTree;
-use doganoo\PHPAlgorithms\datastructure\trees\BinarySearchTree;
+use doganoo\PHPAlgorithms\Common\Abstracts\AbstractTraverse;
+use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
+use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryTree;
 
 /**
  * Class PreOrder
@@ -36,7 +35,7 @@ use doganoo\PHPAlgorithms\datastructure\trees\BinarySearchTree;
  * @package doganoo\PHPAlgorithms\Algorithm\Traversal
  */
 class PreOrder extends AbstractTraverse {
-    /** @var BinarySearchTree|null */
+    /** @var IBinaryTree|null */
     private $tree = null;
 
     /**

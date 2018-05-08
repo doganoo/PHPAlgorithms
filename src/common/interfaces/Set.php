@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\common\interfaces;
+namespace doganoo\PHPAlgorithms\Common\Interfaces;
 
 /**
  * Interface Set

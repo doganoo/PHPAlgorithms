@@ -23,8 +23,7 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\common\Exception;
-
+namespace doganoo\PHPAlgorithms\Common\Exception;
 /**
  * Class UnsupportedKeyTypeException
  *

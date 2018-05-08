@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists;
 
 
+use doganoo\PHPAlgorithms\Common\Abstracts\LinkedList;
 use doganoo\PHPAlgorithms\Datastructure\lists\Node;
 
 /**

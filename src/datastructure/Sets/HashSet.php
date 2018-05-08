@@ -23,10 +23,10 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\datastructure\Sets;
+namespace doganoo\PHPAlgorithms\Datastructure\Sets;
 
 
-use doganoo\PHPAlgorithms\common\abstracts\AbstractSet;
+use doganoo\PHPAlgorithms\common\Abstracts\AbstractSet;
 use doganoo\PHPAlgorithms\common\interfaces\Set;
 use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
 
