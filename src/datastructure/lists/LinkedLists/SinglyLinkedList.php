@@ -26,7 +26,7 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists;
 
 
-use doganoo\PHPAlgorithms\Common\Abstracts\LinkedList;
+use doganoo\PHPAlgorithms\Common\Abstracts\AbstractLinkedList;
 use doganoo\PHPAlgorithms\Datastructure\lists\Node;
 
 /**
@@ -34,7 +34,7 @@ use doganoo\PHPAlgorithms\Datastructure\lists\Node;
  *
  * @package doganoo\PHPAlgorithms\LinkedLists
  */
-class SinglyLinkedList extends LinkedList {
+class SinglyLinkedList extends AbstractLinkedList {
     /**
      * $node is added to the end of the list.
      * The method checks the following:
@@ -87,9 +87,9 @@ class SinglyLinkedList extends LinkedList {
     /**
      * returns a new instance of SinglyLinkedList
      *
-     * @return LinkedList
+     * @return AbstractLinkedList
      */
-    protected function getEmptyInstance(): LinkedList {
+    protected function getEmptyInstance(): AbstractLinkedList {
         return new SinglyLinkedList();
     }
 }

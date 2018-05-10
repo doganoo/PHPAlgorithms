@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar
+ * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,50 +23,23 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Common\Abstracts;
+namespace doganoo\PHPAlgorithms\Datastructure\Graph\Graph;
 
-
-use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
-use doganoo\PHPUtil\Log\Logger;
+use doganoo\PHPAlgorithms\common\abstracts\AbstractGraph;
 
 /**
- * Class AbstractTraverse
+ * Class UndirectedGraph
  *
- * @package doganoo\PHPAlgorithms\common\abstracts
+ * @package doganoo\PHPAlgorithms\datastructure\graph\graph
  */
-abstract class AbstractTraverse {
-    /** @var $callable callable|null */
-    protected $callable = null;
+class UndirectedGraph extends AbstractGraph {
 
     /**
-     * @return mixed
+     * UndirectedGraph constructor.
+     *
+     * @throws \doganoo\PHPAlgorithms\common\exception\InvalidGraphTypeException
      */
-    public abstract function traverse();
-
-    /**
-     * @param IBinaryNode|null $node
-     * @return mixed
-     */
-    public abstract function _traverse(?IBinaryNode $node);
-
-    /**
-     * @param $value
-     */
-    public function visit($value) {
-        $callable = $this->callable;
-        if (null === $this->callable) {
-            $callable = function ($otherValue) {
-                Logger::debug($otherValue);
-            };
-        }
-        $callable($value);
+    public function __construct() {
+        parent::__construct(parent::UNDIRECTED_GRAPH);
     }
-
-    /**
-     * @param callable $callable
-     */
-    public function setCallable(callable $callable) {
-        $this->callable = $callable;
-    }
-
 }

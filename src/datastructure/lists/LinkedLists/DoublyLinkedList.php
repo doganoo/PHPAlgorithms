@@ -26,7 +26,7 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists;
 
 
-use doganoo\PHPAlgorithms\Common\Abstracts\LinkedList;
+use doganoo\PHPAlgorithms\Common\Abstracts\AbstractLinkedList;
 use doganoo\PHPAlgorithms\Datastructure\lists\Node;
 
 /**
@@ -34,7 +34,7 @@ use doganoo\PHPAlgorithms\Datastructure\lists\Node;
  *
  * @package doganoo\PHPAlgorithms\LinkedLists
  */
-class DoublyLinkedList extends LinkedList {
+class DoublyLinkedList extends AbstractLinkedList {
     public function append(?Node $node): bool {
         if ($node === null) {
             return false;
@@ -102,9 +102,9 @@ class DoublyLinkedList extends LinkedList {
     /**
      * returns a new instance of DoublyLinkedList
      *
-     * @return LinkedList
+     * @return AbstractLinkedList
      */
-    protected function getEmptyInstance(): LinkedList {
+    protected function getEmptyInstance(): AbstractLinkedList {
         return new DoublyLinkedList();
     }
 }

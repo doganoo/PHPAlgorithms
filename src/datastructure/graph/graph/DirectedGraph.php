@@ -23,33 +23,23 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Graph;
+namespace doganoo\PHPAlgorithms\Datastructure\Graph\Graph;
+
+use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraph;
+
 /**
- * Class Node
+ * Class Graph
  *
  * @package doganoo\PHPAlgorithms\Graph
  */
-class Node {
-    private $value = 0;
-    private $adjacent = [];
+class DirectedGraph extends AbstractGraph {
 
-    public function __construct(int $value) {
-        $this->value = $value;
-    }
-
-    public function addAdjacent(Node $node) {
-        $this->adjacent[] = $node;
-    }
-
-    public function getValue() {
-        return $this->value;
-    }
-
-    public function getAdjacents() {
-        return $this->adjacent;
-    }
-
-    public function __toString() {
-        return "" . $this->value;
+    /**
+     * DirectedGraph constructor.
+     *
+     * @throws \doganoo\PHPAlgorithms\common\exception\InvalidGraphTypeException
+     */
+    public function __construct() {
+        parent::__construct(self::DIRECTED_GRAPH);
     }
 }

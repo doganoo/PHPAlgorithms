@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
+ * Copyright (c) 2018 Dogan Ucar
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,44 +23,28 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Common\Util;
+namespace doganoo\PHPAlgorithms\Datastructure\Graph\Graph;
 
 /**
- * Class Logger
+ * Class Node
  *
- * @package doganoo\PHPAlgorithms\Util
+ * @package doganoo\PHPAlgorithms\Graph
  */
-class Logger {
-    private static $level = 0;
+class Node {
+    private $value;
+    private $children;
 
-    /**
-     * Logger constructor prevents class instantiation
-     */
-    private function __construct() {
+    public function __construct($value) {
+        $this->value = $value;
+        $this->children = [];
     }
 
-    /**
-     * logs a message with log level DEBUG
-     *
-     * @param $message
-     */
-    public static function debug($message) {
-        self::log($message, 1);
+    public function addChild(Node $child) {
+        $this->children[] = $child;
     }
 
-    /**
-     * logs a message to the console
-     *
-     * @param string $message
-     * @param int    $level
-     */
-    private static function log(string $message, int $level) {
-        if ($level >= self::$level) {
-            echo (new \DateTime())->format("Y-m-d H:i:s");
-            echo " : ";
-            echo $message;
-            echo "\n";
-        }
+    public function getValue() {
+        return $this->value;
     }
 
 }

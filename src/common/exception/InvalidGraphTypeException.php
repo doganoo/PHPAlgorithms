@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar
+ * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,50 +23,12 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Common\Abstracts;
-
-
-use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
-use doganoo\PHPUtil\Log\Logger;
-
+namespace doganoo\PHPAlgorithms\common\exception;
 /**
- * Class AbstractTraverse
+ * Class InvalidGraphTypeException
  *
- * @package doganoo\PHPAlgorithms\common\abstracts
+ * @package doganoo\PHPAlgorithms\common\exception
  */
-abstract class AbstractTraverse {
-    /** @var $callable callable|null */
-    protected $callable = null;
-
-    /**
-     * @return mixed
-     */
-    public abstract function traverse();
-
-    /**
-     * @param IBinaryNode|null $node
-     * @return mixed
-     */
-    public abstract function _traverse(?IBinaryNode $node);
-
-    /**
-     * @param $value
-     */
-    public function visit($value) {
-        $callable = $this->callable;
-        if (null === $this->callable) {
-            $callable = function ($otherValue) {
-                Logger::debug($otherValue);
-            };
-        }
-        $callable($value);
-    }
-
-    /**
-     * @param callable $callable
-     */
-    public function setCallable(callable $callable) {
-        $this->callable = $callable;
-    }
+class InvalidGraphTypeException extends \Exception {
 
 }
