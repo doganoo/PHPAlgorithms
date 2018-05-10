@@ -156,7 +156,19 @@ class ArrayListTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($subList->get(0) === "two");
         $this->assertTrue($subList->get(1) === "three");
         $this->assertTrue($arrayList->size() === 4);
+    }
 
+    public function testIterator() {
+        $arrayList = new ArrayList();
+        $arrayList->add("one");
+        $arrayList->add("two");
+        $arrayList->add("three");
+        $i = 0;
+        foreach ($arrayList as $key => $value) {
+            $value = $value;
+            $i++;
+        }
+        $this->assertTrue($i === $arrayList->length());
     }
 
 }

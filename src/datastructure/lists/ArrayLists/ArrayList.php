@@ -344,12 +344,17 @@ class ArrayList implements \IteratorAggregate {
     /**
      * Retrieve an external iterator
      *
+     * It is not ensured that all fields of the array list is filled with
+     * valid values. Therefore, it has to be ensured that the iterator gets only
+     * those values which are added by the user to the list.
+     *
      * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
      * @return Traversable An instance of an object implementing <b>Iterator</b> or
      * <b>Traversable</b>
      * @since 5.0.0
      */
     public function getIterator() {
-        return new \ArrayIterator($this->array);
+        $array = \array_slice($this->array, 0, $this->length(), true);
+        return new \ArrayIterator($array);
     }
 }
