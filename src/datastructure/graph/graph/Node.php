@@ -23,50 +23,36 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Common\Abstracts;
-
-
-use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
-use doganoo\PHPUtil\Log\Logger;
+namespace doganoo\PHPAlgorithms\Datastructure\Graph\Graph;
 
 /**
- * Class AbstractTraverse
+ * Class Node
  *
- * @package doganoo\PHPAlgorithms\common\abstracts
+ * @package doganoo\PHPAlgorithms\Graph
  */
-abstract class AbstractTraverse {
-    /** @var $callable callable|null */
-    protected $callable = null;
+class Node {
+    private $value;
+    private $children;
 
-    /**
-     * @return mixed
-     */
-    public abstract function traverse();
-
-    /**
-     * @param IBinaryNode|null $node
-     * @return mixed
-     */
-    public abstract function _traverse(?IBinaryNode $node);
-
-    /**
-     * @param $value
-     */
-    public function visit($value) {
-        $callable = $this->callable;
-        if (null === $this->callable) {
-            $callable = function ($otherValue) {
-                Logger::debug($otherValue);
-            };
-        }
-        $callable($value);
+    public function __construct($value) {
+        $this->value = $value;
+        $this->children = [];
     }
 
-    /**
-     * @param callable $callable
-     */
-    public function setCallable(callable $callable) {
-        $this->callable = $callable;
+    public function addChild(Node $child) {
+        $this->children[$child->getValue()] = $child;
+    }
+
+    public function getValue() {
+        return $this->value;
+    }
+
+    public function hasChild(Node $child): bool {
+        return $this->children[$child->getValue()] !== null;
+    }
+
+    public function getChildren() {
+        return $this->children;
     }
 
 }

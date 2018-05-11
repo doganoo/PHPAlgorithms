@@ -23,44 +23,12 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Common\Util;
-
+namespace doganoo\PHPAlgorithms\common\exception;
 /**
- * Class Logger
+ * Class InvalidGraphTypeException
  *
- * @package doganoo\PHPAlgorithms\Util
+ * @package doganoo\PHPAlgorithms\common\exception
  */
-class Logger {
-    private static $level = 0;
-
-    /**
-     * Logger constructor prevents class instantiation
-     */
-    private function __construct() {
-    }
-
-    /**
-     * logs a message with log level DEBUG
-     *
-     * @param $message
-     */
-    public static function debug($message) {
-        self::log($message, 1);
-    }
-
-    /**
-     * logs a message to the console
-     *
-     * @param string $message
-     * @param int    $level
-     */
-    private static function log(string $message, int $level) {
-        if ($level >= self::$level) {
-            echo (new \DateTime())->format("Y-m-d H:i:s");
-            echo " : ";
-            echo $message;
-            echo "\n";
-        }
-    }
+class InvalidGraphTypeException extends \Exception {
 
 }

@@ -25,7 +25,7 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Maps;
 
-use doganoo\PHPAlgorithms\Common\Abstracts\LinkedList;
+use doganoo\PHPAlgorithms\Common\Abstracts\AbstractLinkedList;
 use doganoo\PHPAlgorithms\Common\Util\MapUtil;
 use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists\SinglyLinkedList;
 use doganoo\PHPAlgorithms\Datastructure\lists\Node;
@@ -177,8 +177,8 @@ class HashMap {
     public function size(): int {
         $size = 0;
         /**
-         * @var string      $hash
-         * @var  LinkedList $list
+         * @var string              $hash
+         * @var  AbstractLinkedList $list
          */
         foreach ($this->bucket as $hash => $list) {
             $size += $list->size();

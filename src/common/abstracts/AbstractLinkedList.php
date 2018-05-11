@@ -35,7 +35,7 @@ use doganoo\PHPAlgorithms\Datastructure\lists\Node;
  *
  * @package doganoo\PHPAlgorithms\LinkedLists
  */
-abstract class LinkedList {
+abstract class AbstractLinkedList {
     /** @var \doganoo\PHPAlgorithms\Datastructure\lists\Node */
     private $head = null;
 
@@ -168,10 +168,10 @@ abstract class LinkedList {
      *          6.  return the list.
      *
      * @param int $number
-     * @return LinkedList|null
+     * @return AbstractLinkedList|null
      *
      */
-    public function getLastElements(int $number): LinkedList {
+    public function getLastElements(int $number): AbstractLinkedList {
         $p1 = $this->getHead();
         $p2 = $this->getHead();
         $number = $number > $this->head->size() ? $this->head->size() : $number;
@@ -199,9 +199,9 @@ abstract class LinkedList {
     /**
      * abstract method that requires inheritors to return their type
      *
-     * @return LinkedList
+     * @return AbstractLinkedList
      */
-    protected abstract function getEmptyInstance(): LinkedList;
+    protected abstract function getEmptyInstance(): AbstractLinkedList;
 
     /**
      * abstract method that requires inheritors to implement the way how
@@ -236,9 +236,9 @@ abstract class LinkedList {
      * contains $number elements
      *
      * @param int $number
-     * @return LinkedList
+     * @return AbstractLinkedList
      */
-    public function getFirstElements(int $number): LinkedList {
+    public function getFirstElements(int $number): AbstractLinkedList {
         $head = $this->getHead();
         //if there are more elements requested than the list provides
         $number = $number > $head->size() ? $head->size() : $number;
@@ -309,6 +309,7 @@ abstract class LinkedList {
      * TODO decide whether using add or append/prepend
      *
      * @param \doganoo\PHPAlgorithms\Datastructure\lists\Node $node
+     * @throws \ReflectionException
      */
     public function addNode(Node $node) {
         $this->add($node->getKey(), $node->getValue());

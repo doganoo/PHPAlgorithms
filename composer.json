@@ -14,8 +14,16 @@
       "doganoo\\PHPAlgorithms\\": "src/"
     }
   },
-  "minimum-stability": "stable",
   "require-dev": {
     "phpunit/phpunit": "6.5"
-  }
+  },
+  "require": {
+    "doganoo/php-util": "dev-master"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/doganoo/PHPUtil.git"
+    }
+  ]
 }

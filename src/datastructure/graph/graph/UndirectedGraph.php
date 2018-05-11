@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar
+ * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,33 +23,23 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Graph;
+namespace doganoo\PHPAlgorithms\Datastructure\Graph\Graph;
+
+use doganoo\PHPAlgorithms\common\abstracts\AbstractGraph;
+
 /**
- * Class Node
+ * Class UndirectedGraph
  *
- * @package doganoo\PHPAlgorithms\Graph
+ * @package doganoo\PHPAlgorithms\datastructure\graph\graph
  */
-class Node {
-    private $value = 0;
-    private $adjacent = [];
+class UndirectedGraph extends AbstractGraph {
 
-    public function __construct(int $value) {
-        $this->value = $value;
-    }
-
-    public function addAdjacent(Node $node) {
-        $this->adjacent[] = $node;
-    }
-
-    public function getValue() {
-        return $this->value;
-    }
-
-    public function getAdjacents() {
-        return $this->adjacent;
-    }
-
-    public function __toString() {
-        return "" . $this->value;
+    /**
+     * UndirectedGraph constructor.
+     *
+     * @throws \doganoo\PHPAlgorithms\common\exception\InvalidGraphTypeException
+     */
+    public function __construct() {
+        parent::__construct(parent::UNDIRECTED_GRAPH);
     }
 }

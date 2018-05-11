@@ -25,7 +25,7 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Heap;
 
-use doganoo\PHPAlgorithms\Common\Util\Logger;
+use doganoo\PHPUtil\Log\Logger;
 
 /**
  * Class MaxHeap
