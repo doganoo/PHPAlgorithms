@@ -40,11 +40,19 @@ class Node {
     }
 
     public function addChild(Node $child) {
-        $this->children[] = $child;
+        $this->children[$child->getValue()] = $child;
     }
 
     public function getValue() {
         return $this->value;
+    }
+
+    public function hasChild(Node $child): bool {
+        return $this->children[$child->getValue()] !== null;
+    }
+
+    public function getChildren() {
+        return $this->children;
     }
 
 }

@@ -57,42 +57,21 @@ abstract class AbstractGraph {
         }
     }
 
-    /**
-     * @param Node      $node
-     * @param Node|null $parent
-     * @throws \ReflectionException
-     */
-    public function addNode(Node $node, Node $parent = null) {
-        if (null === $parent) {
-            $this->linkedList->add($node->getValue(), $node);
-            return;
-        }
-        $parentNode = $this->linkedList->getNodeByValue($parent->getValue());
-        if ($parentNode === null) {
-            $this->linkedList->add($node->getValue(), $node);
-            return;
-        }
-        /** @var Node $parentGraphNode */
-        $parentGraphNode = $parentNode->getValue();
-        if (null === $parentGraphNode) {
-            $this->linkedList->add($node->getValue(), $node);
-            return;
-        }
-        $parentGraphNode->addChild($node);
-    }
+    public abstract function addNode(Node $node, Node $parent = null);
+
 
     public function display() {
         /** @var \doganoo\PHPAlgorithms\Datastructure\Lists\Node $head */
         $head = $this->linkedList->getHead();
         while (null !== $head) {
-            /** @var Node $graphNode */
             $graphNode = $head->getValue();
+            /** @var Node $graphNode */
             $graphNode = \unserialize($graphNode);
             Logger::debug($head->getKey());
-            while (null !== $graphNode) {
+            foreach ($graphNode->getChildren() as $key => $value) {
                 Logger::debug("\t" . $graphNode->getValue());
             }
+            $head = $head->getNext();
         }
     }
-
 }

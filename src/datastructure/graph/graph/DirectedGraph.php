@@ -26,6 +26,8 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Graph;
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraph;
+use doganoo\PHPUtil\Log\Logger;
+use doganoo\PHPUtil\Util\ClassUtil;
 
 /**
  * Class Graph
@@ -42,4 +44,61 @@ class DirectedGraph extends AbstractGraph {
     public function __construct() {
         parent::__construct(self::DIRECTED_GRAPH);
     }
+
+    /**
+     * @param Node      $node
+     * @param Node|null $parent
+     * @throws \ReflectionException
+     */
+    public function addNode(Node $node, Node $parent = null) {
+        /**
+         * if there is no parent node defined and the node is not already in the list,
+         * simply add it to the list and the job is done.
+         */
+        if (null === $parent && !$this->linkedList->containsKey($node->getValue())) {
+            $this->linkedList->add($node->getValue(), $node);
+            return;
+        }
+        /**
+         * if the node already exists in the list, retrieve it and add a further child.
+         * if there is no element in the list, add node as a child of parent and add parent
+         * to the list
+         */
+        if ($this->linkedList->containsKey($parent->getValue())) {
+            /** @var Node $parentNode */
+            $parentNode = $this->linkedList->getNodeByKey($parent->getValue())->getValue();
+            $parentNode = \unserialize($parentNode);
+            $hasChildParent = $this->hasChildParent($node, $parent);
+            if (!$hasChildParent) {
+                $parentNode->addChild($node);
+                $this->linkedList->remove($parentNode->getValue());
+                $this->linkedList->add($parentNode->getValue(), $parentNode);
+            }
+            return;
+        } else {
+            $hasChildParent = $this->hasChildParent($node, $parent);
+            if (!$hasChildParent) {
+                $parent->addChild($node);
+                $this->linkedList->add($parent->getValue(), $parent);
+            }
+            return;
+        }
+    }
+
+    private function hasChildParent(Node $child, Node $parent) {
+        /** @var Node $parentNode */
+        $parentNode = $this->linkedList->getNodeByKey($parent->getValue());
+        /** @var Node $childNode */
+        $childNode = $this->linkedList->getNodeByKey($child->getValue());
+
+        if (null === $parentNode || null === $childNode) {
+            return false;
+        }
+
+        if ($childNode->hasChild($parentNode)) {
+            return true;
+        }
+        return false;
+    }
+
 }
