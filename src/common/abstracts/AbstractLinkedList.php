@@ -405,8 +405,11 @@ abstract class AbstractLinkedList {
         }
         $head = $this->getHead();
         while ($head !== null) {
-            //if the value is found then return it
-            if ($head->getKey() === $key) {
+            //12/05/18 @doganoo:
+            //can not compare for identity with ===
+            //since PHP checks objects for being
+            //the same instance :/
+            if ($head->getKey() == $key) {
                 return $head;
             }
             $head = $head->getNext();
@@ -423,7 +426,11 @@ abstract class AbstractLinkedList {
     public function containsKey($key): bool {
         $node = $this->getHead();
         while ($node !== null) {
-            if ($node->getKey() === $key) {
+            //12/05/18 @doganoo:
+            //can not compare for identity with ===
+            //since PHP checks objects for being
+            //the same instance :/
+            if ($node->getKey() == $key) {
                 return true;
             }
             $node = $node->getNext();

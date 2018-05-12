@@ -296,7 +296,6 @@ class HashMap {
             return null;
         }
         $list = $this->bucket[$arrayIndex];
-
         if (!$list->containsKey($key)) {
             return null;
         }

@@ -28,8 +28,8 @@ namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
 use doganoo\PHPAlgorithms\Common\Exception\InvalidGraphTypeException;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Graph\Node;
-use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists\SinglyLinkedList;
-use doganoo\PHPUtil\Log\Logger;
+use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
+use doganoo\PHPAlgorithms\Datastructure\Sets\HashSet;
 
 /**
  * Class AbstractGraph
@@ -39,7 +39,8 @@ use doganoo\PHPUtil\Log\Logger;
 abstract class AbstractGraph {
     public const DIRECTED_GRAPH = 1;
     public const UNDIRECTED_GRAPH = 2;
-    protected $linkedList = null;
+    protected $nodeSet = null;
+    protected $edgeList = null;
     private $type = 0;
 
     /**
@@ -49,7 +50,8 @@ abstract class AbstractGraph {
      * @throws InvalidGraphTypeException
      */
     protected function __construct($type = self::DIRECTED_GRAPH) {
-        $this->linkedList = new SinglyLinkedList();
+        $this->nodeSet = new HashSet();
+        $this->edgeList = new ArrayList();
         if ($type === self::DIRECTED_GRAPH || $type === self::UNDIRECTED_GRAPH) {
             $this->type = $type;
         } else {
@@ -57,21 +59,16 @@ abstract class AbstractGraph {
         }
     }
 
-    public abstract function addNode(Node $node, Node $parent = null);
+    /**
+     * @param Node $node
+     * @return bool
+     */
+    public abstract function addNode(Node $node): bool;
 
-
-    public function display() {
-        /** @var \doganoo\PHPAlgorithms\Datastructure\Lists\Node $head */
-        $head = $this->linkedList->getHead();
-        while (null !== $head) {
-            $graphNode = $head->getValue();
-            /** @var Node $graphNode */
-            $graphNode = \unserialize($graphNode);
-            Logger::debug($head->getKey());
-            foreach ($graphNode->getChildren() as $key => $value) {
-                Logger::debug("\t" . $graphNode->getValue());
-            }
-            $head = $head->getNext();
-        }
-    }
+    /**
+     * @param Node $startNode
+     * @param Node $endNode
+     * @return bool
+     */
+    public abstract function addEdge(Node $startNode, Node $endNode): bool;
 }
