@@ -25,7 +25,7 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Graph;
 
-use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists\SinglyLinkedList;
+use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
 
 /**
  * Class Node
@@ -34,27 +34,35 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists\SinglyLinkedList;
  */
 class Node {
     private $value;
-    private $children = null;
+    private $adjacent = null;
 
     public function __construct($value) {
         $this->value = $value;
-        $this->children = new SinglyLinkedList();
+        $this->adjacent = new ArrayList();
     }
 
-    public function addChild(Node $child) {
-        $this->children->add($child->getValue(), $child);
+    public function addAdjacent(Node $node): bool {
+        return $this->adjacent->add($node);
+    }
+
+    public function hasAdjacent(Node $node) {
+        /**
+         * @var      $key
+         * @var Node $value
+         */
+        foreach ($this->adjacent as $key => $value) {
+            if ($value->getValue() == $node->getValue()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function getValue() {
         return $this->value;
     }
 
-    public function hasChild(Node $child): bool {
-        return $this->children->getNodeByKey($child->getValue()) !== null;
+    public function equals(Node $node): bool {
+        return $this->value === $node->getValue();
     }
-
-    public function getChildren() {
-        return $this->children;
-    }
-
 }

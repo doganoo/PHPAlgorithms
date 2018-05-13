@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Graph;
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraph;
+use doganoo\PHPUtil\Log\Logger;
 
 /**
  * Class Graph
@@ -43,26 +44,20 @@ class DirectedGraph extends AbstractGraph {
         parent::__construct(self::DIRECTED_GRAPH);
     }
 
-    /**
-     * @param Node $node
-     * @return bool
-     * @throws \ReflectionException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
-     */
+
     public function addNode(Node $node): bool {
-        return $this->nodeSet->add($node);
+        return $this->nodeList->add($node);
     }
 
     /**
      * @param Node $startNode
      * @param Node $endNode
      * @return bool
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
      */
     public function addEdge(Node $startNode, Node $endNode): bool {
-        $hasStart = $this->nodeSet->contains($startNode);
-        $hasEnd = $this->nodeSet->contains($endNode);
-
+        $hasStart = $this->hasNode($startNode);
+        $hasEnd = $this->hasNode($endNode);
         if (false === $hasStart) {
             //TODO notify caller
             return false;
@@ -71,25 +66,95 @@ class DirectedGraph extends AbstractGraph {
             //TODO notify caller
             return false;
         }
-        $edge = new Edge($startNode, $endNode);
-
-        /**
-         * @var      $key
-         * @var Edge $value
-         */
-        foreach ($this->edgeList as $key => $value) {
-            if ($edge->equals($value)) {
-                //TODO notify caller
-                return false;
-            }
-            if ($edge->equalsInverse($value)) {
-                //TODO notify caller
-                return false;
-            }
+        /** @var Node $startNode */
+        $startNode = $this->getNode($startNode);
+        /** @var Node $endNode */
+        $endNode = $this->getNode($endNode);
+        if ($startNode->hasAdjacent($endNode)) {
+            //TODO notify caller
+            return false;
         }
-        $this->edgeList->add($edge);
-        return true;
+        if ($endNode->hasAdjacent($startNode)) {
+            //TODO notify caller
+            return false;
+        }
+        $startNode->addAdjacent($endNode);
 
+        $indexOfStartNode = $this->getIndexOf($startNode);
+        if (-1 === $indexOfStartNode) {
+            Logger::warn("warning. node is not going to be replaced");
+            return true;
+        }
+        $this->nodeList->set($indexOfStartNode, $startNode);
+        return true;
     }
 
+    /**
+     * This method is required due to PHP native function == and/or ===.
+     * The Node class has a ArrayList property which grows over time.
+     * If the ArrayList property does not contain the exactly same size/
+     * values, == and/or === returns false.
+     *
+     * TODO implement Comparable interface and remove this helper methods
+     *
+     * @param Node $node
+     * @return bool
+     */
+    private function hasNode(Node $node): bool {
+        /**
+         * @var Node $value
+         */
+        foreach ($this->nodeList as $key => $value) {
+            if ($value->getValue() === $node->getValue()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * This method is required due to PHP native function == and/or ===.
+     * The Node class has a ArrayList property which grows over time.
+     * If the ArrayList property does not contain the exactly same size/
+     * values, == and/or === returns false.
+     *
+     * TODO implement Comparable interface and remove this helper methods
+     *
+     * @param Node $node
+     * @return Node|null
+     */
+    private function getNode(Node $node): ?Node {
+        /**
+         * @var Node $value
+         */
+        foreach ($this->nodeList as $key => $value) {
+            if ($value->getValue() === $node->getValue()) {
+                return $value;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * This method is required due to PHP native function == and/or ===.
+     * The Node class has a ArrayList property which grows over time.
+     * If the ArrayList property does not contain the exactly same size/
+     * values, == and/or === returns false.
+     *
+     * TODO implement Comparable interface and remove this helper methods
+     *
+     * @param Node $node
+     * @return int
+     */
+    private function getIndexOf(Node $node): int {
+        /**
+         * @var Node $value
+         */
+        foreach ($this->nodeList as $key => $value) {
+            if ($value->getValue() === $node->getValue()) {
+                return $key;
+            }
+        }
+        return -1;
+    }
 }

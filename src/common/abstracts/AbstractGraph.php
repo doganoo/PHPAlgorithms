@@ -29,7 +29,6 @@ namespace doganoo\PHPAlgorithms\Common\Abstracts;
 use doganoo\PHPAlgorithms\Common\Exception\InvalidGraphTypeException;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Graph\Node;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
-use doganoo\PHPAlgorithms\Datastructure\Sets\HashSet;
 
 /**
  * Class AbstractGraph
@@ -39,8 +38,7 @@ use doganoo\PHPAlgorithms\Datastructure\Sets\HashSet;
 abstract class AbstractGraph {
     public const DIRECTED_GRAPH = 1;
     public const UNDIRECTED_GRAPH = 2;
-    protected $nodeSet = null;
-    protected $edgeList = null;
+    protected $nodeList = null;
     private $type = 0;
 
     /**
@@ -50,8 +48,7 @@ abstract class AbstractGraph {
      * @throws InvalidGraphTypeException
      */
     protected function __construct($type = self::DIRECTED_GRAPH) {
-        $this->nodeSet = new HashSet();
-        $this->edgeList = new ArrayList();
+        $this->nodeList = new ArrayList();
         if ($type === self::DIRECTED_GRAPH || $type === self::UNDIRECTED_GRAPH) {
             $this->type = $type;
         } else {
