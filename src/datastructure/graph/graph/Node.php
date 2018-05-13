@@ -25,6 +25,7 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Graph;
 
+use doganoo\PHPAlgorithms\common\interfaces\Comparable;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
 
 /**
@@ -32,7 +33,7 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
  *
  * @package doganoo\PHPAlgorithms\Graph
  */
-class Node {
+class Node implements Comparable {
     private $value;
     private $adjacent = null;
 
@@ -64,5 +65,24 @@ class Node {
 
     public function equals(Node $node): bool {
         return $this->value === $node->getValue();
+    }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if (!$object instanceof Node) {
+            return -1;
+        }
+        if ($this->getValue() < $object->getValue()) {
+            return -1;
+        }
+        if ($this->getValue() === $object->getValue()) {
+            return 0;
+        }
+        if ($this->getValue() > $object->getValue()) {
+            return 1;
+        }
     }
 }

@@ -27,6 +27,7 @@ namespace doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists;
 
 
 use doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException;
+use doganoo\PHPAlgorithms\common\util\Comparator;
 use Traversable;
 
 /**
@@ -161,11 +162,18 @@ class ArrayList implements \IteratorAggregate {
      * whether the array contains $value or not. The verification is made strictly (type check).
      *
      * @param      $value
-     * @param bool $strict
      * @return bool
      */
-    public function containsValue($value, bool $strict = true): bool {
-        return \in_array($value, $this->array, $strict);
+    public function containsValue($value): bool {
+        foreach ($this->array as $key => $val) {
+            if (null === $val) {
+                continue;
+            }
+            if (Comparator::equals($val, $value)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -187,9 +195,16 @@ class ArrayList implements \IteratorAggregate {
      * @return array|null
      */
     public function lastIndexOf($value) {
-        $keys = \array_keys($this->array, $value);
-        $return = \count($keys) === 0 ? null : $keys;
-        return $return;
+        $array = [];
+        foreach ($this->array as $key => $val) {
+            if (null === $val) {
+                continue;
+            }
+            if (Comparator::equals($val, $value)) {
+                $array[] = $key;
+            }
+        }
+        return \count($array) === 0 ? null : $array;
     }
 
     /**

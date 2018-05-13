@@ -26,7 +26,6 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Graph;
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraph;
-use doganoo\PHPUtil\Log\Logger;
 
 /**
  * Class Graph
@@ -41,7 +40,7 @@ class UndirectedGraph extends AbstractGraph {
      * @throws \doganoo\PHPAlgorithms\common\exception\InvalidGraphTypeException
      */
     public function __construct() {
-        parent::__construct(self::DIRECTED_GRAPH);
+        parent::__construct(self::UNDIRECTED_GRAPH);
     }
 
 
@@ -56,8 +55,8 @@ class UndirectedGraph extends AbstractGraph {
      * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
      */
     public function addEdge(Node $startNode, Node $endNode): bool {
-        $hasStart = $this->hasNode($startNode);
-        $hasEnd = $this->hasNode($endNode);
+        $hasStart = $this->nodeList->containsValue($startNode);
+        $hasEnd = $this->nodeList->containsValue($endNode);
         if (false === $hasStart) {
             //TODO notify caller
             return false;
@@ -66,91 +65,20 @@ class UndirectedGraph extends AbstractGraph {
             //TODO notify caller
             return false;
         }
+        $indexOfStartNode = $this->nodeList->indexOf($startNode);
         /** @var Node $startNode */
-        $startNode = $this->getNode($startNode);
+        $startNode = $this->nodeList->get($indexOfStartNode);
+        $indexOfEndNode = $this->nodeList->indexOf($endNode);
         /** @var Node $endNode */
-        $endNode = $this->getNode($endNode);
+        $endNode = $this->nodeList->get($indexOfEndNode);
+
         if ($startNode->hasAdjacent($endNode)) {
             //TODO notify caller
             return false;
         }
         $startNode->addAdjacent($endNode);
 
-        $indexOfStartNode = $this->getIndexOf($startNode);
-        if (-1 === $indexOfStartNode) {
-            Logger::warn("warning. node is not going to be replaced");
-            return true;
-        }
         $this->nodeList->set($indexOfStartNode, $startNode);
         return true;
-    }
-
-    /**
-     * This method is required due to PHP native function == and/or ===.
-     * The Node class has a ArrayList property which grows over time.
-     * If the ArrayList property does not contain the exactly same size/
-     * values, == and/or === returns false.
-     *
-     * TODO implement Comparable interface and remove this helper methods
-     *
-     * @param Node $node
-     * @return bool
-     */
-    private function hasNode(Node $node): bool {
-        /**
-         * @var Node $value
-         */
-        foreach ($this->nodeList as $key => $value) {
-            if ($value->getValue() === $node->getValue()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * This method is required due to PHP native function == and/or ===.
-     * The Node class has a ArrayList property which grows over time.
-     * If the ArrayList property does not contain the exactly same size/
-     * values, == and/or === returns false.
-     *
-     * TODO implement Comparable interface and remove this helper methods
-     *
-     * @param Node $node
-     * @return Node|null
-     */
-    private function getNode(Node $node): ?Node {
-        /**
-         * @var Node $value
-         */
-        foreach ($this->nodeList as $key => $value) {
-            if ($value->getValue() === $node->getValue()) {
-                return $value;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * This method is required due to PHP native function == and/or ===.
-     * The Node class has a ArrayList property which grows over time.
-     * If the ArrayList property does not contain the exactly same size/
-     * values, == and/or === returns false.
-     *
-     * TODO implement Comparable interface and remove this helper methods
-     *
-     * @param Node $node
-     * @return int
-     */
-    private function getIndexOf(Node $node): int {
-        /**
-         * @var Node $value
-         */
-        foreach ($this->nodeList as $key => $value) {
-            if ($value->getValue() === $node->getValue()) {
-                return $key;
-            }
-        }
-        return -1;
     }
 }

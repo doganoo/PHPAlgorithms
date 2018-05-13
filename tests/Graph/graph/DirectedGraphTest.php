@@ -8,7 +8,7 @@ class DirectedGraphTest extends \PHPUnit\Framework\TestCase {
 
     public function testAdd() {
         $graph = new DirectedGraph();
-        $graph->addNode(new Node(1));
+        $this->assertTrue($graph->addNode(new Node(1)) === true);
     }
 
 }
