@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
+ * Copyright (c) 2018 Dogan Ucar
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,59 +23,52 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Common\Abstracts;
+namespace doganoo\PHPAlgorithms\algorithm\search;
 
-
-use doganoo\PHPAlgorithms\Common\Exception\InvalidGraphTypeException;
+use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraph;
+use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraphSearch;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Graph\Node;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
 
 /**
- * Class AbstractGraph
+ * Class DepthFirstSearch
  *
- * @package doganoo\PHPAlgorithms\common\abstracts
+ * @package doganoo\PHPAlgorithms\algorithm\search
  */
-abstract class AbstractGraph {
-    public const DIRECTED_GRAPH = 1;
-    public const UNDIRECTED_GRAPH = 2;
-    protected $nodeList = null;
-    private $type = 0;
-
+class DepthFirstSearch extends AbstractGraphSearch {
     /**
-     * AbstractGraph constructor.
-     *
-     * @param int $type
-     * @throws InvalidGraphTypeException
+     * DepthFirstSearch constructor.
      */
-    protected function __construct($type = self::DIRECTED_GRAPH) {
-        $this->nodeList = new ArrayList();
-        if ($type === self::DIRECTED_GRAPH || $type === self::UNDIRECTED_GRAPH) {
-            $this->type = $type;
-        } else {
-            throw new InvalidGraphTypeException();
-        }
+    public function __construct() {
+        parent::__construct();
     }
 
     /**
-     * @return Node|null
+     * @param AbstractGraph $graph
+     * @return mixed|void
      * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
      */
-    public function getRoot(): ?Node {
-        return ($this->nodeList === null ||
-            $this->nodeList->size() === 0)
-            ? null : $this->nodeList->get(0);
+    public function search(AbstractGraph $graph) {
+        $this->_search($graph->getRoot());
     }
 
     /**
-     * @param Node $node
-     * @return bool
+     * @param Node|null $node
+     * @return mixed
      */
-    public abstract function addNode(Node $node): bool;
-
-    /**
-     * @param Node $startNode
-     * @param Node $endNode
-     * @return bool
-     */
-    public abstract function addEdge(Node $startNode, Node $endNode): bool;
+    public function _search(?Node $node) {
+        if (null === $node) {
+            return;
+        }
+        $this->visit($node);
+        $this->visited->add($node);
+        /**
+         * @var ArrayList $adjacent
+         */
+        foreach ($node->getAdjacents() as $adjacent) {
+            if (!$this->visited->containsValue($adjacent)) {
+                $this->_search($adjacent);
+            }
+        }
+    }
 }

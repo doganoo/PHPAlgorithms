@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
+ * Copyright (c) 2018 Dogan Ucar
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,56 +26,59 @@
 namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
 
-use doganoo\PHPAlgorithms\Common\Exception\InvalidGraphTypeException;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Graph\Node;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
+use doganoo\PHPUtil\Log\Logger;
 
 /**
- * Class AbstractGraph
+ * Class AbstractTraverse
  *
  * @package doganoo\PHPAlgorithms\common\abstracts
  */
-abstract class AbstractGraph {
-    public const DIRECTED_GRAPH = 1;
-    public const UNDIRECTED_GRAPH = 2;
-    protected $nodeList = null;
-    private $type = 0;
+abstract class AbstractGraphSearch {
+    /** @var $callable callable|null */
+    protected $callable = null;
+    /** @var ArrayList|null $visited */
+    protected $visited = null;
+
+    public function __construct() {
+        $this->visited = new ArrayList();
+        $this->callable = function ($value) {
+            Logger::debug($value);
+        };
+    }
 
     /**
-     * AbstractGraph constructor.
-     *
-     * @param int $type
-     * @throws InvalidGraphTypeException
+     * @param AbstractGraph $graph
+     * @return mixed
      */
-    protected function __construct($type = self::DIRECTED_GRAPH) {
-        $this->nodeList = new ArrayList();
-        if ($type === self::DIRECTED_GRAPH || $type === self::UNDIRECTED_GRAPH) {
-            $this->type = $type;
-        } else {
-            throw new InvalidGraphTypeException();
+    public abstract function search(AbstractGraph $graph);
+
+    /**
+     * @param $value
+     */
+    public function visit($value) {
+        $callable = $this->callable;
+        if (null === $this->callable
+            && !\is_callable($this->callable)) {
+            $callable = function ($otherValue) {
+                Logger::debug($otherValue);
+            };
         }
+        $callable($value);
     }
 
     /**
-     * @return Node|null
-     * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
+     * @param callable $callable
      */
-    public function getRoot(): ?Node {
-        return ($this->nodeList === null ||
-            $this->nodeList->size() === 0)
-            ? null : $this->nodeList->get(0);
+    public function setCallable(callable $callable) {
+        $this->callable = $callable;
     }
 
     /**
-     * @param Node $node
-     * @return bool
+     * @param Node|null $node
+     * @return mixed
      */
-    public abstract function addNode(Node $node): bool;
+    protected abstract function _search(?Node $node);
 
-    /**
-     * @param Node $startNode
-     * @param Node $endNode
-     * @return bool
-     */
-    public abstract function addEdge(Node $startNode, Node $endNode): bool;
 }

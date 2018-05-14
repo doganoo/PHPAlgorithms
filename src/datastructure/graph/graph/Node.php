@@ -67,6 +67,10 @@ class Node implements Comparable {
         return $this->value === $node->getValue();
     }
 
+    public function getAdjacents(): ?ArrayList {
+        return $this->adjacent;
+    }
+
     /**
      * @param $object
      * @return int

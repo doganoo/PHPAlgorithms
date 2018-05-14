@@ -54,7 +54,8 @@ abstract class AbstractTraverse {
      */
     public function visit($value) {
         $callable = $this->callable;
-        if (null === $this->callable) {
+        if (null === $this->callable
+            && !\is_callable($this->callable)) {
             $callable = function ($otherValue) {
                 Logger::debug($otherValue);
             };
