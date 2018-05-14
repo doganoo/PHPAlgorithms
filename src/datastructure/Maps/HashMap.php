@@ -308,6 +308,8 @@ class HashMap {
      *
      * @param $key
      * @return bool
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException
      */
     public function remove($key): bool {
         //get the corresponding index to key
