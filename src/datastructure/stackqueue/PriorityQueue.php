@@ -47,7 +47,7 @@ class PriorityQueue {
      * Removes all of the elements from this priority queue.
      */
     public function clear(): void {
-        //TODO implement clear
+        $this->minHeap->clear();
     }
 
     /**
@@ -57,7 +57,7 @@ class PriorityQueue {
      * @return bool
      */
     public function contains(int $element): bool {
-        //TODO implement contains
+        return $this->minHeap->inHeap($element);
     }
 
     /**
@@ -81,34 +81,6 @@ class PriorityQueue {
     }
 
     /**
-     * Retrieves, but does not remove, the head of this queue, or returns null if this queue is empty.
-     *
-     * @return int|null
-     */
-    public function peek(): ?int {
-//TODO implement
-    }
-
-    /**
-     * Retrieves and removes the head of this queue, or returns null if this queue is empty.
-     *
-     * @return int|null
-     */
-    public function poll(): ?int {
-//TODO implement
-    }
-
-    /**
-     * Removes a single instance of the specified element from this queue, if it is present.
-     *
-     * @param int $element
-     * @return bool
-     */
-    public function remove(int $element): bool {
-        //TODO implement
-    }
-
-    /**
      * Returns the number of elements in this collection.
      *
      * @return int
@@ -116,23 +88,4 @@ class PriorityQueue {
     public function size(): int {
         $this->minHeap->length();
     }
-
-    /**
-     * Returns an array containing all of the elements in this queue.
-     *
-     * @return array
-     */
-    public function toArray(): array {
-//TODO implemnt
-    }
-
-//<T> T[]    toArray(T[] a)
-//Returns an array containing all of the elements in this queue;
-//the runtime type of the returned array is that of the specified array.
-
-//Comparator<? super E>	comparator()
-//Returns the comparator used to order the elements in this queue, or null if this queue is sorted according to the natural ordering of its elements.
-
-//Iterator<E>    iterator()
-//Returns an iterator over the elements in this queue.
 }

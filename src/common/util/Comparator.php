@@ -53,4 +53,28 @@ class Comparator {
         return $that === $other;
     }
 
+    /**
+     * @param $that
+     * @param $other
+     * @return bool
+     */
+    public static function lessThen($that, $other): bool {
+        if ($that instanceof Comparable) {
+            return $that->compareTo($other) === -1;
+        }
+        return $that < $other;
+    }
+
+    /**
+     * @param $that
+     * @param $other
+     * @return bool
+     */
+    public static function greaterThen($that, $other): bool {
+        if ($that instanceof Comparable) {
+            return $that->compareTo($other) === 1;
+        }
+        return $that > $other;
+    }
+
 }

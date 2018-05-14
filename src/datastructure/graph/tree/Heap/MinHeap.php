@@ -25,6 +25,7 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Heap;
 
+use doganoo\PHPAlgorithms\common\util\Comparator;
 use doganoo\PHPUtil\Log\Logger;
 
 
@@ -49,8 +50,18 @@ class MinHeap {
      * MinHeap constructor.
      */
     public function __construct() {
+        $this->clear();
+    }
+
+    /**
+     * resets the heap
+     *
+     * @return bool
+     */
+    public function clear(): bool {
         $this->heap = \array_fill(0, $this->maxSize, null);
         $this->heap[0] = \PHP_INT_MIN;
+        return \count($this->heap) === 1 && $this->heap[0] === \PHP_INT_MIN;
     }
 
     /**
@@ -63,6 +74,11 @@ class MinHeap {
         }
     }
 
+    /**
+     * returns the number of elements in the heap
+     *
+     * @return int
+     */
     public function length() {
         $array = \array_filter($this->heap, function ($v, $k) {
             return $v !== null;
@@ -82,7 +98,7 @@ class MinHeap {
         $current = $this->heap[$currentPosition];
         $parent = $this->heap[$parentPosition];
 
-        while ($current < $parent) {
+        while (Comparator::lessThen($current, $parent)) {
             $this->swap($currentPosition, $parentPosition);
             $currentPosition = $this->getParentPosition($currentPosition);
             $parentPosition = $this->getParentPosition($currentPosition);
@@ -130,5 +146,20 @@ class MinHeap {
         $tmp = $this->heap[$current];
         $this->heap[$current] = $this->heap[$parent];
         $this->heap[$parent] = $tmp;
+    }
+
+    /**
+     * determines if a element is in the heap or not
+     *
+     * @param int $element
+     * @return bool
+     */
+    public function inHeap(int $element): bool {
+        foreach ($this->heap as $key => $value) {
+            if (Comparator::equals($element, $value)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
