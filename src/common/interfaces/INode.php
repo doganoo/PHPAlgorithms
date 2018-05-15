@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar
+ * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,34 +23,16 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Trees\Search;
-
-
-use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
-use doganoo\PHPAlgorithms\common\util\Comparator;
+namespace doganoo\PHPAlgorithms\common\interfaces;
 
 /**
- * Class RecursiveSearch
+ * Interface INode
  *
- * @package doganoo\PHPAlgorithms\Trees\Search
+ * @package doganoo\PHPAlgorithms\common\interfaces
  */
-class RecursiveSearch {
+interface INode {
     /**
-     * @param IBinaryNode|null $node
-     * @param                  $needle
-     * @return bool
+     * @return mixed
      */
-    public function search(?IBinaryNode $node, $needle) {
-        if (null === $node) {
-            return false;
-        }
-        if (Comparator::equals($node->getValue(), $needle)) {
-            return true;
-        } else if (Comparator::lessThen($needle, $node->getValue())) {
-            return $this->search($node->getLeft(), $needle);
-        } else if (Comparator::greaterThen($needle, $node->getValue())) {
-            return $this->search($node->getRight(), $needle);
-        }
-        return false;
-    }
+    public function getValue();
 }

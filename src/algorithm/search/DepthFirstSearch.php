@@ -49,14 +49,14 @@ class DepthFirstSearch extends AbstractGraphSearch {
      * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
      */
     public function search(AbstractGraph $graph) {
-        $this->_search($graph->getRoot());
+        $this->searchByNode($graph->getRoot());
     }
 
     /**
      * @param Node|null $node
      * @return mixed
      */
-    public function _search(?Node $node) {
+    public function searchByNode(?Node $node) {
         if (null === $node) {
             return;
         }
@@ -67,7 +67,7 @@ class DepthFirstSearch extends AbstractGraphSearch {
          */
         foreach ($node->getAdjacents() as $adjacent) {
             if (!$this->visited->containsValue($adjacent)) {
-                $this->_search($adjacent);
+                $this->searchByNode($adjacent);
             }
         }
     }

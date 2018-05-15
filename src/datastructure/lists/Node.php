@@ -25,6 +25,8 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Lists;
 
+use doganoo\PHPAlgorithms\common\interfaces\INode;
+
 
 /**
  * Node class that contains a key, value and the next instance.
@@ -33,7 +35,7 @@ namespace doganoo\PHPAlgorithms\Datastructure\Lists;
  *
  * @package doganoo\PHPAlgorithms\Maps
  */
-class Node {
+class Node implements INode {
     private $value = 0;
     private $key;
     private $next = null;

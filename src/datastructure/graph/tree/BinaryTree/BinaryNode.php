@@ -26,13 +26,14 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree;
 
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
+use doganoo\PHPAlgorithms\common\interfaces\INode;
 
 /**
  * Class BinaryNode
  *
  * @package doganoo\PHPAlgorithms\datastructure\Graph\Tree\BinaryTree
  */
-class BinaryNode implements IBinaryNode {
+class BinaryNode implements IBinaryNode, INode {
     private $value = PHP_INT_MIN;
     private $left = null;
     private $right = null;

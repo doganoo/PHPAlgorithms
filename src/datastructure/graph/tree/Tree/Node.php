@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Tree;
 
 
+use doganoo\PHPAlgorithms\common\interfaces\INode;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
 
 /**
@@ -33,7 +34,7 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
  *
  * @package doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Tree
  */
-class Node {
+class Node implements INode {
     /**
      * @var null
      */

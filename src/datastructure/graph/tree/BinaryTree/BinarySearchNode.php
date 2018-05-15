@@ -26,13 +26,14 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree;
 
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
+use doganoo\PHPAlgorithms\common\interfaces\INode;
 
 /**
  * Class BinarySearchNode
  *
  * @package doganoo\PHPAlgorithms\datastructure\Graph\Tree\BinaryTree
  */
-class BinarySearchNode implements IBinaryNode {
+class BinarySearchNode implements IBinaryNode, INode {
     private $value;
     private $left = null;
     private $right = null;

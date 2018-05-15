@@ -47,14 +47,14 @@ class BreadthFirstSearch extends AbstractGraphSearch {
      * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
      */
     public function search(AbstractGraph $graph) {
-        $this->_search($graph->getRoot());
+        $this->searchByNode($graph->getRoot());
     }
 
     /**
      * @param Node|null $node
      * @return mixed|void
      */
-    protected function _search(?Node $node) {
+    public function searchByNode(?Node $node) {
         $queue = new Queue();
         $this->visited->add($node);
         $queue->enqueue($node);

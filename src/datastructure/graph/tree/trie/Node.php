@@ -24,6 +24,7 @@
  */
 
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Trie;
+use doganoo\PHPAlgorithms\common\interfaces\INode;
 
 
 /**
@@ -31,7 +32,7 @@ namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Trie;
  *
  * @package doganoo\PHPAlgorithms\datastructure\trie
  */
-class Node {
+class Node implements INode {
     private $value;
     private $children;
 

@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar
+ * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,49 +23,46 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Lists;
+namespace doganoo\PHPAlgorithms\algorithm\search;
 
 
-class RunnerTechnique
-{
+use doganoo\PHPAlgorithms\Datastructure\Graph\Graph\Node;
+use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
 
-    public function hasLoop(Node $head)
-    {
-        $tortoise = $head;
-        $hare = $head;
+/**
+ * TODO implement AbstractGraphSearch
+ *
+ * Class BidirectionalSearch
+ *
+ * @package doganoo\PHPAlgorithms\algorithm\search
+ */
+class BidirectionalSearch {
 
-        while ($tortoise !== null && $hare->getNext() !== null &&
-            $hare->getNext()->getNext() !== null) {
-            $hare = $hare->getNext()->getNext();
+    public function hasPath(Node $start, Node $end) {
+        $startList = $this->performSearch($start);
+        $endList = $this->performSearch($end);
 
-            if ($tortoise->getValue() === $hare->getValue()) {
-                return true;
-            }
-
-            $tortoise = $tortoise->getNext();
+        if (null === $startList
+            || $startList->length() === 0
+            || null === $endList
+            || $endList->length() === 0) {
+            $startList->retainAll($endList);
+            return $startList->length() > 0;
         }
-        return false;
+
     }
 
-    public function findKthElementFromEnd(Node $head, int $k)
-    {
-        $listSize = 0;
+    /**
+     * @param Node $node
+     * @return ArrayList|null
+     */
+    private function performSearch(Node $node): ?ArrayList {
 
-        $temp = $head;
-        while ($temp !== null) {
-            $temp = $temp->getNext();
-            $listSize++;
-        }
-
-        if ($k > $listSize) {
-            return null;
-        }
-        $resultNode = $head;
-        for ($i = 1; $i < $listSize - $k + 1; $i++) {
-            $resultNode = $resultNode->getNext();
-        }
-
-        return $resultNode;
-
+        $bfs = new BreadthFirstSearch();
+        $bfs->setCallable(function () {
+        });
+        $bfs->searchByNode($node);
+        return $bfs->getVisitedNodes();
     }
+
 }

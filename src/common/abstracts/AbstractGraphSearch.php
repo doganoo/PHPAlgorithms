@@ -68,6 +68,10 @@ abstract class AbstractGraphSearch {
         $callable($value);
     }
 
+    public function getVisitedNodes(): ?ArrayList {
+        return $this->visited;
+    }
+
     /**
      * @param callable $callable
      */
@@ -79,6 +83,6 @@ abstract class AbstractGraphSearch {
      * @param Node|null $node
      * @return mixed
      */
-    protected abstract function _search(?Node $node);
+    public abstract function searchByNode(?Node $node);
 
 }

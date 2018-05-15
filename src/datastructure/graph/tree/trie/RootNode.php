@@ -25,12 +25,14 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Trie;
 
+use doganoo\PHPAlgorithms\common\interfaces\INode;
+
 /**
  * Class RootNode
  *
  * @package doganoo\PHPAlgorithms\datastructure\trie
  */
-class RootNode extends Node {
+class RootNode extends Node implements INode {
     /**
      * @const ROOT_NODE
      */
