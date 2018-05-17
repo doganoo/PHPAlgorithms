@@ -46,9 +46,9 @@ class RecursiveSearch {
         }
         if (Comparator::equals($node->getValue(), $needle)) {
             return true;
-        } else if (Comparator::lessThen($needle, $node->getValue())) {
+        } else if (Comparator::lessThan($needle, $node->getValue())) {
             return $this->search($node->getLeft(), $needle);
-        } else if (Comparator::greaterThen($needle, $node->getValue())) {
+        } else if (Comparator::greaterThan($needle, $node->getValue())) {
             return $this->search($node->getRight(), $needle);
         }
         return false;

@@ -26,10 +26,19 @@
 namespace doganoo\PHPAlgorithms\Sort;
 
 
-class QuickSort
-{
-    public function sort(array $array)
-    {
+use doganoo\PHPAlgorithms\common\interfaces\ISortable;
+
+/**
+ * Class QuickSort
+ *
+ * @package doganoo\PHPAlgorithms\Sort
+ */
+class QuickSort implements ISortable {
+    /**
+     * @param array $array
+     * @return array
+     */
+    public function sort(array $array): array {
         $arraySize = count($array);
         if ($arraySize == 1) {
             return $array;
@@ -50,11 +59,11 @@ class QuickSort
                 $right[] = $value;
             }
         }
-        return array_merge($this->sort($left),
-            [$pivot],
-            $this->sort($right));
-
-
+        return array_merge(
+            $this->sort($left)
+            , [$pivot]
+            , $this->sort($right)
+        );
     }
 
 

@@ -23,33 +23,18 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Algorithm\Sorting;
-
-
-use doganoo\PHPAlgorithms\common\interfaces\ISortable;
+namespace doganoo\PHPAlgorithms\common\interfaces;
 
 /**
- * Class BubbleSort
+ * Interface ISortable
  *
- * @package doganoo\PHPAlgorithms\Algorithm\Sorting
+ * @package doganoo\PHPAlgorithms\common\interfaces
  */
-class BubbleSort implements ISortable {
+interface ISortable {
 
     /**
      * @param array $array
      * @return array
      */
-    public function sort(array $array): array {
-        $length = \count($array);
-        for ($i = 0; $i < $length; $i++) {
-            for ($j = 0; $j < $length - $i - 1; $j++) {
-                if ($array[$j] > $array[$j + 1]) {
-                    $tmp = $array[$j];
-                    $array[$j] = $array[$j + 1];
-                    $array[$j + 1] = $tmp;
-                }
-            }
-        }
-        return $array;
-    }
+    public function sort(array $array): array;
 }

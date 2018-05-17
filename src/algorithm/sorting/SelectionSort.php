@@ -23,30 +23,43 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Algorithm\Sorting;
+namespace doganoo\PHPAlgorithms\algorithm\sorting;
 
 
 use doganoo\PHPAlgorithms\common\interfaces\ISortable;
+use doganoo\PHPAlgorithms\common\util\Comparator;
 
 /**
- * Class BubbleSort
+ * Class SelectionSort
  *
- * @package doganoo\PHPAlgorithms\Algorithm\Sorting
+ * @package doganoo\PHPAlgorithms\algorithm\sorting
  */
-class BubbleSort implements ISortable {
+class SelectionSort implements ISortable {
 
     /**
+     * sorts an array with selection sort.
+     *
+     * Actually works only with numeric indices
+     *
+     * TODO implement non-numerical indices
+     *
      * @param array $array
      * @return array
      */
     public function sort(array $array): array {
         $length = \count($array);
         for ($i = 0; $i < $length; $i++) {
-            for ($j = 0; $j < $length - $i - 1; $j++) {
-                if ($array[$j] > $array[$j + 1]) {
-                    $tmp = $array[$j];
-                    $array[$j] = $array[$j + 1];
-                    $array[$j + 1] = $tmp;
+            if (!isset($array[$i])) {
+                continue;
+            }
+            for ($j = $i; $j < $length; $j++) {
+                if (!isset($array[$j])) {
+                    continue;
+                }
+                if (Comparator::greaterThan($array[$i], $array[$j])) {
+                    $tmp = $array[$i];
+                    $array[$i] = $array[$j];
+                    $array[$j] = $tmp;
                 }
             }
         }

@@ -97,7 +97,7 @@ class MaxHeap {
         $current = $this->heap[$currentPosition];
         $parent = $this->heap[$parentPosition];
 
-        while (Comparator::greaterThen($current, $parent)) {
+        while (Comparator::greaterThan($current, $parent)) {
             $this->swap($currentPosition, $parentPosition);
             $currentPosition = $this->getParentPosition($currentPosition);
             $parentPosition = $this->getParentPosition($currentPosition);

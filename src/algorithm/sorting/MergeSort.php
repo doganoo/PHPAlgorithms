@@ -23,25 +23,42 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Sort;
+namespace doganoo\PHPAlgorithms\Algorithm\Sorting;
 
-//https://www.w3resource.com/php-exercises/searching-and-sorting-algorithm/searching-and-sorting-algorithm-exercise-17.php
-class MergeSort
-{
-    public function mergeSort(array $array)
-    {
+use doganoo\PHPAlgorithms\common\interfaces\ISortable;
+
+/**
+ * Class MergeSort
+ *
+ * have a look at:
+ * https://www.w3resource.com/php-exercises/searching-and-sorting-algorithm/searching-and-sorting-algorithm-exercise-17.php
+ *
+ * @package doganoo\PHPAlgorithms\Algorithm\Sorting
+ */
+class MergeSort implements ISortable {
+    /**
+     * @param array $array
+     * @return array
+     */
+    public function sort(array $array): array {
         $arraySize = count($array);
-        if ($arraySize == 1) return $array;
+        if ($arraySize == 1) {
+            return $array;
+        }
         $middle = floor($arraySize / 2);
         $left = array_slice($array, 0, $middle);
         $right = array_slice($array, $middle);
-        $left = $this->mergeSort($left);
-        $right = $this->mergeSort($right);
+        $left = $this->sort($left);
+        $right = $this->sort($right);
         return $this->merge($left, $right);
     }
 
-    private function merge(?array $left, ?array $right)
-    {
+    /**
+     * @param array|null $left
+     * @param array|null $right
+     * @return array
+     */
+    private function merge(?array $left, ?array $right): array {
         if ($left == null) {
             return [];
         }
@@ -70,5 +87,4 @@ class MergeSort
         }
         return $result;
     }
-
 }

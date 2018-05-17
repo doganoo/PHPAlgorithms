@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Lists;
 
 use doganoo\PHPAlgorithms\common\interfaces\INode;
+use doganoo\PHPAlgorithms\common\interfaces\IUnaryNode;
 
 
 /**
@@ -35,7 +36,7 @@ use doganoo\PHPAlgorithms\common\interfaces\INode;
  *
  * @package doganoo\PHPAlgorithms\Maps
  */
-class Node implements INode {
+class Node implements INode, IUnaryNode {
     private $value = 0;
     private $key;
     private $next = null;
@@ -60,24 +61,6 @@ class Node implements INode {
     }
 
     /**
-     * returns the value
-     *
-     * @return int
-     */
-    public function getValue() {
-        return $this->value;
-    }
-
-    /**
-     * sets the nodes value
-     *
-     * @param $value
-     */
-    public function setValue($value) {
-        $this->value = $value;
-    }
-
-    /**
      * counts the number of nodes
      *
      * @return int
@@ -99,34 +82,34 @@ class Node implements INode {
      *
      * @return Node|null
      */
-    public function getNext(): ?Node {
+    public function getNext(): ?IUnaryNode {
         return $this->next;
     }
 
     /**
      * sets the next node
      *
-     * @param Node|null $node
+     * @param IUnaryNode|null $node
      */
-    public function setNext(?Node $node) {
+    public function setNext(?IUnaryNode $node): void {
         $this->next = $node;
     }
 
     /**
      * returns the previous node
      *
-     * @return Node|null
+     * @return IUnaryNode|null
      */
-    public function getPrevious(): ?Node {
+    public function getPrevious(): ?IUnaryNode {
         return $this->previous;
     }
 
     /**
      * sets the previous node
      *
-     * @param Node|null $node
+     * @param IUnaryNode|null $node
      */
-    public function setPrevious(?Node $node) {
+    public function setPrevious(?IUnaryNode $node): void {
         $this->previous = $node;
     }
 
@@ -139,5 +122,42 @@ class Node implements INode {
         $previous = $this->previous === null ? "" : $this->previous->getKey();
         $next = $this->next === null ? "" : $this->next->getKey();
         return "[#key#][#{$this->key}#][#value#][#{$this->value}#][#previous#][#$previous#][#next#][#$next#]";
+    }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if (!$object instanceof INode) {
+            return -1;
+        }
+        if ($this->getValue() < $object->getValue()) {
+            return -1;
+        }
+        if ($this->getValue() === $object->getValue()) {
+            return 0;
+        }
+        if ($this->getValue() > $object->getValue()) {
+            return 1;
+        }
+    }
+
+    /**
+     * returns the value
+     *
+     * @return int
+     */
+    public function getValue() {
+        return $this->value;
+    }
+
+    /**
+     * sets the nodes value
+     *
+     * @param $value
+     */
+    public function setValue($value): void {
+        $this->value = $value;
     }
 }

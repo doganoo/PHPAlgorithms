@@ -81,4 +81,12 @@ class LinkedListUtil {
         $node->setPrevious($prev);
         return $node;
     }
+
+    public static function createSinglyLinkedListFromArray(array $array): SinglyLinkedList {
+        $list = new SinglyLinkedList();
+        foreach ($array as $key => $value) {
+            $list->add($key, $value);
+        }
+        return $list;
+    }
 }

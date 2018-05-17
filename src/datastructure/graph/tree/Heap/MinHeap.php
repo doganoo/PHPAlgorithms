@@ -98,7 +98,7 @@ class MinHeap {
         $current = $this->heap[$currentPosition];
         $parent = $this->heap[$parentPosition];
 
-        while (Comparator::lessThen($current, $parent)) {
+        while (Comparator::lessThan($current, $parent)) {
             $this->swap($currentPosition, $parentPosition);
             $currentPosition = $this->getParentPosition($currentPosition);
             $parentPosition = $this->getParentPosition($currentPosition);
