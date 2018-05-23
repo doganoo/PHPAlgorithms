@@ -51,10 +51,10 @@ class BinarySearchTree implements IBinaryTree {
     /**
      * helper method
      *
-     * @param BinarySearchNode|null $node
+     * @param IBinaryNode|null $node
      * @return int
      */
-    private function _height(?BinarySearchNode $node): int {
+    private function _height(?IBinaryNode $node): int {
         if (null === $node) {
             return 0;
         }
