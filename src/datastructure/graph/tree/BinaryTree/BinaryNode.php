@@ -85,7 +85,7 @@ class BinaryNode implements IBinaryNode {
         if ($this->getValue() < $object->getValue()) {
             return -1;
         }
-        if ($this->getValue() === $object->getValue()) {
+        if ($this->getValue() == $object->getValue()) {
             return 0;
         }
         if ($this->getValue() > $object->getValue()) {

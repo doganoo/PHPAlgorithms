@@ -41,7 +41,7 @@ abstract class AbstractSet implements Set {
      * @return bool
      */
     public function equals($object): bool {
-        return $this === $object;
+        return $this == $object;
     }
 
     /**

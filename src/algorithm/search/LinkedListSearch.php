@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\algorithm\search;
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractLinkedList;
+use doganoo\PHPAlgorithms\common\util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
 
 /**
@@ -48,7 +49,7 @@ class LinkedListSearch {
             $hare->getNext()->getNext() !== null) {
             $hare = $hare->getNext()->getNext();
 
-            if ($tortoise->getValue() === $hare->getValue()) {
+            if (Comparator::equals($tortoise->getValue(), $hare->getValue())) {
                 return true;
             }
 

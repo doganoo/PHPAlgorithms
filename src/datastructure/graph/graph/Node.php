@@ -27,6 +27,7 @@ namespace doganoo\PHPAlgorithms\Datastructure\Graph\Graph;
 
 use doganoo\PHPAlgorithms\common\interfaces\Comparable;
 use doganoo\PHPAlgorithms\common\interfaces\INode;
+use doganoo\PHPAlgorithms\common\util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
 
 /**
@@ -65,7 +66,7 @@ class Node implements Comparable, INode {
     }
 
     public function equals(Node $node): bool {
-        return $this->value === $node->getValue();
+        return Comparator::equals($this->value, $node->getValue());
     }
 
     public function getAdjacents(): ?ArrayList {
@@ -83,7 +84,7 @@ class Node implements Comparable, INode {
         if ($this->getValue() < $object->getValue()) {
             return -1;
         }
-        if ($this->getValue() === $object->getValue()) {
+        if ($this->getValue() == $object->getValue()) {
             return 0;
         }
         if ($this->getValue() > $object->getValue()) {

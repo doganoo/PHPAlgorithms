@@ -48,9 +48,9 @@ class Comparator {
      */
     public static function equals($that, $other): bool {
         if ($that instanceof Comparable) {
-            return $that->compareTo($other) === 0;
+            return $that->compareTo($other) == 0;
         }
-        return $that === $other;
+        return $that == $other;
     }
 
     /**
@@ -60,7 +60,7 @@ class Comparator {
      */
     public static function lessThan($that, $other): bool {
         if ($that instanceof Comparable) {
-            return $that->compareTo($other) === -1;
+            return $that->compareTo($other) == -1;
         }
         return $that < $other;
     }
@@ -72,7 +72,7 @@ class Comparator {
      */
     public static function greaterThan($that, $other): bool {
         if ($that instanceof Comparable) {
-            return $that->compareTo($other) === 1;
+            return $that->compareTo($other) == 1;
         }
         return $that > $other;
     }

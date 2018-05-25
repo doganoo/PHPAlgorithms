@@ -27,6 +27,7 @@ namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Tree;
 
 
 use doganoo\PHPAlgorithms\common\interfaces\INode;
+use doganoo\PHPAlgorithms\common\util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
 
 /**
@@ -95,7 +96,7 @@ class Node implements INode {
         }
         /** @var Node $child */
         foreach ($children as $child) {
-            if ($child->getValue() === $value) {
+            if (Comparator::equals($child->getValue(), $value)) {
                 return $child;
             }
             if (null !== $child->getChildren()) {

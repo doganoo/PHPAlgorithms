@@ -28,6 +28,7 @@ namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\InOrder;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryTree;
+use doganoo\PHPAlgorithms\common\util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree\BinaryNode;
 
 /**
@@ -96,7 +97,7 @@ class BinaryTree implements IBinaryTree {
         $node = null;
         $traversal = new InOrder($this);
         $traversal->setCallable(function ($val) use ($value, &$node) {
-            if ($value === $val) {
+            if (Comparator::equals($value, $val)) {
                 $node = new BinaryNode($value);
             }
         });
