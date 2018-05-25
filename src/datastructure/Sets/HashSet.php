@@ -126,6 +126,8 @@ class HashSet extends AbstractSet implements Set {
      *
      * @param $object
      * @return bool
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException
      */
     public function remove($object): bool {
         return $this->hashMap->remove($object);
@@ -139,6 +141,7 @@ class HashSet extends AbstractSet implements Set {
      */
     public function retainAll($elements): bool {
         // TODO: Implement retainAll() method.
+        return false;
     }
 
     /**

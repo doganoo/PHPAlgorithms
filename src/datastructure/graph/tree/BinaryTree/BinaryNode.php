@@ -26,14 +26,13 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree;
 
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
-use doganoo\PHPAlgorithms\common\interfaces\INode;
 
 /**
  * Class BinaryNode
  *
  * @package doganoo\PHPAlgorithms\datastructure\Graph\Tree\BinaryTree
  */
-class BinaryNode implements IBinaryNode, INode {
+class BinaryNode implements IBinaryNode {
     private $value = PHP_INT_MIN;
     private $left = null;
     private $right = null;
@@ -73,6 +72,26 @@ class BinaryNode implements IBinaryNode, INode {
      */
     public function setRight(?IBinaryNode $right): void {
         $this->right = $right;
+    }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if (!$object instanceof BinaryNode) {
+            return -1;
+        }
+        if ($this->getValue() < $object->getValue()) {
+            return -1;
+        }
+        if ($this->getValue() === $object->getValue()) {
+            return 0;
+        }
+        if ($this->getValue() > $object->getValue()) {
+            return 1;
+        }
+        return -1;
     }
 
     /**

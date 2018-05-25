@@ -60,9 +60,11 @@ abstract class AbstractSet implements Set {
      * @return bool
      */
     public function removeAll($elements): bool {
+        $removed = false;
         foreach ($elements as $element) {
-            $this->remove($element);
+            $removed |= $this->remove($element);
         }
+        return $removed;
     }
 
 }

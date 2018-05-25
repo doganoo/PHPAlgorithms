@@ -26,14 +26,13 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree;
 
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
-use doganoo\PHPAlgorithms\common\interfaces\INode;
 
 /**
  * Class BinarySearchNode
  *
  * @package doganoo\PHPAlgorithms\datastructure\Graph\Tree\BinaryTree
  */
-class BinarySearchNode implements IBinaryNode, INode {
+class BinarySearchNode implements IBinaryNode {
     private $value;
     private $left = null;
     private $right = null;
@@ -44,20 +43,6 @@ class BinarySearchNode implements IBinaryNode, INode {
      * @param int $value
      */
     public function __construct(int $value) {
-        $this->value = $value;
-    }
-
-    /**
-     * @return int
-     */
-    public function getValue(): int {
-        return $this->value;
-    }
-
-    /**
-     * @param int $value
-     */
-    public function setValue(int $value): void {
         $this->value = $value;
     }
 
@@ -87,5 +72,39 @@ class BinarySearchNode implements IBinaryNode, INode {
      */
     public function setRight(?IBinaryNode $right): void {
         $this->right = $right;
+    }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if (!$object instanceof BinarySearchNode) {
+            return -1;
+        }
+        if ($this->getValue() < $object->getValue()) {
+            return -1;
+        }
+        if ($this->getValue() === $object->getValue()) {
+            return 0;
+        }
+        if ($this->getValue() > $object->getValue()) {
+            return 1;
+        }
+        return -1;
+    }
+
+    /**
+     * @return int
+     */
+    public function getValue(): int {
+        return $this->value;
+    }
+
+    /**
+     * @param int $value
+     */
+    public function setValue(int $value): void {
+        $this->value = $value;
     }
 }

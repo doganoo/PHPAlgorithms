@@ -57,10 +57,11 @@ class BidirectionalSearch {
      * @return ArrayList|null
      */
     private function performSearch(Node $node): ?ArrayList {
-
         $bfs = new BreadthFirstSearch();
-        $bfs->setCallable(function () {
-        });
+        $bfs->setCallable(
+            function () {
+            }
+        );
         $bfs->searchByNode($node);
         return $bfs->getVisitedNodes();
     }

@@ -43,6 +43,7 @@ class HashMapUtil {
      * @return HashMap
      * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
      * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
+     * @throws ReflectionException
      */
     public static function getHashMap(int $number) {
         $hashMap = new HashMap();

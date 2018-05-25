@@ -28,7 +28,6 @@ namespace doganoo\PHPAlgorithms\algorithm\search;
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraph;
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraphSearch;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Graph\Node;
-use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
 
 /**
  * Class DepthFirstSearch
@@ -63,7 +62,7 @@ class DepthFirstSearch extends AbstractGraphSearch {
         $this->visit($node);
         $this->visited->add($node);
         /**
-         * @var ArrayList $adjacent
+         * @var Node $adjacent
          */
         foreach ($node->getAdjacents() as $adjacent) {
             if (!$this->visited->containsValue($adjacent)) {
