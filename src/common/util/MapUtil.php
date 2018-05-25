@@ -193,4 +193,27 @@ class MapUtil {
         return $value;
     }
 
+    /**
+     * @param string $string
+     * @return mixed|null
+     */
+    public static function unserialize(string $string) {
+        if (self::isSerialized($string)) {
+            return \unserialize($string);
+        }
+        return null;
+    }
+
+    /**
+     * Check if a string is serialized
+     *
+     * see: https://stackoverflow.com/a/4994515
+     *
+     * @param string $string
+     * @return bool
+     */
+    public static function isSerialized(string $string): bool {
+        return (@unserialize($string) !== false);
+    }
+
 }

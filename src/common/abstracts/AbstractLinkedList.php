@@ -322,23 +322,8 @@ abstract class AbstractLinkedList {
      *
      * @param $key
      * @param $value
-     * @throws \ReflectionException
      */
     public function add($key, $value) {
-        //TODO handle serialize and unserialize
-        /**
-         * allow objects to be serialized. Restrict callable which are
-         * an instance of 'Callable' being serialized since it is
-         * not permitted.
-         * Also, restrict anonymous classes from being serialized.
-         */
-        if (\is_object($value) && !\is_callable($value)) {
-            $reflectionClass = new \ReflectionClass($value);
-            if (!$reflectionClass->isAnonymous()) {
-                $value = \serialize($value);
-            }
-        }
-
         $node = new Node();
         $node->setKey($key);
         $node->setValue($value);
