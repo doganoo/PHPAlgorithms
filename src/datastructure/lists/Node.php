@@ -141,6 +141,7 @@ class Node implements INode, IUnaryNode {
         if ($this->getValue() > $object->getValue()) {
             return 1;
         }
+        return -1;
     }
 
     /**

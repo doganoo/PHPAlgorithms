@@ -25,6 +25,7 @@
 
 namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
+use doganoo\PHPAlgorithms\common\util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\lists\Node;
 
 
@@ -114,7 +115,7 @@ abstract class AbstractLinkedList {
         }
         $head = $this->getHead();
 
-        if ($head->getValue() === $data) {
+        if ($head->getValue() == $data) {
             if ($head->getNext() !== null) {
                 $this->setHead($head->getNext());
                 return true;
@@ -322,23 +323,8 @@ abstract class AbstractLinkedList {
      *
      * @param $key
      * @param $value
-     * @throws \ReflectionException
      */
     public function add($key, $value) {
-        //TODO handle serialize and unserialize
-        /**
-         * allow objects to be serialized. Restrict callable which are
-         * an instance of 'Callable' being serialized since it is
-         * not permitted.
-         * Also, restrict anonymous classes from being serialized.
-         */
-        if (\is_object($value) && !\is_callable($value)) {
-            $reflectionClass = new \ReflectionClass($value);
-            if (!$reflectionClass->isAnonymous()) {
-                $value = \serialize($value);
-            }
-        }
-
         $node = new Node();
         $node->setKey($key);
         $node->setValue($value);
@@ -358,15 +344,7 @@ abstract class AbstractLinkedList {
         $tmp = $this->getHead();
         while ($tmp !== null) {
             $val = $tmp->getValue();
-            //TODO FIXME implement and test!
-            //if (\is_string($val)) {
-            //    $serialized = MapUtil::isSerialized($val);
-            //    if ($serialized) {
-            //        \ob_flush();
-            //        $val = \unserialize($val);
-            //    }
-            //}
-            if ($val === $value) {
+            if (Comparator::equals($val, $value)) {
                 //if the value is found then return it
                 return $tmp;
             }
@@ -384,8 +362,7 @@ abstract class AbstractLinkedList {
     public function containsValue($value): bool {
         $node = $this->getHead();
         while ($node !== null) {
-            //TODO unserialize
-            if ($node->getValue() === $value) {
+            if (Comparator::equals($node->getValue(), $value)) {
                 return true;
             }
             $node = $node->getNext();
@@ -405,11 +382,7 @@ abstract class AbstractLinkedList {
         }
         $head = $this->getHead();
         while ($head !== null) {
-            //12/05/18 @doganoo:
-            //can not compare for identity with ===
-            //since PHP checks objects for being
-            //the same instance :/
-            if ($head->getKey() == $key) {
+            if (Comparator::equals($head->getKey(), $key)) {
                 return $head;
             }
             $head = $head->getNext();
@@ -426,11 +399,7 @@ abstract class AbstractLinkedList {
     public function containsKey($key): bool {
         $node = $this->getHead();
         while ($node !== null) {
-            //12/05/18 @doganoo:
-            //can not compare for identity with ===
-            //since PHP checks objects for being
-            //the same instance :/
-            if ($node->getKey() == $key) {
+            if (Comparator::equals($node->getKey(), $key)) {
                 return true;
             }
             $node = $node->getNext();
@@ -501,7 +470,7 @@ abstract class AbstractLinkedList {
         $replaced = false;
         $node = $this->getHead();
         while ($node !== null) {
-            if ($node->getKey() === $key) {
+            if (Comparator::equals($node->getKey(), $key)) {
                 $node->setValue($value);
                 $replaced = true;
             }

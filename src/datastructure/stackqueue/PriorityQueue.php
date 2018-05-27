@@ -78,6 +78,7 @@ class PriorityQueue {
      */
     public function add(int $element): bool {
         $this->minHeap->insert($element);
+        return true;
     }
 
     /**
@@ -86,6 +87,6 @@ class PriorityQueue {
      * @return int
      */
     public function size(): int {
-        $this->minHeap->length();
+        return $this->minHeap->length();
     }
 }

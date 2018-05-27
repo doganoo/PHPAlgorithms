@@ -28,6 +28,7 @@ namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree;
 
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryTree;
+use doganoo\PHPAlgorithms\common\util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree\BinarySearchNode;
 
 /**
@@ -95,13 +96,13 @@ class BinarySearchTree implements IBinaryTree {
         }
         /** @var BinarySearchNode $current */
         $current = $this->getRoot();
-        if ($node->getValue() < $current->getValue()) {
+        if (Comparator::lessThan($node->getValue(), $current->getValue())) {
             while (null !== $current->getLeft()) {
                 $current = $current->getLeft();
             }
             $current->setLeft($node);
             return true;
-        } else if ($node->getValue() > $current->getValue()) {
+        } else if (Comparator::greaterThan($node->getValue(), $current->getValue())) {
             while (null !== $current->getRight()) {
                 $current = $current->getRight();
             }
@@ -121,11 +122,11 @@ class BinarySearchTree implements IBinaryTree {
         /** @var BinarySearchNode $node */
         $node = $this->getRoot();
         while (null !== $node) {
-            if ($value === $node->getValue()) {
+            if (Comparator::equals($value, $node->getValue())) {
                 return $node;
-            } else if ($value < $node->getValue()) {
+            } else if (Comparator::lessThan($value, $node->getValue())) {
                 $node = $node->getLeft();
-            } else if ($value > $node->getValue()) {
+            } else if (Comparator::greaterThan($value, $node->getValue())) {
                 $node = $node->getRight();
             }
         }

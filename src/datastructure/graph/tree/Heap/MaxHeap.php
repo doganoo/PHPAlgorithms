@@ -60,7 +60,7 @@ class MaxHeap {
     public function clear(): bool {
         $this->heap = \array_fill(0, $this->maxSize, null);
         $this->heap[0] = \PHP_INT_MIN;
-        return \count($this->heap) === 1 && $this->heap[0] === \PHP_INT_MIN;
+        return \count($this->heap) === 1 && $this->heap[0] == \PHP_INT_MIN;
     }
 
     /**
