@@ -27,7 +27,7 @@ namespace doganoo\PHPAlgorithms\datastructure\cache;
 
 
 use doganoo\PHPAlgorithms\common\interfaces\ICache;
-use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
+use doganoo\PHPAlgorithms\common\util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
 
 /**
@@ -36,17 +36,21 @@ use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
  * @package doganoo\PHPAlgorithms\datastructure\cache
  */
 class LRUCache implements ICache {
-    const SIZE = 2;
-    private $map = null;
+    /** @var HashMap|null $hashMap */
+    private $hashMap = null;
+    /** @var Node $head */
     private $head = null;
-    private $tail = null;
-    private $currSize = 0;
+    /** @var int $capacity */
+    private $capacity = 0;
 
     /**
      * LRUCache constructor.
+     *
+     * @param int $capacity
      */
-    public function __construct() {
-        $this->map = new HashMap();
+    public function __construct($capacity = 128) {
+        $this->hashMap = new HashMap();
+        $this->capacity = $capacity;
     }
 
     /**
@@ -56,23 +60,88 @@ class LRUCache implements ICache {
      * @param $value
      * @return bool
      * @throws \ReflectionException
-     * @throws \doganoo\PHPAlgorithms\Common\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
      */
-    public function put($key, $value) {
-        if ($this->map->containsKey($key)) {
-            return false;
+    public function put($key, $value): bool {
+        if ($this->hashMap->containsKey($key)) {
+            $node = $this->getNodeFromHead($key);
+            $node->setKey($key);
+            $node->setValue($value);
+            $this->unset($node);
+            $this->updateHead($node);
+            return true;
         }
-        $this->map->add($key, $value);
+        if ($this->hashMap->size() >= $this->capacity) {
+            $end = $this->getEnd();
+            if (null !== $end) {
+                $this->unset($end);
+                $this->hashMap->remove($end->getKey());
+            }
+        }
         $node = new Node();
+        $node->setKey($key);
         $node->setValue($value);
+        $this->updateHead($node);
+        $this->hashMap->add($key, $value);
+        return true;
+    }
+
+    private function getNodeFromHead($key) {
+        $head = $this->head;
+        while (null !== $head) {
+            if (Comparator::equals($head->getKey(), $key)) {
+                return $head;
+            }
+            $head = $head->getNext();
+        }
+        return null;
+    }
+
+    /**
+     * @param Node $node
+     */
+    private function unset(Node $node) {
+        if (null === $node) {
+            return;
+        }
+        if (Comparator::equals($this->head, $node)) {
+            $this->head = $node->getNext();
+        }
+        if (null !== $node->getNext()) {
+            $node->getNext()->setPrevious($node->getPrevious());
+        }
+        if (null !== $node->getPrevious()) {
+            $node->getPrevious()->setNext($node->getNext());
+        }
+        unset($node);
+    }
+
+    /**
+     * @param Node $node
+     */
+    private function updateHead(Node $node) {
         $node->setPrevious(null);
-        if (null === $this->head) {
-            $node->setNext(null);
-        } else {
-            $node->setNext($this->head);
+        $node->setNext($this->head);
+
+        if (null !== $this->head) {
+            $this->head->setPrevious($node);
         }
         $this->head = $node;
+    }
+
+    /**
+     * @return Node|null
+     */
+    private function getEnd(): ?Node {
+        $head = $this->head;
+        if (null === $head) {
+            return null;
+        }
+        while (null !== $head->getNext()) {
+            $head = $head->getNext();
+        }
+        return $head;
     }
 
     /**
@@ -82,22 +151,13 @@ class LRUCache implements ICache {
      * @return mixed
      */
     public function get($key) {
-        if (!$this->map->containsKey($key)) {
-            return null;
+        if ($this->hashMap->containsKey($key)) {
+            $node = $this->getNodeFromHead($key);
+            $this->unset($node);
+            $this->updateHead($node);
+            return $this->head->getValue();
         }
-        /** @var Node $node */
-        $node = $this->head;
-        $next = $node->getNext();
-        $prev = $node->getPrevious();
-        $prev->setNext($next);
-
-        if (null !== $next) {
-            $next->setPrevious($prev);
-        }
-
-        $node->setPrevious(null);
-        $node->setNext($this->head);
-        $this->head = $node;
+        return null;
     }
 
     /**
@@ -106,7 +166,7 @@ class LRUCache implements ICache {
      * @return mixed
      */
     public function last() {
-        // TODO: Implement last() method.
+        return $this->head->getKey();
     }
 
     /**
@@ -114,8 +174,24 @@ class LRUCache implements ICache {
      *
      * @param $key
      * @return bool
+     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
      */
     public function delete($key): bool {
-        // TODO: Implement delete() method.
+        $node = $this->getNodeFromHead($key);
+        if (null === $node) {
+            return false;
+        }
+        /** @var Node $head */
+        $head = $this->head;
+        while (null !== $head) {
+            if (Comparator::equals($head->getKey(), $node->getKey())) {
+                $this->unset($head);
+                $this->hashMap->remove($key);
+                return true;
+            }
+            $head = $head->getNext();
+        }
+        return false;
     }
 }

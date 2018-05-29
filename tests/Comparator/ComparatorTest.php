@@ -28,7 +28,7 @@ class ComparatorTest extends \PHPUnit\Framework\TestCase {
 
         $node = "1";
         $value = 1;
-        $this->assertTrue(Comparator::equals($node, $value) === false);
+        $this->assertTrue(Comparator::equals($node, $value) === true);
 
         $node = new Node(1);
         $value = new ArrayList();

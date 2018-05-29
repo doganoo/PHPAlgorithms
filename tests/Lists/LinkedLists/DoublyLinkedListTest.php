@@ -24,6 +24,7 @@
  */
 
 use doganoo\PHPAlgorithms\Datastructure\lists\Node;
+use doganoo\PHPUtil\Log\Logger;
 
 /**
  * Class DoublyLinkedListTest PHPUnit test class for doubly linked lists
@@ -60,7 +61,6 @@ class DoublyLinkedListTest extends \PHPUnit\Framework\TestCase {
         $node = $list->getHead();
         $this->assertTrue($node->getKey() === 3);
         $value = $node->getValue();
-        $value = unserialize($value);
         $this->assertTrue($value instanceof stdClass);
     }
 

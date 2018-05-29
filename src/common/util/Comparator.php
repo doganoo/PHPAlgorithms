@@ -27,6 +27,7 @@ namespace doganoo\PHPAlgorithms\common\util;
 
 
 use doganoo\PHPAlgorithms\common\interfaces\Comparable;
+use doganoo\PHPUtil\Log\Logger;
 
 /**
  * Class Comparator
@@ -50,6 +51,18 @@ class Comparator {
         if ($that instanceof Comparable) {
             return $that->compareTo($other) == 0;
         }
+        if (\is_object($that)) {
+            if (\is_object($other)) {
+                return $that == $other;
+            }
+            return false;
+        }
+        if (\is_object($other)) {
+            if (\is_object($that)) {
+                return $other == $that;
+            }
+            return false;
+        }
         return $that == $other;
     }
 
@@ -61,6 +74,18 @@ class Comparator {
     public static function lessThan($that, $other): bool {
         if ($that instanceof Comparable) {
             return $that->compareTo($other) == -1;
+        }
+        if (\is_object($that)) {
+            if (\is_object($other)) {
+                return $that < $other;
+            }
+            return false;
+        }
+        if (\is_object($other)) {
+            if (\is_object($that)) {
+                return $other < $that;
+            }
+            return false;
         }
         return $that < $other;
     }
@@ -74,7 +99,19 @@ class Comparator {
         if ($that instanceof Comparable) {
             return $that->compareTo($other) == 1;
         }
-        return $that > $other;
+        if (\is_object($that)) {
+            if (\is_object($other)) {
+                return $that > $other;
+            }
+            return false;
+        }
+        if (\is_object($other)) {
+            if (\is_object($that)) {
+                return $other > $that;
+            }
+            return false;
+        }
+        return ($that > $other);
     }
 
 }

@@ -172,6 +172,7 @@ class HashMap {
     /**
      * returns the number of elements in the map
      *
+     *
      * @return int
      */
     public function size(): int {
@@ -341,7 +342,8 @@ class HashMap {
          * is no node to remove.
          */
         if ($list->size() == 1 && $head->getKey() === $key) {
-            $this->bucket[$arrayIndex] = null;
+            //$this->bucket[$arrayIndex] = null;
+            unset($this->bucket[$arrayIndex]);
             return true;
         }
         return $list->remove($key);

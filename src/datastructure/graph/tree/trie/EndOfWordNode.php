@@ -25,14 +25,12 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Trie;
 
-use doganoo\PHPAlgorithms\common\interfaces\INode;
-
 /**
  * Class EndOfWordNode
  *
  * @package doganoo\PHPAlgorithms\datastructure\trie
  */
-class EndOfWordNode extends Node implements INode {
+class EndOfWordNode extends Node {
     /**
      * @const END_OF_WORD
      */

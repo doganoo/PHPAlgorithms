@@ -15,8 +15,6 @@ class SortTest extends \PHPUnit\Framework\TestCase {
     public function testSelectionSort() {
         $bubbleSort = new SelectionSort();
         $result = $bubbleSort->sort([12, 40, 9, 55, 1, 13]);
-        print_r($result);
-        ob_flush();
         $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
     }
 

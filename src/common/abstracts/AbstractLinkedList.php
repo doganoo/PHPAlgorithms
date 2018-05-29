@@ -143,7 +143,7 @@ abstract class AbstractLinkedList {
         while ($tortoise !== null) {
             $hare = $tortoise;
             while ($hare->getNext() !== null) {
-                if ($hare->getNext()->getValue() == $tortoise->getValue()) {
+                if (Comparator::equals($hare->getNext()->getValue(), $tortoise->getValue())) {
                     $hare->setNext($hare->getNext()->getNext());
                 } else {
                     $hare = $hare->getNext();
@@ -398,7 +398,7 @@ abstract class AbstractLinkedList {
      */
     public function containsKey($key): bool {
         $node = $this->getHead();
-        while ($node !== null) {
+        while (null !== $node) {
             if (Comparator::equals($node->getKey(), $key)) {
                 return true;
             }
