@@ -23,8 +23,7 @@
  * SOFTWARE.
  */
 
-use doganoo\PHPAlgorithms\Datastructure\lists\Node;
-use doganoo\PHPUtil\Log\Logger;
+use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
 
 /**
  * Class DoublyLinkedListTest PHPUnit test class for doubly linked lists

@@ -24,13 +24,13 @@
  */
 
 
-use doganoo\PHPAlgorithms\datastructure\Graph\Tree\BinarySearchTree;
-use doganoo\PHPAlgorithms\datastructure\Graph\Tree\BinaryTree;
+use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinarySearchTree;
+use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree;
 
 /**
  * Class TreeUtil
  *
- * @package doganoo\PHPAlgorithms\common\util
+ * @package doganoo\PHPAlgorithms\common\Util
  */
 class TreeUtil {
     /**

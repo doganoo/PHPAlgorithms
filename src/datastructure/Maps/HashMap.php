@@ -28,7 +28,7 @@ namespace doganoo\PHPAlgorithms\Datastructure\Maps;
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractLinkedList;
 use doganoo\PHPAlgorithms\Common\Util\MapUtil;
 use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists\SinglyLinkedList;
-use doganoo\PHPAlgorithms\Datastructure\lists\Node;
+use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
 
 /**
  * HashMap class - implementation of a map using hashes in order to avoid collisions

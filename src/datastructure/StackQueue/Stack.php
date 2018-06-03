@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Datastructure\StackQueue;
+namespace doganoo\PHPAlgorithms\Datastructure\Stackqueue;
 
 
 /**

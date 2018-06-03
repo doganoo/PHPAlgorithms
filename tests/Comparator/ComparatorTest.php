@@ -1,7 +1,7 @@
 <?php
 
 
-use doganoo\PHPAlgorithms\common\util\Comparator;
+use doganoo\PHPAlgorithms\common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Graph\Node;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
 

@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-use doganoo\PHPAlgorithms\Datastructure\lists\Node;
+use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
 use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
 
 /**

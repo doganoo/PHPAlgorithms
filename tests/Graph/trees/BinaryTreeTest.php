@@ -26,7 +26,7 @@
 use doganoo\PHPAlgorithms\Algorithm\Traversal\InOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PostOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PreOrder;
-use doganoo\PHPAlgorithms\datastructure\Graph\Tree\BinaryTree;
+use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree;
 
 
 class BinaryTreeTest extends \PHPUnit\Framework\TestCase {

@@ -1,7 +1,7 @@
 <?php
 
 
-use doganoo\PHPAlgorithms\datastructure\cache\LRUCache;
+use doganoo\PHPAlgorithms\Datastructure\Cache\LRUCache;
 
 class LRUCacheTest extends \PHPUnit\Framework\TestCase {
 

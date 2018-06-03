@@ -27,7 +27,7 @@ namespace doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists;
 
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractLinkedList;
-use doganoo\PHPAlgorithms\Datastructure\lists\Node;
+use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
 
 /**
  * Class SinglyLinkedList
@@ -72,7 +72,7 @@ class SinglyLinkedList extends AbstractLinkedList {
      * set to head and the head is set to the new node in order to create
      * the new head.
      *
-     * @param \doganoo\PHPAlgorithms\Datastructure\lists\Node $node
+     * @param \doganoo\PHPAlgorithms\Datastructure\Lists\Node $node
      * @return bool
      */
     public function prepend(?Node $node): bool {

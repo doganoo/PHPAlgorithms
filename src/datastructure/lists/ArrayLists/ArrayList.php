@@ -27,7 +27,7 @@ namespace doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists;
 
 
 use doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException;
-use doganoo\PHPAlgorithms\common\util\Comparator;
+use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use Traversable;
 
 /**

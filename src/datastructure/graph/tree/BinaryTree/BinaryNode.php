@@ -30,7 +30,7 @@ use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
 /**
  * Class BinaryNode
  *
- * @package doganoo\PHPAlgorithms\datastructure\Graph\Tree\BinaryTree
+ * @package doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree
  */
 class BinaryNode implements IBinaryNode {
     private $value = PHP_INT_MIN;

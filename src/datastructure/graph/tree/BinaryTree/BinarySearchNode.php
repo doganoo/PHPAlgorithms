@@ -30,7 +30,7 @@ use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
 /**
  * Class BinarySearchNode
  *
- * @package doganoo\PHPAlgorithms\datastructure\Graph\Tree\BinaryTree
+ * @package doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree
  */
 class BinarySearchNode implements IBinaryNode {
     private $value;

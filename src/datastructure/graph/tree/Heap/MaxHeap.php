@@ -25,7 +25,7 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Heap;
 
-use doganoo\PHPAlgorithms\common\util\Comparator;
+use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPUtil\Log\Logger;
 
 /**
@@ -33,7 +33,7 @@ use doganoo\PHPUtil\Log\Logger;
  *
  * see https://www.sanfoundry.com/java-program-implement-min-heap/
  *
- * @package doganoo\PHPAlgorithms\datastructure\graph\tree\Heap
+ * @package doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Heap
  */
 class MaxHeap {
     /**

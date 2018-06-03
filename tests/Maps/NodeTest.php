@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-use doganoo\PHPAlgorithms\Datastructure\lists\Node;
+use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
 
 /**
  * Class NodeTest PHPUnit test class

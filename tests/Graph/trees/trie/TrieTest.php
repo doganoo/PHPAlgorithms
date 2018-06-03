@@ -31,7 +31,7 @@ class TrieTest extends \PHPUnit\Framework\TestCase {
      * tests inserting and searching
      */
     public function testAdd() {
-        $trie = new \doganoo\PHPAlgorithms\datastructure\Graph\Tree\Trie\Trie();
+        $trie = new \doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Trie\Trie();
         $trie->insert("Test");
         $found = $trie->search("Test");
         $this->assertTrue($found === true);

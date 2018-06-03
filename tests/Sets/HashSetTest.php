@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-use doganoo\PHPAlgorithms\datastructure\Sets\HashSet;
+use doganoo\PHPAlgorithms\Datastructure\Sets\HashSet;
 
 /**
  * Class HashSetTest PHPUnit test class

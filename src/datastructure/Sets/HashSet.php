@@ -26,14 +26,14 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Sets;
 
 
-use doganoo\PHPAlgorithms\common\Abstracts\AbstractSet;
-use doganoo\PHPAlgorithms\common\interfaces\Set;
+use doganoo\PHPAlgorithms\Common\Abstracts\AbstractSet;
+use doganoo\PHPAlgorithms\Common\Interfaces\Set;
 use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
 
 /**
  * Class HashSet
  *
- * @package doganoo\PHPAlgorithms\datastructure\Sets
+ * @package doganoo\PHPAlgorithms\Datastructure\Sets
  */
 class HashSet extends AbstractSet implements Set {
     private $hashMap = null;

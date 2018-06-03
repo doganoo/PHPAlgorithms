@@ -25,9 +25,9 @@
 
 namespace doganoo\PHPAlgorithms\Algorithm\Traversal;
 
-use doganoo\PHPAlgorithms\common\Abstracts\AbstractTraverse;
-use doganoo\PHPAlgorithms\common\Interfaces\IBinaryNode;
-use doganoo\PHPAlgorithms\common\Interfaces\IBinaryTree;
+use doganoo\PHPAlgorithms\Common\Abstracts\AbstractTraverse;
+use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
+use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryTree;
 
 /**
  * Class PostOrder

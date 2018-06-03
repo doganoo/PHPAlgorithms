@@ -3,7 +3,7 @@
 
 use doganoo\PHPAlgorithms\Algorithm\Sorting\BubbleSort;
 use doganoo\PHPAlgorithms\Algorithm\Sorting\MergeSort;
-use doganoo\PHPAlgorithms\algorithm\sorting\SelectionSort;
+use doganoo\PHPAlgorithms\Algorithm\Sorting\SelectionSort;
 
 class SortTest extends \PHPUnit\Framework\TestCase {
     public function testBubbleSort() {

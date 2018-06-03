@@ -27,7 +27,7 @@ namespace doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists;
 
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractLinkedList;
-use doganoo\PHPAlgorithms\Datastructure\lists\Node;
+use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
 
 /**
  * Class DoublyLinkedList
@@ -70,7 +70,7 @@ class DoublyLinkedList extends AbstractLinkedList {
     /**
      * prepends a node on top of the list
      *
-     * @param \doganoo\PHPAlgorithms\Datastructure\lists\Node|null $node
+     * @param \doganoo\PHPAlgorithms\Datastructure\Lists\Node|null $node
      * @return bool
      */
     public function prepend(?Node $node): bool {

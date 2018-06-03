@@ -23,8 +23,8 @@
  * SOFTWARE.
  */
 
-use doganoo\PHPAlgorithms\Datastructure\StackQueue\Queue;
-use doganoo\PHPAlgorithms\Datastructure\StackQueue\Stack;
+use doganoo\PHPAlgorithms\Datastructure\Stackqueue\Queue;
+use doganoo\PHPAlgorithms\Datastructure\Stackqueue\Stack;
 
 /**
  * Class StackQueueTest class testing Stacks and Queues

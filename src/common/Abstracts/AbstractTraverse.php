@@ -32,7 +32,7 @@ use doganoo\PHPUtil\Log\Logger;
 /**
  * Class AbstractTraverse
  *
- * @package doganoo\PHPAlgorithms\common\abstracts
+ * @package doganoo\PHPAlgorithms\common\Abstracts
  */
 abstract class AbstractTraverse {
     /** @var $callable callable|null */

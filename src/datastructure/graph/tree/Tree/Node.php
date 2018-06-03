@@ -26,8 +26,8 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Tree;
 
 
-use doganoo\PHPAlgorithms\common\interfaces\INode;
-use doganoo\PHPAlgorithms\common\util\Comparator;
+use doganoo\PHPAlgorithms\Common\Interfaces\INode;
+use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
 
 /**
