@@ -18,12 +18,6 @@
     "phpunit/phpunit": "6.5"
   },
   "require": {
-    "doganoo/php-util": "dev-master"
-  },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/doganoo/PHPUtil.git"
-    }
-  ]
+    "doganoo/php-util": "0.0.1"
+  }
 }
