@@ -28,7 +28,6 @@ namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
 use doganoo\PHPAlgorithms\Datastructure\Graph\Graph\Node;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
-use doganoo\PHPUtil\Log\Logger;
 
 /**
  * Class AbstractTraverse
@@ -44,7 +43,7 @@ abstract class AbstractGraphSearch {
     public function __construct() {
         $this->visited = new ArrayList();
         $this->callable = function ($value) {
-            Logger::debug($value);
+            echo $value;
         };
     }
 
@@ -62,7 +61,7 @@ abstract class AbstractGraphSearch {
         if (null === $this->callable
             && !\is_callable($this->callable)) {
             $callable = function ($otherValue) {
-                Logger::debug($otherValue);
+                echo $otherValue;
             };
         }
         $callable($value);

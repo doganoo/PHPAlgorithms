@@ -26,7 +26,6 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Heap;
 
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
-use doganoo\PHPUtil\Log\Logger;
 
 /**
  * Class MaxHeap
@@ -61,16 +60,6 @@ class MaxHeap {
         $this->heap = \array_fill(0, $this->maxSize, null);
         $this->heap[0] = \PHP_INT_MIN;
         return \count($this->heap) === 1 && $this->heap[0] == \PHP_INT_MIN;
-    }
-
-    /**
-     * displays the heap
-     */
-    public function display() {
-        for ($i = 1; $i <= $this->length() / 2; $i++) {
-            $string = "Parent Node: " . $this->heap[$i] . " Left Child: " . $this->heap[2 * $i] . " Right Child: " . $this->heap[2 * $i + 1];
-            Logger::debug($string);
-        }
     }
 
     /**

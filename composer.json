@@ -16,8 +16,5 @@
   },
   "require-dev": {
     "phpunit/phpunit": "6.5"
-  },
-  "require": {
-    "doganoo/php-util": "0.0.1"
   }
 }

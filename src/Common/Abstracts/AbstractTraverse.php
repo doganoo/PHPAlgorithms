@@ -27,7 +27,6 @@ namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
 
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
-use doganoo\PHPUtil\Log\Logger;
 
 /**
  * Class AbstractTraverse
@@ -57,7 +56,7 @@ abstract class AbstractTraverse {
         if (null === $this->callable
             && !\is_callable($this->callable)) {
             $callable = function ($otherValue) {
-                Logger::debug($otherValue);
+                echo $otherValue;
             };
         }
         $callable($value);
