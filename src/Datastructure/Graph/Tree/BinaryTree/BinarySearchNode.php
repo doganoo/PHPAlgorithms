@@ -42,7 +42,7 @@ class BinarySearchNode implements IBinaryNode {
      *
      * @param int $value
      */
-    public function __construct(int $value) {
+    public function __construct($value) {
         $this->value = $value;
     }
 
@@ -97,14 +97,14 @@ class BinarySearchNode implements IBinaryNode {
     /**
      * @return int
      */
-    public function getValue(): int {
+    public function getValue() {
         return $this->value;
     }
 
     /**
      * @param int $value
      */
-    public function setValue(int $value): void {
+    public function setValue($value): void {
         $this->value = $value;
     }
 }

@@ -26,6 +26,7 @@
 use doganoo\PHPAlgorithms\Algorithm\Traversal\InOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PostOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PreOrder;
+use doganoo\PHPAlgorithms\Common\Interfaces\Comparable;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinarySearchTree;
 
 /**
@@ -85,4 +86,53 @@ class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase {
         $traversal->traverse();
         $this->assertTrue($array === [1, 2, 6, 5]);
     }
+
+    public function testWithObjects() {
+        $tree = new BinarySearchTree();
+        $upper = 10;
+        for ($i = 0; $i < $upper; $i++) {
+            $x = new TestNode($i);
+            $tree->insertValue($x);
+        }
+        $this->assertTrue($tree->height() === $upper);
+        $node = $tree->search(new TestNode(4));
+        $this->assertTrue($node !== null);
+        $node = $tree->search(new TestNode($upper + 5));
+        $this->assertTrue($node === null);
+
+    }
 }
+
+class TestNode implements Comparable {
+    private $id = 0;
+
+    public function __construct($id) {
+        $this->id = $id;
+    }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if (!$object instanceof $this) {
+            return -1;
+        }
+        if ($this->getId() < $object->getId()) {
+            return -1;
+        }
+        if ($this->getId() == $object->getId()) {
+            return 0;
+        }
+        if ($this->getId() > $object->getId()) {
+            return 1;
+        }
+        return -1;
+    }
+
+    public function getId(): int {
+        return $this->id;
+    }
+}
+
+;
