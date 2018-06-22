@@ -43,7 +43,7 @@ class CircularBuffer {
      *
      * @param int $size
      */
-    public function __construct(\int $size = 128) {
+    public function __construct(int $size = 128) {
         $this->size = $size;
         $this->elements = \array_fill(0, $size, null);
         $this->clear();
@@ -63,6 +63,12 @@ class CircularBuffer {
      * If the buffer is full, the method will insert the
      * data at the "beginning" without warning.
      *
+     * important notice: this method wastes one slot in order to differentiate
+     * between full and empty.
+     *
+     * This wasting is not necessary, but requires an addition boolean flag which
+     * (in my mind) uglifies the code.
+     *
      * @param $data
      * @return bool
      */
@@ -81,6 +87,12 @@ class CircularBuffer {
 
     /**
      * returns whether the circular buffer is full or not
+     *
+     * important notice: this method wastes one slot in order to differentiate
+     * between full and empty.
+     *
+     * This wasting is not necessary, but requires an addition boolean flag which
+     * (in my mind) uglifies the code.
      *
      * @return bool
      */
