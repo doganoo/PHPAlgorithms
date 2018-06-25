@@ -81,7 +81,7 @@ class Stack {
      *
      * @return bool
      */
-    private function isValid(): bool {
+    protected function isValid(): bool {
         return $this->stack !== null;
     }
 
@@ -90,7 +90,7 @@ class Stack {
      *
      */
     public function peek() {
-        if (!$this->isValid()) {
+        if ($this->stack === null) {
             return null;
         }
         if ($this->stackSize() == 0) {
@@ -118,7 +118,7 @@ class Stack {
      * @return bool
      */
     public function pop(): bool {
-        if (!$this->isValid()) {
+        if ($this->stack === null) {
             return false;
         }
         if ($this->isEmpty()) {

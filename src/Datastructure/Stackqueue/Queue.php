@@ -68,7 +68,7 @@ class Queue {
      *
      * @return bool
      */
-    private function isValid(): bool {
+    protected function isValid(): bool {
         return $this->queue !== null;
     }
 

@@ -23,21 +23,26 @@
  * SOFTWARE.
  */
 
-use doganoo\PHPAlgorithms\Datastructure\Stackqueue\Queue;
-use doganoo\PHPAlgorithms\Datastructure\Stackqueue\Stack;
+use doganoo\PHPAlgorithms\Datastructure\Stackqueue\FixedQueue;
+use doganoo\PHPAlgorithms\Datastructure\Stackqueue\FixedStack;
 
 /**
  * Class StackQueueTest class testing Stacks and Queues
  */
-class StackTest extends \PHPUnit\Framework\TestCase {
+class FixedStackTest extends \PHPUnit\Framework\TestCase {
     /**
      * Stack class test
      */
     public function testStack() {
-        $stack = new Stack();
-        $stack->push(new stdClass());
+        $stack = new FixedStack(2);
+        $added = $stack->push(new stdClass());
+        $this->assertTrue($added === true);
         $stack->push(new Exception());
         $this->assertTrue($stack->isEmpty() == false);
+        $this->assertTrue($stack->stackSize() === 2);
+        $added = $stack->push(new stdClass());
+        $this->assertTrue($added === false);
+        $this->assertTrue($stack->stackSize() === 2);
 
         $class = $stack->peek();
         $this->assertTrue($class instanceof Exception);
@@ -52,10 +57,13 @@ class StackTest extends \PHPUnit\Framework\TestCase {
      * Queue class test
      */
     public function testQueue() {
-        $queue = new Queue();
+        $queue = new FixedQueue(2);
         $queue->enqueue(new stdClass());
         $queue->enqueue(new Exception());
         $this->assertTrue($queue->isEmpty() == false);
+        $added = $queue->enqueue(new Exception());
+        $this->assertTrue($added === false);
+        $this->assertTrue($queue->queueSize() === 2);
 
         $class = $queue->dequeue();
         $this->assertTrue($class instanceof Exception);
@@ -64,7 +72,5 @@ class StackTest extends \PHPUnit\Framework\TestCase {
         $class = $queue->dequeue();
         $this->assertTrue($class instanceof stdClass);
         $this->assertTrue($queue->isEmpty() == true);
-
-
     }
 }
