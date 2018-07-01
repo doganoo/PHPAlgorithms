@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree;
 
 
+use doganoo\PHPAlgorithms\Algorithm\Sorting\BubbleSort;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryTree;
 use doganoo\PHPAlgorithms\common\Util\Comparator;
@@ -41,39 +42,28 @@ class BinarySearchTree implements IBinaryTree {
     private $root = null;
 
     /**
-     * returns the height
+     * converts an array to an BST. Be careful using this method. If you have an ordered array
+     * you will get an non-optimal BST! Use createFromArrayWithMinimumHeight() if you want an
+     * BST with minimum height.
      *
-     * @return int
+     * @param array|null $array
+     * @return BinarySearchTree|null
      */
-    public function height(): int {
-        return $this->_height($this->getRoot());
-    }
-
-    /**
-     * helper method
-     *
-     * @param IBinaryNode|null $node
-     * @return int
-     */
-    private function _height(?IBinaryNode $node): int {
-        if (null === $node) {
-            return 0;
+    public static function createFromArray(?array $array): ?BinarySearchTree {
+        if (null === $array) {
+            return null;
         }
-        return 1 + \max($this->_height($node->getLeft()), $this->_height($node->getRight()));
-    }
-
-    /**
-     * @return IBinaryNode|null
-     */
-    public function getRoot(): ?IBinaryNode {
-        return $this->root;
-    }
-
-    /**
-     * @param null $root
-     */
-    public function setRoot($root): void {
-        $this->root = $root;
+        $tree = new BinarySearchTree();
+        if (0 === \count($array)) {
+            return $tree;
+        }
+        foreach ($array as $element) {
+            if (null === $element) {
+                continue;
+            }
+            $tree->insertValue($element);
+        }
+        return $tree;
     }
 
     public function insertValue($value) {
@@ -110,6 +100,90 @@ class BinarySearchTree implements IBinaryTree {
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return IBinaryNode|null
+     */
+    public function getRoot(): ?IBinaryNode {
+        return $this->root;
+    }
+
+    /**
+     * @param null $root
+     */
+    public function setRoot($root): void {
+        $this->root = $root;
+    }
+
+    /**
+     * converts an array to a BST with minimum height.
+     *
+     * @param array|null $array
+     * @return BinarySearchTree|null
+     */
+    public static function createFromArrayWithMinimumHeight(?array $array): ?BinarySearchTree {
+        if (null === $array) {
+            return null;
+        }
+        $tree = new BinarySearchTree();
+        if (0 === \count($array)) {
+            return $tree;
+        }
+        $sort = new BubbleSort();
+        $array = $sort->sort($array);
+        $root = BinarySearchTree::_createFromArrayWithMinimumHeight($array, 0, \count($array) - 1);
+        $tree = new BinarySearchTree();
+        $tree->setRoot($root);
+        return $tree;
+    }
+
+    /**
+     * helper method for createFromArrayWithMinimumHeight()
+     *
+     * @param array $array
+     * @param int   $start
+     * @param int   $end
+     * @return IBinaryNode|null
+     */
+    private static function _createFromArrayWithMinimumHeight(array $array, int $start, int $end): ?IBinaryNode {
+        if ($end < $start) {
+            return null;
+        }
+        $middle = (int)(($start + $end) / 2);
+        $value = $array[$middle];
+
+        if (null === $value) {
+            return null;
+        }
+        $node = new BinarySearchNode($array[$middle]);
+        $leftNode = BinarySearchTree::_createFromArrayWithMinimumHeight($array, $start, $middle - 1);
+        $rightNode = BinarySearchTree::_createFromArrayWithMinimumHeight($array, $middle + 1, $end);
+        $node->setLeft($leftNode);
+        $node->setRight($rightNode);
+        return $node;
+    }
+
+    /**
+     * returns the height
+     *
+     * @return int
+     */
+    public function height(): int {
+        return $this->_height($this->getRoot());
+    }
+
+    /**
+     * helper method
+     *
+     * @param IBinaryNode|null $node
+     * @return int
+     */
+    private function _height(?IBinaryNode $node): int {
+        if (null === $node) {
+            return 0;
+        }
+        return 1 + \max($this->_height($node->getLeft()), $this->_height($node->getRight()));
     }
 
     /**

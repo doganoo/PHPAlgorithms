@@ -45,6 +45,17 @@ class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($bst->height() === 3);
     }
 
+    public function testMinimumHeight() {
+        $tree = BinarySearchTree::createFromArrayWithMinimumHeight([25, 50, 75, 100, 125, 150, 175]);
+        $this->assertTrue($tree->height() === 3);
+        $tree = BinarySearchTree::createFromArrayWithMinimumHeight(null);
+        $this->assertTrue($tree === null);
+        $tree = BinarySearchTree::createFromArrayWithMinimumHeight([null, 50, null, 100, null, 150, null]);
+        $this->assertTrue($tree->height() === 2);
+        $tree = BinarySearchTree::createFromArray([25, 50, 75, 100, 125, 150, 175]);
+        $this->assertTrue($tree->height() === 7);
+    }
+
     /**
      * tests in order Traversal
      */
