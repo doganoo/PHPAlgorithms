@@ -130,8 +130,6 @@ class BinarySearchTree implements IBinaryTree {
         if (0 === \count($array)) {
             return $tree;
         }
-        $sort = new BubbleSort();
-        $array = $sort->sort($array);
         $root = BinarySearchTree::_createFromArrayWithMinimumHeight($array, 0, \count($array) - 1);
         $tree = new BinarySearchTree();
         $tree->setRoot($root);
