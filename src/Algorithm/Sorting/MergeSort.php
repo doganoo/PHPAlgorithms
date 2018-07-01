@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\Algorithm\Sorting;
 
 use doganoo\PHPAlgorithms\common\Interfaces\ISortable;
+use doganoo\PHPAlgorithms\Common\Util\Comparator;
 
 /**
  * Class MergeSort
@@ -67,7 +68,7 @@ class MergeSort implements ISortable {
         }
         $result = [];
         while (count($left) !== 0 && count($right) !== 0) {
-            if ($left[0] > $right[0]) {
+            if (Comparator::greaterThan($left[0], $right[0])) {
                 $result[] = $right[0];
                 $right = array_slice($right, 1);
             } else {

@@ -27,6 +27,7 @@ namespace doganoo\PHPAlgorithms\Sort;
 
 
 use doganoo\PHPAlgorithms\common\Interfaces\ISortable;
+use doganoo\PHPAlgorithms\Common\Util\Comparator;
 
 /**
  * Class QuickSort
@@ -53,7 +54,7 @@ class QuickSort implements ISortable {
             $value = current($array);
             unset($array[$key]);
 
-            if ($value < $pivot) {
+            if (Comparator::lessThan($value, $pivot)) {
                 $left[] = $value;
             } else {
                 $right[] = $value;
