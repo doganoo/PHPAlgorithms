@@ -26,7 +26,7 @@
 namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
 
-use doganoo\PHPAlgorithms\common\Interfaces\Set;
+use doganoo\PHPAlgorithms\Common\Interfaces\Set;
 
 /**
  * Class AbstractSet

@@ -25,7 +25,7 @@
 
 namespace doganoo\PHPAlgorithms\Algorithm\Sorting;
 
-use doganoo\PHPAlgorithms\common\Interfaces\ISortable;
+use doganoo\PHPAlgorithms\Common\Interfaces\ISortable;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 
 /**

@@ -26,10 +26,9 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree;
 
 
-use doganoo\PHPAlgorithms\Algorithm\Sorting\BubbleSort;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryTree;
-use doganoo\PHPAlgorithms\common\Util\Comparator;
+use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree\BinarySearchNode;
 
 /**
