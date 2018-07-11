@@ -45,7 +45,7 @@ use Traversable;
  *
  * @package doganoo\PHPAlgorithms\Lists\ArrayLists
  */
-class ArrayList implements \IteratorAggregate {
+class ArrayList implements \IteratorAggregate, \JsonSerializable {
     /**
      * @const DEFAULT_ARRAY_SIZE
      */
@@ -371,5 +371,22 @@ class ArrayList implements \IteratorAggregate {
     public function getIterator() {
         $array = \array_slice($this->array, 0, $this->length(), true);
         return new \ArrayIterator($array);
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     *
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize() {
+        return [
+            "default_capacity" => ArrayList::DEFAULT_CAPACITY
+            , "size" => \count($this->array)
+            , "length" => $this->length()
+            , "content" => $this->array,
+        ];
     }
 }
