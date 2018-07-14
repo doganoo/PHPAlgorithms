@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree;
 
 
+use doganoo\PHPAlgorithms\Common\Exception\InvalidSearchComparisionException;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryTree;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
@@ -188,6 +189,7 @@ class BinarySearchTree implements IBinaryTree {
      *
      * @param $value
      * @return BinarySearchNode|null
+     * @throws InvalidSearchComparisionException
      */
     public function search($value): ?BinarySearchNode {
         /** @var BinarySearchNode $node */
@@ -199,6 +201,8 @@ class BinarySearchTree implements IBinaryTree {
                 $node = $node->getLeft();
             } else if (Comparator::greaterThan($value, $node->getValue())) {
                 $node = $node->getRight();
+            } else {
+                throw new InvalidSearchComparisionException("no comparision returned true. Maybe you passed different data types (scalar, object)?");
             }
         }
         return null;
