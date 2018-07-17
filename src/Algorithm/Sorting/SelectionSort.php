@@ -41,27 +41,22 @@ class SelectionSort implements ISortable {
      *
      * Actually works only with numeric indices
      *
-     * TODO implement non-numerical indices
-     *
      * @param array $array
      * @return array
      */
     public function sort(array $array): array {
+        $array = \array_values($array);
         $length = \count($array);
         for ($i = 0; $i < $length; $i++) {
-            if (!isset($array[$i])) {
-                continue;
-            }
+            $min = $i;
             for ($j = $i; $j < $length; $j++) {
-                if (!isset($array[$j])) {
-                    continue;
-                }
-                if (Comparator::greaterThan($array[$i], $array[$j])) {
-                    $tmp = $array[$i];
-                    $array[$i] = $array[$j];
-                    $array[$j] = $tmp;
+                if (Comparator::lessThan($array[$j], $array[$min])) {
+                    $min = $j;
                 }
             }
+            $tmp = $array[$min];
+            $array[$min] = $array[$i];
+            $array[$i] = $tmp;
         }
         return $array;
     }
