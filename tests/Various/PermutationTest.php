@@ -24,30 +24,33 @@
  */
 
 
-use doganoo\PHPAlgorithms\Algorithm\Sorting\BubbleSort;
-use doganoo\PHPAlgorithms\Algorithm\Sorting\MergeSort;
-use doganoo\PHPAlgorithms\Algorithm\Sorting\SelectionSort;
+namespace Various;
 
-/**
- * Class SortTest
- */
-class SortTest extends \PHPUnit\Framework\TestCase {
-    public function testBubbleSort() {
-        $bubbleSort = new BubbleSort();
-        $result = $bubbleSort->sort([12, 40, 9, 55, 1, 13]);
-        $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
+
+use doganoo\PHPAlgorithms\Algorithm\Various\Permutation;
+use PHPUnit\Framework\TestCase;
+
+class PermutationTest extends TestCase {
+
+
+    public function testStringPermutation() {
+        $permutation = new Permutation();
+        $permutations = $permutation->stringPermutations("abcd");
+        $this->assertTrue(24 === \count($permutations));
+
+        $permutations = $permutation->stringPermutations("abc");
+        $this->assertTrue(\in_array("cba", $permutations));
+        $this->assertTrue(\in_array("bac", $permutations));
+        $this->assertTrue(\in_array("acb", $permutations));
     }
 
-    public function testSelectionSort() {
-        $bubbleSort = new SelectionSort();
-        $result = $bubbleSort->sort([12, 40, 9, 55, 1, 13]);
-        $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
+    public function testNumberPermutation() {
+        $permutation = new Permutation();
+        $permutations = $permutation->numberPermutations(1234);
+        $this->assertTrue(24 === \count($permutations));
+
+        $permutations = $permutation->numberPermutations(1234);
+        $this->assertTrue(\in_array(4321, $permutations));
     }
 
-    public function testMergeSort() {
-        $bubbleSort = new MergeSort();
-        $arr = [12, 40, 9, 55, 1, 13];
-        $result = $bubbleSort->sort($arr);
-        $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
-    }
 }
