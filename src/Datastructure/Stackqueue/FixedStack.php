@@ -52,10 +52,6 @@ class FixedStack extends Stack {
     protected function isValid(): bool {
         $parent = parent::isValid();
         $maxSize = parent::stackSize() < $this->maxSize;
-        //echo parent::stackSize();
-        //echo "\n";
-        //echo $this->maxSize;
-        //echo "\n";
         return $parent && $maxSize;
     }
 

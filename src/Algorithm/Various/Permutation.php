@@ -66,16 +66,33 @@ class Permutation {
      */
     private function permute(array $objects, $prefix, array $result) {
         $length = \count($objects);
+        //if there are no elements in the array,
+        //a permutation is found. The permutation is
+        //added to the array
         if (0 === $length) {
             $result[] = $prefix;
-        } else {
+        }
+        //if the number of elements in the array
+        //is greater than 0, there are more elements
+        //to build an permutation.
+        else {
+            //The length is decreased by each recursive function call
             for ($i = 0; $i < $length; $i++) {
+                //a new prefix is created. The prefix consists of the
+                //actual prefix ("" at the beginning) and the next element
+                //in the objects array
+                $newPrefix = $prefix . $objects[$i];
+
+                //since the ith element in objects is used as a prefix,
+                //the remaining objects have to be sliced by exactly this
+                //object in order to prevent a reoccurrence of the element in
+                //the permutation
                 $newObjects = \array_merge(
                     \array_slice($objects, 0, $i),
                     \array_slice($objects, $i + 1)
                 );
-                $newPrefix = $prefix . $objects[$i];
 
+                //call the permute method with the new prefix and objects
                 $result = $this->permute($newObjects, $newPrefix, $result);
             }
         }
