@@ -18,4 +18,18 @@ class StackSetTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($element === "Hallo 3");
         $this->assertTrue($stackSet->stackCount() === 1);
     }
+
+    public function testHugeStackSet() {
+        $setSize = 1024;
+        $factor = 4;
+        $stackSet = new StackSet(1024);
+        for ($i = 0; $i < $setSize * $factor; $i++) {
+            $stackSet->push($i);
+        }
+        $this->assertTrue($stackSet->stackCount() === $factor);
+        for ($i = 0; $i < $setSize + 1; $i++) {
+            $stackSet->pop();
+        }
+        $this->assertTrue($stackSet->stackCount() === 3);
+    }
 }
