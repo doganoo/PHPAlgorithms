@@ -66,8 +66,8 @@ class BinarySearchTree implements IBinaryTree {
         return $tree;
     }
 
-    public function insertValue($value) {
-        $this->insert(new BinarySearchNode($value));
+    public function insertValue($value): bool {
+        return $this->insert(new BinarySearchNode($value));
     }
 
     /**
