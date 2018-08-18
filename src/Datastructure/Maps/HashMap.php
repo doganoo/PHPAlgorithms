@@ -380,4 +380,18 @@ class HashMap {
         }
         return $keySet;
     }
+
+    /**
+     * @return array
+     */
+    public function countPerBucket() {
+        $i = 0;
+        $array = [];
+        /** @var SinglyLinkedList $list */
+        foreach ($this->bucket as $list) {
+            $array[$i] = $list->size();
+            $i++;
+        }
+        return $array;
+    }
 }

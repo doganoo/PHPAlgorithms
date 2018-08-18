@@ -171,4 +171,52 @@ class ArrayListTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($i === $arrayList->length());
     }
 
+    public function testSerialize() {
+        $arrayList = new ArrayList();
+        $x = new class {
+            public $id;
+        };
+        $x->id = 1;
+        $arrayList->add($x);
+        $x->id = 2;
+        $arrayList->add($x);
+        $x->id = 3;
+        $arrayList->add($x);
+        $x->id = 4;
+        $arrayList->add($x);
+        $x->id = 5;
+        $arrayList->add($x);
+        $x->id = 6;
+        $arrayList->add($x);
+        $x->id = 7;
+        $arrayList->add($x);
+        $x->id = 8;
+        $arrayList->add($x);
+        $x->id = 9;
+        $arrayList->add($x);
+        $x->id = 10;
+        $arrayList->add($x);
+        $x->id = 11;
+        $arrayList->add($x);
+        $x->id = 12;
+        $arrayList->add($x);
+        $x->id = 13;
+        $arrayList->add($x);
+        $x->id = 14;
+        $arrayList->add($x);
+        $x->id = 15;
+        $arrayList->add($x);
+        $x->id = 16;
+        $arrayList->add($x);
+        $x->id = 17;
+        $arrayList->add($x);
+
+        $json = json_encode($arrayList);
+        $this->assertTrue(false !== is_string($json));
+
+        $list = json_decode($json);
+
+        $this->assertTrue(null !== $list && $list instanceof stdClass);
+    }
+
 }

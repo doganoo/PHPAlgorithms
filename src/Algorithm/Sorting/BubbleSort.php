@@ -41,7 +41,11 @@ class BubbleSort implements ISortable {
      * @return array
      */
     public function sort(array $array): array {
+        $array = \array_values($array);
         $length = \count($array);
+
+        if (0 === $length || 1 === $length) return $array;
+
         for ($i = 0; $i < $length; $i++) {
             for ($j = 0; $j < $length - $i - 1; $j++) {
                 if (Comparator::greaterThan($array[$j], $array[$j + 1])) {

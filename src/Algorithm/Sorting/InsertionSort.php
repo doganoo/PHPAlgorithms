@@ -30,36 +30,30 @@ use doganoo\PHPAlgorithms\Common\Interfaces\ISortable;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 
 /**
- * Class SelectionSort
+ * Class InsertionSort
  *
  * @package doganoo\PHPAlgorithms\Algorithm\Sorting
  */
-class SelectionSort implements ISortable {
+class InsertionSort implements ISortable {
 
     /**
-     * sorts an array with selection sort.
-     *
-     * Actually works only with numeric indices
-     *
      * @param array $array
      * @return array
      */
     public function sort(array $array): array {
         $array = \array_values($array);
-        $length = \count($array);
+        $size = \count($array);
 
-        if (0 === $length || 1 === $length) return $array;
+        if (0 === $size || 1 === $size) return $array;
 
-        for ($i = 0; $i < $length; $i++) {
-            $min = $i;
-            for ($j = $i; $j < $length; $j++) {
-                if (Comparator::lessThan($array[$j], $array[$min])) {
-                    $min = $j;
-                }
+        for ($i = 1; $i < $size; $i++) {
+            $j = $i;
+            while (($j > 0) && (Comparator::lessThan($array[$j], $array[$j - 1]))) {
+                $tmp = $array[$j - 1];
+                $array[$j - 1] = $array[$j];
+                $array[$j] = $tmp;
+                $j--;
             }
-            $tmp = $array[$min];
-            $array[$min] = $array[$i];
-            $array[$i] = $tmp;
         }
         return $array;
     }

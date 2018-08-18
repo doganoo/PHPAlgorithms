@@ -25,6 +25,7 @@
 
 
 use doganoo\PHPAlgorithms\Algorithm\Sorting\BubbleSort;
+use doganoo\PHPAlgorithms\Algorithm\Sorting\InsertionSort;
 use doganoo\PHPAlgorithms\Algorithm\Sorting\MergeSort;
 use doganoo\PHPAlgorithms\Algorithm\Sorting\SelectionSort;
 
@@ -46,6 +47,12 @@ class SortTest extends \PHPUnit\Framework\TestCase {
 
     public function testMergeSort() {
         $bubbleSort = new MergeSort();
+        $arr = [12, 40, 9, 55, 1, 13];
+        $result = $bubbleSort->sort($arr);
+        $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
+    }
+    public function testInsertionSort() {
+        $bubbleSort = new InsertionSort();
         $arr = [12, 40, 9, 55, 1, 13];
         $result = $bubbleSort->sort($arr);
         $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);

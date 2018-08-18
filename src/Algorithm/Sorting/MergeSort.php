@@ -42,10 +42,11 @@ class MergeSort implements ISortable {
      * @return array
      */
     public function sort(array $array): array {
+        $array = \array_values($array);
         $arraySize = count($array);
-        if ($arraySize == 1) {
-            return $array;
-        }
+
+        if (0 === $arraySize || $arraySize == 1) return $array;
+
         $middle = floor($arraySize / 2);
         $left = array_slice($array, 0, $middle);
         $right = array_slice($array, $middle);
@@ -60,13 +61,14 @@ class MergeSort implements ISortable {
      * @return array
      */
     private function merge(?array $left, ?array $right): array {
-        if ($left == null) {
-            return [];
-        }
-        if ($right == null) {
-            return [];
-        }
+
+        if (null === $left) return [];
+        if (null === $right) return [];
+
         $result = [];
+        $left = \array_values($left);
+        $right = \array_values($right);
+
         while (count($left) !== 0 && count($right) !== 0) {
             if (Comparator::greaterThan($left[0], $right[0])) {
                 $result[] = $right[0];
