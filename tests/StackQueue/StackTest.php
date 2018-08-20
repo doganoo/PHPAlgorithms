@@ -25,11 +25,12 @@
 
 use doganoo\PHPAlgorithms\Datastructure\Stackqueue\Queue;
 use doganoo\PHPAlgorithms\Datastructure\Stackqueue\Stack;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class StackQueueTest class testing Stacks and Queues
  */
-class StackTest extends \PHPUnit\Framework\TestCase {
+class StackTest extends TestCase {
     /**
      * Stack class test
      */
@@ -37,13 +38,13 @@ class StackTest extends \PHPUnit\Framework\TestCase {
         $stack = new Stack();
         $stack->push(new stdClass());
         $stack->push(new Exception());
-        $this->assertTrue($stack->isEmpty() == false);
+        $this->assertTrue(false === $stack->isEmpty());
 
-        $class = $stack->peek();
+        $class = $stack->pop();
         $this->assertTrue($class instanceof Exception);
         $this->assertTrue($stack->isEmpty() == false);
 
-        $class = $stack->peek();
+        $class = $stack->pop();
         $this->assertTrue($class instanceof stdClass);
         $this->assertTrue($stack->isEmpty() == true);
     }
@@ -64,7 +65,5 @@ class StackTest extends \PHPUnit\Framework\TestCase {
         $class = $queue->dequeue();
         $this->assertTrue($class instanceof stdClass);
         $this->assertTrue($queue->isEmpty() == true);
-
-
     }
 }

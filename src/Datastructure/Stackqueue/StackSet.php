@@ -37,16 +37,29 @@ class StackSet {
     private $counter = 0;
     private $stackList = null;
 
+    /**
+     * StackSet constructor.
+     *
+     * @param int $maxSize
+     */
     public function __construct(int $maxSize = 128) {
         $this->maxSize = $maxSize;
         $this->stackList = new ArrayList();
     }
 
+    /**
+     * @param $element
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
+     */
     public function push($element) {
         $stack = $this->getLastStack();
         $this->addToStack($stack, $element);
     }
 
+    /**
+     * @return Stack
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
+     */
     private function getLastStack(): Stack {
         $modulo = $this->counter % $this->maxSize;
         if (0 === $modulo) {
@@ -57,6 +70,11 @@ class StackSet {
         return $stack;
     }
 
+    /**
+     * @param Stack $stack
+     * @param       $element
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
+     */
     private function addToStack(Stack $stack, $element) {
         $stack->push($element);
         $this->counter++;
@@ -68,11 +86,15 @@ class StackSet {
         }
     }
 
+    /**
+     * @return mixed|null
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
+     */
     public function pop() {
         $index = $this->stackList->length();
         /** @var Stack $stack */
         $stack = $this->stackList->get($index - 1);
-        $element = $stack->peek();
+        $element = $stack->pop();
         $this->counter--;
         if (0 === $stack->stackSize()) {
             $this->stackList->remove($index - 1);
@@ -82,6 +104,9 @@ class StackSet {
         return $element;
     }
 
+    /**
+     * @return int
+     */
     public function stackCount(): int {
         return $this->stackList->length();
     }

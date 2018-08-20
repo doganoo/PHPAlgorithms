@@ -90,7 +90,7 @@ class Stack {
      *
      */
     public function peek() {
-        if (!$this->isValid()) {
+        if (null === $this->stack) {
             return null;
         }
         if (0 === $this->stackSize()) {
@@ -113,9 +113,8 @@ class Stack {
     /**
      * pop() removes an item from the top of the stack.
      *
-     * @return bool
      */
-    public function pop(): bool {
+    public function pop() {
         if ($this->stack === null) {
             return false;
         }
@@ -128,7 +127,7 @@ class Stack {
          * of the array.
          */
         $return = array_pop($this->stack);
-        return $return !== null;
+        return $return;
     }
 
     /**

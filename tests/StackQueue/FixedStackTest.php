@@ -44,11 +44,11 @@ class FixedStackTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($added === false);
         $this->assertTrue($stack->stackSize() === 2);
 
-        $class = $stack->peek();
+        $class = $stack->pop();
         $this->assertTrue($class instanceof Exception);
         $this->assertTrue($stack->isEmpty() == false);
 
-        $class = $stack->peek();
+        $class = $stack->pop();
         $this->assertTrue($class instanceof stdClass);
         $this->assertTrue($stack->isEmpty() == true);
     }
