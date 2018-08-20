@@ -25,6 +25,8 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Stackqueue;
 
+use doganoo\PHPAlgorithms\Common\Util\Comparator;
+
 
 /**
  * PHP implementation of a stack.
@@ -51,6 +53,8 @@ namespace doganoo\PHPAlgorithms\Datastructure\Stackqueue;
  * @package StackQueue
  */
 class Stack {
+    public const ASCENDING = 1;
+    public const DESCENDING = 2;
     /**
      * The stack is represented as an array. Note that a stack can also be implemented using a linked list.
      *
@@ -59,45 +63,32 @@ class Stack {
     private $stack = [];
 
     /**
-     * push() adds an item to the stack.
+     * sorts the stack in descending order
      *
-     * @param $item
-     * @return bool
+     * TODO add ascending order
      */
-    public function push($item): bool {
-        if (!$this->isValid()) {
-            return false;
+    public function sort(): void {
+        $r = new Stack();
+        while (!$r->isEmpty()) {
+            $tmp = $this->pop();
+
+            while ((!$r->isEmpty()) && (Comparator::lessThan($r->peek(), $tmp))) {
+                $this->push($r->pop());
+            }
+            $r->push($tmp);
         }
-        /*
-         * using array_push is the better option since it
-         * takes the work of adding to the end.
-         */
-        array_push($this->stack, $item);
-        return true;
+        while (!$r->isEmpty()) {
+            $this->push($r->pop());
+        }
     }
 
     /**
-     * checks if the stack element (the array) is null
+     * returns a boolean that determines if the stack is empty or not
      *
      * @return bool
      */
-    protected function isValid(): bool {
-        return $this->stack !== null;
-    }
-
-    /**
-     * peek() returns the element 'on top' of the stack
-     *
-     */
-    public function peek() {
-        if (null === $this->stack) {
-            return null;
-        }
-        if (0 === $this->stackSize()) {
-            return null;
-        }
-        $value = $this->stack[$this->stackSize() - 1];
-        return $value;
+    public function isEmpty(): bool {
+        return $this->stackSize() === 0;
     }
 
     /**
@@ -131,11 +122,44 @@ class Stack {
     }
 
     /**
-     * returns a boolean that determines if the stack is empty or not
+     * peek() returns the element 'on top' of the stack
+     *
+     */
+    public function peek() {
+        if (null === $this->stack) {
+            return null;
+        }
+        if (0 === $this->stackSize()) {
+            return null;
+        }
+        $value = $this->stack[$this->stackSize() - 1];
+        return $value;
+    }
+
+    /**
+     * push() adds an item to the stack.
+     *
+     * @param $item
+     * @return bool
+     */
+    public function push($item): bool {
+        if (!$this->isValid()) {
+            return false;
+        }
+        /*
+         * using array_push is the better option since it
+         * takes the work of adding to the end.
+         */
+        array_push($this->stack, $item);
+        return true;
+    }
+
+    /**
+     * checks if the stack element (the array) is null
      *
      * @return bool
      */
-    public function isEmpty(): bool {
-        return $this->stackSize() === 0;
+    protected function isValid(): bool {
+        return $this->stack !== null;
     }
 }
