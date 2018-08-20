@@ -90,15 +90,13 @@ class Stack {
      *
      */
     public function peek() {
-        if ($this->stack === null) {
+        if (!$this->isValid()) {
             return null;
         }
-        if ($this->stackSize() == 0) {
+        if (0 === $this->stackSize()) {
             return null;
         }
-
         $value = $this->stack[$this->stackSize() - 1];
-        $this->pop();
         return $value;
     }
 
