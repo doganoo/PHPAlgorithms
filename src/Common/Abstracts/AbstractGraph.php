@@ -67,10 +67,21 @@ abstract class AbstractGraph {
     }
 
     /**
+     * @param $value
+     * @return bool
+     */
+    public function createNode($value): bool {
+        $node = new Node($value);
+        return $this->addNode($node);
+    }
+
+    /**
      * @param Node $node
      * @return bool
      */
-    public abstract function addNode(Node $node): bool;
+    public function addNode(Node $node): bool {
+        return $this->nodeList->add($node);
+    }
 
     /**
      * @param Node $startNode
@@ -78,4 +89,11 @@ abstract class AbstractGraph {
      * @return bool
      */
     public abstract function addEdge(Node $startNode, Node $endNode): bool;
+
+    /**
+     * @return ArrayList|null
+     */
+    public function getNodes(): ?ArrayList {
+        return $this->nodeList;
+    }
 }

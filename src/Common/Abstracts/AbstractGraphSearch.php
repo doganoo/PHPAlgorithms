@@ -42,8 +42,9 @@ abstract class AbstractGraphSearch {
 
     public function __construct() {
         $this->visited = new ArrayList();
-        $this->callable = function ($value) {
-            echo $value;
+        $this->callable = function (Node $value) {
+            echo $value->getValue();
+            echo "\n";
         };
     }
 
@@ -56,12 +57,13 @@ abstract class AbstractGraphSearch {
     /**
      * @param $value
      */
-    public function visit($value) {
+    public function visit(Node $value) {
         $callable = $this->callable;
         if (null === $this->callable
             && !\is_callable($this->callable)) {
-            $callable = function ($otherValue) {
-                echo $otherValue;
+            $callable = function (Node $otherValue) {
+                echo $otherValue->getValue();
+                echo "\n";
             };
         }
         $callable($value);

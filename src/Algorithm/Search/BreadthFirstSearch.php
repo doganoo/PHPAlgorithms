@@ -55,6 +55,7 @@ class BreadthFirstSearch extends AbstractGraphSearch {
      * @return mixed|void
      */
     public function searchByNode(?Node $node) {
+        if (null === $node) return;
         $queue = new Queue();
         $this->visited->add($node);
         $queue->enqueue($node);

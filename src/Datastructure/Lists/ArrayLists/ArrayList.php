@@ -389,4 +389,18 @@ class ArrayList implements \IteratorAggregate, \JsonSerializable {
             , "content" => $this->array,
         ];
     }
+
+    /**
+     * @param ArrayList $arrayList
+     * @return bool
+     */
+    public function equals(ArrayList $arrayList): bool {
+        foreach ($arrayList as $value) {
+            if (!$this->containsValue($value)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

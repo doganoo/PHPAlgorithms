@@ -27,7 +27,6 @@ namespace doganoo\PHPAlgorithms\Datastructure\Graph\Graph;
 
 use doganoo\PHPAlgorithms\Common\Interfaces\Comparable;
 use doganoo\PHPAlgorithms\Common\Interfaces\INode;
-use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
 
 /**
@@ -36,18 +35,51 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
  * @package doganoo\PHPAlgorithms\Graph
  */
 class Node implements Comparable, INode {
+    /** @var mixed $value */
     private $value;
+    /** @var ArrayList|null $adjacent */
     private $adjacent = null;
+    /** @var int $inbound */
+    private $inbound = 0;
 
+
+    /**
+     * Node constructor.
+     *
+     * @param $value
+     */
     public function __construct($value) {
         $this->value = $value;
         $this->adjacent = new ArrayList();
+        $this->inbound = 0;
     }
 
+    /**
+     * @param Node $node
+     * @return bool
+     */
     public function addAdjacent(Node $node): bool {
         return $this->adjacent->add($node);
     }
 
+    /**
+     * @return void
+     */
+    public function incrementInbound(): void {
+        $this->inbound++;
+    }
+
+    /**
+     * @return void
+     */
+    public function decrementInbound(): void {
+        $this->inbound--;
+    }
+
+    /**
+     * @param Node $node
+     * @return bool
+     */
     public function hasAdjacent(Node $node) {
         /**
          * @var      $key
@@ -61,16 +93,19 @@ class Node implements Comparable, INode {
         return false;
     }
 
+    /**
+     * @return mixed
+     */
     public function getValue() {
         return $this->value;
     }
 
+    /**
+     * @param Node $node
+     * @return bool
+     */
     public function equals(Node $node): bool {
-        return Comparator::equals($this->value, $node->getValue());
-    }
-
-    public function getAdjacents(): ?ArrayList {
-        return $this->adjacent;
+        return $this->compareTo($node) === 0;
     }
 
     /**
@@ -91,5 +126,19 @@ class Node implements Comparable, INode {
             return 1;
         }
         return -1;
+    }
+
+    /**
+     * @return ArrayList|null
+     */
+    public function getAdjacents(): ?ArrayList {
+        return $this->adjacent;
+    }
+
+    /**
+     * @return int
+     */
+    public function countInbound(): int {
+        return $this->inbound;
     }
 }

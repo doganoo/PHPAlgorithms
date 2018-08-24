@@ -104,4 +104,48 @@ class BinaryTree implements IBinaryTree {
         $traversal->traverse();
         return $node;
     }
+
+    /**
+     * determines whether the BinaryTree instance is a BST or not
+     *
+     * @return bool
+     */
+    public function isBST(): bool {
+        return $this->_isBST($this->getRoot());
+    }
+
+    /**
+     * helper method for isBST()
+     *
+     * @param IBinaryNode|null $root
+     * @param int|null         $min
+     * @param int|null         $max
+     * @return bool
+     */
+    private function _isBST(?IBinaryNode $root, ?int $min = null, ?int $max = null): bool {
+        //if the root is null, the BST condition is met
+        if (null === $root) return true;
+        /*
+         * since the whole left subtree has to be smaller than the root,
+         * it is not enough to just check for
+         *          left <= current < right
+         *
+         * the whole left subtree has to be smaller than the root. Therefore,
+         * when we branch left, we check that the value is between NULL and
+         * root's value. When we branch right, we check the value is between
+         * roots'value and NULL.
+         */
+        if ((null !== $min) && (Comparator::lessThanEqual($root->getValue(), $min))) return false;
+        if ((null !== $max) && (Comparator::greaterThanEqual($root->getValue(), $max))) return false;
+        /*
+         * If we branch left, $max gets updated (to the root's value). If we
+         * branch right, $min gets updated (to the roots's value).
+         *
+         * If any of those comparisions fail, the method breaks immediately and returns
+         * false.
+         */
+        if (!$this->_isBST($root->getLeft(), $min, $root->getValue())) return false;
+        if (!$this->_isBST($root->getRight(), $root->getValue(), $max)) return false;
+        return true;
+    }
 }

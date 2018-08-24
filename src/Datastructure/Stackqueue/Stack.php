@@ -155,7 +155,7 @@ class Stack {
     }
 
     /**
-     * checks if the stack element (the array) is null
+     * checks if the stack element (the array) is zero
      *
      * @return bool
      */

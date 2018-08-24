@@ -43,11 +43,6 @@ class DirectedGraph extends AbstractGraph {
         parent::__construct(self::DIRECTED_GRAPH);
     }
 
-
-    public function addNode(Node $node): bool {
-        return $this->nodeList->add($node);
-    }
-
     /**
      * @param Node $startNode
      * @param Node $endNode
@@ -81,6 +76,7 @@ class DirectedGraph extends AbstractGraph {
             return false;
         }
         $startNode->addAdjacent($endNode);
+        $endNode->incrementInbound();
 
         $this->nodeList->set($indexOfStartNode, $startNode);
         return true;

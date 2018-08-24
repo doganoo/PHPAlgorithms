@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Graph;
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraph;
+use doganoo\PHPAlgorithms\Common\Exception\NodeNotFoundException;
 
 /**
  * Class Graph
@@ -43,7 +44,10 @@ class UndirectedGraph extends AbstractGraph {
         parent::__construct(self::UNDIRECTED_GRAPH);
     }
 
-
+    /**
+     * @param Node $node
+     * @return bool
+     */
     public function addNode(Node $node): bool {
         return $this->nodeList->add($node);
     }
@@ -53,17 +57,16 @@ class UndirectedGraph extends AbstractGraph {
      * @param Node $endNode
      * @return bool
      * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
+     * @throws NodeNotFoundException
      */
     public function addEdge(Node $startNode, Node $endNode): bool {
         $hasStart = $this->nodeList->containsValue($startNode);
         $hasEnd = $this->nodeList->containsValue($endNode);
         if (false === $hasStart) {
-            //TODO notify caller
-            return false;
+            throw new NodeNotFoundException();
         }
         if (false === $hasEnd) {
-            //TODO notify caller
-            return false;
+            throw new NodeNotFoundException();
         }
         $indexOfStartNode = $this->nodeList->indexOf($startNode);
         /** @var Node $startNode */
@@ -72,11 +75,12 @@ class UndirectedGraph extends AbstractGraph {
         /** @var Node $endNode */
         $endNode = $this->nodeList->get($indexOfEndNode);
 
-        if ($startNode->hasAdjacent($endNode)) {
+        if (!$startNode->hasAdjacent($endNode)) {
             //TODO notify caller
             return false;
         }
         $startNode->addAdjacent($endNode);
+        $endNode->incrementInbound();
 
         $this->nodeList->set($indexOfStartNode, $startNode);
         return true;

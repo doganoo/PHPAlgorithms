@@ -94,6 +94,30 @@ class Comparator {
      * @param $other
      * @return bool
      */
+    public static function lessThanEqual($that, $other): bool {
+        if ($that instanceof Comparable) {
+            return $that->compareTo($other) == -1;
+        }
+        if (\is_object($that)) {
+            if (\is_object($other)) {
+                return $that <= $other;
+            }
+            return false;
+        }
+        if (\is_object($other)) {
+            if (\is_object($that)) {
+                return $other <= $that;
+            }
+            return false;
+        }
+        return $that <= $other;
+    }
+
+    /**
+     * @param $that
+     * @param $other
+     * @return bool
+     */
     public static function greaterThan($that, $other): bool {
         if ($that instanceof Comparable) {
             return $that->compareTo($other) == 1;
@@ -110,7 +134,31 @@ class Comparator {
             }
             return false;
         }
-        return ($that > $other);
+        return $that > $other;
+    }
+
+    /**
+     * @param $that
+     * @param $other
+     * @return bool
+     */
+    public static function greaterThanEqual($that, $other): bool {
+        if ($that instanceof Comparable) {
+            return $that->compareTo($other) == 1;
+        }
+        if (\is_object($that)) {
+            if (\is_object($other)) {
+                return $that >= $other;
+            }
+            return false;
+        }
+        if (\is_object($other)) {
+            if (\is_object($that)) {
+                return $other >= $that;
+            }
+            return false;
+        }
+        return $that >= $other;
     }
 
 }
