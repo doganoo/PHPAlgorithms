@@ -67,7 +67,6 @@ class HashSet extends AbstractSet implements Set {
      *
      * @param $element
      * @return bool
-     * @throws \ReflectionException
      * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
      * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
      */

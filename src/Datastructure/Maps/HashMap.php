@@ -91,7 +91,6 @@ class HashMap {
      * @param $key
      * @param $value
      * @return bool
-     * @throws \ReflectionException
      * @throws \doganoo\PHPAlgorithms\Common\Exception\InvalidKeyTypeException
      * @throws \doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException
      */
@@ -109,7 +108,7 @@ class HashMap {
          * Notice that contains() looks for the value, not
          * key as below.
          */
-        if ($list->containsValue($value)) {
+        if ($list->containsKey($key)) {
             return true;
         }
         $list->add($key, $value);
