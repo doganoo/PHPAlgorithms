@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
+ * Copyright (c) 2018 Dogan Ucar
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,20 +26,32 @@
 namespace doganoo\PHPAlgorithms\Common\Interfaces;
 
 /**
- * Interface IBinaryTree
+ * Interface IVector
  *
  * @package doganoo\PHPAlgorithms\Common\Interfaces
- * @deprecated
  */
-interface IBinaryTree {
+interface IVector {
     /**
-     * @return IBinaryNode|null
+     * sets a value in the vector
+     *
+     * @param $value
+     * @return bool
      */
-    public function getRoot(): ?IBinaryNode;
+    public function set($value): bool;
 
     /**
-     * @param IBinaryNode|null $node
+     * retrieves the value in the vector
+     *
+     * @param $value
      * @return mixed
      */
-    public function insert(?IBinaryNode $node);
+    public function get($value);
+
+    /**
+     * clears the value in the vector
+     *
+     * @param $value
+     * @return bool
+     */
+    public function clear($value): bool;
 }

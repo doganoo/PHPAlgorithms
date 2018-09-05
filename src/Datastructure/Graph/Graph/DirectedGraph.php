@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Graph;
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraph;
+use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
 
 /**
  * Class Graph
@@ -80,5 +81,38 @@ class DirectedGraph extends AbstractGraph {
 
         $this->nodeList->set($indexOfStartNode, $startNode);
         return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasCycle(): bool {
+        $visited = new ArrayList();
+        $recursive = new ArrayList();
+        foreach ($this->getNodes() as $node) {
+            if ($this->_hasCycle($node, $visited, $recursive)) return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param Node      $node
+     * @param ArrayList $visited
+     * @param ArrayList $rec
+     * @return bool
+     */
+    private function _hasCycle(Node $node, ArrayList &$visited, ArrayList &$rec) {
+        if ($rec->containsValue($node)) return true;
+        if ($visited->containsValue($node)) return false;
+
+        $visited->add($node);
+        $rec->add($node);
+
+        foreach ($node->getAdjacents() as $adjacent) {
+            if ($this->_hasCycle($adjacent, $visited, $rec)) return true;
+        }
+        $rec->removeByValue($node);
+        return false;
+
     }
 }

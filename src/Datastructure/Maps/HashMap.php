@@ -101,14 +101,8 @@ class HashMap {
         } else {
             $list = new SinglyLinkedList();
         }
-        /*
-         * the method checks the value if it is already
-         * in the map or not.
-         *
-         * Notice that contains() looks for the value, not
-         * key as below.
-         */
         if ($list->containsKey($key)) {
+            $list->replaceValue($key, $value);
             return true;
         }
         $list->add($key, $value);
@@ -166,6 +160,57 @@ class HashMap {
     private function getArrayIndex(int $hash): int {
         return $hash % $this->maxSize;
 
+    }
+
+    /**
+     * wrapper method for add()
+     *
+     * @param $key
+     * @param $value
+     * @return bool
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException
+     */
+    public function put($key, $value): bool {
+        return $this->add($key, $value);
+    }
+
+    /**
+     * @param $key
+     * @return mixed|null
+     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
+     */
+    public function get($key) {
+        $node = $this->getNodeByKey($key);
+        if (null === $node) return null;
+        return $node->getValue();
+    }
+
+    /**
+     * searches the hash map for a node by a given key.
+     *
+     * @param $key
+     * @return Node|null
+     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
+     */
+    public function getNodeByKey($key): ?Node {
+        $arrayIndex = $this->getBucketIndex($key);
+        /*
+         * the list is requested from the array based on
+         * the array index hash.
+         */
+        /** @var SinglyLinkedList $list */
+        if (!isset($this->bucket[$arrayIndex])) {
+            return null;
+        }
+        $list = $this->bucket[$arrayIndex];
+        if (!$list->containsKey($key)) {
+            return null;
+        }
+        $node = $list->getNodeByKey($key);
+        return $node;
     }
 
     /**
@@ -275,32 +320,6 @@ class HashMap {
         }
         //return null if there is no value
         return null;
-    }
-
-    /**
-     * searches the hash map for a node by a given key.
-     *
-     * @param $key
-     * @return Node|null
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
-     */
-    public function getNodeByKey($key): ?Node {
-        $arrayIndex = $this->getBucketIndex($key);
-        /*
-         * the list is requested from the array based on
-         * the array index hash.
-         */
-        /** @var SinglyLinkedList $list */
-        if (!isset($this->bucket[$arrayIndex])) {
-            return null;
-        }
-        $list = $this->bucket[$arrayIndex];
-        if (!$list->containsKey($key)) {
-            return null;
-        }
-        $node = $list->getNodeByKey($key);
-        return $node;
     }
 
     /**

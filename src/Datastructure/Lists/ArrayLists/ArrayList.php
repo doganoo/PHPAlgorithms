@@ -403,4 +403,14 @@ class ArrayList implements \IteratorAggregate, \JsonSerializable {
         return true;
     }
 
+    /**
+     * wrapper method for "containsValue()"
+     *
+     * @param $value
+     * @return bool
+     */
+    public function inList($value): bool {
+        return $this->containsValue($value);
+    }
+
 }

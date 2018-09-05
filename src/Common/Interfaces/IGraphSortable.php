@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
+ * Copyright (c) 2018 Dogan Ucar
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,21 +25,18 @@
 
 namespace doganoo\PHPAlgorithms\Common\Interfaces;
 
+use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraph;
+use doganoo\PHPAlgorithms\Datastructure\Stackqueue\Stack;
+
 /**
- * Interface IBinaryTree
+ * Class IGraphSortable
  *
  * @package doganoo\PHPAlgorithms\Common\Interfaces
- * @deprecated
  */
-interface IBinaryTree {
+interface IGraphSortable {
     /**
-     * @return IBinaryNode|null
+     * @param AbstractGraph $graph
+     * @return Stack
      */
-    public function getRoot(): ?IBinaryNode;
-
-    /**
-     * @param IBinaryNode|null $node
-     * @return mixed
-     */
-    public function insert(?IBinaryNode $node);
+    public function sort(AbstractGraph $graph): Stack;
 }

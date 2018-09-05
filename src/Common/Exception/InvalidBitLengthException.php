@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
+ * Copyright (c) 2018 Dogan Ucar
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,23 +23,13 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Common\Interfaces;
+namespace doganoo\PHPAlgorithms\Common\Exception;
 
 /**
- * Interface IBinaryTree
+ * Class InvalidBitLengthException
  *
- * @package doganoo\PHPAlgorithms\Common\Interfaces
- * @deprecated
+ * @package doganoo\PHPAlgorithms\Common\Exception
  */
-interface IBinaryTree {
-    /**
-     * @return IBinaryNode|null
-     */
-    public function getRoot(): ?IBinaryNode;
+class InvalidBitLengthException extends \Exception {
 
-    /**
-     * @param IBinaryNode|null $node
-     * @return mixed
-     */
-    public function insert(?IBinaryNode $node);
 }

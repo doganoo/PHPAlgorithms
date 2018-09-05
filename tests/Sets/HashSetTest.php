@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-use doganoo\PHPAlgorithms\Datastructure\Sets\HashSet;
+use doganoo\PHPAlgorithms\Datastructure\Sets\HashISet;
 
 /**
  * Class HashSetTest PHPUnit test class
@@ -36,7 +36,7 @@ class HashSetTest extends \PHPUnit\Framework\TestCase {
      * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
      */
     public function testAdd() {
-        $hashSet = new HashSet();
+        $hashSet = new HashISet();
         $hashSet->add("test");
         $this->assertTrue($hashSet->size() === 1);
 
@@ -53,7 +53,7 @@ class HashSetTest extends \PHPUnit\Framework\TestCase {
      * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
      */
     public function testContains() {
-        $hashSet = new HashSet();
+        $hashSet = new HashISet();
         $hashSet->add("test");
 
         $this->assertTrue($hashSet->size() === 1);
@@ -78,7 +78,7 @@ class HashSetTest extends \PHPUnit\Framework\TestCase {
      * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
      */
     public function testClear() {
-        $hashSet = new HashSet();
+        $hashSet = new HashISet();
         $hashSet->addAll(["one", "two", "three", "four"]);
         $this->assertTrue($hashSet->size() === 4);
         $hashSet->clear();
@@ -92,7 +92,7 @@ class HashSetTest extends \PHPUnit\Framework\TestCase {
      * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
      */
     public function testRemove() {
-        $hashSet = new HashSet();
+        $hashSet = new HashISet();
         $hashSet->addAll(["one", "two", "three", "four"]);
         $this->assertTrue($hashSet->contains("one") === true);
         $hashSet->remove("one");

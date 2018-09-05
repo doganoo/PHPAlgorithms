@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree;
 
 use doganoo\PHPAlgorithms\Algorithm\Traversal\InOrder;
+use doganoo\PHPAlgorithms\Common\Abstracts\AbstractTree;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryTree;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
@@ -36,9 +37,9 @@ use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree\BinaryNode;
  *
  * @package doganoo\PHPAlgorithms\Datastructure\Graph\Tree
  */
-class BinaryTree implements IBinaryTree {
-    /** @var IBinaryNode|null $root */
-    private $root = null;
+class BinaryTree extends AbstractTree implements IBinaryTree {
+    /** @var int $size number of nodes in the tree */
+    private $size = 0;
 
     /**
      * @param int $value
@@ -61,7 +62,8 @@ class BinaryTree implements IBinaryTree {
             return false;
         }
         if (null === $this->getRoot()) {
-            $this->root = $node;
+            $this->setRoot($node);
+            $this->size++;
             return true;
         }
         /** @var BinaryNode $current */
@@ -70,6 +72,7 @@ class BinaryTree implements IBinaryTree {
             while (null !== $current->getLeft()) {
                 $current = $current->getLeft();
             }
+            $this->size++;
             $current->setLeft($node);
             return true;
         } else if ($node->getValue() > $current->getValue()) {
@@ -77,16 +80,10 @@ class BinaryTree implements IBinaryTree {
                 $current = $current->getRight();
             }
             $current->setRight($node);
+            $this->size++;
             return true;
         }
         return false;
-    }
-
-    /**
-     * @return IBinaryNode|null
-     */
-    public function getRoot(): ?IBinaryNode {
-        return $this->root;
     }
 
     /**
@@ -106,46 +103,11 @@ class BinaryTree implements IBinaryTree {
     }
 
     /**
-     * determines whether the BinaryTree instance is a BST or not
+     * returns the number of nodes in the tree
      *
-     * @return bool
+     * @return int
      */
-    public function isBST(): bool {
-        return $this->_isBST($this->getRoot());
-    }
-
-    /**
-     * helper method for isBST()
-     *
-     * @param IBinaryNode|null $root
-     * @param int|null         $min
-     * @param int|null         $max
-     * @return bool
-     */
-    private function _isBST(?IBinaryNode $root, ?int $min = null, ?int $max = null): bool {
-        //if the root is null, the BST condition is met
-        if (null === $root) return true;
-        /*
-         * since the whole left subtree has to be smaller than the root,
-         * it is not enough to just check for
-         *          left <= current < right
-         *
-         * the whole left subtree has to be smaller than the root. Therefore,
-         * when we branch left, we check that the value is between NULL and
-         * root's value. When we branch right, we check the value is between
-         * roots'value and NULL.
-         */
-        if ((null !== $min) && (Comparator::lessThanEqual($root->getValue(), $min))) return false;
-        if ((null !== $max) && (Comparator::greaterThanEqual($root->getValue(), $max))) return false;
-        /*
-         * If we branch left, $max gets updated (to the root's value). If we
-         * branch right, $min gets updated (to the roots's value).
-         *
-         * If any of those comparisions fail, the method breaks immediately and returns
-         * false.
-         */
-        if (!$this->_isBST($root->getLeft(), $min, $root->getValue())) return false;
-        if (!$this->_isBST($root->getRight(), $root->getValue(), $max)) return false;
-        return true;
+    public function getSize(): int {
+        return $this->size;
     }
 }

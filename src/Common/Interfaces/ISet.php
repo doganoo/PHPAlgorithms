@@ -30,7 +30,7 @@ namespace doganoo\PHPAlgorithms\Common\Interfaces;
  *
  * @package doganoo\PHPAlgorithms\common\Interfaces
  */
-interface Set {
+interface ISet {
     /**
      * Adds the specified element to this set if it is not already present (optional operation).
      *

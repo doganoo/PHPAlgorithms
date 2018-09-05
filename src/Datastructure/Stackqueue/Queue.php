@@ -42,7 +42,9 @@ namespace doganoo\PHPAlgorithms\Datastructure\Stackqueue;
 class Queue {
     private $queue = [];
 
-    private $size = 0;
+    private $head = 0;
+    private $tail = 0;
+
 
     /**
      * this methods adds an item to the queue to the last index
@@ -51,15 +53,10 @@ class Queue {
      * @return bool
      */
     public function enqueue($item): bool {
-        if (!$this->isValid()) {
-            return false;
-        }
-        /*
-         * array_unshift is the better option since it
-         * takes the work for prepending the element to
-         * the beginning of the array
-         */
-        \array_unshift($this->queue, $item);
+        if (!$this->isValid()) return false;
+
+        $this->queue[$this->head] = $item;
+        $this->head++;
         return true;
     }
 
@@ -70,6 +67,7 @@ class Queue {
      */
     protected function isValid(): bool {
         return $this->queue !== null;
+
     }
 
     /**
@@ -78,7 +76,10 @@ class Queue {
      * @return int
      */
     public function dequeue() {
-        $item = array_shift($this->queue);
+        if (null === $this->queue) return null;
+        if ($this->tail > $this->head) return null;
+        $item = $this->queue[$this->tail];
+        $this->tail++;
         return $item;
     }
 
@@ -88,10 +89,9 @@ class Queue {
      * @return int
      */
     public function front() {
-        if (isset($this->queue[0])) {
-            return $this->queue[0];
-        }
-        return null;
+        if (null === $this->queue) return null;
+        if ($this->tail > $this->head) return null;
+        return $this->queue[$this->tail];
     }
 
     /**
@@ -100,20 +100,29 @@ class Queue {
      * @return int
      */
     public function rear() {
-        if (isset($this->queue[$this->queueSize()])) {
-            return $this->queue[$this->queueSize()];
-        }
-        return null;
+        if (null === $this->queue) return null;
+        if (!isset($this->queue[$this->head])) return null;
+        return $this->queue[$this->head];
+    }
+
+    /**
+     * wrapper function for queueSize()
+     *
+     * @return int
+     */
+    public function size(): int {
+        return $this->queueSize();
     }
 
     /**
      * stores the number of items of the queue to the size member of this class and returns it
      *
      * @return int
+     * @deprecated
      */
     public function queueSize(): int {
-        $this->size = count($this->queue);
-        return $this->size;
+        if ($this->tail > $this->head) return 0;
+        return $this->head - $this->tail;
     }
 
     /**

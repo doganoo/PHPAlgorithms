@@ -37,7 +37,7 @@ use doganoo\PHPAlgorithms\Common\Interfaces\IUnaryNode;
  * @package doganoo\PHPAlgorithms\Maps
  */
 class Node implements INode, IUnaryNode {
-    private $value = 0;
+    private $value;
     private $key;
     private $next = null;
     private $previous = null;
@@ -146,8 +146,6 @@ class Node implements INode, IUnaryNode {
 
     /**
      * returns the value
-     *
-     * @return int
      */
     public function getValue() {
         return $this->value;

@@ -26,14 +26,14 @@
 namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
 
-use doganoo\PHPAlgorithms\Common\Interfaces\Set;
+use doganoo\PHPAlgorithms\Common\Interfaces\ISet;
 
 /**
  * Class AbstractSet
  *
  * @package doganoo\PHPAlgorithms\Common\Abstracts
  */
-abstract class AbstractSet implements Set {
+abstract class AbstractISet implements ISet {
     /**
      * Compares the specified object with this set for equality.
      *

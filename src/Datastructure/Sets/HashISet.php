@@ -26,8 +26,8 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Sets;
 
 
-use doganoo\PHPAlgorithms\Common\Abstracts\AbstractSet;
-use doganoo\PHPAlgorithms\Common\Interfaces\Set;
+use doganoo\PHPAlgorithms\Common\Abstracts\AbstractISet;
+use doganoo\PHPAlgorithms\Common\Interfaces\ISet;
 use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
 
 /**
@@ -35,7 +35,7 @@ use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
  *
  * @package doganoo\PHPAlgorithms\Datastructure\Sets
  */
-class HashSet extends AbstractSet implements Set {
+class HashISet extends AbstractISet implements ISet {
     private $hashMap = null;
 
     public function __construct() {

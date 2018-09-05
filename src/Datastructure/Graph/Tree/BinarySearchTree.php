@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree;
 
 
+use doganoo\PHPAlgorithms\Common\Abstracts\AbstractTree;
 use doganoo\PHPAlgorithms\Common\Exception\InvalidSearchComparisionException;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryTree;
@@ -37,9 +38,9 @@ use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree\BinarySearchNode;
  *
  * @package doganoo\PHPAlgorithms\Datastructure\Graph\Tree
  */
-class BinarySearchTree implements IBinaryTree {
-    /** @var BinarySearchNode|null */
-    private $root = null;
+class BinarySearchTree extends AbstractTree implements IBinaryTree {
+    /** @var int $size number of nodes in the tree */
+    private $size = 0;
 
     /**
      * converts an array to an BST. Be careful using this method. If you have an ordered array
@@ -82,6 +83,7 @@ class BinarySearchTree implements IBinaryTree {
         }
         if (null === $this->getRoot()) {
             $this->setRoot($node);
+            $this->size++;
             return true;
         }
         /** @var BinarySearchNode $current */
@@ -91,29 +93,17 @@ class BinarySearchTree implements IBinaryTree {
                 $current = $current->getLeft();
             }
             $current->setLeft($node);
+            $this->size++;
             return true;
         } else if (Comparator::greaterThan($node->getValue(), $current->getValue())) {
             while (null !== $current->getRight()) {
                 $current = $current->getRight();
             }
             $current->setRight($node);
+            $this->size++;
             return true;
         }
         return false;
-    }
-
-    /**
-     * @return IBinaryNode|null
-     */
-    public function getRoot(): ?IBinaryNode {
-        return $this->root;
-    }
-
-    /**
-     * @param null $root
-     */
-    public function setRoot($root): void {
-        $this->root = $root;
     }
 
     /**
@@ -163,28 +153,6 @@ class BinarySearchTree implements IBinaryTree {
     }
 
     /**
-     * returns the height
-     *
-     * @return int
-     */
-    public function height(): int {
-        return $this->_height($this->getRoot());
-    }
-
-    /**
-     * helper method
-     *
-     * @param IBinaryNode|null $node
-     * @return int
-     */
-    private function _height(?IBinaryNode $node): int {
-        if (null === $node) {
-            return 0;
-        }
-        return 1 + \max($this->_height($node->getLeft()), $this->_height($node->getRight()));
-    }
-
-    /**
      * searches a value
      *
      * @param $value
@@ -206,5 +174,15 @@ class BinarySearchTree implements IBinaryTree {
             }
         }
         return null;
+    }
+
+
+    /**
+     * returns the number of nodes in the tree
+     *
+     * @return int
+     */
+    public function getSize(): int {
+        return $this->size;
     }
 }

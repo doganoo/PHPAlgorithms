@@ -50,8 +50,8 @@ class Permutation {
             $result[] = $string;
             return $result;
         }
-
         $array = StringUtil::stringToArray($string);
+
         $result = $this->permute($array, "", $result);
         return $result;
     }
@@ -59,9 +59,9 @@ class Permutation {
     /**
      * returns all permutations of an given array of objects
      *
-     * @param array $objects
-     * @param       $prefix
-     * @param array $result
+     * @param array        $objects
+     * @param              $prefix
+     * @param array        $result
      * @return array
      */
     private function permute(array $objects, $prefix, array $result) {
@@ -71,30 +71,33 @@ class Permutation {
         //added to the array
         if (0 === $length) {
             $result[] = $prefix;
+            return $result;
         }
         //if the number of elements in the array
         //is greater than 0, there are more elements
         //to build an permutation.
-        else {
-            //The length is decreased by each recursive function call
-            for ($i = 0; $i < $length; $i++) {
-                //a new prefix is created. The prefix consists of the
-                //actual prefix ("" at the beginning) and the next element
-                //in the objects array
-                $newPrefix = $prefix . $objects[$i];
+        // --------------------------------
+        //The length is decreased by each recursive function call
+        for ($i = 0; $i < $length; $i++) {
+            //new object in order to create the new prefix
+            $object = $objects[$i];
 
-                //since the ith element in objects is used as a prefix,
-                //the remaining objects have to be sliced by exactly this
-                //object in order to prevent a reoccurrence of the element in
-                //the permutation
-                $newObjects = \array_merge(
-                    \array_slice($objects, 0, $i),
-                    \array_slice($objects, $i + 1)
-                );
+            //a new prefix is created. The prefix consists of the
+            //actual prefix ("" at the beginning) and the next element
+            //in the objects array
+            $newPrefix = $prefix . $object;
 
-                //call the permute method with the new prefix and objects
-                $result = $this->permute($newObjects, $newPrefix, $result);
-            }
+            //since the ith element in objects is used as a prefix,
+            //the remaining objects have to be sliced by exactly this
+            //object in order to prevent a reoccurrence of the element in
+            //the permutation
+            $newObjects = \array_merge(
+                \array_slice($objects, 0, $i),
+                \array_slice($objects, $i + 1)
+            );
+
+            //call the permute method with the new prefix and objects
+            $result = $this->permute($newObjects, $newPrefix, $result);
         }
         return $result;
     }

@@ -62,6 +62,9 @@ class Stack {
      */
     private $stack = [];
 
+    /** @var int $size */
+    private $size = 0;
+
     /**
      * sorts the stack in descending order
      *
@@ -95,10 +98,10 @@ class Stack {
      * stores the number of items in the stack to the size member of this class and returns it
      *
      * @return int
+     * @deprecated
      */
     public function stackSize(): int {
-        $size = count($this->stack);
-        return $size;
+        return $this->size;
     }
 
     /**
@@ -106,19 +109,12 @@ class Stack {
      *
      */
     public function pop() {
-        if ($this->stack === null) {
-            return false;
-        }
-        if ($this->isEmpty()) {
-            return false;
-        }
-        /*
-         * using array_pop is a better option since
-         * it takes the work for removing from the end
-         * of the array.
-         */
-        $return = array_pop($this->stack);
-        return $return;
+        if (null === $this->stack) return null;
+        if ($this->isEmpty()) return null;
+
+        $this->size--;
+        $value = $this->stack[$this->size];
+        return $value;
     }
 
     /**
@@ -126,13 +122,10 @@ class Stack {
      *
      */
     public function peek() {
-        if (null === $this->stack) {
-            return null;
-        }
-        if (0 === $this->stackSize()) {
-            return null;
-        }
-        $value = $this->stack[$this->stackSize() - 1];
+        if (null === $this->stack) return null;
+        if ($this->isEmpty()) return null;
+
+        $value = $this->stack[$this->size];
         return $value;
     }
 
@@ -143,14 +136,10 @@ class Stack {
      * @return bool
      */
     public function push($item): bool {
-        if (!$this->isValid()) {
-            return false;
-        }
-        /*
-         * using array_push is the better option since it
-         * takes the work of adding to the end.
-         */
-        array_push($this->stack, $item);
+        if (!$this->isValid()) return false;
+
+        $this->stack[$this->size] = $item;
+        $this->size++;
         return true;
     }
 
@@ -161,5 +150,14 @@ class Stack {
      */
     protected function isValid(): bool {
         return $this->stack !== null;
+    }
+
+    /**
+     * wrapper method for stackSize()
+     *
+     * @return int
+     */
+    public function size(): int {
+        return $this->size;
     }
 }
