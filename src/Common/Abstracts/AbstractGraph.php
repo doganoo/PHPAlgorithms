@@ -27,6 +27,8 @@ namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
 
 use doganoo\PHPAlgorithms\Common\Exception\InvalidGraphTypeException;
+use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
+use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Graph\Node;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
 
@@ -35,7 +37,7 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
  *
  * @package doganoo\PHPAlgorithms\common\Abstracts
  */
-abstract class AbstractGraph {
+abstract class AbstractGraph implements IComparable {
     public const DIRECTED_GRAPH = 1;
     public const UNDIRECTED_GRAPH = 2;
     protected $nodeList = null;
@@ -54,16 +56,6 @@ abstract class AbstractGraph {
         } else {
             throw new InvalidGraphTypeException();
         }
-    }
-
-    /**
-     * @return Node|null
-     * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
-     */
-    public function getRoot(): ?Node {
-        return ($this->nodeList === null ||
-            $this->nodeList->size() === 0)
-            ? null : $this->nodeList->get(0);
     }
 
     /**
@@ -95,5 +87,29 @@ abstract class AbstractGraph {
      */
     public function getNodes(): ?ArrayList {
         return $this->nodeList;
+    }
+
+    /**
+     * @param $object
+     * @return int
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
+     */
+    public function compareTo($object): int {
+        if ($object instanceof AbstractGraph) {
+            if (Comparator::equals($this->getRoot(), $object->getRoot())) return 0;
+            if (Comparator::lessThan($this->getRoot(), $object->getRoot())) return -1;
+            if (Comparator::greaterThan($this->getRoot(), $object->getRoot())) return 1;
+        }
+        return -1;
+    }
+
+    /**
+     * @return Node|null
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
+     */
+    public function getRoot(): ?Node {
+        return ($this->nodeList === null ||
+            $this->nodeList->size() === 0)
+            ? null : $this->nodeList->get(0);
     }
 }

@@ -92,4 +92,5 @@ class SinglyLinkedList extends AbstractLinkedList {
     protected function getEmptyInstance(): AbstractLinkedList {
         return new SinglyLinkedList();
     }
+
 }

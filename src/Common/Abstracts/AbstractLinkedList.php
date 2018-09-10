@@ -25,6 +25,7 @@
 
 namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
+use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
 
@@ -36,7 +37,7 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
  *
  * @package doganoo\PHPAlgorithms\LinkedLists
  */
-abstract class AbstractLinkedList {
+abstract class AbstractLinkedList implements IComparable {
     /** @var \doganoo\PHPAlgorithms\Datastructure\Lists\Node */
     private $head = null;
 
@@ -476,6 +477,19 @@ abstract class AbstractLinkedList {
             $node = $node->getNext();
         }
         return $replaced;
+    }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if ($object instanceof AbstractLinkedList) {
+            if (Comparator::equals($this->getHead(), $object->getHead())) return 0;
+            if (Comparator::lessThan($this->getHead(), $object->getHead())) return -1;
+            if (Comparator::greaterThan($this->getHead(), $object->getHead())) return 1;
+        }
+        return -1;
     }
 
     //protected function removeDuplicates() {

@@ -30,6 +30,7 @@ use doganoo\PHPAlgorithms\Algorithm\Traversal\InOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PostOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PreOrder;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
+use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 
 /**
@@ -37,7 +38,7 @@ use doganoo\PHPAlgorithms\Common\Util\Comparator;
  *
  * @package doganoo\PHPAlgorithms\Common\Abstracts
  */
-abstract class AbstractTree {
+abstract class AbstractTree implements IComparable {
     public const ARRAY_IN_ORDER = 1;
     public const ARRAY_PRE_ORDER = 2;
     public const ARRAY_POST_ORDER = 3;
