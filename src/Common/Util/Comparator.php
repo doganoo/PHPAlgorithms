@@ -26,7 +26,7 @@
 namespace doganoo\PHPAlgorithms\Common\Util;
 
 
-use doganoo\PHPAlgorithms\Common\Interfaces\Comparable;
+use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
 
 /**
  * Class Comparator
@@ -47,7 +47,7 @@ class Comparator {
      * @return bool
      */
     public static function equals($that, $other): bool {
-        if ($that instanceof Comparable) {
+        if ($that instanceof IComparable) {
             return $that->compareTo($other) == 0;
         }
         if (\is_object($that)) {
@@ -71,7 +71,7 @@ class Comparator {
      * @return bool
      */
     public static function lessThan($that, $other): bool {
-        if ($that instanceof Comparable) {
+        if ($that instanceof IComparable) {
             return $that->compareTo($other) == -1;
         }
         if (\is_object($that)) {
@@ -95,7 +95,7 @@ class Comparator {
      * @return bool
      */
     public static function lessThanEqual($that, $other): bool {
-        if ($that instanceof Comparable) {
+        if ($that instanceof IComparable) {
             return $that->compareTo($other) == -1;
         }
         if (\is_object($that)) {
@@ -119,7 +119,7 @@ class Comparator {
      * @return bool
      */
     public static function greaterThan($that, $other): bool {
-        if ($that instanceof Comparable) {
+        if ($that instanceof IComparable) {
             return $that->compareTo($other) == 1;
         }
         if (\is_object($that)) {
@@ -143,7 +143,7 @@ class Comparator {
      * @return bool
      */
     public static function greaterThanEqual($that, $other): bool {
-        if ($that instanceof Comparable) {
+        if ($that instanceof IComparable) {
             return $that->compareTo($other) == 1;
         }
         if (\is_object($that)) {

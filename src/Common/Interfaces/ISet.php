@@ -30,7 +30,7 @@ namespace doganoo\PHPAlgorithms\Common\Interfaces;
  *
  * @package doganoo\PHPAlgorithms\common\Interfaces
  */
-interface ISet {
+interface ISet extends IComparable {
     /**
      * Adds the specified element to this set if it is not already present (optional operation).
      *

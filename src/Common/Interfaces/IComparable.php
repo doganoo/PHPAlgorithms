@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar
+ * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,36 +23,13 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Datastructure\Stackqueue;
+namespace doganoo\PHPAlgorithms\Common\Interfaces;
 
 /**
- * Class FixedStack extends Stack
+ * Interface IComparable
  *
- * @package doganoo\PHPAlgorithms\Datastructure\Stackqueue
+ * @package doganoo\PHPAlgorithms\Common\Interfaces
  */
-class FixedStack extends Stack {
-    /** @var int $maxSize the maximum number of elements which is capable by the stack */
-    private $maxSize = 0;
-
-    /**
-     * FixedStack constructor.
-     *
-     * @param int $maxSize
-     */
-    public function __construct(int $maxSize) {
-        $this->maxSize = $maxSize;
-    }
-
-    /**
-     * returns whether the element is valid or not.
-     * Checks among other things also the number of elements
-     *
-     * @return bool
-     */
-    protected function isValid(): bool {
-        $parent = parent::isValid();
-        $maxSize = parent::size() < $this->maxSize;
-        return $parent && $maxSize;
-    }
+interface IComparable extends Comparable {
 
 }

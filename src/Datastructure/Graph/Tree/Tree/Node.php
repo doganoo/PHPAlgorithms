@@ -62,7 +62,7 @@ class Node implements INode {
      */
     public function addChild($child, $parent = null): bool {
         $newNode = new Node($child);
-        if ($this->getChildren()->containsValue($newNode, false)) {
+        if ($this->getChildren()->containsValue($newNode)) {
             return false;
         }
         if (null === $parent || $parent === $this->value) {
@@ -129,5 +129,18 @@ class Node implements INode {
      */
     public function getChild($value) {
         return $this->findChild($value);
+    }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if ($object instanceof Node) {
+            if ($this->getValue() === $object->getValue()) return 0;
+            if ($this->getValue() > $object->getValue()) return 1;
+            if ($this->getValue() < $object->getValue()) return -1;
+        }
+        return -1;
     }
 }

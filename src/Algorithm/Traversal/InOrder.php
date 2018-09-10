@@ -27,8 +27,8 @@ namespace doganoo\PHPAlgorithms\Algorithm\Traversal;
 
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractTraverse;
+use doganoo\PHPAlgorithms\Common\Abstracts\AbstractTree;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
-use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryTree;
 
 /**
  * Class InOrder
@@ -36,15 +36,15 @@ use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryTree;
  * @package doganoo\PHPAlgorithms\Algorithm\Traversal
  */
 class InOrder extends AbstractTraverse {
-    /** @var IBinaryTree|null */
+    /** @var AbstractTree|null */
     private $binarySearchTree = null;
 
     /**
      * InOrder constructor.
      *
-     * @param IBinaryTree $tree
+     * @param AbstractTree $tree
      */
-    public function __construct(IBinaryTree $tree) {
+    public function __construct(AbstractTree $tree) {
         $this->binarySearchTree = $tree;
     }
 

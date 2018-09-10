@@ -28,6 +28,7 @@ namespace doganoo\PHPAlgorithms\Datastructure\Sets;
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractISet;
 use doganoo\PHPAlgorithms\Common\Interfaces\ISet;
+use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
 
 /**
@@ -35,7 +36,7 @@ use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
  *
  * @package doganoo\PHPAlgorithms\Datastructure\Sets
  */
-class HashISet extends AbstractISet implements ISet {
+class HashSet extends AbstractISet implements ISet {
     private $hashMap = null;
 
     public function __construct() {
@@ -48,7 +49,6 @@ class HashISet extends AbstractISet implements ISet {
      *
      * @param $elements
      * @return bool
-     * @throws \ReflectionException
      * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
      * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
      */
@@ -159,5 +159,18 @@ class HashISet extends AbstractISet implements ISet {
      */
     public function toArray(): array {
         return $this->hashMap->keySet();
+    }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if ($object instanceof HashSet) {
+            if (Comparator::equals($this->hashMap, $object->hashMap)) return 0;
+            if (Comparator::lessThan($this->hashMap, $object->hashMap)) return 1;
+            if (Comparator::greaterThan($this->hashMap, $object->hashMap)) return -1;
+        }
+        return -1;
     }
 }

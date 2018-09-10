@@ -53,9 +53,9 @@ class DepthFirstSearch extends AbstractGraphSearch {
 
     /**
      * @param Node|null $node
-     * @return mixed
+     * @return void
      */
-    public function searchByNode(?Node $node) {
+    public function searchByNode(?Node $node): void {
         if (null === $node) {
             return;
         }

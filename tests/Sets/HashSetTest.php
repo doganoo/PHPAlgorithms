@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-use doganoo\PHPAlgorithms\Datastructure\Sets\HashISet;
+use doganoo\PHPAlgorithms\Datastructure\Sets\HashSet;
 
 /**
  * Class HashSetTest PHPUnit test class
@@ -31,12 +31,11 @@ use doganoo\PHPAlgorithms\Datastructure\Sets\HashISet;
 class HashSetTest extends \PHPUnit\Framework\TestCase {
 
     /**
-     * @throws ReflectionException
      * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
      * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
      */
     public function testAdd() {
-        $hashSet = new HashISet();
+        $hashSet = new HashSet();
         $hashSet->add("test");
         $this->assertTrue($hashSet->size() === 1);
 
@@ -48,12 +47,11 @@ class HashSetTest extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * @throws ReflectionException
      * @throws \doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException
      * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
      */
     public function testContains() {
-        $hashSet = new HashISet();
+        $hashSet = new HashSet();
         $hashSet->add("test");
 
         $this->assertTrue($hashSet->size() === 1);
@@ -73,12 +71,11 @@ class HashSetTest extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * @throws ReflectionException
      * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
      * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
      */
     public function testClear() {
-        $hashSet = new HashISet();
+        $hashSet = new HashSet();
         $hashSet->addAll(["one", "two", "three", "four"]);
         $this->assertTrue($hashSet->size() === 4);
         $hashSet->clear();
@@ -87,12 +84,11 @@ class HashSetTest extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * @throws ReflectionException
      * @throws \doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException
      * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
      */
     public function testRemove() {
-        $hashSet = new HashISet();
+        $hashSet = new HashSet();
         $hashSet->addAll(["one", "two", "three", "four"]);
         $this->assertTrue($hashSet->contains("one") === true);
         $hashSet->remove("one");

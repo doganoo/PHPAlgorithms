@@ -59,7 +59,6 @@ class LRUCache implements ICache {
      * @param $key
      * @param $value
      * @return bool
-     * @throws \ReflectionException
      * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
      * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
      */
@@ -193,5 +192,18 @@ class LRUCache implements ICache {
             $head = $head->getNext();
         }
         return false;
+    }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if ($object instanceof LRUCache) {
+            if (Comparator::equals($this->hashMap, $object->hashMap)) return 0;
+            if (Comparator::lessThan($this->hashMap, $object->hashMap)) return 1;
+            if (Comparator::greaterThan($this->hashMap, $object->hashMap)) return -1;
+        }
+        return -1;
     }
 }

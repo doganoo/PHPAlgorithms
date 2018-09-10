@@ -25,7 +25,6 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Cache;
 
-use doganoo\PHPAlgorithms\Common\Interfaces\Comparable;
 use doganoo\PHPAlgorithms\Common\Interfaces\INode;
 
 /**
@@ -33,7 +32,7 @@ use doganoo\PHPAlgorithms\Common\Interfaces\INode;
  *
  * @package doganoo\PHPAlgorithms\Datastructure\Cache
  */
-class Node implements INode, Comparable {
+class Node implements INode {
     private $key;
     private $value;
     private $previous;

@@ -45,4 +45,24 @@ class RootNode extends Node implements INode {
         parent::__construct();
         $this->setValue(self::ROOT_NODE);
     }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if (!$object instanceof RootNode) {
+            return -1;
+        }
+        if ($this->getValue() < $object->getValue()) {
+            return -1;
+        }
+        if ($this->getValue() == $object->getValue()) {
+            return 0;
+        }
+        if ($this->getValue() > $object->getValue()) {
+            return 1;
+        }
+        return -1;
+    }
 }

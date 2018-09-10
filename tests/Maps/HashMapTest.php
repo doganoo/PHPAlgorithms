@@ -38,16 +38,17 @@ class HashMapTest extends \PHPUnit\Framework\TestCase {
         $boolean = $hashMap->add(1, $class);
         $has = $hashMap->getNodeByValue($class);
         $this->assertTrue($boolean);
+        $this->assertTrue(null !== $has);
     }
 
     public function testSize() {
         $class = stdClass::class;
         $hashMap = new HashMap();
-        $boolean = $hashMap->add(1, $class);
-        $boolean = $hashMap->add(2, $class);
-        $boolean = $hashMap->add(3, $class);
-        $boolean = $hashMap->add(4, $class);
-        $boolean = $hashMap->add(5, $class);
+        $hashMap->add(1, $class);
+        $hashMap->add(2, $class);
+        $hashMap->add(3, $class);
+        $hashMap->add(4, $class);
+        $hashMap->add(5, $class);
 
         $this->assertTrue($hashMap->size() === 5);
     }

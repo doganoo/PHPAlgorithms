@@ -38,7 +38,12 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
  */
 class BidirectionalSearch {
 
-    public function hasPath(Node $start, Node $end) {
+    /**
+     * @param Node $start
+     * @param Node $end
+     * @return bool
+     */
+    public function hasPath(Node $start, Node $end): bool {
         $startList = $this->performSearch($start);
         $endList = $this->performSearch($end);
 
@@ -49,7 +54,7 @@ class BidirectionalSearch {
             $startList->retainAll($endList);
             return $startList->length() > 0;
         }
-
+        return false;
     }
 
     /**

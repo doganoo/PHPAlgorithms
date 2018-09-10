@@ -25,7 +25,6 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Graph;
 
-use doganoo\PHPAlgorithms\Common\Interfaces\Comparable;
 use doganoo\PHPAlgorithms\Common\Interfaces\INode;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
 
@@ -34,7 +33,7 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
  *
  * @package doganoo\PHPAlgorithms\Graph
  */
-class Node implements Comparable, INode {
+class Node implements INode {
     /** @var mixed $value */
     private $value;
     /** @var ArrayList|null $adjacent */

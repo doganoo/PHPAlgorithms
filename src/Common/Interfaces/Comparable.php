@@ -29,6 +29,7 @@ namespace doganoo\PHPAlgorithms\Common\Interfaces;
  * Interface Comparable
  *
  * @package doganoo\PHPAlgorithms\common\Interfaces
+ * @deprecated use IComparable instead (due to name conventions)
  */
 interface Comparable {
     /**

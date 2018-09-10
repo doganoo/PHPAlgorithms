@@ -77,7 +77,6 @@ class HashMap {
      * @return bool
      * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
      * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
-     * @throws \ReflectionException
      */
     public function addNode(Node $node): bool {
         $added = $this->add($node->getKey(), $node->getValue());

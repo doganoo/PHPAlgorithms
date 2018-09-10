@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Sort;
+namespace doganoo\PHPAlgorithms\Algorithm\Sorting;
 
 
 use doganoo\PHPAlgorithms\Common\Interfaces\ISortable;
@@ -32,7 +32,7 @@ use doganoo\PHPAlgorithms\Common\Util\Comparator;
 /**
  * Class QuickSort
  *
- * @package doganoo\PHPAlgorithms\Sort
+ * @package doganoo\PHPAlgorithms\Sorting
  */
 class QuickSort implements ISortable {
     /**

@@ -137,7 +137,20 @@ class IntegerVector implements IVector {
         return false;
     }
 
-    public function printVector(){
+    public function printVector() {
         \print_r($this->array);
+    }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if ($object instanceof IntegerVector) {
+            if ($this->array === $object->array) return 0;
+            if (\count($this->array) < \count($object->array)) return -1;
+            if (\count($this->array) > \count($object->array)) return 1;
+        }
+        return -1;
     }
 }

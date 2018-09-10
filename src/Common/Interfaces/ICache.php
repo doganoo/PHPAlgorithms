@@ -30,7 +30,7 @@ namespace doganoo\PHPAlgorithms\Common\Interfaces;
  *
  * @package doganoo\PHPAlgorithms\common\Interfaces
  */
-interface ICache {
+interface ICache extends IComparable {
     /**
      * adds a new key value pair
      *

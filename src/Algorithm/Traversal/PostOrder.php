@@ -26,8 +26,8 @@
 namespace doganoo\PHPAlgorithms\Algorithm\Traversal;
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractTraverse;
+use doganoo\PHPAlgorithms\Common\Abstracts\AbstractTree;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
-use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryTree;
 
 /**
  * Class PostOrder
@@ -35,15 +35,15 @@ use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryTree;
  * @package doganoo\PHPAlgorithms\Algorithm\Traversal
  */
 class PostOrder extends AbstractTraverse {
-    /** @var IBinaryTree|null */
+    /** @var AbstractTree|null */
     private $tree = null;
 
     /**
      * PostOrder constructor.
      *
-     * @param IBinaryTree $tree
+     * @param AbstractTree $tree
      */
-    public function __construct(IBinaryTree $tree) {
+    public function __construct(AbstractTree $tree) {
         $this->tree = $tree;
     }
 

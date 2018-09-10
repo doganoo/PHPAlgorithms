@@ -30,7 +30,7 @@ namespace doganoo\PHPAlgorithms\Common\Interfaces;
  *
  * @package doganoo\PHPAlgorithms\Common\Interfaces
  */
-interface IBinaryNode extends INode, Comparable {
+interface IBinaryNode extends INode {
     /**
      * @return mixed
      */

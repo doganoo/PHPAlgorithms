@@ -26,10 +26,10 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree;
 
 
+use doganoo\PHPAlgorithms\Algorithm\Sorting\MergeSort;
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractTree;
 use doganoo\PHPAlgorithms\Common\Exception\InvalidSearchComparisionException;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
-use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryTree;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree\BinarySearchNode;
 
@@ -38,7 +38,7 @@ use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree\BinarySearchNode;
  *
  * @package doganoo\PHPAlgorithms\Datastructure\Graph\Tree
  */
-class BinarySearchTree extends AbstractTree implements IBinaryTree {
+class BinarySearchTree extends AbstractTree {
     /** @var int $size number of nodes in the tree */
     private $size = 0;
 
@@ -120,6 +120,8 @@ class BinarySearchTree extends AbstractTree implements IBinaryTree {
         if (0 === \count($array)) {
             return $tree;
         }
+        $sort = new MergeSort();
+        $array = $sort->sort($array);
         $root = BinarySearchTree::_createFromArrayWithMinimumHeight($array, 0, \count($array) - 1);
         $tree = new BinarySearchTree();
         $tree->setRoot($root);
@@ -184,5 +186,18 @@ class BinarySearchTree extends AbstractTree implements IBinaryTree {
      */
     public function getSize(): int {
         return $this->size;
+    }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if ($object instanceof BinarySearchTree) {
+            if (Comparator::equals($this->getRoot(), $object->getRoot())) return 0;
+            if (Comparator::lessThan($this->getRoot(), $object->getRoot())) return 1;
+            if (Comparator::greaterThan($this->getRoot(), $object->getRoot())) return -1;
+        }
+        return -1;
     }
 }

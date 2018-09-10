@@ -51,6 +51,7 @@ class Map {
      */
     public function clear(): bool {
         $this->map = \array_fill(0, Map::MAX_SIZE, null);
+        return true;
     }
 
     /**

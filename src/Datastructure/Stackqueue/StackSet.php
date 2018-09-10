@@ -78,7 +78,7 @@ class StackSet {
     private function addToStack(Stack $stack, $element) {
         $stack->push($element);
         $this->counter++;
-        if (1 === $stack->stackSize()) {
+        if (1 === $stack->size()) {
             $this->stackList->add($stack);
         } else {
             $index = $this->stackList->length();
@@ -96,7 +96,7 @@ class StackSet {
         $stack = $this->stackList->get($index - 1);
         $element = $stack->pop();
         $this->counter--;
-        if (0 === $stack->stackSize()) {
+        if (0 === $stack->size()) {
             $this->stackList->remove($index - 1);
         } else {
             $this->stackList->set($index - 1, $stack);

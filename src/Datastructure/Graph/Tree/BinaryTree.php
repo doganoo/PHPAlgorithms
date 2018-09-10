@@ -28,7 +28,6 @@ namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\InOrder;
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractTree;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
-use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryTree;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree\BinaryNode;
 
@@ -37,7 +36,7 @@ use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree\BinaryNode;
  *
  * @package doganoo\PHPAlgorithms\Datastructure\Graph\Tree
  */
-class BinaryTree extends AbstractTree implements IBinaryTree {
+class BinaryTree extends AbstractTree {
     /** @var int $size number of nodes in the tree */
     private $size = 0;
 
@@ -109,5 +108,18 @@ class BinaryTree extends AbstractTree implements IBinaryTree {
      */
     public function getSize(): int {
         return $this->size;
+    }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if ($object instanceof BinaryTree) {
+            if (Comparator::equals($this->getRoot(), $object->getRoot())) return 0;
+            if (Comparator::lessThan($this->getRoot(), $object->getRoot())) return 1;
+            if (Comparator::greaterThan($this->getRoot(), $object->getRoot())) return -1;
+        }
+        return -1;
     }
 }

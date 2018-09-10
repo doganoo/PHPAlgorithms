@@ -131,6 +131,6 @@ class Queue {
      * @return bool
      */
     public function isEmpty(): bool {
-        return $this->queueSize() === 0;
+        return $this->size() === 0;
     }
 }

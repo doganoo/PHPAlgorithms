@@ -26,7 +26,7 @@
 use doganoo\PHPAlgorithms\Algorithm\Traversal\InOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PostOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PreOrder;
-use doganoo\PHPAlgorithms\Common\Interfaces\Comparable;
+use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinarySearchTree;
 
 /**
@@ -50,10 +50,11 @@ class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($tree->height() === 3);
         $tree = BinarySearchTree::createFromArrayWithMinimumHeight(null);
         $this->assertTrue($tree === null);
-        $tree = BinarySearchTree::createFromArrayWithMinimumHeight([null, 50, null, 100, null, 150, null]);
-        $this->assertTrue($tree->height() === 2);
         $tree = BinarySearchTree::createFromArray([25, 50, 75, 100, 125, 150, 175]);
         $this->assertTrue($tree->height() === 7);
+        $tree = BinarySearchTree::createFromArrayWithMinimumHeight([175, 150, 125, 100, 75, 50, 25]);
+        $this->assertTrue($tree->height() === 3);
+
     }
 
     /**
@@ -114,7 +115,7 @@ class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase {
     }
 }
 
-class TestNode implements Comparable {
+class TestNode implements IComparable {
     private $id = 0;
 
     public function __construct($id) {

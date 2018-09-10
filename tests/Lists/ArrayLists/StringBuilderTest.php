@@ -1,7 +1,6 @@
 <?php
 
 
-use doganoo\PHPAlgorithms\Common\Util\Logger;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\StringBuilder;
 
 class StringBuilderTest extends \PHPUnit\Framework\TestCase {

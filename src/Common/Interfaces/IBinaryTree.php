@@ -31,7 +31,7 @@ namespace doganoo\PHPAlgorithms\Common\Interfaces;
  * @package doganoo\PHPAlgorithms\Common\Interfaces
  * @deprecated
  */
-interface IBinaryTree {
+interface IBinaryTree extends IComparable {
     /**
      * @return IBinaryNode|null
      */

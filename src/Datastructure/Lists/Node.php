@@ -114,17 +114,6 @@ class Node implements INode, IUnaryNode {
     }
 
     /**
-     * string representation of a Node instance
-     *
-     * @return string
-     */
-    public function __toString() {
-        $previous = $this->previous === null ? "" : $this->previous->getKey();
-        $next = $this->next === null ? "" : $this->next->getKey();
-        return "[#key#][#{$this->key}#][#value#][#{$this->value}#][#previous#][#$previous#][#next#][#$next#]";
-    }
-
-    /**
      * @param $object
      * @return int
      */

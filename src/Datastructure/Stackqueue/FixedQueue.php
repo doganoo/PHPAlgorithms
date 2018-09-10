@@ -51,7 +51,7 @@ class FixedQueue extends Queue {
      */
     protected function isValid(): bool {
         $parent = parent::isValid();
-        $maxSize = parent::queueSize() < $this->maxSize;
+        $maxSize = parent::size() < $this->maxSize;
         return $parent && $maxSize;
     }
 }

@@ -39,10 +39,10 @@ class FixedStackTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($added === true);
         $stack->push(new Exception());
         $this->assertTrue($stack->isEmpty() == false);
-        $this->assertTrue($stack->stackSize() === 2);
+        $this->assertTrue($stack->size() === 2);
         $added = $stack->push(new stdClass());
         $this->assertTrue($added === false);
-        $this->assertTrue($stack->stackSize() === 2);
+        $this->assertTrue($stack->size() === 2);
 
         $class = $stack->pop();
         $this->assertTrue($class instanceof Exception);
@@ -63,7 +63,7 @@ class FixedStackTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($queue->isEmpty() == false);
         $added = $queue->enqueue(new Exception());
         $this->assertTrue($added === false);
-        $this->assertTrue($queue->queueSize() === 2);
+        $this->assertTrue($queue->size() === 2);
 
         $class = $queue->dequeue();
         $this->assertTrue($class instanceof stdClass);

@@ -184,7 +184,6 @@ class MapUtil {
             $value = $value ? "true" : "false";
         } else if (\is_resource($value) || $value === null) {
             //TODO resource/null
-            $value = $value;
         } else if (\is_int($value)) {
             return (string)$value;
         } else {

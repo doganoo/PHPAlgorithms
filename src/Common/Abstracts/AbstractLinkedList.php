@@ -310,7 +310,6 @@ abstract class AbstractLinkedList {
      * TODO decide whether using add or append/prepend
      *
      * @param \doganoo\PHPAlgorithms\Datastructure\Lists\Node $node
-     * @throws \ReflectionException
      */
     public function addNode(Node $node) {
         $this->add($node->getKey(), $node->getValue());
@@ -477,21 +476,6 @@ abstract class AbstractLinkedList {
             $node = $node->getNext();
         }
         return $replaced;
-    }
-
-    /**
-     * string representation of a LinkedList instance
-     *
-     * @return string
-     */
-    public function __toString() {
-        $head = $this->getHead();
-        $string = "";
-        while ($head !== null) {
-            $string .= $head . "\n";
-            $head = $head->getNext();
-        }
-        return $string;
     }
 
     //protected function removeDuplicates() {

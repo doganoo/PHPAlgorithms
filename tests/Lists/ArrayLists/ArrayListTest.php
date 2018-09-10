@@ -165,7 +165,6 @@ class ArrayListTest extends \PHPUnit\Framework\TestCase {
         $arrayList->add("three");
         $i = 0;
         foreach ($arrayList as $key => $value) {
-            $value = $value;
             $i++;
         }
         $this->assertTrue($i === $arrayList->length());

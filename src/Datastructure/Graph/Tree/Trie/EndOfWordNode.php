@@ -43,4 +43,17 @@ class EndOfWordNode extends Node {
         parent::__construct();
         parent::setValue(self::END_OF_WORD);
     }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if ($object instanceof EndOfWordNode) {
+            if ($this->getValue() === $object->getValue()) return 0;
+            if ($this->getValue() > $object->getValue()) return 1;
+            if ($this->getValue() < $object->getValue()) return -1;
+        }
+        return -1;
+    }
 }

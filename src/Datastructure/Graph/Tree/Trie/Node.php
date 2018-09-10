@@ -44,20 +44,6 @@ class Node implements INode {
         $this->children = [];
     }
 
-    /**
-     * @return mixed
-     */
-    public function getValue() {
-        return $this->value;
-    }
-
-    /**
-     * @param mixed $value
-     */
-    public function setValue($value): void {
-        $this->value = $value;
-    }
-
     public function getChildNode(int $position): ?Node {
         if (isset($this->children[$position])) {
             return $this->children[$position];
@@ -77,5 +63,39 @@ class Node implements INode {
 
     public function isEndOfNode() {
         return $this->children[0] instanceof EndOfWordNode;
+    }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if (!$object instanceof Node) {
+            return -1;
+        }
+        if ($this->getValue() < $object->getValue()) {
+            return -1;
+        }
+        if ($this->getValue() == $object->getValue()) {
+            return 0;
+        }
+        if ($this->getValue() > $object->getValue()) {
+            return 1;
+        }
+        return -1;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValue() {
+        return $this->value;
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function setValue($value): void {
+        $this->value = $value;
     }
 }

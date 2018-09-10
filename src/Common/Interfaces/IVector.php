@@ -30,7 +30,7 @@ namespace doganoo\PHPAlgorithms\Common\Interfaces;
  *
  * @package doganoo\PHPAlgorithms\Common\Interfaces
  */
-interface IVector {
+interface IVector extends IComparable {
     /**
      * sets a value in the vector
      *
