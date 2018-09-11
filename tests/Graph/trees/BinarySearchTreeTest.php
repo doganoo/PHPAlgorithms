@@ -127,17 +127,10 @@ class TestNode implements IComparable {
      * @return int
      */
     public function compareTo($object): int {
-        if (!$object instanceof $this) {
-            return -1;
-        }
-        if ($this->getId() < $object->getId()) {
-            return -1;
-        }
-        if ($this->getId() == $object->getId()) {
-            return 0;
-        }
-        if ($this->getId() > $object->getId()) {
-            return 1;
+        if ($object instanceof TestNode) {
+            if ($this->getId() === $object->getId()) return 0;
+            if ($this->getId() < $object->getId()) return -1;
+            if ($this->getId() > $object->getId()) return 1;
         }
         return -1;
     }

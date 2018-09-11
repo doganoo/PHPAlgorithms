@@ -25,6 +25,8 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Stackqueue;
 
+use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
+
 /**
  * Class CircularBuffer
  *
@@ -32,7 +34,7 @@ namespace doganoo\PHPAlgorithms\Datastructure\Stackqueue;
  *
  * @package doganoo\PHPAlgorithms\Datastructure\Stackqueue
  */
-class CircularBuffer {
+class CircularBuffer implements IComparable, \JsonSerializable {
     private $elements = null;
     private $head = 0;
     private $tail = 0;
@@ -122,5 +124,35 @@ class CircularBuffer {
      */
     public function isEmpty(): bool {
         return $this->head === $this->tail;
+    }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if ($object instanceof CircularBuffer) {
+            if (\count(\array_diff($this->elements, $object->elements)) === 0) return 0;
+            if (\count($this->elements) < \count($object->elements)) return -1;
+            if (\count($this->elements) > \count($object->elements)) return 1;
+        }
+        return -1;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     *
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize() {
+        return [
+            "elements" => $this->elements
+            , "head" => $this->head
+            , "tail" => $this->tail
+            , "size" => $this->size,
+        ];
     }
 }

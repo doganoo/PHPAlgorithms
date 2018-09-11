@@ -51,18 +51,17 @@ class RootNode extends Node implements INode {
      * @return int
      */
     public function compareTo($object): int {
-        if (!$object instanceof RootNode) {
-            return -1;
-        }
-        if ($this->getValue() < $object->getValue()) {
-            return -1;
-        }
-        if ($this->getValue() == $object->getValue()) {
-            return 0;
-        }
-        if ($this->getValue() > $object->getValue()) {
-            return 1;
+        if ($object instanceof RootNode) {
+            if ($this->getValue() === $object->getValue()) return 0;
+            if ($this->getValue() < $object->getValue()) return -1;
+            if ($this->getValue() > $object->getValue()) return 1;
         }
         return -1;
+    }
+
+    public function jsonSerialize() {
+        $serializable = parent::jsonSerialize();
+        $serializable["type"] = RootNode::ROOT_NODE;
+        return $serializable;
     }
 }

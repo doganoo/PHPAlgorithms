@@ -27,7 +27,6 @@ namespace doganoo\PHPAlgorithms\Algorithm\Search;
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraph;
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraphSearch;
-use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Graph\Node;
 use doganoo\PHPAlgorithms\Datastructure\Stackqueue\Queue;
 
@@ -37,10 +36,6 @@ use doganoo\PHPAlgorithms\Datastructure\Stackqueue\Queue;
  * @package doganoo\PHPAlgorithms\Algorithm\Search
  */
 class BreadthFirstSearch extends AbstractGraphSearch {
-
-    public function __construct() {
-        parent::__construct();
-    }
 
     /**
      * @param AbstractGraph $graph

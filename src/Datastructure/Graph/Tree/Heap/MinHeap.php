@@ -25,6 +25,7 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Heap;
 
+use doganoo\PHPAlgorithms\Common\Interfaces\IHeap;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 
 /**
@@ -34,7 +35,7 @@ use doganoo\PHPAlgorithms\Common\Util\Comparator;
  *
  * @package doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Heap
  */
-class MinHeap {
+class MinHeap implements IHeap {
     /**
      * @var array|null $size the heap
      */
@@ -63,18 +64,6 @@ class MinHeap {
     }
 
     /**
-     * returns the number of elements in the heap
-     *
-     * @return int
-     */
-    public function length() {
-        $array = \array_filter($this->heap, function ($v, $k) {
-            return $v !== null;
-        }, \ARRAY_FILTER_USE_BOTH);
-        return \count($array) - 1;
-    }
-
-    /**
      * @param int $element
      */
     public function insert(int $element) {
@@ -93,6 +82,18 @@ class MinHeap {
             $current = $this->heap[$currentPosition];
             $parent = $this->heap[$parentPosition];
         }
+    }
+
+    /**
+     * returns the number of elements in the heap
+     *
+     * @return int
+     */
+    public function length(): int {
+        $array = \array_filter($this->heap, function ($v, $k) {
+            return $v !== null;
+        }, \ARRAY_FILTER_USE_BOTH);
+        return \count($array) - 1;
     }
 
     /**
@@ -120,7 +121,7 @@ class MinHeap {
      * @param int $pos
      * @return int
      */
-    private function getParentPosition(int $pos): int {
+    public function getParentPosition(int $pos): int {
         return $pos === 0 ? 0 : $pos / 2;
     }
 
@@ -130,7 +131,7 @@ class MinHeap {
      * @param int $current
      * @param int $parent
      */
-    private function swap(int $current, int $parent): void {
+    public function swap(int $current, int $parent): void {
         $tmp = $this->heap[$current];
         $this->heap[$current] = $this->heap[$parent];
         $this->heap[$parent] = $tmp;
@@ -149,5 +150,34 @@ class MinHeap {
             }
         }
         return false;
+    }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if ($object instanceof MinHeap) {
+            if (\count(\array_diff($this->heap, $object->heap)) === 0) return 0;
+            if (\count($this->heap) < \count($object->heap)) return -1;
+            if (\count($this->heap) > \count($object->heap)) return 1;
+        }
+        return -1;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     *
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize() {
+        return [
+            "heap" => $this->heap
+            , "max_size" => $this->maxSize
+            , "type" => "MIN_HEAP",
+        ];
     }
 }

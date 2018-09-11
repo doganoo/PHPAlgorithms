@@ -33,7 +33,7 @@ use doganoo\PHPAlgorithms\Common\Interfaces\ISet;
  *
  * @package doganoo\PHPAlgorithms\Common\Abstracts
  */
-abstract class AbstractISet implements ISet {
+abstract class AbstractSet implements ISet {
     /**
      * Compares the specified object with this set for equality.
      *
@@ -41,7 +41,7 @@ abstract class AbstractISet implements ISet {
      * @return bool
      */
     public function equals($object): bool {
-        return $this == $object;
+        return $this->compareTo($object) === 0;
     }
 
     /**
@@ -66,5 +66,4 @@ abstract class AbstractISet implements ISet {
         }
         return $removed;
     }
-
 }

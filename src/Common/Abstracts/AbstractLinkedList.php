@@ -37,7 +37,7 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
  *
  * @package doganoo\PHPAlgorithms\LinkedLists
  */
-abstract class AbstractLinkedList implements IComparable {
+abstract class AbstractLinkedList implements IComparable, \JsonSerializable {
     /** @var \doganoo\PHPAlgorithms\Datastructure\Lists\Node */
     private $head = null;
 
@@ -490,6 +490,20 @@ abstract class AbstractLinkedList implements IComparable {
             if (Comparator::greaterThan($this->getHead(), $object->getHead())) return 1;
         }
         return -1;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     *
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize() {
+        return [
+            "head" => $this->head,
+        ];
     }
 
     //protected function removeDuplicates() {

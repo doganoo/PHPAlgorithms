@@ -48,7 +48,7 @@ class Comparator {
      */
     public static function equals($that, $other): bool {
         if ($that instanceof IComparable) {
-            return $that->compareTo($other) == 0;
+            return $that->compareTo($other) === 0;
         }
         if (\is_object($that)) {
             if (\is_object($other)) {
@@ -72,7 +72,7 @@ class Comparator {
      */
     public static function lessThan($that, $other): bool {
         if ($that instanceof IComparable) {
-            return $that->compareTo($other) == -1;
+            return $that->compareTo($other) === -1;
         }
         if (\is_object($that)) {
             if (\is_object($other)) {
@@ -96,7 +96,7 @@ class Comparator {
      */
     public static function lessThanEqual($that, $other): bool {
         if ($that instanceof IComparable) {
-            return $that->compareTo($other) == -1;
+            return $that->compareTo($other) === -1;
         }
         if (\is_object($that)) {
             if (\is_object($other)) {
@@ -120,7 +120,7 @@ class Comparator {
      */
     public static function greaterThan($that, $other): bool {
         if ($that instanceof IComparable) {
-            return $that->compareTo($other) == 1;
+            return $that->compareTo($other) === 1;
         }
         if (\is_object($that)) {
             if (\is_object($other)) {
@@ -144,7 +144,7 @@ class Comparator {
      */
     public static function greaterThanEqual($that, $other): bool {
         if ($that instanceof IComparable) {
-            return $that->compareTo($other) == 1;
+            return $that->compareTo($other) === 1;
         }
         if (\is_object($that)) {
             if (\is_object($other)) {

@@ -37,7 +37,7 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
  *
  * @package doganoo\PHPAlgorithms\common\Abstracts
  */
-abstract class AbstractGraph implements IComparable {
+abstract class AbstractGraph implements IComparable, \JsonSerializable {
     public const DIRECTED_GRAPH = 1;
     public const UNDIRECTED_GRAPH = 2;
     protected $nodeList = null;
@@ -111,5 +111,20 @@ abstract class AbstractGraph implements IComparable {
         return ($this->nodeList === null ||
             $this->nodeList->size() === 0)
             ? null : $this->nodeList->get(0);
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     *
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize() {
+        return [
+            "node_list" => $this->nodeList
+            , "type" => $this->type,
+        ];
     }
 }

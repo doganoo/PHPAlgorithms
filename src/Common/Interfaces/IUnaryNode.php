@@ -30,7 +30,7 @@ namespace doganoo\PHPAlgorithms\Common\Interfaces;
  *
  * @package doganoo\PHPAlgorithms\common\Interfaces
  */
-interface IUnaryNode extends IComparable {
+interface IUnaryNode extends IComparable, \JsonSerializable {
     /**
      * @return mixed
      */

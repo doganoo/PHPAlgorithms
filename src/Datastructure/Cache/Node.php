@@ -82,17 +82,10 @@ class Node implements INode {
      * @return int
      */
     public function compareTo($object): int {
-        if (!$object instanceof Node) {
-            return -1;
-        }
-        if ($this->getValue() < $object->getValue()) {
-            return -1;
-        }
-        if ($this->getValue() == $object->getValue()) {
-            return 0;
-        }
-        if ($this->getValue() > $object->getValue()) {
-            return 1;
+        if ($object instanceof Node) {
+            if ($this->getValue() === $object->getValue()) return 0;
+            if ($this->getValue() < $object->getValue()) return -1;
+            if ($this->getValue() > $object->getValue()) return 1;
         }
         return -1;
     }
@@ -100,32 +93,45 @@ class Node implements INode {
     /**
      * @return mixed
      */
-    public
-    function getValue() {
+    public function getValue() {
         return $this->value;
     }
 
     /**
      * @param mixed $value
      */
-    public
-    function setValue($value): void {
+    public function setValue($value): void {
         $this->value = $value;
     }
 
     /**
      * @return mixed
      */
-    public
-    function getKey() {
+    public function getKey() {
         return $this->key;
     }
 
     /**
      * @param mixed $key
      */
-    public
-    function setKey($key): void {
+    public function setKey($key): void {
         $this->key = $key;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     *
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize() {
+        return [
+            "value" => $this->value
+            , "key" => $this->key
+            , "next" => $this->next
+            , "previous" => $this->previous,
+        ];
     }
 }

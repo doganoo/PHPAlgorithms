@@ -30,7 +30,7 @@ namespace doganoo\PHPAlgorithms\Common\Interfaces;
  *
  * @package doganoo\PHPAlgorithms\common\Interfaces
  */
-interface ICache extends IComparable {
+interface ICache extends IComparable, \JsonSerializable {
     /**
      * adds a new key value pair
      *

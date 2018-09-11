@@ -79,17 +79,10 @@ class BinaryNode implements IBinaryNode {
      * @return int
      */
     public function compareTo($object): int {
-        if (!$object instanceof BinaryNode) {
-            return -1;
-        }
-        if ($this->getValue() < $object->getValue()) {
-            return -1;
-        }
-        if ($this->getValue() == $object->getValue()) {
-            return 0;
-        }
-        if ($this->getValue() > $object->getValue()) {
-            return 1;
+        if ($object instanceof BinaryNode) {
+            if ($this->getValue() === $object->getValue()) return 0;
+            if ($this->getValue() < $object->getValue()) return -1;
+            if ($this->getValue() > $object->getValue()) return 1;
         }
         return -1;
     }
@@ -106,5 +99,21 @@ class BinaryNode implements IBinaryNode {
      */
     public function setValue(int $value): void {
         $this->value = $value;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     *
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize() {
+        return [
+            "value" => $this->value
+            , "left" => $this->left
+            , "right" => $this->right,
+        ];
     }
 }

@@ -44,6 +44,20 @@ class FixedQueue extends Queue {
     }
 
     /**
+     * Specify data which should be serialized to JSON
+     *
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize() {
+        $serializable = parent::jsonSerialize();
+        $serializable["max_size"] = $this->maxSize;
+        return $serializable;
+    }
+
+    /**
      * returns whether the element is valid or not.
      * Checks among other things also the number of elements
      *

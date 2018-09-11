@@ -30,7 +30,7 @@ namespace doganoo\PHPAlgorithms\Common\Interfaces;
  *
  * @package doganoo\PHPAlgorithms\common\Interfaces
  */
-interface ISet extends IComparable {
+interface ISet extends IComparable, \JsonSerializable {
     /**
      * Adds the specified element to this set if it is not already present (optional operation).
      *

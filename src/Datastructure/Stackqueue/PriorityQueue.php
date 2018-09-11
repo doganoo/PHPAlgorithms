@@ -25,6 +25,8 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Stackqueue;
 
+use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
+use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Heap\MinHeap;
 
 /**
@@ -32,7 +34,7 @@ use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Heap\MinHeap;
  *
  * @package doganoo\PHPAlgorithms\Datastructure\Stackqueue
  */
-class PriorityQueue {
+class PriorityQueue implements IComparable, \JsonSerializable {
     /** @var MinHeap|null $minHeap */
     private $minHeap = null;
 
@@ -88,5 +90,32 @@ class PriorityQueue {
      */
     public function size(): int {
         return $this->minHeap->length();
+    }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if ($object instanceof PriorityQueue) {
+            if (Comparator::equals($this->minHeap, $object->minHeap)) return 0;
+            if (Comparator::lessThan($this->minHeap, $object->minHeap)) return -1;
+            if (Comparator::greaterThan($this->minHeap, $object->minHeap)) return 1;
+        }
+        return -1;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     *
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize() {
+        return [
+            "heap" => $this->minHeap,
+        ];
     }
 }

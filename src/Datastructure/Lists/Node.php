@@ -118,17 +118,10 @@ class Node implements INode, IUnaryNode {
      * @return int
      */
     public function compareTo($object): int {
-        if (!$object instanceof INode) {
-            return -1;
-        }
-        if ($this->getValue() < $object->getValue()) {
-            return -1;
-        }
-        if ($this->getValue() === $object->getValue()) {
-            return 0;
-        }
-        if ($this->getValue() > $object->getValue()) {
-            return 1;
+        if ($object instanceof INode) {
+            if ($this->getValue() === $object->getValue()) return 0;
+            if ($this->getValue() < $object->getValue()) return -1;
+            if ($this->getValue() > $object->getValue()) return 1;
         }
         return -1;
     }
@@ -147,5 +140,22 @@ class Node implements INode, IUnaryNode {
      */
     public function setValue($value): void {
         $this->value = $value;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     *
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize() {
+        return [
+            "value" => $this->value
+            , "key" => $this->key
+            , "next" => $this->next
+            , "previous" => $this->previous,
+        ];
     }
 }

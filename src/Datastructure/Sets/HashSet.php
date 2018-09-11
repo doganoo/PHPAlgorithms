@@ -26,7 +26,7 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Sets;
 
 
-use doganoo\PHPAlgorithms\Common\Abstracts\AbstractISet;
+use doganoo\PHPAlgorithms\Common\Abstracts\AbstractSet;
 use doganoo\PHPAlgorithms\Common\Interfaces\ISet;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
@@ -36,7 +36,7 @@ use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
  *
  * @package doganoo\PHPAlgorithms\Datastructure\Sets
  */
-class HashSet extends AbstractISet implements ISet {
+class HashSet extends AbstractSet implements ISet {
     private $hashMap = null;
 
     public function __construct() {
@@ -168,9 +168,23 @@ class HashSet extends AbstractISet implements ISet {
     public function compareTo($object): int {
         if ($object instanceof HashSet) {
             if (Comparator::equals($this->hashMap, $object->hashMap)) return 0;
-            if (Comparator::lessThan($this->hashMap, $object->hashMap)) return 1;
-            if (Comparator::greaterThan($this->hashMap, $object->hashMap)) return -1;
+            if (Comparator::lessThan($this->hashMap, $object->hashMap)) return -1;
+            if (Comparator::greaterThan($this->hashMap, $object->hashMap)) return 1;
         }
         return -1;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     *
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize() {
+        return [
+            "hash_map" => $this->hashMap,
+        ];
     }
 }

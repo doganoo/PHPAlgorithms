@@ -35,12 +35,6 @@ use doganoo\PHPAlgorithms\Datastructure\Graph\Graph\Node;
  * @package doganoo\PHPAlgorithms\Algorithm\Search
  */
 class DepthFirstSearch extends AbstractGraphSearch {
-    /**
-     * DepthFirstSearch constructor.
-     */
-    public function __construct() {
-        parent::__construct();
-    }
 
     /**
      * @param AbstractGraph $graph

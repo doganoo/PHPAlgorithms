@@ -25,6 +25,8 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Stackqueue;
 
+use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
+
 
 /**
  * PHP implementation of a Queue
@@ -39,12 +41,10 @@ namespace doganoo\PHPAlgorithms\Datastructure\Stackqueue;
  *
  * @package StackQueue
  */
-class Queue {
+class Queue implements IComparable, \JsonSerializable {
     private $queue = [];
-
     private $head = 0;
     private $tail = 0;
-
 
     /**
      * this methods adds an item to the queue to the last index
@@ -106,6 +106,15 @@ class Queue {
     }
 
     /**
+     * returns a boolean which indicates whether the queue is empty or not
+     *
+     * @return bool
+     */
+    public function isEmpty(): bool {
+        return $this->size() === 0;
+    }
+
+    /**
      * wrapper function for queueSize()
      *
      * @return int
@@ -126,11 +135,31 @@ class Queue {
     }
 
     /**
-     * returns a boolean which indicates whether the queue is empty or not
-     *
-     * @return bool
+     * @param $object
+     * @return int
      */
-    public function isEmpty(): bool {
-        return $this->size() === 0;
+    public function compareTo($object): int {
+        if ($object instanceof Queue) {
+            if (\count(\array_diff($this->queue, $object->queue)) === 0) return 0;
+            if (\count($this->queue) < \count($object->queue)) return -1;
+            if (\count($this->queue) > \count($object->queue)) return 1;
+        }
+        return -1;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     *
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize() {
+        return [
+            "queue" => $this->queue
+            , "head" => $this->head
+            , "tail" => $this->tail,
+        ];
     }
 }

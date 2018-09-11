@@ -109,17 +109,4 @@ class BinaryTree extends AbstractTree {
     public function getSize(): int {
         return $this->size;
     }
-
-    /**
-     * @param $object
-     * @return int
-     */
-    public function compareTo($object): int {
-        if ($object instanceof BinaryTree) {
-            if (Comparator::equals($this->getRoot(), $object->getRoot())) return 0;
-            if (Comparator::lessThan($this->getRoot(), $object->getRoot())) return 1;
-            if (Comparator::greaterThan($this->getRoot(), $object->getRoot())) return -1;
-        }
-        return -1;
-    }
 }

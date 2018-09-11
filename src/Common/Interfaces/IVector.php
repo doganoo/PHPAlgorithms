@@ -30,7 +30,7 @@ namespace doganoo\PHPAlgorithms\Common\Interfaces;
  *
  * @package doganoo\PHPAlgorithms\Common\Interfaces
  */
-interface IVector extends IComparable {
+interface IVector extends IComparable, \JsonSerializable {
     /**
      * sets a value in the vector
      *

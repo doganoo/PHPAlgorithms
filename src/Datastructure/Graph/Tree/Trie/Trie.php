@@ -26,12 +26,15 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Trie;
 
+use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
+use doganoo\PHPAlgorithms\Common\Util\Comparator;
+
 /**
  * Class Trie
  *
  * @package doganoo\PHPAlgorithms\Datastructure\Trie
  */
-class Trie {
+class Trie implements IComparable, \JsonSerializable {
     /**
      * @var RootNode
      */
@@ -85,5 +88,32 @@ class Trie {
         } else {
             return (null !== $node && $node->isEndOfNode());
         }
+    }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if ($object instanceof Trie) {
+            if (Comparator::equals($this->root, $object->root)) return 0;
+            if (Comparator::lessThan($this->root, $object->root)) return -1;
+            if (Comparator::greaterThan($this->root, $object->root)) return 1;
+        }
+        return -1;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     *
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize() {
+        return [
+            "root" => $this->root,
+        ];
     }
 }

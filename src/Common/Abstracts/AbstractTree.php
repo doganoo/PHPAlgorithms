@@ -38,7 +38,7 @@ use doganoo\PHPAlgorithms\Common\Util\Comparator;
  *
  * @package doganoo\PHPAlgorithms\Common\Abstracts
  */
-abstract class AbstractTree implements IComparable {
+abstract class AbstractTree implements IComparable, \JsonSerializable {
     public const ARRAY_IN_ORDER = 1;
     public const ARRAY_PRE_ORDER = 2;
     public const ARRAY_POST_ORDER = 3;
@@ -247,4 +247,31 @@ abstract class AbstractTree implements IComparable {
      * @return int
      */
     public abstract function getSize(): int;
+
+    /**
+     * Specify data which should be serialized to JSON
+     *
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize() {
+        return [
+            "nodes" => $this->root,
+        ];
+    }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if ($object instanceof AbstractTree) {
+            if (Comparator::equals($this->getRoot(), $object->getRoot())) return 0;
+            if (Comparator::lessThan($this->getRoot(), $object->getRoot())) return -1;
+            if (Comparator::greaterThan($this->getRoot(), $object->getRoot())) return 1;
+        }
+        return -1;
+    }
 }

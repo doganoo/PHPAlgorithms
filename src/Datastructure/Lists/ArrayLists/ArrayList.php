@@ -27,6 +27,7 @@ namespace doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists;
 
 
 use doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException;
+use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use Traversable;
 
@@ -45,7 +46,7 @@ use Traversable;
  *
  * @package doganoo\PHPAlgorithms\Lists\ArrayLists
  */
-class ArrayList implements \IteratorAggregate, \JsonSerializable {
+class ArrayList implements \IteratorAggregate, \JsonSerializable, IComparable {
     /**
      * @const DEFAULT_ARRAY_SIZE
      */
@@ -413,4 +414,16 @@ class ArrayList implements \IteratorAggregate, \JsonSerializable {
         return $this->containsValue($value);
     }
 
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if ($object instanceof ArrayList) {
+            if (\count(\array_diff($this->array, $object->array)) === 0) return 0;
+            if (\count($this->array) < \count($object->array)) return -1;
+            if (\count($this->array) > \count($object->array)) return 1;
+        }
+        return -1;
+    }
 }
