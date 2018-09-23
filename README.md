@@ -3,4 +3,5 @@ A collection of common algorithms implemented in PHP. The collection is based on
 
 The library is in a beta state. Missing something? Create a pull request!
 
-You can find the package on Packagist: https://packagist.org/packages/doganoo/php-algorithms 
+You can find the package on Packagist: https://packagist.org/packages/doganoo/php-algorithms
+ 

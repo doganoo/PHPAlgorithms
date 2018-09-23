@@ -66,7 +66,7 @@ class MinHeap implements IHeap {
     /**
      * @param int $element
      */
-    public function insert(int $element) {
+    public function insert(int $element): void {
         $length = $this->length();
         $this->heap[$length + 1] = $element;
         $currentPosition = $this->length();

@@ -105,7 +105,8 @@ class IntegerVector implements IVector {
             $flag = 1;
             $flag = $flag << $k;
 
-            return (($this->array[$i] & $flag) !== 0);
+            if (isset($this->array[$i])) return (($this->array[$i] & $flag) !== 0);
+            return false;
         }
         return false;
     }
@@ -135,10 +136,6 @@ class IntegerVector implements IVector {
             return true;
         }
         return false;
-    }
-
-    public function printVector() {
-        \print_r($this->array);
     }
 
     /**
