@@ -162,7 +162,7 @@ class StringBuilder {
                 }
             }
             while (!$stack->isEmpty()) {
-                $stringBuilder->append($stack->pop());
+                $stringBuilder->append($stack->peek());
             }
         } else {
             $queue = new Queue();
