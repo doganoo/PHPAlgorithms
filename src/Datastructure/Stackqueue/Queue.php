@@ -111,7 +111,7 @@ class Queue implements IComparable, \JsonSerializable {
      * @return bool
      */
     public function isEmpty(): bool {
-        return $this->size() === 0;
+        return $this->tail === $this->head;
     }
 
     /**
@@ -120,7 +120,8 @@ class Queue implements IComparable, \JsonSerializable {
      * @return int
      */
     public function size(): int {
-        return $this->queueSize();
+        if ($this->tail > $this->head) return 0;
+        return $this->head - $this->tail;
     }
 
     /**

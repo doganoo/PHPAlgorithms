@@ -55,13 +55,24 @@ class Trie implements IComparable, \JsonSerializable {
     public function insert(string $string) {
         $node = $this->root;
         for ($i = 0; $i < \strlen($string); $i++) {
-            $position = \ord($string[$i]) - \ord("a");
-            if (null === $node->getChildNode($position)) {
-                $node->createChildNode($position);
+            $charIndex = $this->getCharIndex($string[$i]);
+            if (!$node->hasChild($charIndex)) {
+                $node->createChildNode($charIndex);
             }
-            $node = $node->getChildNode($position);
+            $node = $node->getChildNode($charIndex);
         }
         $node->createEndOfWordNode();
+    }
+
+    /**
+     * returns the ASCII value of $char - ASCII value of 'a'
+     *
+     * @param string $char
+     * @return int
+     */
+    private function getCharIndex(string $char): int {
+        if (\strlen($char) > 1) $char = \substr($char, 0, 1);
+        return \ord($char) - \ord('a');
     }
 
     /**
@@ -69,7 +80,7 @@ class Trie implements IComparable, \JsonSerializable {
      * the method should search for the entire word.
      *
      * @param string $key
-     * @param bool   $isPrefix
+     * @param bool $isPrefix
      * @return bool
      */
     public function search(string $key, bool $isPrefix = false): bool {
@@ -77,11 +88,11 @@ class Trie implements IComparable, \JsonSerializable {
         $node = $this->root;
 
         for ($i = 0; $i < $length; $i++) {
-            $index = \ord($key[$i]) - \ord('a');
-            if (null === $node->getChildNode($index)) {
+            $charIndex = $this->getCharIndex($key[$i]);
+            if (!$node->hasChild($charIndex)) {
                 return false;
             }
-            $node = $node->getChildNode($index);
+            $node = $node->getChildNode($charIndex);
         }
         if ($isPrefix) {
             return null !== $node;

@@ -44,6 +44,18 @@ class Node implements INode {
         $this->children = [];
     }
 
+    /**
+     * @param int $position
+     * @return bool
+     */
+    public function hasChild(int $position): bool {
+        return null !== $this->getChildNode($position);
+    }
+
+    /**
+     * @param int $position
+     * @return Node|null
+     */
     public function getChildNode(int $position): ?Node {
         if (isset($this->children[$position])) {
             return $this->children[$position];
@@ -51,16 +63,26 @@ class Node implements INode {
         return null;
     }
 
+    /**
+     * @param int $position
+     */
     public function createChildNode(int $position) {
         $node = new Node();
         $node->setValue($position);
         $this->children[$position] = $node;
     }
 
+    /**
+     * creates an node that indicates the end of the word
+     */
     public function createEndOfWordNode() {
         $this->children[] = new EndOfWordNode();
     }
 
+    /**
+     * indicates whether it is the end of the node
+     * @return bool
+     */
     public function isEndOfNode() {
         return $this->children[0] instanceof EndOfWordNode;
     }

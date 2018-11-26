@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Graph;
 
 use doganoo\PHPAlgorithms\Common\Interfaces\INode;
+use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
 
 /**
@@ -85,7 +86,7 @@ class Node implements INode {
          * @var Node $value
          */
         foreach ($this->adjacent as $key => $value) {
-            if ($value->getValue() == $node->getValue()) {
+            if (Comparator::equals($value->getValue(), $node->getValue())) {
                 return true;
             }
         }

@@ -92,7 +92,7 @@ class Stack implements IComparable, \JsonSerializable {
      * @return bool
      */
     public function isEmpty(): bool {
-        return $this->stackSize() === 0;
+        return $this->size() === 0;
     }
 
     /**

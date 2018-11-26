@@ -40,6 +40,7 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
  * TODO implement entrySet
  * TODO implement values
  * TODO implement Java-like generics for key and value
+ * TODO replace LinkedList with BinarySearchTree
  * TODO (optional) implement universal hashing
  *
  * @package doganoo\PHPAlgorithms\Maps
@@ -221,7 +222,7 @@ class HashMap implements \JsonSerializable {
     public function size(): int {
         $size = 0;
         /**
-         * @var string              $hash
+         * @var string $hash
          * @var  AbstractLinkedList $list
          */
         foreach ($this->bucket as $hash => $list) {
@@ -239,7 +240,7 @@ class HashMap implements \JsonSerializable {
     public function containsValue($value): bool {
 
         /**
-         * @var string           $arrayIndex
+         * @var string $arrayIndex
          * @var SinglyLinkedList $list
          */
         foreach ($this->bucket as $arrayIndex => $list) {
@@ -267,7 +268,7 @@ class HashMap implements \JsonSerializable {
      */
     public function containsKey($key): bool {
         /**
-         * @var string           $arrayIndex
+         * @var string $arrayIndex
          * @var SinglyLinkedList $list
          */
         foreach ($this->bucket as $arrayIndex => $list) {
@@ -300,7 +301,7 @@ class HashMap implements \JsonSerializable {
      */
     public function getNodeByValue($value): ?Node {
         /**
-         * @var string           $arrayIndex
+         * @var string $arrayIndex
          * @var SinglyLinkedList $list
          */
         foreach ($this->bucket as $arrayIndex => $list) {

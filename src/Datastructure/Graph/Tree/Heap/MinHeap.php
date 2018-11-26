@@ -25,6 +25,7 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Heap;
 
+use doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException;
 use doganoo\PHPAlgorithms\Common\Interfaces\IHeap;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 
@@ -65,6 +66,7 @@ class MinHeap implements IHeap {
 
     /**
      * @param int $element
+     * @throws IndexOutOfBoundsException
      */
     public function insert(int $element): void {
         $length = $this->length();
@@ -75,8 +77,15 @@ class MinHeap implements IHeap {
         $current = $this->heap[$currentPosition];
         $parent = $this->heap[$parentPosition];
 
+        //this could be implemented in recursive way as well!
         while (Comparator::lessThan($current, $parent)) {
             $this->swap($currentPosition, $parentPosition);
+            //since we have swapped the positions, we need
+            //to redefine our current position and parent position
+            //and 'bubble up':
+            //the current position is the parent position and the
+            //parent position is the parent position of the current position
+            //(i know, it is confusing :-))
             $currentPosition = $this->getParentPosition($currentPosition);
             $parentPosition = $this->getParentPosition($currentPosition);
             $current = $this->heap[$currentPosition];
@@ -120,9 +129,11 @@ class MinHeap implements IHeap {
      *
      * @param int $pos
      * @return int
+     * @throws IndexOutOfBoundsException
      */
     public function getParentPosition(int $pos): int {
-        return $pos === 0 ? 0 : $pos / 2;
+        if ($pos < 0) throw new IndexOutOfBoundsException("$pos < 0");
+        return $pos === 0 ? 0 : intval($pos / 2);
     }
 
     /**
