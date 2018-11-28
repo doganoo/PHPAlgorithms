@@ -191,4 +191,13 @@ class MinHeap implements IHeap {
             , "type" => "MIN_HEAP",
         ];
     }
+
+    /**
+     * returns the heap as an array
+     *
+     * @return array|null
+     */
+    public function getHeap(): ?array {
+        return $this->heap;
+    }
 }

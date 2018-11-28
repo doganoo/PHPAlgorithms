@@ -40,6 +40,7 @@ class LinkedListSearch {
      *
      * @param AbstractLinkedList $linkedList
      * @return bool
+     * @deprecated this method belongs to doganoo\PHPAlgorithms\Common\Abstracts\AbstractLinkedList and is moved there. Please use  this method instead.
      */
     public function hasLoop(AbstractLinkedList $linkedList): bool {
         $tortoise = $linkedList->getHead();
@@ -60,7 +61,7 @@ class LinkedListSearch {
 
     /**
      * @param AbstractLinkedList $linkedList
-     * @param int                $k
+     * @param int $k
      * @return \doganoo\PHPAlgorithms\Datastructure\Lists\Node|null
      */
     public function findKthElementFromEnd(AbstractLinkedList $linkedList, int $k): ?Node {

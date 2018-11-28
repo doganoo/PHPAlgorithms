@@ -52,6 +52,20 @@ class LinkedListUtil {
     }
 
     /**
+     * returns a doubly linked list with $n elements
+     *
+     * @param int $n the number of elements
+     * @return DoublyLinkedList
+     */
+    public static function getCustomDoublyLinkedList(int $n): DoublyLinkedList {
+        $list = new DoublyLinkedList();
+        for ($i = 0; $i < $n; $i++) {
+            $list->add($i + 1, md5($i + 1));
+        }
+        return $list;
+    }
+
+    /**
      * returns a singly linked list containing three elements
      *
      * @return SinglyLinkedList
@@ -61,6 +75,28 @@ class LinkedListUtil {
         $list->add(1, "one");
         $list->add(2, 1);
         $list->add(3, new stdClass());
+        return $list;
+    }
+
+    /**
+     * returns a singly linked list containing three elements with a loop
+     *
+     * @return DoublyLinkedList
+     */
+    public static function getDoublyLinkedListWithLoop(): DoublyLinkedList {
+        $list = new DoublyLinkedList();
+        $one = LinkedListUtil::getNode(1, "one");
+        $two = LinkedListUtil::getNode(1, 2);
+        $three = LinkedListUtil::getNode(1, new stdClass());
+
+        $one->setNext($two);
+        $one->setPrevious(null);
+        $two->setNext($three);
+        $two->setPrevious($one);
+        $three->setNext($one);
+        $three->setPrevious($two);
+
+        $list->setHead($one);
         return $list;
     }
 

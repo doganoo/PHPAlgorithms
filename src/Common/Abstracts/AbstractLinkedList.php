@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
 use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
+use doganoo\PHPAlgorithms\Common\Interfaces\IUnaryNode;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
 
@@ -493,6 +494,50 @@ abstract class AbstractLinkedList implements IComparable, \JsonSerializable {
     }
 
     /**
+     * also known as the Runner Technique
+     *
+     * @return bool
+     */
+    public function hasLoop(): bool {
+        $tortoise = $this->getHead();
+        $hare = $this->getHead();
+
+        while ($tortoise !== null && $hare->getNext() !== null) {
+            $hare = $hare->getNext()->getNext();
+
+            if (Comparator::equals($tortoise->getValue(), $hare->getValue())) {
+                return true;
+            }
+
+            $tortoise = $tortoise->getNext();
+        }
+        return false;
+    }
+
+    /**
+     * returns the middle node of the linked list
+     *
+     * @return IUnaryNode|null
+     */
+    public function getMiddleNode(): ?IUnaryNode {
+        $head = $this->getHead();
+
+        if (null === $head) return null;
+
+        $p = $head;
+        $q = $head;
+
+        while (null !== $p &&
+            null !== $q && //actually not really necessary since $p and $q point to the same object
+            null !== $q->getNext()
+        ) {
+            $p = $p->getNext();
+            $q = $q->getNext()->getNext();
+        }
+        return $p;
+    }
+
+    /**
      * Specify data which should be serialized to JSON
      *
      * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
@@ -506,6 +551,7 @@ abstract class AbstractLinkedList implements IComparable, \JsonSerializable {
         ];
     }
 
+    //TODO implement
     //protected function removeDuplicates() {
     //    $node = $this->head;
     //    $previous = $this->head;

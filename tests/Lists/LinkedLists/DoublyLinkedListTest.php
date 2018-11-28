@@ -214,4 +214,25 @@ class DoublyLinkedListTest extends \PHPUnit\Framework\TestCase {
         $node = $list->getNodeByKey(3);
         $this->assertTrue($replaced && $node instanceof Node);
     }
+
+    /**
+     * tests whether the singly linked list has a loop or not
+     */
+    public function testHasLoop() {
+        $list = LinkedListUtil::getDoublyLinkedList();
+        $this->assertTrue(false === $list->hasLoop());
+        $list = LinkedListUtil::getDoublyLinkedListWithLoop();
+        $this->assertTrue(true === $list->hasLoop());
+    }
+
+    public function testMiddlePart() {
+        $ll = LinkedListUtil::getCustomDoublyLinkedList(5);
+        /** @var Node $node */
+        $node = $ll->getMiddleNode();
+
+        print_r($node->getKey());
+        ob_flush();
+        $this->assertTrue(3 === $node->getKey());
+        $this->assertTrue(md5(3) === $node->getValue());
+    }
 }
