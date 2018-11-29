@@ -41,28 +41,26 @@ class QuickSort implements ISortable {
      */
     public function sort(array $array): array {
         $array = \array_values($array);
-        $arraySize = count($array);
+        $size = \count($array);
 
-        if (0 === $arraySize || $arraySize == 1) return $array;
+        if ($size <= 1) return $array;
 
-        $pivot = $array[1]; //TODO how to choose the best pivot?!
-        $left = [];
-        $right = [];
+        $pivot = $array[0];
+        $left = $right = [];
 
-        while (count($array) !== 0) {
-            $value = $array[0];
-
-            if (Comparator::lessThan($value, $pivot)) {
-                $left[] = $value;
+        for ($i = 1; $i < count($array); $i++) {
+            if (Comparator::lessThan($array[$i], $pivot)) {
+                $left[] = $array[$i];
             } else {
-                $right[] = $value;
+                $right[] = $array[$i];
             }
-            $array = \array_slice($array, 1);
         }
+
         return array_merge(
             $this->sort($left)
             , [$pivot]
             , $this->sort($right)
         );
     }
+
 }

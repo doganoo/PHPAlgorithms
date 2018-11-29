@@ -27,7 +27,9 @@
 use doganoo\PHPAlgorithms\Algorithm\Sorting\BubbleSort;
 use doganoo\PHPAlgorithms\Algorithm\Sorting\InsertionSort;
 use doganoo\PHPAlgorithms\Algorithm\Sorting\MergeSort;
+use doganoo\PHPAlgorithms\Algorithm\Sorting\QuickSort;
 use doganoo\PHPAlgorithms\Algorithm\Sorting\SelectionSort;
+use doganoo\PHPAlgorithms\Algorithm\Sorting\TimSort;
 
 /**
  * Class SortTest
@@ -37,24 +39,95 @@ class SortTest extends \PHPUnit\Framework\TestCase {
         $bubbleSort = new BubbleSort();
         $result = $bubbleSort->sort([12, 40, 9, 55, 1, 13]);
         $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
+
+        $result = $bubbleSort->sort([]);
+        $this->assertTrue($result === []);
+
+        $result = $bubbleSort->sort([9]);
+        $this->assertTrue($result === [9]);
     }
 
     public function testSelectionSort() {
-        $bubbleSort = new SelectionSort();
-        $result = $bubbleSort->sort([12, 40, 9, 55, 1, 13]);
+        $selectionSort = new SelectionSort();
+        $result = $selectionSort->sort([12, 40, 9, 55, 1, 13]);
         $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
+
+        $result = $selectionSort->sort([]);
+        $this->assertTrue($result === []);
+
+        $result = $selectionSort->sort([9]);
+        $this->assertTrue($result === [9]);
     }
 
     public function testMergeSort() {
-        $bubbleSort = new MergeSort();
+        $mergeSort = new MergeSort();
         $arr = [12, 40, 9, 55, 1, 13];
-        $result = $bubbleSort->sort($arr);
+        $result = $mergeSort->sort($arr);
         $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
+
+        $result = $mergeSort->sort([]);
+        $this->assertTrue($result === []);
+
+        $result = $mergeSort->sort([9]);
+        $this->assertTrue($result === [9]);
     }
+
     public function testInsertionSort() {
-        $bubbleSort = new InsertionSort();
+        $insertionSort = new InsertionSort();
         $arr = [12, 40, 9, 55, 1, 13];
-        $result = $bubbleSort->sort($arr);
+        $result = $insertionSort->sort($arr);
         $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
+
+        $result = $insertionSort->sort([]);
+        $this->assertTrue($result === []);
+
+        $result = $insertionSort->sort([9]);
+        $this->assertTrue($result === [9]);
+    }
+
+    public function testTimSort() {
+        $timSort = new TimSort();
+        $arr = [12, 40, 9, 55, 1, 13];
+        $result = $timSort->sort($arr);
+        $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
+
+        $arr = [5, 21, 7, 23, 19];
+        $result = $timSort->sort($arr);
+        $this->assertTrue($result === [5, 7, 19, 21, 23]);
+
+        $arr = [2, 3, 1, 5, 6, 7];
+        $result = $timSort->sort($arr);
+        $this->assertTrue($result === [1, 2, 3, 5, 6, 7]);
+
+        $arr = [];
+        $result = $timSort->sort($arr);
+        $this->assertTrue($result === []);
+
+        $arr = [1];
+        $result = $timSort->sort($arr);
+        $this->assertTrue($result === [1]);
+    }
+
+    public function testQuickSort() {
+        $quickSort = new QuickSort();
+        $arr = [12, 40, 9, 55, 1, 13];
+        $result = $quickSort->sort($arr);
+        $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
+
+        $arr = [5, 21, 7, 23, 19];
+        $result = $quickSort->sort($arr);
+        $this->assertTrue($result === [5, 7, 19, 21, 23]);
+
+        $arr = [2, 3, 1, 5, 6, 7];
+        $result = $quickSort->sort($arr);
+        $this->assertTrue($result === [1, 2, 3, 5, 6, 7]);
+
+        $arr = [];
+        $result = $quickSort->sort($arr);
+        $this->assertTrue($result === []);
+
+        $arr = [1];
+        $result = $quickSort->sort($arr);
+        $this->assertTrue($result === [1]);
     }
 }

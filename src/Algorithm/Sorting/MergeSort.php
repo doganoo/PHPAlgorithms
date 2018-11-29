@@ -45,7 +45,8 @@ class MergeSort implements ISortable {
         $array = \array_values($array);
         $arraySize = count($array);
 
-        if (0 === $arraySize || $arraySize == 1) return $array;
+        if (0 === $arraySize) return [];
+        if ($arraySize == 1) return $array;
 
         $middle = floor($arraySize / 2);
         $left = array_slice($array, 0, $middle);

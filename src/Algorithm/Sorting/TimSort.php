@@ -27,14 +27,9 @@ namespace doganoo\PHPAlgorithms\Algorithm\Sorting;
 
 
 use doganoo\PHPAlgorithms\Common\Interfaces\ISortable;
-use doganoo\PHPAlgorithms\Common\Util\Comparator;
 
-/**
- * Class InsertionSort
- *
- * @package doganoo\PHPAlgorithms\Algorithm\Sorting
- */
-class InsertionSort implements ISortable {
+class TimSort implements ISortable {
+    public const RUN = 32;
 
     /**
      * @param array $array
@@ -47,15 +42,15 @@ class InsertionSort implements ISortable {
         if (0 === $size) return [];
         if (1 === $size) return $array;
 
-        for ($i = 1; $i < $size; $i++) {
-            $j = $i;
-            while (($j > 0) && (Comparator::lessThan($array[$j], $array[$j - 1]))) {
-                $tmp = $array[$j - 1];
-                $array[$j - 1] = $array[$j];
-                $array[$j] = $tmp;
-                $j--;
-            }
+        $insertionSort = new InsertionSort();
+        $mergeSort = new MergeSort();
+
+        $result = [];
+        for ($i = 0; $i < $size; $i = $i + self::RUN) {
+            $arr = $insertionSort->sort(\array_slice($array, $i, min(($i + self::RUN), ($size))));
+            $arr = $mergeSort->sort($arr);
+            $result = \array_merge($result, $arr);
         }
-        return $array;
+        return $result;
     }
 }
