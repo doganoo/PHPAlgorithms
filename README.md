@@ -1,5 +1,7 @@
 # PHPAlgorithms
-![](https://www.dogan-ucar.de/wp-content/uploads/2018/09/PHPAlgorithms.png) A collection of common algorithms implemented in PHP. The collection is based on "Cracking the Coding Interview" by Gayle Laakmann McDowell
+<img src="https://www.dogan-ucar.de/wp-content/uploads/2018/09/PHPAlgorithms.png" data-canonical-src="https://www.dogan-ucar.de/wp-content/uploads/2018/09/PHPAlgorithms.png" width="200" height="170" />
+
+A collection of common algorithms implemented in PHP. The collection is based on "Cracking the Coding Interview" by Gayle Laakmann McDowell
 
 The library is in a beta state. Missing something? Create a pull request!
 
