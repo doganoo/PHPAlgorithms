@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists;
 
 
+use doganoo\PHPAlgorithms\Algorithm\Sorting\TimSort;
 use doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException;
 use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
@@ -425,5 +426,21 @@ class ArrayList implements \IteratorAggregate, \JsonSerializable, IComparable {
             if (\count($this->array) > \count($object->array)) return 1;
         }
         return -1;
+    }
+
+    /**
+     * @return bool
+     */
+    public function sort(): bool {
+        $array = \array_filter($this->array, function ($value, $key) {
+            return $value !== null;
+        }, \ARRAY_FILTER_USE_BOTH);
+
+
+        $timSort = new TimSort();
+        $array = $timSort->sort($array);
+        $this->array = \array_fill(0, self::DEFAULT_CAPACITY, null);
+        $this->addAllArray($array);
+        return true;
     }
 }

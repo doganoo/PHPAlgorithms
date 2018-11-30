@@ -218,4 +218,21 @@ class ArrayListTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue(null !== $list && $list instanceof stdClass);
     }
 
+    public function testSort() {
+        $arrayList = new ArrayList();
+        $arrayList->add(3);
+        $arrayList->add(2);
+        $arrayList->add(5);
+        $arrayList->add(1);
+        $arrayList->add(4);
+
+        $arrayList->sort();
+
+        $this->assertTrue(1 === $arrayList->get(0));
+        $this->assertTrue(2 === $arrayList->get(1));
+        $this->assertTrue(3 === $arrayList->get(2));
+        $this->assertTrue(4 === $arrayList->get(3));
+        $this->assertTrue(5 === $arrayList->get(4));
+    }
+
 }
