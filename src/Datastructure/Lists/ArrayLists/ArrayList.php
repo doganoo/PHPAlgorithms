@@ -224,6 +224,20 @@ class ArrayList implements \IteratorAggregate, \JsonSerializable, IComparable {
     }
 
     /**
+     * whether the array contains $key or not.
+     *
+     * @param  int $key
+     * @return bool
+     */
+    public function containsKey(int $key): bool {
+        $array = $this->array;
+        $array = \array_filter($array, function ($value, $key) {
+            return $value !== null;
+        }, \ARRAY_FILTER_USE_BOTH);
+        return array_key_exists($key, $array);
+    }
+
+    /**
      * removes all elements in the array that are null or equal to empty string
      *
      * @return bool

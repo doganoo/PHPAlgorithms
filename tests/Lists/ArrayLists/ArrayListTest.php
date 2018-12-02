@@ -1,7 +1,4 @@
 <?php
-
-use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
-
 /**
  * MIT License
  *
@@ -25,6 +22,9 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
+use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
+
 class ArrayListTest extends \PHPUnit\Framework\TestCase {
     public function testAdd() {
         $arrayList = new ArrayList();
@@ -58,6 +58,23 @@ class ArrayListTest extends \PHPUnit\Framework\TestCase {
         $arrayList->addAll($arrayListTwo);
 
         $this->assertTrue($arrayList->length() === 8);
+    }
+
+    public function testContainsKey() {
+        $arrayList = new ArrayList();
+        $arrayList->add("five");
+        $arrayList->add("six");
+        $arrayList->add("seven");
+        $arrayList->add("eight");
+
+        $this->assertTrue(true === $arrayList->containsKey(0));
+        $this->assertTrue(true === $arrayList->containsKey(1));
+        $this->assertTrue(true === $arrayList->containsKey(2));
+        $this->assertTrue(true === $arrayList->containsKey(3));
+        $this->assertTrue(false === $arrayList->containsKey(4));
+        $this->assertTrue(false === $arrayList->containsKey(50));
+        $this->assertTrue(false === $arrayList->containsKey(150));
+
     }
 
     public function testClear() {
