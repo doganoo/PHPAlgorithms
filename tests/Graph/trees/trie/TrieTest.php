@@ -23,6 +23,8 @@
  * SOFTWARE.
  */
 
+use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Trie\Trie;
+
 /**
  * Class TrieTest
  */
@@ -31,12 +33,25 @@ class TrieTest extends \PHPUnit\Framework\TestCase {
      * tests inserting and searching
      */
     public function testAdd() {
-        $trie = new \doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Trie\Trie();
+        $trie = new Trie();
         $trie->insert("Test");
         $found = $trie->search("Test");
         $this->assertTrue($found === true);
         $found = $trie->search("Te", true);
         $this->assertTrue($found === true);
+    }
+
+    public function testWordCount() {
+        $trie = new Trie();
+        $trie->insert("this");
+        $trie->insert("is");
+        $trie->insert("a");
+        $trie->insert("very");
+        $trie->insert("long");
+        $trie->insert("word");
+
+        $this->assertTrue(6 === $trie->countWords());
+        $this->assertTrue(6 === $trie->getAllWords()->size());
     }
 
 }

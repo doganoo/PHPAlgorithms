@@ -83,7 +83,7 @@ class Node implements INode {
      * indicates whether it is the end of the node
      * @return bool
      */
-    public function isEndOfNode() {
+    public function isEndOfWordNode() {
         return $this->children[0] instanceof EndOfWordNode;
     }
 

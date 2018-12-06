@@ -36,6 +36,10 @@ use doganoo\PHPAlgorithms\Common\Util\Comparator;
  */
 class Trie implements IComparable, \JsonSerializable {
     /**
+     * number of characters in english alphabet
+     */
+    public const ALPHABET_SIZE = 26;
+    /**
      * @var RootNode
      */
     private $root;
@@ -97,7 +101,7 @@ class Trie implements IComparable, \JsonSerializable {
         if ($isPrefix) {
             return null !== $node;
         } else {
-            return (null !== $node && $node->isEndOfNode());
+            return (null !== $node && $node->isEndOfWordNode());
         }
     }
 
@@ -112,6 +116,34 @@ class Trie implements IComparable, \JsonSerializable {
             if (Comparator::greaterThan($this->root, $object->root)) return 1;
         }
         return -1;
+    }
+
+    /**
+     * returns the number of words in the trie
+     *
+     * @return int
+     */
+    public function countWords(): int {
+        return $this->_countWords($this->root);
+    }
+
+    /**
+     * helper method for counting number of words in the trie
+     *
+     * @param Node $node
+     * @return int
+     */
+    private function _countWords(?Node $node): int {
+        $result = 0;
+        if (null === $node) return $result;
+        if ($node->isEndOfWordNode()) $result++;
+        for ($i = 0; $i < self::ALPHABET_SIZE; $i++) {
+            if ($node->hasChild($i)) {
+                $child = $node->getChildNode($i);
+                $result += $this->_countWords($child);
+            }
+        }
+        return $result;
     }
 
     /**

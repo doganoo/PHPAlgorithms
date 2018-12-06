@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
 use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
+use doganoo\PHPAlgorithms\Common\Interfaces\INode;
 use doganoo\PHPAlgorithms\Common\Interfaces\IUnaryNode;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
@@ -286,27 +287,6 @@ abstract class AbstractLinkedList implements IComparable, \JsonSerializable {
     //}
 
     /**
-     * returns the number of elements in a list
-     *
-     * @return int
-     */
-    public function size() {
-        if ($this->isEmpty()) {
-            return 0;
-        }
-        return $this->head->size();
-    }
-
-    /**
-     * if the list is empty or not
-     *
-     * @return bool
-     */
-    public function isEmpty() {
-        return $this->head == null;
-    }
-
-    /**
      * adds a Node instance to the list
      *
      * TODO decide whether using add or append/prepend
@@ -535,6 +515,76 @@ abstract class AbstractLinkedList implements IComparable, \JsonSerializable {
             $q = $q->getNext()->getNext();
         }
         return $p;
+    }
+
+    public function getIntersectionNode(AbstractLinkedList $list): ?INode {
+        if (0 === $this->size()) return null;
+        if (0 === $list->size()) return null;
+
+        $l1 = $this->getHead();
+        $l2 = $list->getHead();
+
+        $c1 = 0;
+        $c2 = 0;
+
+        while (null !== $l1) {
+            $c1++;
+            $l1 = $l1->getNext();
+        }
+
+        while (null !== $l2) {
+            $c2++;
+            $l2 = $l2->getNext();
+        }
+
+        $l1 = $this->getHead();
+        $l2 = $list->getHead();
+
+        if ($c1 > $c2) {
+            $len = $c1 - $c2;
+            while ($len > 0) {
+                $l1 = $l1->getNext();
+                $len--;
+            }
+        } else {
+            $len = $c2 - $c1;
+            while ($len > 0) {
+                $l2 = $l2->getNext();
+                $len--;
+            }
+        }
+
+
+        while (null !== $l1 && null !== $l2) {
+            if ($l1 == $l2) {
+                return $l1;
+            }
+            $l1 = $l1->getNext();
+            $l2 = $l2->getNext();
+        }
+
+        return null;
+    }
+
+    /**
+     * returns the number of elements in a list
+     *
+     * @return int
+     */
+    public function size() {
+        if ($this->isEmpty()) {
+            return 0;
+        }
+        return $this->head->size();
+    }
+
+    /**
+     * if the list is empty or not
+     *
+     * @return bool
+     */
+    public function isEmpty() {
+        return $this->head == null;
     }
 
     /**
