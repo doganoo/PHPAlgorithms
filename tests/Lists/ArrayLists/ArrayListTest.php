@@ -242,6 +242,7 @@ class ArrayListTest extends \PHPUnit\Framework\TestCase {
         $arrayList->add(5);
         $arrayList->add(1);
         $arrayList->add(4);
+        $arrayList->add(6);
 
         $arrayList->sort();
 
@@ -250,6 +251,7 @@ class ArrayListTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue(3 === $arrayList->get(2));
         $this->assertTrue(4 === $arrayList->get(3));
         $this->assertTrue(5 === $arrayList->get(4));
+        $this->assertTrue(6 === $arrayList->get(5));
     }
 
 }

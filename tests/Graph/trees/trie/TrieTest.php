@@ -51,7 +51,6 @@ class TrieTest extends \PHPUnit\Framework\TestCase {
         $trie->insert("word");
 
         $this->assertTrue(6 === $trie->countWords());
-        $this->assertTrue(6 === $trie->getAllWords()->size());
     }
 
 }
