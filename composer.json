@@ -3,10 +3,16 @@
   "description": "A collection of common algorithms implemented in PHP. The collection is based on \"Cracking the Coding Interview\" by Gayle Laakmann McDowell",
   "type": "library",
   "license": "MIT",
+  "homepage": "https://www.dogan-ucar.de/phpalgorithms-2/",
+  "keywords": [
+    "algorithms",
+    "data structures"
+  ],
   "authors": [
     {
       "name": "Dogan Ucar",
-      "email": "dogan@dogan-ucar.de"
+      "email": "dogan@dogan-ucar.de",
+      "homepage": "https://www.dogan-ucar.de"
     }
   ],
   "autoload": {
@@ -18,7 +24,7 @@
     "phpunit/phpunit": "6.5"
   },
   "require": {
-    "doganoo/php-util": "0.0.*",
-    "zumba/json-serializer": "*"
+    "php": ">=7.1",
+    "doganoo/php-util": "0.0.*"
   }
 }
