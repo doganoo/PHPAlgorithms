@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Datastructure\Maps;
+namespace doganoo\PHPAlgorithms\Datastructure\Vector\BitVector;
 
 
 use doganoo\PHPAlgorithms\Common\Exception\InvalidBitLengthException;
@@ -33,7 +33,6 @@ use doganoo\PHPAlgorithms\Common\Interfaces\IVector;
  * Class Vector
  *
  * @package doganoo\PHPAlgorithms\Datastructure\Maps
- * @deprecated
  */
 class IntegerVector implements IVector {
     /** @var array|null $array */

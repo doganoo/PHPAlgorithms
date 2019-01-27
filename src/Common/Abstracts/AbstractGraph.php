@@ -26,11 +26,14 @@
 namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
 
+use doganoo\PHPAlgorithms\Algorithm\Various\Converter;
 use doganoo\PHPAlgorithms\Common\Exception\InvalidGraphTypeException;
 use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Graph\Node;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
+use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
+use doganoo\PHPAlgorithms\Datastructure\Stackqueue\Queue;
 
 /**
  * Class AbstractGraph
@@ -42,6 +45,7 @@ abstract class AbstractGraph implements IComparable, \JsonSerializable {
     public const UNDIRECTED_GRAPH = 2;
     protected $nodeList = null;
     private $type = 0;
+    private $converter = null;
 
     /**
      * AbstractGraph constructor.
@@ -51,6 +55,7 @@ abstract class AbstractGraph implements IComparable, \JsonSerializable {
      */
     protected function __construct($type = self::DIRECTED_GRAPH) {
         $this->nodeList = new ArrayList();
+        $this->converter = new Converter();
         if ($type === self::DIRECTED_GRAPH || $type === self::UNDIRECTED_GRAPH) {
             $this->type = $type;
         } else {
@@ -81,13 +86,6 @@ abstract class AbstractGraph implements IComparable, \JsonSerializable {
      * @return bool
      */
     public abstract function addEdge(Node $startNode, Node $endNode): bool;
-
-    /**
-     * @return ArrayList|null
-     */
-    public function getNodes(): ?ArrayList {
-        return $this->nodeList;
-    }
 
     /**
      * @param $object
@@ -127,4 +125,89 @@ abstract class AbstractGraph implements IComparable, \JsonSerializable {
             , "type" => $this->type,
         ];
     }
+
+    /**
+     * @param AbstractGraph $graph
+     * @return AbstractGraph|null
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
+     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
+     */
+    public function deepCopy(AbstractGraph $graph): ?AbstractGraph {
+        $root = $graph->getRoot();
+        if (null === $root) return null;
+
+        $q = new Queue();
+        $m = new HashMap();
+
+        $newRoot = new Node($root->getValue());
+
+        $q->enqueue($root);
+        $m->put($root, $newRoot);
+
+        while (!$q->isEmpty()) {
+            /** @var Node $node */
+            $node = $q->dequeue();
+
+            /** @var Node $adjacent */
+            foreach ($node->getAdjacents() as $adjacent) {
+                if ($m->containsKey($adjacent)) {
+                    /** @var Node $x */
+                    $x = $m->get($node);
+                    /** @var Node $y */
+                    $y = $m->get($adjacent);
+                    $x->addAdjacent($y);
+                } else {
+                    $copy = new Node($adjacent->getValue());
+                    $m->put($adjacent, $copy);
+                    /** @var Node $adj */
+                    $adj = $m->get($adjacent);
+                    $adj->addAdjacent($copy);
+                    $q->enqueue($adjacent);
+                }
+            }
+
+            $nodeList = $this->converter->hashMapToArrayList($m);
+            $this->nodeList = $nodeList;
+            return $this;
+        }
+    }
+
+    /**
+     * returns the number of sub graphs
+     *
+     * @return int
+     */
+    public function numberOfSubGraph(): int {
+        if (null === $this->getNodes()) return 0;
+        $c = 0;
+        $v = new ArrayList();
+
+        foreach ($this->getNodes() as $node) {
+            if ($v->containsValue($node)) continue;
+            $c++;
+            $this->flood($node, $v);
+        }
+        return $c;
+    }
+
+    /**
+     * @return ArrayList|null
+     */
+    public function getNodes(): ?ArrayList {
+        return $this->nodeList;
+    }
+
+    /**
+     * @param Node $node
+     * @param ArrayList $v
+     */
+    private function flood(Node $node, ArrayList &$v): void {
+        foreach ($node->getAdjacents() as $adjacent) {
+            if ($v->containsValue($adjacent)) continue;
+            $v->add($adjacent);
+        }
+    }
+
+
 }
