@@ -27,6 +27,7 @@ namespace doganoo\PHPAlgorithms\Common\Util;
 
 
 use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
+use function is_object;
 
 /**
  * Class Comparator
@@ -50,14 +51,14 @@ class Comparator {
         if ($that instanceof IComparable) {
             return $that->compareTo($other) === 0;
         }
-        if (\is_object($that)) {
-            if (\is_object($other)) {
+        if (is_object($that)) {
+            if (is_object($other)) {
                 return $that == $other;
             }
             return false;
         }
-        if (\is_object($other)) {
-            if (\is_object($that)) {
+        if (is_object($other)) {
+            if (is_object($that)) {
                 return $other == $that;
             }
             return false;
@@ -70,18 +71,27 @@ class Comparator {
      * @param $other
      * @return bool
      */
+    public static function notEquals($that, $other):bool {
+        return false === Comparator::equals($that, $other);
+    }
+
+    /**
+     * @param $that
+     * @param $other
+     * @return bool
+     */
     public static function lessThan($that, $other): bool {
         if ($that instanceof IComparable) {
             return $that->compareTo($other) === -1;
         }
-        if (\is_object($that)) {
-            if (\is_object($other)) {
+        if (is_object($that)) {
+            if (is_object($other)) {
                 return $that < $other;
             }
             return false;
         }
-        if (\is_object($other)) {
-            if (\is_object($that)) {
+        if (is_object($other)) {
+            if (is_object($that)) {
                 return $other < $that;
             }
             return false;
@@ -98,14 +108,14 @@ class Comparator {
         if ($that instanceof IComparable) {
             return $that->compareTo($other) === -1;
         }
-        if (\is_object($that)) {
-            if (\is_object($other)) {
+        if (is_object($that)) {
+            if (is_object($other)) {
                 return $that <= $other;
             }
             return false;
         }
-        if (\is_object($other)) {
-            if (\is_object($that)) {
+        if (is_object($other)) {
+            if (is_object($that)) {
                 return $other <= $that;
             }
             return false;
@@ -122,14 +132,14 @@ class Comparator {
         if ($that instanceof IComparable) {
             return $that->compareTo($other) === 1;
         }
-        if (\is_object($that)) {
-            if (\is_object($other)) {
+        if (is_object($that)) {
+            if (is_object($other)) {
                 return $that > $other;
             }
             return false;
         }
-        if (\is_object($other)) {
-            if (\is_object($that)) {
+        if (is_object($other)) {
+            if (is_object($that)) {
                 return $other > $that;
             }
             return false;
@@ -146,14 +156,14 @@ class Comparator {
         if ($that instanceof IComparable) {
             return $that->compareTo($other) === 1;
         }
-        if (\is_object($that)) {
-            if (\is_object($other)) {
+        if (is_object($that)) {
+            if (is_object($other)) {
                 return $that >= $other;
             }
             return false;
         }
-        if (\is_object($other)) {
-            if (\is_object($that)) {
+        if (is_object($other)) {
+            if (is_object($that)) {
                 return $other >= $that;
             }
             return false;

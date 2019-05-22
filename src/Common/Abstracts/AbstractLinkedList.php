@@ -30,6 +30,7 @@ use doganoo\PHPAlgorithms\Common\Interfaces\INode;
 use doganoo\PHPAlgorithms\Common\Interfaces\IUnaryNode;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
+use JsonSerializable;
 
 
 /**
@@ -39,8 +40,8 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
  *
  * @package doganoo\PHPAlgorithms\LinkedLists
  */
-abstract class AbstractLinkedList implements IComparable, \JsonSerializable {
-    /** @var \doganoo\PHPAlgorithms\Datastructure\Lists\Node */
+abstract class AbstractLinkedList implements IComparable, JsonSerializable {
+    /** @var Node */
     private $head = null;
 
     /**
@@ -84,7 +85,7 @@ abstract class AbstractLinkedList implements IComparable, \JsonSerializable {
     /**
      * returns the head node or null, if no head is set
      *
-     * @return \doganoo\PHPAlgorithms\Datastructure\Lists\Node|null
+     * @return Node|null
      */
     public function getHead(): ?Node {
         return $this->head;
@@ -93,7 +94,7 @@ abstract class AbstractLinkedList implements IComparable, \JsonSerializable {
     /**
      * sets the head
      *
-     * @param \doganoo\PHPAlgorithms\Datastructure\Lists\Node|null $node
+     * @param Node|null $node
      */
     public function setHead(?Node $node) {
         $this->head = $node;
@@ -211,7 +212,7 @@ abstract class AbstractLinkedList implements IComparable, \JsonSerializable {
      * abstract method that requires inheritors to implement the way how
      * values are prepended to the list
      *
-     * @param \doganoo\PHPAlgorithms\Datastructure\Lists\Node|null $node
+     * @param Node|null $node
      * @return bool
      */
     public abstract function append(?Node $node): bool;
@@ -261,7 +262,7 @@ abstract class AbstractLinkedList implements IComparable, \JsonSerializable {
      * abstract method that requires inheritors to implement the way how
      * values are prepended to the list
      *
-     * @param \doganoo\PHPAlgorithms\Datastructure\Lists\Node|null $node
+     * @param Node|null $node
      * @return bool
      */
     public abstract function prepend(?Node $node): bool;
@@ -291,7 +292,7 @@ abstract class AbstractLinkedList implements IComparable, \JsonSerializable {
      *
      * TODO decide whether using add or append/prepend
      *
-     * @param \doganoo\PHPAlgorithms\Datastructure\Lists\Node $node
+     * @param Node $node
      */
     public function addNode(Node $node) {
         $this->add($node->getKey(), $node->getValue());
@@ -316,7 +317,7 @@ abstract class AbstractLinkedList implements IComparable, \JsonSerializable {
      * searches the list for a node by a given key
      *
      * @param $value
-     * @return \doganoo\PHPAlgorithms\Datastructure\Lists\Node|null
+     * @return Node|null
      */
     public function getNodeByValue($value): ?Node {
         if (!$this->containsValue($value)) {
@@ -355,7 +356,7 @@ abstract class AbstractLinkedList implements IComparable, \JsonSerializable {
      * returns a node by a given key
      *
      * @param $key
-     * @return \doganoo\PHPAlgorithms\Datastructure\Lists\Node|null
+     * @return Node|null
      */
     public function getNodeByKey($key): ?Node {
         if (!$this->containsKey($key)) {
@@ -395,7 +396,7 @@ abstract class AbstractLinkedList implements IComparable, \JsonSerializable {
      * @return bool
      */
     public function remove($key): bool {
-        /** @var \doganoo\PHPAlgorithms\Datastructure\Lists\Node $previous */
+        /** @var Node $previous */
         $previous = $head = $this->getHead();
         if ($head === null) {
             return true;
@@ -407,7 +408,7 @@ abstract class AbstractLinkedList implements IComparable, \JsonSerializable {
          * The while loop iterates over all nodes until the
          * value is found.
          */
-        while ($head !== null && $head->getKey() !== $key) {
+        while ($head !== null && Comparator::notEquals($head->getKey(), $key)) {
             /*
              * since a node is going to be removed from the
              * node chain, the previous element has to be

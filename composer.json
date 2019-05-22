@@ -25,6 +25,7 @@
   },
   "require": {
     "php": ">=7.1",
-    "doganoo/php-util": "0.3.*"
+    "doganoo/php-util": "0.3.*",
+    "ext-json": "*"
   }
 }
