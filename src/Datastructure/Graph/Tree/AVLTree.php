@@ -9,6 +9,9 @@ use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\AVLTree\Node;
 
 class AVLTree extends BinarySearchTree {
 
+    public const BALANCE_VALUE_ONE = 1;
+    public const BALANCE_VALUE_MINUS_ONE = -1;
+
     /**
      * @param Node $node
      * @return bool
@@ -22,44 +25,64 @@ class AVLTree extends BinarySearchTree {
 
         /** @var Node $root */
         $root = parent::getRoot();
+        $value = $root->getValue();
 
         $balance = $root->getBalance();
 
-        if ($balance > 1 && Comparator::lessThan($root->getValue(),$root->getLeft()->getValue())){
-            $this->setRoot(
-                $this->rightRotate($root)
-            );
-            return true;
+        if ($balance > AVLTree::BALANCE_VALUE_ONE) {
+
+            $childValue =
+                null === $root->getLeft()
+                    ? null
+                    : $root->getLeft()->getValue()
+            ;
+
+            if (Comparator::lessThan($value, $childValue)) {
+                $this->setRoot(
+                    $this->rightRotate($root)
+                );
+                return true;
+            }
+
+            if (Comparator::greaterThan($value, $childValue)) {
+                $root->setLeft(
+                    $this->leftRotate($root->getLeft())
+                );
+                $this->setRoot(
+                    $this->rightRotate($root)
+                );
+                return true;
+            }
         }
 
-        if ($balance < -1 && Comparator::greaterThan($root->getValue(), $root->getRight()->getValue())){
-            $this->setRoot(
-                $this->leftRotate($root)
-            );
-            return true;
+        if ($balance < AVLTree::BALANCE_VALUE_MINUS_ONE){
+
+            $this->log($balance);
+            $childValue =
+                null === $root->getRight()
+                    ? null
+                    : $root->getRight()->getValue()
+            ;
+
+            if (Comparator::greaterThan($value, $childValue)) {
+                $this->setRoot(
+                    $this->leftRotate($root)
+                );
+                return true;
+            }
+
+            if (Comparator::lessThan($value, $childValue)) {
+                $root->setRight(
+                    $this->rightRotate($root->getRight())
+                );
+                $this->setRoot(
+                    $this->leftRotate($root)
+                );
+
+                return true;
+            }
+
         }
-
-        if ($balance > 1 && Comparator::greaterThan($root->getValue(),$root->getLeft()->getValue())){
-            $root->setLeft(
-                $this->leftRotate($root->getLeft())
-            );
-            $this->setRoot(
-                $this->rightRotate($root)
-            );
-            return true;
-        }
-
-        if ($balance < -1 && Comparator::greaterThan($root->getValue(), $root->getRight()->getValue())){
-            $root->setRight(
-                $this->rightRotate($root->getRight())
-            );
-            $this->setRoot(
-                $this->leftRotate($root)
-            );
-
-            return true;
-        }
-
 
         return true;
     }
@@ -69,40 +92,26 @@ class AVLTree extends BinarySearchTree {
         return $this->insert($avlNode);
     }
 
-    private function rightRotate(Node $node):Node{
+    private function rightRotate(Node $y):Node {
         /** @var Node $x */
-        $x = $node->getLeft();
+        $x = $y->getLeft();
         /** @var Node $t2 */
         $t2 = $x->getRight();
 
-        $x->setRight($node);
-        $node->setLeft($t2);
-
-        $node->setHeight(
-            max($node->getLeft()->getHeight(), $node->getRight()->getHeight()) +1
-        );
-        $x->setHeight(
-            max($x->getLeft()->getHeight(), $x->getRight()->getHeight()) +1
-        );
+        $x->setRight($y);
+        $y->setLeft($t2);
 
         return $x;
     }
 
-    private function leftRotate(Node $node):Node{
+    private function leftRotate(Node $x):Node{
         /** @var Node $y */
-        $y = $node->getRight();
+        $y = $x->getRight();
         /** @var Node $t2 */
         $t2 = $y->getLeft();
 
-        $y->setLeft($node);
-        $node->setRight($t2);
-
-        $node->setHeight(
-            max($node->getLeft()->getHeight(), $node->getRight()->getHeight()) +1
-        );
-        $y->setHeight(
-            max($y->getLeft()->getHeight(), $y->getRight()->getHeight()) +1
-        );
+        $y->setLeft($x);
+        $x->setRight($t2);
 
         return $y;
     }

@@ -59,10 +59,8 @@ abstract class AbstractNode implements INode {
         if (null === $node) {
             return 0;
         }
-        return 1 + max(
-                $this->height($node->getLeft())
-                , $this->height($node->getRight())
-            );
+
+        return 1 + max($this->height($node->getLeft()), $this->height($node->getRight()));
     }
 
     /**
