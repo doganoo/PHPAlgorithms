@@ -29,6 +29,6 @@ namespace doganoo\PHPAlgorithms\Common\Exception;
  *
  * @package doganoo\PHPAlgorithms\common\Exception
  */
-class UnsupportedKeyTypeException extends \Exception {
+class UnsupportedKeyTypeException extends PHPAlgorithmsException {
 
 }

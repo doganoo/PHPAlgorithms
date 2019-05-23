@@ -57,7 +57,7 @@ class BinaryTree extends AbstractTree {
      * @return bool
      */
     public function insert(?IBinaryNode $node) {
-        if (!$node instanceof BinaryNode) {
+        if (!$node instanceof IBinaryNode) {
             return false;
         }
         if (null === $this->getRoot()) {

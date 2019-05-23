@@ -25,95 +25,13 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree;
 
-use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
+use doganoo\PHPAlgorithms\Common\Abstracts\AbstractBinaryNode;
 
 /**
  * Class BinaryNode
  *
  * @package doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree
  */
-class BinaryNode implements IBinaryNode {
-    private $value = PHP_INT_MIN;
-    private $left = null;
-    private $right = null;
-
-    /**
-     * Node constructor.
-     *
-     * @param $value
-     */
-    public function __construct($value) {
-        $this->value = $value;
-    }
-
-    /**
-     * @return IBinaryNode|null
-     */
-    public function getLeft(): ?IBinaryNode {
-        return $this->left;
-    }
-
-    /**
-     * @param IBinaryNode|null $left
-     */
-    public function setLeft(?IBinaryNode $left): void {
-        $this->left = $left;
-    }
-
-    /**
-     * @return IBinaryNode|null
-     */
-    public function getRight(): ?IBinaryNode {
-        return $this->right;
-    }
-
-    /**
-     * @param IBinaryNode|null $right
-     */
-    public function setRight(?IBinaryNode $right): void {
-        $this->right = $right;
-    }
-
-    /**
-     * @param $object
-     * @return int
-     */
-    public function compareTo($object): int {
-        if ($object instanceof BinaryNode) {
-            if ($this->getValue() === $object->getValue()) return 0;
-            if ($this->getValue() < $object->getValue()) return -1;
-            if ($this->getValue() > $object->getValue()) return 1;
-        }
-        return -1;
-    }
-
-    /**
-     * @return int
-     */
-    public function getValue(): int {
-        return $this->value;
-    }
-
-    /**
-     * @param int $value
-     */
-    public function setValue(int $value): void {
-        $this->value = $value;
-    }
-
-    /**
-     * Specify data which should be serialized to JSON
-     *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
-     * @since 5.4.0
-     */
-    public function jsonSerialize() {
-        return [
-            "value" => $this->value
-            , "left" => $this->left
-            , "right" => $this->right,
-        ];
-    }
+class BinaryNode extends AbstractBinaryNode {
+    // silence is golden
 }

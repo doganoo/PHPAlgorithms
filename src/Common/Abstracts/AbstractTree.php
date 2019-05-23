@@ -32,13 +32,15 @@ use doganoo\PHPAlgorithms\Algorithm\Traversal\PreOrder;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
 use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
+use JsonSerializable;
+use function max;
 
 /**
  * Class AbstractTree
  *
  * @package doganoo\PHPAlgorithms\Common\Abstracts
  */
-abstract class AbstractTree implements IComparable, \JsonSerializable {
+abstract class AbstractTree implements IComparable, JsonSerializable {
     public const ARRAY_IN_ORDER = 1;
     public const ARRAY_PRE_ORDER = 2;
     public const ARRAY_POST_ORDER = 3;
@@ -156,20 +158,7 @@ abstract class AbstractTree implements IComparable, \JsonSerializable {
      * @return int
      */
     public function height(): int {
-        return $this->_height($this->getRoot());
-    }
-
-    /**
-     * helper method
-     *
-     * @param IBinaryNode|null $node
-     * @return int
-     */
-    private function _height(?IBinaryNode $node): int {
-        if (null === $node) {
-            return 0;
-        }
-        return 1 + \max($this->_height($node->getLeft()), $this->_height($node->getRight()));
+        return $this->root->getHeight();
     }
 
     ///**
@@ -249,20 +238,6 @@ abstract class AbstractTree implements IComparable, \JsonSerializable {
     public abstract function getSize(): int;
 
     /**
-     * Specify data which should be serialized to JSON
-     *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
-     * @since 5.4.0
-     */
-    public function jsonSerialize() {
-        return [
-            "nodes" => $this->root,
-        ];
-    }
-
-    /**
      * @param $object
      * @return int
      */
@@ -273,5 +248,19 @@ abstract class AbstractTree implements IComparable, \JsonSerializable {
             if (Comparator::greaterThan($this->getRoot(), $object->getRoot())) return 1;
         }
         return -1;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     *
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize() {
+        return [
+            "nodes" => $this->root
+        ];
     }
 }

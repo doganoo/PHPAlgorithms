@@ -78,7 +78,7 @@ class BinarySearchTree extends AbstractTree {
      * @return bool
      */
     public function insert(?IBinaryNode $node) {
-        if (!$node instanceof BinarySearchNode) {
+        if (!$node instanceof IBinaryNode) {
             return false;
         }
         if (null === $this->getRoot()) {
@@ -88,6 +88,7 @@ class BinarySearchTree extends AbstractTree {
         }
         /** @var BinarySearchNode $current */
         $current = $this->getRoot();
+
         if (Comparator::lessThan($node->getValue(), $current->getValue())) {
             while (null !== $current->getLeft()) {
                 $current = $current->getLeft();
@@ -103,6 +104,7 @@ class BinarySearchTree extends AbstractTree {
             $this->size++;
             return true;
         }
+
         return false;
     }
 
@@ -186,5 +188,15 @@ class BinarySearchTree extends AbstractTree {
      */
     public function getSize(): int {
         return $this->size;
+    }
+
+
+    public function jsonSerialize() {
+        return array_merge(
+            parent::jsonSerialize()
+            , [
+                "size" => $this->size
+            ]
+        );
     }
 }

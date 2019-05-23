@@ -25,12 +25,14 @@
 
 namespace doganoo\PHPAlgorithms\Common\Interfaces;
 
+use JsonSerializable;
+
 /**
  * Interface INode
  *
  * @package doganoo\PHPAlgorithms\common\Interfaces
  */
-interface INode extends IComparable, \JsonSerializable {
+interface INode extends IComparable, JsonSerializable {
     /**
      * @return mixed
      */

@@ -2,7 +2,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar
+ * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,11 +25,12 @@
 
 namespace doganoo\PHPAlgorithms\Common\Exception;
 
+use Exception;
+
 /**
- * Class InvalidBitLengthException
- *
+ * Class PHPAlgorithmsException
  * @package doganoo\PHPAlgorithms\Common\Exception
  */
-class InvalidBitLengthException extends PHPAlgorithmsException {
-
+class PHPAlgorithmsException extends Exception {
+    protected $message = 'no message specified ¯\_(ツ)_/¯';
 }

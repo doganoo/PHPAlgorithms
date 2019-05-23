@@ -56,5 +56,10 @@ interface IBinaryNode extends INode {
      */
     public function setRight(?IBinaryNode $node): void;
 
+    /**
+     * @return int
+     */
+    public function getHeight():int;
+
 
 }

@@ -30,6 +30,6 @@ namespace doganoo\PHPAlgorithms\Common\Exception;
  *
  * @package doganoo\PHPAlgorithms\Common\Exception
  */
-class InvalidSearchComparisionException extends \Exception {
+class InvalidSearchComparisionException extends PHPAlgorithmsException {
 
 }

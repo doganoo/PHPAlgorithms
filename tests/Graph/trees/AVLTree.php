@@ -1,4 +1,9 @@
 <?php
+
+use doganoo\PHPAlgorithms\Algorithm\Traversal\PreOrder;
+use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\AVLTree as AVLTreee;
+use PHPUnit\Framework\TestCase;
+
 /**
  * MIT License
  *
@@ -23,13 +28,30 @@
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Common\Exception;
 
-/**
- * Class InvalidBitLengthException
- *
- * @package doganoo\PHPAlgorithms\Common\Exception
- */
-class InvalidBitLengthException extends PHPAlgorithmsException {
+class AVLTree extends TestCase {
+
+
+    public function testTree() {
+
+        $avlTree = new AVLTreee();
+        $avlTree->insertValue(10);
+        $avlTree->insertValue(20);
+        $avlTree->insertValue(30);
+        $avlTree->insertValue(40);
+        $avlTree->insertValue(50);
+        $avlTree->insertValue(25);
+
+        $array = [];
+        $preOrder = new PreOrder($avlTree);
+        $preOrder->setCallable(function ($v) use (&$array){
+           $array[] = $v;
+        });
+        $preOrder->traverse();
+
+//        print_r($array);
+        $this->assertTrue($array === [30, 20, 10, 25, 40, 50]);
+
+    }
 
 }
