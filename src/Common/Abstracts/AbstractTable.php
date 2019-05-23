@@ -28,53 +28,17 @@ namespace doganoo\PHPAlgorithms\Common\Abstracts;
 /**
  * Class AbstractTable
  * @package doganoo\PHPAlgorithms\Common\Abstracts
+ *
+ * THIS CLASS SERVES AS A BASE CLASS FOR ALL TABLE CLASSES.
+ * CURRENTLY, THERE IS JUST A HASHTABLE CLASS WHICH DOES NOT
+ * REQUIRE A BASE CLASS IMPLEMENTATION YET.
+ *
+ * THIS CLASS IS GOING TO BE IMPLEMENTED WHEN NEW TABLE CLASSES
+ * ARE ADDED TO PHPALGORITHMS AND WE CAN DIFFER BETWEEN BASE CLASS
+ * AND EXTENDER CLASS METHODS.
+ *
+ * TODO implement
  */
 abstract class AbstractTable {
-    /** @var array|null $table */
-    protected $table = null;
-
-    /**
-     * AbstractTable constructor.
-     */
-    public function __construct() {
-        $this->table = [];
-    }
-
-    /**
-     * @param $key
-     * @param $value
-     */
-    abstract public function put($key, $value):void;
-
-    /**
-     * @param $key
-     * @return mixed
-     */
-    abstract public function get($key);
-
-    /**
-     * @param $key
-     * @return bool
-     */
-    public function delete($key):bool {
-        if (false === isset($this->table[$key])) return false;
-        unset($this->table[$key]);
-        return true;
-    }
-
-    /**
-     * @param $key
-     * @return bool
-     */
-    public function has($key):bool {
-        return null !== $this->get($key);
-    }
-
-    /**
-     * @return array
-     */
-    public function getKeys():array {
-        return array_keys($this->table);
-    }
 
 }

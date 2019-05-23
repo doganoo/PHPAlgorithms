@@ -44,6 +44,7 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
  * TODO (optional) implement universal hashing
  *
  * @package doganoo\PHPAlgorithms\Maps
+ * @deprecated use doganoo\PHPAlgorithms\Datastructure\Table\HashTable instead
  */
 class HashMap implements \JsonSerializable {
     /**

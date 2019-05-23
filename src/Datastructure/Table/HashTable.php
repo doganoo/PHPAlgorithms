@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Table;
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractLinkedList;
+use doganoo\PHPAlgorithms\Common\Abstracts\AbstractTable;
 use doganoo\PHPAlgorithms\Common\Exception\InvalidKeyTypeException;
 use doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException;
 use doganoo\PHPAlgorithms\Common\Util\MapUtil;
@@ -48,7 +49,7 @@ use JsonSerializable;
  *
  * @package doganoo\PHPAlgorithms\Maps
  */
-class HashTable implements JsonSerializable {
+class HashTable extends AbstractTable implements JsonSerializable {
     /**
      * @var array $bucket the buckets containing the nodes
      */
