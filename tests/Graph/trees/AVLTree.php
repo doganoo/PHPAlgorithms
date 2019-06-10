@@ -34,7 +34,7 @@ class AVLTree extends TestCase {
 
     public function testTree() {
 
-        $this->markTestSkipped("need to implement");
+        $this->markTestSkipped("need to implement - There is one bug remaining");
 
 //        $avlTree = new AVLTreee();
 //        $avlTree->insertValue(10);
