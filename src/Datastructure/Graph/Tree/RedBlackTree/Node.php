@@ -37,6 +37,9 @@ class Node extends BinarySearchNode {
     public const BLACK = 1;
     public const RED = 2;
 
+    public const SIDE_LEFT = 3;
+    public const SIDE_RIGHT = 4;
+
     private $color = Node::BLACK;
 
     private $parent = null;
@@ -68,25 +71,62 @@ class Node extends BinarySearchNode {
         return $this->parent;
     }
 
-    public function getSibling():?IBinaryNode{
+    public function getGrandParent():?Node{
+        $parent = $this->getParent();
+        if (null === $parent) return null;
+        return $parent->getParent();
+    }
 
-        if (null === $this->getParent()) return null;
+    public function getGrandParentsColor():int{
+        $parent = $this->getParent();
+        return $parent->getParentsColor();
+    }
 
-        if (Comparator::equals($this, $this->getParent()->getLeft())) return $this->getParent()->getRight();
-        if (Comparator::equals($this, $this->getParent()->getRight())) return $this->getParent()->getLeft();
+    public function getUncle(int $side): ?Node {
+        $grandParent = $this->getGrandParent();
+        if (null === $grandParent) return null;
 
+        if (Node::SIDE_LEFT === $side) return $grandParent->getLeft();
+        if (Node::SIDE_RIGHT === $side) return $grandParent->getRight();
         return null;
     }
 
-
     public function getParentsColor():int{
-        if (null === $this->getParent()) return Node::BLACK;
-        return $this->getParent()->getColor();
+        $parent = null;
+        if (null === $parent) return Node::BLACK;
+        return $parent->getColor();
     }
 
     public function getParentsColorName():string{
         if (Node::BLACK === $this->getParentsColor()) return "BLACK";
         return "RED";
+    }
+
+    public function setParentsColor(int $color):bool {
+
+        $parent = $this->getParent();
+        if (null === $parent) return false;
+
+        if (in_array($color, [
+            Node::RED
+            , Node::BLACK
+        ])) {
+            $parent->setColor($color);
+            return true;
+        }
+
+        return false;
+    }
+
+    public function setGrandParentsColor(int $color):bool {
+        $parent = $this->getParent();
+        if (null === $parent) return null;
+
+        return $parent->setParentsColor($color);
+    }
+
+    public function __toString() {
+        return "" . $this->getValue();
     }
 
 }
