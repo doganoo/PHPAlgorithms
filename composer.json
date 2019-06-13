@@ -27,5 +27,8 @@
     "php": ">=7.1",
     "doganoo/php-util": "0.3.*",
     "ext-json": "*"
+  },
+  "scripts": {
+    "run-test": "vendor/bin/phpunit tests"
   }
 }
