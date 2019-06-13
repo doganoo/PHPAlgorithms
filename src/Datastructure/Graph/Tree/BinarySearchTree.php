@@ -26,6 +26,7 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree;
 
 
+use function count;
 use doganoo\PHPAlgorithms\Algorithm\Sorting\MergeSort;
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractTree;
 use doganoo\PHPAlgorithms\Common\Exception\InvalidSearchComparisionException;
@@ -55,7 +56,7 @@ class BinarySearchTree extends AbstractTree {
             return null;
         }
         $tree = new BinarySearchTree();
-        if (0 === \count($array)) {
+        if (0 === count($array)) {
             return $tree;
         }
         foreach ($array as $element) {
@@ -119,12 +120,12 @@ class BinarySearchTree extends AbstractTree {
             return null;
         }
         $tree = new BinarySearchTree();
-        if (0 === \count($array)) {
+        if (0 === count($array)) {
             return $tree;
         }
         $sort = new MergeSort();
         $array = $sort->sort($array);
-        $root = BinarySearchTree::_createFromArrayWithMinimumHeight($array, 0, \count($array) - 1);
+        $root = BinarySearchTree::_createFromArrayWithMinimumHeight($array, 0, count($array) - 1);
         $tree = new BinarySearchTree();
         $tree->setRoot($root);
         return $tree;
@@ -190,12 +191,18 @@ class BinarySearchTree extends AbstractTree {
         return $this->size;
     }
 
+    /**
+     * @param int $size
+     */
+    protected function setSize(int $size):void {
+        $this->size = $size;
+    }
 
     public function jsonSerialize() {
         return array_merge(
             parent::jsonSerialize()
             , [
-                "size" => $this->size
+                "size" => $this->getSize()
             ]
         );
     }

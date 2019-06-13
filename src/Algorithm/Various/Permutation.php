@@ -25,8 +25,13 @@
 
 namespace doganoo\PHPAlgorithms\Algorithm\Various;
 
+use function array_merge;
+use function array_slice;
+use function count;
 use doganoo\PHPUtil\Util\NumberUtil;
 use doganoo\PHPUtil\Util\StringUtil;
+use function settype;
+use function strlen;
 
 /**
  * Class Permutation
@@ -42,7 +47,7 @@ class Permutation {
      */
     public function stringPermutations(string $string): array {
         $result = [];
-        $strLen = \strlen($string);
+        $strLen = strlen($string);
         if (0 === $strLen) {
             return $result;
         }
@@ -65,7 +70,7 @@ class Permutation {
      * @return array
      */
     private function permute(array $objects, $prefix, array $result) {
-        $length = \count($objects);
+        $length = count($objects);
         //if there are no elements in the array,
         //a permutation is found. The permutation is
         //added to the array
@@ -91,9 +96,9 @@ class Permutation {
             //the remaining objects have to be sliced by exactly this
             //object in order to prevent a reoccurrence of the element in
             //the permutation
-            $newObjects = \array_merge(
-                \array_slice($objects, 0, $i),
-                \array_slice($objects, $i + 1)
+            $newObjects = array_merge(
+                array_slice($objects, 0, $i),
+                array_slice($objects, $i + 1)
             );
 
             //call the permute method with the new prefix and objects
@@ -113,7 +118,7 @@ class Permutation {
         $array = NumberUtil::intToArray($number);
         $result = $this->permute($array, "", $result);
         foreach ($result as &$item) {
-            \settype($item, "integer");
+            settype($item, "integer");
         }
         return $result;
     }

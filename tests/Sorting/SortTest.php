@@ -28,13 +28,15 @@ use doganoo\PHPAlgorithms\Algorithm\Sorting\BubbleSort;
 use doganoo\PHPAlgorithms\Algorithm\Sorting\InsertionSort;
 use doganoo\PHPAlgorithms\Algorithm\Sorting\MergeSort;
 use doganoo\PHPAlgorithms\Algorithm\Sorting\QuickSort;
+use doganoo\PHPAlgorithms\Algorithm\Sorting\RadixSort;
 use doganoo\PHPAlgorithms\Algorithm\Sorting\SelectionSort;
 use doganoo\PHPAlgorithms\Algorithm\Sorting\TimSort;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class SortTest
  */
-class SortTest extends \PHPUnit\Framework\TestCase {
+class SortTest extends TestCase {
     public function testBubbleSort() {
         $bubbleSort = new BubbleSort();
         $result = $bubbleSort->sort([12, 40, 9, 55, 1, 13]);
@@ -129,5 +131,17 @@ class SortTest extends \PHPUnit\Framework\TestCase {
         $arr = [1];
         $result = $quickSort->sort($arr);
         $this->assertTrue($result === [1]);
+    }
+
+    public function testRadixSort() {
+        $radixSort = new RadixSort();
+        $result = $radixSort->sort([12, 40, 9, 55, 1, 13]);
+        $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
+
+        $result = $radixSort->sort([]);
+        $this->assertTrue($result === []);
+
+        $result = $radixSort->sort([9]);
+        $this->assertTrue($result === [9]);
     }
 }
