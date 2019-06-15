@@ -17,6 +17,7 @@ class AVLTree extends BinarySearchTree {
      * @return bool
      */
     public function insert(?IBinaryNode $node) {
+        return false;
         if (false === $node instanceof Node) return false;
 
         $inserted = parent::insert($node);
@@ -88,6 +89,7 @@ class AVLTree extends BinarySearchTree {
     }
 
     public function insertValue($value): bool {
+        return false;
         $avlNode = new Node($value);
         return $this->insert($avlNode);
     }

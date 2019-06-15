@@ -26,10 +26,21 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists;
 
 
+use function array_diff;
+use function array_fill;
+use function array_filter;
+use const ARRAY_FILTER_USE_BOTH;
+use function array_slice;
+use function array_values;
+use ArrayIterator;
+use function count;
 use doganoo\PHPAlgorithms\Algorithm\Sorting\TimSort;
 use doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException;
 use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
+use function in_array;
+use IteratorAggregate;
+use JsonSerializable;
 use Traversable;
 
 /**
@@ -47,7 +58,7 @@ use Traversable;
  *
  * @package doganoo\PHPAlgorithms\Lists\ArrayLists
  */
-class ArrayList implements \IteratorAggregate, \JsonSerializable, IComparable {
+class ArrayList implements IteratorAggregate, JsonSerializable, IComparable {
     /**
      * @const DEFAULT_ARRAY_SIZE
      */
@@ -83,7 +94,7 @@ class ArrayList implements \IteratorAggregate, \JsonSerializable, IComparable {
         }
 
         $array = $this->array;
-        $this->array = \array_fill(0, $newCapacity, null);
+        $this->array = array_fill(0, $newCapacity, null);
         for ($i = 0; $i < $this->size(); $i++) {
             $this->array[$i] = $array[$i];
         }
@@ -125,10 +136,10 @@ class ArrayList implements \IteratorAggregate, \JsonSerializable, IComparable {
 
     public function length(): int {
         $array = $this->array;
-        $array = \array_filter($array, function ($value, $key) {
+        $array = array_filter($array, function ($value, $key) {
             return $value !== null;
-        }, \ARRAY_FILTER_USE_BOTH);
-        return \count($array);
+        }, ARRAY_FILTER_USE_BOTH);
+        return count($array);
     }
 
     /**
@@ -206,7 +217,7 @@ class ArrayList implements \IteratorAggregate, \JsonSerializable, IComparable {
                 $array[] = $key;
             }
         }
-        return \count($array) === 0 ? null : $array;
+        return count($array) === 0 ? null : $array;
     }
 
     /**
@@ -231,9 +242,9 @@ class ArrayList implements \IteratorAggregate, \JsonSerializable, IComparable {
      */
     public function containsKey(int $key): bool {
         $array = $this->array;
-        $array = \array_filter($array, function ($value, $key) {
+        $array = array_filter($array, function ($value, $key) {
             return $value !== null;
-        }, \ARRAY_FILTER_USE_BOTH);
+        }, ARRAY_FILTER_USE_BOTH);
         return array_key_exists($key, $array);
     }
 
@@ -260,7 +271,7 @@ class ArrayList implements \IteratorAggregate, \JsonSerializable, IComparable {
                 $removed &= $this->remove($key);
             }
         }
-        $this->array = \array_values($this->array);
+        $this->array = array_values($this->array);
         return $removed;
     }
 
@@ -273,7 +284,7 @@ class ArrayList implements \IteratorAggregate, \JsonSerializable, IComparable {
     public function retainAll(ArrayList $arrayList): bool {
         $newArray = [];
         foreach ($arrayList as $value) {
-            if (\in_array($value, $this->array)) {
+            if (in_array($value, $this->array)) {
                 $newArray[] = $value;
             }
         }
@@ -311,7 +322,7 @@ class ArrayList implements \IteratorAggregate, \JsonSerializable, IComparable {
             return $arrayList;
         }
         //TODO preserve keys?
-        $array = \array_slice($this->array, $start, $end - $start, true);
+        $array = array_slice($this->array, $start, $end - $start, true);
         $arrayList->addAllArray($array);
         return $arrayList;
     }
@@ -350,7 +361,7 @@ class ArrayList implements \IteratorAggregate, \JsonSerializable, IComparable {
      * @return bool
      */
     public function addToIndex(int $index, $item): bool {
-        if (\count($this->array) === $this->size()) {
+        if (count($this->array) === $this->size()) {
             $this->ensureCapacity($this->size() * 2 + 1);
         }
         $this->array[$index] = $item;
@@ -385,8 +396,8 @@ class ArrayList implements \IteratorAggregate, \JsonSerializable, IComparable {
      * @since 5.0.0
      */
     public function getIterator() {
-        $array = \array_slice($this->array, 0, $this->length(), true);
-        return new \ArrayIterator($array);
+        $array = array_slice($this->array, 0, $this->length(), true);
+        return new ArrayIterator($array);
     }
 
     /**
@@ -400,7 +411,7 @@ class ArrayList implements \IteratorAggregate, \JsonSerializable, IComparable {
     public function jsonSerialize() {
         return [
             "default_capacity" => ArrayList::DEFAULT_CAPACITY
-            , "size" => \count($this->array)
+            , "size" => count($this->array)
             , "length" => $this->length()
             , "content" => $this->array,
         ];
@@ -435,9 +446,9 @@ class ArrayList implements \IteratorAggregate, \JsonSerializable, IComparable {
      */
     public function compareTo($object): int {
         if ($object instanceof ArrayList) {
-            if (\count(\array_diff($this->array, $object->array)) === 0) return 0;
-            if (\count($this->array) < \count($object->array)) return -1;
-            if (\count($this->array) > \count($object->array)) return 1;
+            if (count(array_diff($this->array, $object->array)) === 0) return 0;
+            if (count($this->array) < count($object->array)) return -1;
+            if (count($this->array) > count($object->array)) return 1;
         }
         return -1;
     }
@@ -446,14 +457,14 @@ class ArrayList implements \IteratorAggregate, \JsonSerializable, IComparable {
      * @return bool
      */
     public function sort(): bool {
-        $array = \array_filter($this->array, function ($value, $key) {
+        $array = array_filter($this->array, function ($value, $key) {
             return $value !== null;
-        }, \ARRAY_FILTER_USE_BOTH);
+        }, ARRAY_FILTER_USE_BOTH);
 
 
         $timSort = new TimSort();
         $array = $timSort->sort($array);
-        $this->array = \array_fill(0, self::DEFAULT_CAPACITY, null);
+        $this->array = array_fill(0, self::DEFAULT_CAPACITY, null);
         $this->addAllArray($array);
         return true;
     }
