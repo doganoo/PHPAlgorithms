@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -23,14 +24,18 @@
  * SOFTWARE.
  */
 
+namespace doganoo\PHPAlgorithmsTest\Util;
+
 use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists\DoublyLinkedList;
 use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists\SinglyLinkedList;
 use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
+use stdClass;
 
 /**
  * Class LinkedListUtil - utility class for testing linked lists
  */
 class LinkedListUtil {
+
     /**
      * LinkedListUtil constructor is private in order to ensure
      * that the class is not instantiable.
@@ -60,7 +65,7 @@ class LinkedListUtil {
     public static function getCustomDoublyLinkedList(int $n): DoublyLinkedList {
         $list = new DoublyLinkedList();
         for ($i = 0; $i < $n; $i++) {
-            $list->add($i + 1, md5($i + 1));
+            $list->add($i + 1, md5((string) ($i + 1)));
         }
         return $list;
     }
@@ -84,9 +89,9 @@ class LinkedListUtil {
      * @return DoublyLinkedList
      */
     public static function getDoublyLinkedListWithLoop(): DoublyLinkedList {
-        $list = new DoublyLinkedList();
-        $one = LinkedListUtil::getNode(1, "one");
-        $two = LinkedListUtil::getNode(1, 2);
+        $list  = new DoublyLinkedList();
+        $one   = LinkedListUtil::getNode(1, "one");
+        $two   = LinkedListUtil::getNode(1, 2);
         $three = LinkedListUtil::getNode(1, new stdClass());
 
         $one->setNext($two);
@@ -125,4 +130,5 @@ class LinkedListUtil {
         }
         return $list;
     }
+
 }

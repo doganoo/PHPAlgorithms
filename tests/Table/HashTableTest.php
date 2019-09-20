@@ -24,24 +24,21 @@ declare(strict_types=1);
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithmsTest\Maps;
+namespace doganoo\PHPAlgorithmsTest\Table;
 
-use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
-use doganoo\PHPAlgorithmsTest\Util\HashMapUtil;
+use doganoo\PHPAlgorithms\Datastructure\Table\HashTable;
+use doganoo\PHPAlgorithmsTest\Util\HashTableUtil;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-/**
- * Class HashMapTest PHPUnit test class
- */
-class HashMapTest extends TestCase {
+class HashTableTest extends TestCase {
 
     /**
      * tests adding new elements to the map
      */
     public function testAddition() {
         $class   = stdClass::class;
-        $hashMap = new HashMap();
+        $hashMap = new HashTable();
         $boolean = $hashMap->add(1, $class);
         $has     = $hashMap->getNodeByValue($class);
         $this->assertTrue($boolean);
@@ -50,7 +47,7 @@ class HashMapTest extends TestCase {
 
     public function testSize() {
         $class   = stdClass::class;
-        $hashMap = new HashMap();
+        $hashMap = new HashTable();
         $hashMap->add(1, $class);
         $hashMap->add(2, $class);
         $hashMap->add(3, $class);
@@ -65,7 +62,7 @@ class HashMapTest extends TestCase {
      */
     public function testContains() {
         $class   = stdClass::class;
-        $hashMap = new HashMap();
+        $hashMap = new HashTable();
         $hashMap->add(1, $class);
         $boolean = $hashMap->containsValue($class);
         $this->assertTrue($boolean);
@@ -76,7 +73,7 @@ class HashMapTest extends TestCase {
      */
     public function testGetNodeByValue() {
         $class   = stdClass::class;
-        $hashMap = new HashMap();
+        $hashMap = new HashTable();
         $hashMap->add(1, $class);
         $node = $hashMap->getNodeByValue($class);
         $this->assertTrue($node !== null);
@@ -86,7 +83,7 @@ class HashMapTest extends TestCase {
      * tests removing a value from the map
      */
     public function testRemove() {
-        $hashMap = HashMapUtil::getHashMap(500);
+        $hashMap = HashTableUtil::getHashTable(500);
         $boolean = $hashMap->remove(320);
         $this->assertTrue($boolean);
     }
@@ -95,7 +92,7 @@ class HashMapTest extends TestCase {
      * tests adding different key types to the map
      */
     public function testKeyTypes() {
-        $hashMap = new HashMap();
+        $hashMap = new HashTable();
         $added   = $hashMap->add(new stdClass(), "stdClass");
         $this->assertTrue($added);
     }
@@ -104,13 +101,13 @@ class HashMapTest extends TestCase {
      * tests retrieving all keys from the map
      */
     public function testKeySet() {
-        $hashMap = HashMapUtil::getHashMap(10);
+        $hashMap = HashTableUtil::getHashTable(10);
         $keySet  = $hashMap->keySet();
         $this->assertTrue(count($keySet) == 10);
     }
 
     public function testClosure() {
-        $hashMap = new HashMap();
+        $hashMap = new HashTable();
         $added   = $hashMap->add("test", function () {
             return new stdClass();
         });

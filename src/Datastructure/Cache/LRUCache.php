@@ -28,7 +28,7 @@ namespace doganoo\PHPAlgorithms\Datastructure\Cache;
 
 use doganoo\PHPAlgorithms\Common\Interfaces\ICache;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
-use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
+use doganoo\PHPAlgorithms\Datastructure\Table\HashTable;
 
 /**
  * Class LRUCache
@@ -36,7 +36,7 @@ use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
  * @package doganoo\PHPAlgorithms\Datastructure\Cache
  */
 class LRUCache implements ICache {
-    /** @var HashMap|null $hashMap */
+    /** @var HashTable|null $hashMap */
     private $hashMap = null;
     /** @var Node $head */
     private $head = null;
@@ -49,7 +49,7 @@ class LRUCache implements ICache {
      * @param int $capacity
      */
     public function __construct($capacity = 128) {
-        $this->hashMap = new HashMap();
+        $this->hashMap = new HashTable();
         $this->capacity = $capacity;
     }
 
@@ -162,9 +162,10 @@ class LRUCache implements ICache {
     /**
      * returns the last accessed, non-deleted value
      *
-     * @return mixed
+     * @return mixed|null
      */
     public function last() {
+        if (null === $this->head) return null;
         return $this->head->getKey();
     }
 

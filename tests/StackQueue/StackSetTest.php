@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -23,7 +24,7 @@
  * SOFTWARE.
  */
 
-namespace StackQueue;
+namespace doganoo\PHPAlgorithmsTest\StackQueue;
 
 use doganoo\PHPAlgorithms\Datastructure\Stackqueue\StackSet;
 use PHPUnit\Framework\TestCase;
@@ -34,6 +35,7 @@ use PHPUnit\Framework\TestCase;
  * @package StackQueue
  */
 class StackSetTest extends TestCase {
+
     /**
      * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
      */
@@ -53,8 +55,8 @@ class StackSetTest extends TestCase {
      * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
      */
     public function testHugeStackSet() {
-        $setSize = 1024;
-        $factor = 4;
+        $setSize  = 1024;
+        $factor   = 4;
         $stackSet = new StackSet(1024);
         for ($i = 0; $i < $setSize * $factor; $i++) {
             $stackSet->push($i);
@@ -65,4 +67,5 @@ class StackSetTest extends TestCase {
         }
         $this->assertTrue($stackSet->stackCount() === 3);
     }
+
 }

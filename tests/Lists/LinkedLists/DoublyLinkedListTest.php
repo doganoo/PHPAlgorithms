@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -23,12 +24,18 @@
  * SOFTWARE.
  */
 
+namespace doganoo\PHPAlgorithmsTest\Lists\LinkedLists;
+
 use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
+use doganoo\PHPAlgorithmsTest\Util\LinkedListUtil;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
 /**
  * Class DoublyLinkedListTest PHPUnit test class for doubly linked lists
  */
-class DoublyLinkedListTest extends \PHPUnit\Framework\TestCase {
+class DoublyLinkedListTest extends TestCase {
+
     /**
      * test adding a new node to the DLL
      */
@@ -80,7 +87,7 @@ class DoublyLinkedListTest extends \PHPUnit\Framework\TestCase {
      * tests deleting a node from a DLL
      */
     public function testDeleteNode() {
-        $list = LinkedListUtil::getDoublyLinkedList();
+        $list    = LinkedListUtil::getDoublyLinkedList();
         $deleted = $list->deleteNode(1);
         $this->assertTrue($deleted);
         $this->assertTrue($list->size() === 2);
@@ -211,7 +218,7 @@ class DoublyLinkedListTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($list->getNodeByKey(2) === null);
 
         $replaced = $list->replaceValue(3, "stdclass");
-        $node = $list->getNodeByKey(3);
+        $node     = $list->getNodeByKey(3);
         $this->assertTrue($replaced && $node instanceof Node);
     }
 
@@ -230,9 +237,8 @@ class DoublyLinkedListTest extends \PHPUnit\Framework\TestCase {
         /** @var Node $node */
         $node = $ll->getMiddleNode();
 
-        print_r($node->getKey());
-        ob_flush();
         $this->assertTrue(3 === $node->getKey());
-        $this->assertTrue(md5(3) === $node->getValue());
+        $this->assertTrue(md5((string) 3) === $node->getValue());
     }
+
 }

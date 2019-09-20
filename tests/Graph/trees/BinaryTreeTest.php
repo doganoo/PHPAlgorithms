@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar
+ * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,20 +24,23 @@
  * SOFTWARE.
  */
 
+namespace doganoo\PHPAlgorithmsTest\Graph\trees;
+
 use doganoo\PHPAlgorithms\Algorithm\Traversal\InOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PostOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PreOrder;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree;
+use doganoo\PHPAlgorithmsTest\Util\TreeUtil;
+use PHPUnit\Framework\TestCase;
 
-
-class BinaryTreeTest extends \PHPUnit\Framework\TestCase {
+class BinaryTreeTest extends TestCase {
 
     /**
      * tests addition and height
      */
     public function testAdd() {
         /** @var BinaryTree $bst */
-        $bst = TreeUtil::getBinaryTree();
+        $bst  = TreeUtil::getBinaryTree();
         $node = $bst->search(1);
         $this->assertTrue($node !== null);
     }
@@ -46,8 +50,8 @@ class BinaryTreeTest extends \PHPUnit\Framework\TestCase {
      */
     public function testInOrder() {
         /** @var BinaryTree $bst */
-        $bst = TreeUtil::getBinaryTree();
-        $array = [];
+        $bst       = TreeUtil::getBinaryTree();
+        $array     = [];
         $traversal = new InOrder($bst);
         $traversal->setCallable(function ($value) use (&$array) {
             $array[] = $value;
@@ -61,8 +65,8 @@ class BinaryTreeTest extends \PHPUnit\Framework\TestCase {
      */
     public function testPreOrder() {
         /** @var BinaryTree $bst */
-        $bst = TreeUtil::getBinaryTree();
-        $array = [];
+        $bst       = TreeUtil::getBinaryTree();
+        $array     = [];
         $traversal = new PreOrder($bst);
         $traversal->setCallable(function ($value) use (&$array) {
             $array[] = $value;
@@ -76,8 +80,8 @@ class BinaryTreeTest extends \PHPUnit\Framework\TestCase {
      */
     public function testPostOrder() {
         /** @var BinaryTree $bst */
-        $bst = TreeUtil::getBinaryTree();
-        $array = [];
+        $bst       = TreeUtil::getBinaryTree();
+        $array     = [];
         $traversal = new PostOrder($bst);
         $traversal->setCallable(function ($value) use (&$array) {
             $array[] = $value;
@@ -85,4 +89,5 @@ class BinaryTreeTest extends \PHPUnit\Framework\TestCase {
         $traversal->traverse();
         $this->assertTrue($array === [1, 2, 6, 5]);
     }
+
 }

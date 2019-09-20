@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -23,16 +24,21 @@
  * SOFTWARE.
  */
 
+namespace doganoo\PHPAlgorithmsTest\Sets;
+
+use doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException;
+use doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException;
 use doganoo\PHPAlgorithms\Datastructure\Sets\HashSet;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class HashSetTest PHPUnit test class
  */
-class HashSetTest extends \PHPUnit\Framework\TestCase {
+class HashSetTest extends TestCase {
 
     /**
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
+     * @throws InvalidKeyTypeException
+     * @throws UnsupportedKeyTypeException
      */
     public function testAdd() {
         $hashSet = new HashSet();
@@ -47,8 +53,8 @@ class HashSetTest extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * @throws \doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
+     * @throws UnsupportedKeyTypeException
+     * @throws InvalidKeyTypeException
      */
     public function testContains() {
         $hashSet = new HashSet();
@@ -71,8 +77,8 @@ class HashSetTest extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
+     * @throws InvalidKeyTypeException
+     * @throws UnsupportedKeyTypeException
      */
     public function testClear() {
         $hashSet = new HashSet();
@@ -84,8 +90,8 @@ class HashSetTest extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * @throws \doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
+     * @throws UnsupportedKeyTypeException
+     * @throws InvalidKeyTypeException
      */
     public function testRemove() {
         $hashSet = new HashSet();
@@ -94,4 +100,5 @@ class HashSetTest extends \PHPUnit\Framework\TestCase {
         $hashSet->remove("one");
         $this->assertTrue($hashSet->contains("one") === false);
     }
+
 }

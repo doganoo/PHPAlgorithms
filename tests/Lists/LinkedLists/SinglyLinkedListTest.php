@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -23,10 +24,16 @@
  * SOFTWARE.
  */
 
+namespace doganoo\PHPAlgorithmsTest\Lists\LinkedLists;
+
+use doganoo\PHPAlgorithmsTest\Util\LinkedListUtil;
+use PHPUnit\Framework\TestCase;
+
 /**
  * Class SinglyLinkedListTest PHPUnit test class
  */
-class SinglyLinkedListTest extends \PHPUnit\Framework\TestCase {
+class SinglyLinkedListTest extends TestCase {
+
     /**
      * tests appending a new node to the list
      *
@@ -55,7 +62,7 @@ class SinglyLinkedListTest extends \PHPUnit\Framework\TestCase {
     }
 
     public function testContains() {
-        $list = LinkedListUtil::getSinglyLinkedList();
+        $list     = LinkedListUtil::getSinglyLinkedList();
         $contains = $list->containsKey(1);
         $this->assertTrue($contains === true);
 
@@ -64,4 +71,5 @@ class SinglyLinkedListTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($list->containsKey("testw") === false);
         $this->assertTrue($list->containsKey("test") === true);
     }
+
 }

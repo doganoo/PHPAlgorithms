@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -23,13 +24,19 @@
  * SOFTWARE.
  */
 
+namespace doganoo\PHPAlgorithmsTest\StackQueue;
+
 use doganoo\PHPAlgorithms\Datastructure\Stackqueue\FixedQueue;
 use doganoo\PHPAlgorithms\Datastructure\Stackqueue\FixedStack;
+use Exception;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
 /**
  * Class StackQueueTest class testing Stacks and Queues
  */
-class FixedStackTest extends \PHPUnit\Framework\TestCase {
+class FixedStackTest extends TestCase {
+
     /**
      * Stack class test
      */
@@ -73,4 +80,5 @@ class FixedStackTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($class instanceof Exception);
         $this->assertTrue($queue->isEmpty() == true);
     }
+
 }

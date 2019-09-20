@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -23,6 +24,7 @@
  * SOFTWARE.
  */
 
+namespace doganoo\PHPAlgorithmsTest\Sorting;
 
 use doganoo\PHPAlgorithms\Algorithm\Sorting\BubbleSort;
 use doganoo\PHPAlgorithms\Algorithm\Sorting\InsertionSort;

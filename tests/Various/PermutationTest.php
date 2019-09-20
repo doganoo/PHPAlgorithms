@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -23,9 +24,7 @@
  * SOFTWARE.
  */
 
-
-namespace Various;
-
+namespace doganoo\PHPAlgorithmsTest\Various;
 
 use doganoo\PHPAlgorithms\Algorithm\Various\Permutation;
 use PHPUnit\Framework\TestCase;
@@ -34,7 +33,7 @@ class PermutationTest extends TestCase {
 
 
     public function testStringPermutation() {
-        $permutation = new Permutation();
+        $permutation  = new Permutation();
         $permutations = $permutation->stringPermutations("abcd");
         $this->assertTrue(24 === \count($permutations));
 
@@ -45,7 +44,7 @@ class PermutationTest extends TestCase {
     }
 
     public function testNumberPermutation() {
-        $permutation = new Permutation();
+        $permutation  = new Permutation();
         $permutations = $permutation->numberPermutations(1234);
         $this->assertTrue(24 === \count($permutations));
 

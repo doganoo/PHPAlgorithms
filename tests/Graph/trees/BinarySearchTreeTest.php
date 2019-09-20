@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar
+ * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,23 +24,27 @@
  * SOFTWARE.
  */
 
+namespace doganoo\PHPAlgorithmsTest\Graph\trees;
+
 use doganoo\PHPAlgorithms\Algorithm\Traversal\InOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PostOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PreOrder;
 use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinarySearchTree;
+use doganoo\PHPAlgorithmsTest\Util\TreeUtil;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class BinaryTreeTest
  */
-class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase {
+class BinarySearchTreeTest extends TestCase {
 
     /**
      * tests addition and height
      */
     public function testAdd() {
         /** @var BinarySearchTree $bst */
-        $bst = \TreeUtil::getBinarySearchTree();
+        $bst  = TreeUtil::getBinarySearchTree();
         $node = $bst->search(1);
         $this->assertTrue($node !== null);
         $this->assertTrue($bst->height() === 3);
@@ -61,8 +66,8 @@ class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase {
      * tests in order Traversal
      */
     public function testInOrder() {
-        $bst = \TreeUtil::getBinarySearchTree();
-        $array = [];
+        $bst       = TreeUtil::getBinarySearchTree();
+        $array     = [];
         $traversal = new InOrder($bst);
         $traversal->setCallable(function ($value) use (&$array) {
             $array[] = $value;
@@ -75,8 +80,8 @@ class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase {
      * tests pre order Traversal
      */
     public function testPreOrder() {
-        $bst = \TreeUtil::getBinarySearchTree();
-        $array = [];
+        $bst       = TreeUtil::getBinarySearchTree();
+        $array     = [];
         $traversal = new PreOrder($bst);
         $traversal->setCallable(function ($value) use (&$array) {
             $array[] = $value;
@@ -89,8 +94,8 @@ class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase {
      * tests post order Traversal
      */
     public function testPostOrder() {
-        $bst = \TreeUtil::getBinarySearchTree();
-        $array = [];
+        $bst       = TreeUtil::getBinarySearchTree();
+        $array     = [];
         $traversal = new PostOrder($bst);
         $traversal->setCallable(function ($value) use (&$array) {
             $array[] = $value;
@@ -100,7 +105,7 @@ class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase {
     }
 
     public function testWithObjects() {
-        $tree = new BinarySearchTree();
+        $tree  = new BinarySearchTree();
         $upper = 10;
         for ($i = 0; $i < $upper; $i++) {
             $x = new TestNode($i);
@@ -113,9 +118,11 @@ class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($node === null);
 
     }
+
 }
 
 class TestNode implements IComparable {
+
     private $id = 0;
 
     public function __construct($id) {
@@ -138,6 +145,7 @@ class TestNode implements IComparable {
     public function getId(): int {
         return $this->id;
     }
+
 }
 
 ;

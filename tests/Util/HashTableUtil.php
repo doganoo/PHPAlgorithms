@@ -24,32 +24,39 @@ declare(strict_types=1);
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithmsTest\StackQueue;
+namespace doganoo\PHPAlgorithmsTest\Util;
 
-use doganoo\PHPAlgorithms\Datastructure\Stackqueue\CircularBuffer;
-use PHPUnit\Framework\TestCase;
+use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
+use doganoo\PHPAlgorithms\Datastructure\Table\HashTable;
 
 /**
- * Class CircularBufferTest
+ * Class HashMapUtil - utility class for testing hash maps
  */
-class CircularBufferTest extends TestCase {
+class HashTableUtil {
 
-    public function testMinimalSize() {
-        $buffer = new CircularBuffer(2);
-        $this->assertTrue($buffer->isEmpty() === true);
-        $buffer->enqueue("A");
-        $this->assertTrue($buffer->isEmpty() === false);
-        $this->assertTrue($buffer->isFull() === true);
+    /**
+     * HashMapUtil constructor is private in order to ensure that the class is not instantiable.
+     */
+    public function __construct() {
     }
 
-    public function testBigBuffer() {
-        $buffer = new CircularBuffer(8);
-        $this->assertTrue($buffer->isEmpty() === true);
-        $buffer->enqueue("A");
-        $this->assertTrue($buffer->isEmpty() === false);
-        $this->assertTrue($buffer->isFull() === false);
-        $buffer->dequeue();
-        $this->assertTrue($buffer->isEmpty() === true);
+    /**
+     * creates a hash map with $number elements
+     *
+     * @param int $number
+     * @return HashTable
+     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
+     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
+     */
+    public static function getHashTable(int $number): HashTable {
+        $hashMap = new HashTable();
+        for ($i = 0; $i < $number; $i++) {
+            $node = new Node();
+            $node->setKey($i);
+            $node->setValue(md5((string) $i));
+            $hashMap->addNode($node);
+        }
+        return $hashMap;
     }
 
 }

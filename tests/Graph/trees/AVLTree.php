@@ -1,13 +1,9 @@
 <?php
-
-use doganoo\PHPAlgorithms\Algorithm\Traversal\PreOrder;
-use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\AVLTree as AVLTreee;
-use PHPUnit\Framework\TestCase;
-
+declare(strict_types=1);
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar
+ * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,6 +24,10 @@ use PHPUnit\Framework\TestCase;
  * SOFTWARE.
  */
 
+namespace doganoo\PHPAlgorithmsTest\Graph\trees;
+
+
+use PHPUnit\Framework\TestCase;
 
 class AVLTree extends TestCase {
 

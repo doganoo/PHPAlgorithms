@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar
+ * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,6 +24,7 @@
  * SOFTWARE.
  */
 
+namespace doganoo\PHPAlgorithmsTest\Util;
 
 use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinarySearchTree;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree;
@@ -33,6 +35,7 @@ use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree;
  * @package doganoo\PHPAlgorithms\common\Util
  */
 class TreeUtil {
+
     /**
      * TreeUtil constructor.
      */
@@ -62,4 +65,5 @@ class TreeUtil {
         $bt->insertValue(1);
         return $bt;
     }
+
 }

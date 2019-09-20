@@ -1,0 +1,26 @@
+root = true
+
+[*]
+ij_php_block_brace_style = end_of_line
+ij_php_class_brace_style = end_of_line
+ij_php_for_brace_force = always
+ij_php_if_brace_force = if_multiline
+ij_php_method_brace_style = end_of_line
+ij_php_space_after_type_cast = true
+ij_php_space_after_colon_in_return_type = true
+ij_php_blank_lines_after_imports = 1
+ij_php_blank_lines_before_imports = 1
+ij_php_align_class_constants = true
+ij_php_align_assignments = true
+ij_php_align_inline_comments = true
+ij_php_align_key_value_pairs = true
+ij_php_align_group_field_declarations = true
+ij_php_align_multiline_array_initializer_expression = true
+ij_php_align_multiline_for = true
+ij_php_align_phpdoc_comments = true
+ij_php_align_phpdoc_param_names = true
+ij_php_import_sorting = alphabetic
+ij_php_blank_lines_after_class_header = 1
+ij_php_blank_lines_before_class_end = 1
+ij_php_else_if_style = separate
+ij_any_else_on_new_line = false

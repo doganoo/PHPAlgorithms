@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -23,9 +24,13 @@
  * SOFTWARE.
  */
 
-use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
+namespace doganoo\PHPAlgorithmsTest\Lists\ArrayLists;
 
-class ArrayListTest extends \PHPUnit\Framework\TestCase {
+use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
+use PHPUnit\Framework\TestCase;
+use stdClass;
+
+class ArrayListTest extends TestCase {
     public function testAdd() {
         $arrayList = new ArrayList();
         $added = $arrayList->add("value");

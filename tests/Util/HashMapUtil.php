@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -23,6 +24,8 @@
  * SOFTWARE.
  */
 
+namespace doganoo\PHPAlgorithmsTest\Util;
+
 use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
 use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
 
@@ -30,6 +33,7 @@ use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
  * Class HashMapUtil - utility class for testing hash maps
  */
 class HashMapUtil {
+
     /**
      * HashMapUtil constructor is private in order to ensure that the class is not instantiable.
      */
@@ -49,7 +53,7 @@ class HashMapUtil {
         for ($i = 0; $i < $number; $i++) {
             $node = new Node();
             $node->setKey($i);
-            $node->setValue(md5($i));
+            $node->setValue(md5((string) $i));
             $hashMap->addNode($node);
         }
         return $hashMap;

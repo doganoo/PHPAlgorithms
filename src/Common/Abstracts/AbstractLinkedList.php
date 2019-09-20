@@ -39,6 +39,11 @@ use JsonSerializable;
  * TODO sentinels?
  *
  * @package doganoo\PHPAlgorithms\LinkedLists
+ *
+ * from: https://mobile.twitter.com/hillelogram/status/962424365819277312
+ *
+ * Linked lists are a necessary data structure, since they give you dynamic memory allocation with less danger of buffer overruns. Which means you had to write linked lists by hand. Which means you had to manipulate the pointers in linked lists by hand.
+ *
  */
 abstract class AbstractLinkedList implements IComparable, JsonSerializable {
     /** @var Node */

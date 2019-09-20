@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -23,12 +24,16 @@
  * SOFTWARE.
  */
 
+namespace doganoo\PHPAlgorithmsTest\Maps;
+
 use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class NodeTest PHPUnit test class
  */
-class NodeTest extends \PHPUnit\Framework\TestCase {
+class NodeTest extends TestCase {
+
     /**
      * tests node assignments
      */
@@ -53,6 +58,5 @@ class NodeTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($d->size() == 2);
         $this->assertTrue($a->size() == 3);
     }
-
 
 }
