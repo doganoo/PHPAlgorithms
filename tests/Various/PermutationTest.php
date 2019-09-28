@@ -41,6 +41,9 @@ class PermutationTest extends TestCase {
         $this->assertTrue(\in_array("cba", $permutations));
         $this->assertTrue(\in_array("bac", $permutations));
         $this->assertTrue(\in_array("acb", $permutations));
+
+        $permutations = $permutation->stringPermutations("a");
+        $this->assertTrue(1 === \count($permutations));
     }
 
     public function testNumberPermutation() {
@@ -50,6 +53,9 @@ class PermutationTest extends TestCase {
 
         $permutations = $permutation->numberPermutations(1234);
         $this->assertTrue(\in_array(4321, $permutations));
+
+        $permutations = $permutation->numberPermutations(1);
+        $this->assertTrue(1 === \count($permutations));
     }
 
 }
