@@ -369,12 +369,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
             unset($this->bucket[$arrayIndex]);
             return true;
         }
-        $removed = $list->remove($key);
-        echo $list->size();
-        echo "\n";
-//        $this->bucket[$arrayIndex] = $list;
-//        var_dump($this->bucket[$arrayIndex]);
-        return $removed;
+        return $list->remove($key);
     }
 
     /**
