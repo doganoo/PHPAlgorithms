@@ -83,9 +83,25 @@ class HashTableTest extends TestCase {
      * tests removing a value from the map
      */
     public function testRemove() {
-        $hashMap = HashTableUtil::getHashTable(500);
-        $boolean = $hashMap->remove(320);
-        $this->assertTrue($boolean);
+        $hashTable = new HashTable();
+        $hashTable->put("about", new class{});
+        $hashTable->put("account", new class{});
+        $hashTable->put("apps", new class{});
+        $hashTable->put("calorie_tracker", new class{});
+        $hashTable->put("tnc", new class{});
+        $hashTable->put("forgot_password", new class{});
+        $hashTable->put("general_api", new class{});
+        $hashTable->put("install", new class{});
+        $hashTable->put("login", new class{});
+        $hashTable->put("logout", new class{});
+        $hashTable->put("maintenance", new class{});
+        $hashTable->put("password_manager", new class{});
+        $hashTable->put("promotion", new class{});
+        $hashTable->put("register", new class{});
+        $hashTable->put("users", new class{});
+        $this->assertTrue(null !== $hashTable->get("calorie_tracker"));
+        $hashTable->remove("calorie_tracker");
+        $this->assertTrue(null === $hashTable->get("calorie_tracker"));
     }
 
     /**

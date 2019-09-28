@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -50,6 +51,7 @@ use JsonSerializable;
  * @package doganoo\PHPAlgorithms\Maps
  */
 class HashTable extends AbstractTable implements JsonSerializable {
+
     /**
      * @var array $bucket the buckets containing the nodes
      */
@@ -136,7 +138,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
          *
          * Doing this avoids hash collisions.
          */
-        $hash = $this->getHash($key);
+        $hash       = $this->getHash($key);
         $arrayIndex = $this->getArrayIndex($hash);
         return $arrayIndex;
     }
@@ -152,7 +154,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
      */
     private function getHash($key): int {
         $key = MapUtil::normalizeKey($key);
-        return crc32($key);
+        return crc32((string) $key);
     }
 
     /**
@@ -226,7 +228,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
     public function size(): int {
         $size = 0;
         /**
-         * @var string $hash
+         * @var string              $hash
          * @var  AbstractLinkedList $list
          */
         foreach ($this->bucket as $hash => $list) {
@@ -244,7 +246,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
     public function containsValue($value): bool {
 
         /**
-         * @var string $arrayIndex
+         * @var string           $arrayIndex
          * @var SinglyLinkedList $list
          */
         foreach ($this->bucket as $arrayIndex => $list) {
@@ -272,7 +274,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
      */
     public function containsKey($key): bool {
         /**
-         * @var string $arrayIndex
+         * @var string           $arrayIndex
          * @var SinglyLinkedList $list
          */
         foreach ($this->bucket as $arrayIndex => $list) {
@@ -305,7 +307,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
      */
     public function getNodeByValue($value): ?Node {
         /**
-         * @var string $arrayIndex
+         * @var string           $arrayIndex
          * @var SinglyLinkedList $list
          */
         foreach ($this->bucket as $arrayIndex => $list) {
@@ -364,11 +366,15 @@ class HashTable extends AbstractTable implements JsonSerializable {
          * is no node to remove.
          */
         if ($list->size() == 1 && $head->getKey() === $key) {
-            //$this->bucket[$arrayIndex] = null;
             unset($this->bucket[$arrayIndex]);
             return true;
         }
-        return $list->remove($key);
+        $removed = $list->remove($key);
+        echo $list->size();
+        echo "\n";
+//        $this->bucket[$arrayIndex] = $list;
+//        var_dump($this->bucket[$arrayIndex]);
+        return $removed;
     }
 
     /**
@@ -397,7 +403,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
             $head = $list->getHead();
             while ($head !== null) {
                 $keySet[] = $head->getKey();
-                $head = $head->getNext();
+                $head     = $head->getNext();
             }
         }
         return $keySet;
@@ -407,7 +413,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
      * @return array
      */
     public function countPerBucket() {
-        $i = 0;
+        $i     = 0;
         $array = [];
         /** @var SinglyLinkedList $list */
         foreach ($this->bucket as $list) {
@@ -421,15 +427,16 @@ class HashTable extends AbstractTable implements JsonSerializable {
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
      * @return mixed data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
     public function jsonSerialize() {
         return [
-            "buckets" => $this->bucket
+            "buckets"    => $this->bucket
             , "max_size" => $this->maxSize,
         ];
     }
+
 }

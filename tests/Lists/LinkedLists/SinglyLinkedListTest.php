@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace doganoo\PHPAlgorithmsTest\Lists\LinkedLists;
 
+use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists\SinglyLinkedList;
 use doganoo\PHPAlgorithmsTest\Util\LinkedListUtil;
 use PHPUnit\Framework\TestCase;
 
@@ -70,6 +71,21 @@ class SinglyLinkedListTest extends TestCase {
         $this->assertTrue($list->size() === 4);
         $this->assertTrue($list->containsKey("testw") === false);
         $this->assertTrue($list->containsKey("test") === true);
+    }
+
+    public function testRemove() {
+        $singlyLinkedList = new SinglyLinkedList();
+        $singlyLinkedList->add("calorie_tracker", new class {
+
+        });
+        $singlyLinkedList->add("tnc", new class {
+
+        });
+
+        $this->assertTrue(2 === $singlyLinkedList->size());
+        $singlyLinkedList->remove("calorie_tracker");
+        $this->assertTrue(1 === $singlyLinkedList->size());
+
     }
 
 }

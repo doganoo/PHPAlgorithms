@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -46,6 +47,7 @@ use JsonSerializable;
  *
  */
 abstract class AbstractLinkedList implements IComparable, JsonSerializable {
+
     /** @var Node */
     private $head = null;
 
@@ -74,14 +76,14 @@ abstract class AbstractLinkedList implements IComparable, JsonSerializable {
      *             5 -> 4 -> 3 -> 2 -> 1 -> NULL
      */
     public function reverse() {
-        $prev = null;
-        $next = null;
+        $prev    = null;
+        $next    = null;
         $current = $this->getHead();
 
         while ($current !== null) {
             $next = $current->getNext();
             $current->setNext($prev);
-            $prev = $current;
+            $prev    = $current;
             $current = $next;
         }
         $this->setHead($prev);
@@ -182,10 +184,10 @@ abstract class AbstractLinkedList implements IComparable, JsonSerializable {
      *
      */
     public function getLastElements(int $number): AbstractLinkedList {
-        $p1 = $this->getHead();
-        $p2 = $this->getHead();
+        $p1     = $this->getHead();
+        $p2     = $this->getHead();
         $number = $number > $this->head->size() ? $this->head->size() : $number;
-        $list = $this->getEmptyInstance();
+        $list   = $this->getEmptyInstance();
 
         for ($i = 0; $i < $number; $i++) {
             if ($p1 == null) {
@@ -252,8 +254,8 @@ abstract class AbstractLinkedList implements IComparable, JsonSerializable {
         $head = $this->getHead();
         //if there are more elements requested than the list provides
         $number = $number > $head->size() ? $head->size() : $number;
-        $list = $this->getEmptyInstance();
-        $i = 0;
+        $list   = $this->getEmptyInstance();
+        $i      = 0;
         while ($i < $number) {
             //TODO append or prepend?
             $list->append($head);
@@ -402,12 +404,20 @@ abstract class AbstractLinkedList implements IComparable, JsonSerializable {
      */
     public function remove($key): bool {
         /** @var Node $previous */
-        $previous = $head = $this->getHead();
+        $head     = $this->getHead();
+        $previous = null;
         if ($head === null) {
             return true;
         }
+
+        if (Comparator::equals($head->getKey(), $key)) {
+            $this->setHead(
+                $head->getNext()
+            );
+            return true;
+        }
+
         $i = 1;
-        $headSize = $head->size();
 
         /*
          * The while loop iterates over all nodes until the
@@ -428,10 +438,13 @@ abstract class AbstractLinkedList implements IComparable, JsonSerializable {
              * after that one who should be deleted.
              */
             $previous = $head;
-            $head = $head->getNext();
+            $head     = $head->getNext();
             $i++;
         }
 
+        if (null === $head) {
+            return false;
+        }
         /*
          * If the value that should be deleted is not in the list,
          * this set instruction assigns the next node to the actual.
@@ -440,10 +453,8 @@ abstract class AbstractLinkedList implements IComparable, JsonSerializable {
          * assigned to the previous node of the node that
          * should be deleted (if there is a node present).
          */
-        if ($head !== null) {
-            $previous->setNext($head->getNext());
-        }
-        return $i !== $headSize;
+        $previous->setNext($head->getNext());
+        return true;
     }
 
     /**
@@ -455,7 +466,7 @@ abstract class AbstractLinkedList implements IComparable, JsonSerializable {
      */
     public function replaceValue($key, $value): bool {
         $replaced = false;
-        $node = $this->getHead();
+        $node     = $this->getHead();
         while ($node !== null) {
             if (Comparator::equals($node->getKey(), $key)) {
                 $node->setValue($value);
@@ -486,7 +497,7 @@ abstract class AbstractLinkedList implements IComparable, JsonSerializable {
      */
     public function hasLoop(): bool {
         $tortoise = $this->getHead();
-        $hare = $this->getHead();
+        $hare     = $this->getHead();
 
         while ($tortoise !== null && $hare->getNext() !== null) {
             $hare = $hare->getNext()->getNext();
@@ -596,7 +607,7 @@ abstract class AbstractLinkedList implements IComparable, JsonSerializable {
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
      * @return mixed data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
