@@ -51,7 +51,7 @@ class Permutation {
         if (0 === $strLen) {
             return $result;
         }
-        if (1 === $string) {
+        if (1 === $strLen) {
             $result[] = $string;
             return $result;
         }
