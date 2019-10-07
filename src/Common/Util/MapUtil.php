@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -27,6 +28,22 @@ namespace doganoo\PHPAlgorithms\Common\Util;
 
 use doganoo\PHPAlgorithms\Common\Exception\InvalidKeyTypeException;
 use doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException;
+use function array_walk_recursive;
+use function ceil;
+use function gettype;
+use function is_array;
+use function is_bool;
+use function is_double;
+use function is_float;
+use function is_int;
+use function is_object;
+use function is_resource;
+use function is_string;
+use function json_encode;
+use function ord;
+use function serialize;
+use function strlen;
+use function unserialize;
 
 /**
  * Class Util
@@ -34,6 +51,7 @@ use doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException;
  * @package doganoo\PHPAlgorithms\Util
  */
 class MapUtil {
+
     /**
      * private constructor in order to prevent instantiation
      */
@@ -62,23 +80,23 @@ class MapUtil {
          * Therefore, some helper methods convert the key if
          * necessary.
          */
-        if (\is_string($key)) {
+        if (is_string($key)) {
             $key = MapUtil::stringToKey($key);
-        } else if (\is_object($key)) {
-            $objectString = MapUtil::objectToString($key);
-            $key = MapUtil::stringToKey($objectString);
-        } else if (\is_array($key)) {
-            $arrayString = MapUtil::arrayToKey($key);
-            $key = MapUtil::stringToKey($arrayString);
-        } else if (\is_double($key)) {
-            $key = MapUtil::doubleToKey($key);
-        } else if (\is_float($key)) {
+        } else if (is_object($key)) {
+                $objectString = MapUtil::objectToString($key);
+                $key          = MapUtil::stringToKey($objectString);
+        } else if (is_array($key)) {
+                    $arrayString = MapUtil::arrayToKey($key);
+                    $key         = MapUtil::stringToKey($arrayString);
+        } else if (is_double($key)) {
+                        $key = MapUtil::doubleToKey($key);
+        } else if (is_float($key)) {
             $key = MapUtil::doubleToKey(\doubleval($key));
-        } else if (\is_bool($key)) {
-            $key = MapUtil::booleanToKey($key);
-        } else if (\is_resource($key) || $key === null) {
-            $key = MapUtil::booleanToKey(true);
-        } else if (\is_int($key)) {
+        } else if (is_bool($key)) {
+                                $key = MapUtil::booleanToKey($key);
+        } else if (is_resource($key) || $key === null) {
+                                    $key = MapUtil::booleanToKey(true);
+        } else if (is_int($key)) {
             return $key;
         } else {
             throw new UnsupportedKeyTypeException();
@@ -95,9 +113,9 @@ class MapUtil {
      */
     public static function stringToKey(string $string): int {
         $key = 0;
-        for ($i = 0; $i < \strlen($string); $i++) {
+        for ($i = 0; $i < strlen($string); $i++) {
             $char = $string[$i];
-            $key += \ord($char);
+            $key  += ord($char);
         }
         return $key;
     }
@@ -111,10 +129,10 @@ class MapUtil {
      */
     public static function objectToString($object): string {
         //TODO do type hinting when possible
-        if (!\is_object($object)) {
-            throw new InvalidKeyTypeException("key has to be an object, " . \gettype($object) . "given");
+        if (!is_object($object)) {
+            throw new InvalidKeyTypeException("key has to be an object, " . gettype($object) . "given");
         }
-        return \serialize($object);
+        return spl_object_hash($object);
     }
 
     /**
@@ -125,7 +143,7 @@ class MapUtil {
      */
     public static function arrayToKey(array $array): string {
         $result = "";
-        \array_walk_recursive($array, function ($key, $value) use (&$result) {
+        array_walk_recursive($array, function ($key, $value) use (&$result) {
             $result .= $key . $value;
         });
         return $result;
@@ -138,7 +156,7 @@ class MapUtil {
      * @return int
      */
     public static function doubleToKey(float $double): int {
-        return \ceil($double);
+        return ceil($double);
     }
 
     /**
@@ -172,20 +190,20 @@ class MapUtil {
          * Therefore, some helper methods convert the key if
          * necessary.
          */
-        if (\is_object($value)) {
-            $value = \serialize($value);
-        } else if (\is_array($value)) {
-            $value = \json_encode($value);
-        } else if (\is_double($value)) {
-            $value = (string)$value;
-        } else if (\is_float($value)) {
-            $value = (string)$value;
-        } else if (\is_bool($value)) {
+        if (is_object($value)) {
+            $value = serialize($value);
+        } else if (is_array($value)) {
+            $value = json_encode($value);
+        } else if (is_double($value)) {
+            $value = (string) $value;
+        } else if (is_float($value)) {
+            $value = (string) $value;
+        } else if (is_bool($value)) {
             $value = $value ? "true" : "false";
-        } else if (\is_resource($value) || $value === null) {
+        } else if (is_resource($value) || $value === null) {
             //TODO resource/null
-        } else if (\is_int($value)) {
-            return (string)$value;
+        } else if (is_int($value)) {
+            return (string) $value;
         } else {
             throw new UnsupportedKeyTypeException();
         }
@@ -198,7 +216,7 @@ class MapUtil {
      */
     public static function unserialize(string $string) {
         if (self::isSerialized($string)) {
-            return \unserialize($string);
+            return unserialize($string);
         }
         return null;
     }
