@@ -325,7 +325,12 @@ class ArrayList implements IteratorAggregate, JsonSerializable, IComparable {
             return $arrayList;
         }
         //TODO preserve keys?
-        $array = array_slice($this->array, $start, $end - $start, true);
+        $array = array_slice(
+            $this->array
+            , $start
+            , $end - $start + 1
+            , true
+        );
         $arrayList->addAllArray($array);
         return $arrayList;
     }
