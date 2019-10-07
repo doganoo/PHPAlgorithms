@@ -5,6 +5,8 @@ declare(strict_types=1);
  *
  * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
+ * @author Eugene Kirillov <eug.krlv@gmail.com>
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -24,7 +26,7 @@ declare(strict_types=1);
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Datastructure\Sets;
+namespace doganoo\PHPAlgorithms\Datastructure\Set;
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractSet;
 use doganoo\PHPAlgorithms\Common\Exception\InvalidKeyTypeException;
@@ -37,7 +39,7 @@ use function is_iterable;
 /**
  * Class HashSet
  *
- * @package doganoo\PHPAlgorithms\Datastructure\Sets
+ * @package doganoo\PHPAlgorithms\Datastructure\Set
  */
 class HashSet extends AbstractSet implements ISet {
 
