@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,9 +26,10 @@
 
 namespace doganoo\PHPAlgorithms\Algorithm\Sorting;
 
-
 use doganoo\PHPAlgorithms\Common\Interfaces\ISortable;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
+use function array_values;
+use function count;
 
 /**
  * Class QuickSort
@@ -35,18 +37,19 @@ use doganoo\PHPAlgorithms\Common\Util\Comparator;
  * @package doganoo\PHPAlgorithms\Sorting
  */
 class QuickSort implements ISortable {
+
     /**
      * @param array $array
      * @return array
      */
     public function sort(array $array): array {
-        $array = \array_values($array);
-        $size = \count($array);
+        $array = array_values($array);
+        $size  = count($array);
 
         if ($size <= 1) return $array;
 
         $pivot = $array[0];
-        $left = $right = [];
+        $left  = $right = [];
 
         for ($i = 1; $i < count($array); $i++) {
             if (Comparator::lessThan($array[$i], $pivot)) {

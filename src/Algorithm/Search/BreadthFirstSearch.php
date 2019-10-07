@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -69,4 +70,5 @@ class BreadthFirstSearch extends AbstractGraphSearch {
             }
         }
     }
+
 }

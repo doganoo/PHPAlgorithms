@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -33,6 +34,8 @@ use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\RedBlackTree\Node;
 /**
  * Class RedBlackTree
  * @package doganoo\PHPAlgorithms\Datastructure\Graph\Tree
+ *
+ * TODO implement
  */
 class RedBlackTree {
     /** @var Node|null $root */

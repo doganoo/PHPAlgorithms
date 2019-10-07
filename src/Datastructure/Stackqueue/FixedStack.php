@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -44,6 +45,18 @@ class FixedStack extends Stack {
     }
 
     /**
+     * returns whether the element is valid or not.
+     * Checks among other things also the number of elements
+     *
+     * @return bool
+     */
+    protected function isValid(): bool {
+        $parent = parent::isValid();
+        $maxSize = parent::size() < $this->maxSize;
+        return $parent && $maxSize;
+    }
+
+    /**
      * Specify data which should be serialized to JSON
      *
      * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
@@ -55,18 +68,6 @@ class FixedStack extends Stack {
         $serializable = parent::jsonSerialize();
         $serializable["max_size"] = $this->maxSize;
         return $serializable;
-    }
-
-    /**
-     * returns whether the element is valid or not.
-     * Checks among other things also the number of elements
-     *
-     * @return bool
-     */
-    protected function isValid(): bool {
-        $parent = parent::isValid();
-        $maxSize = parent::size() < $this->maxSize;
-        return $parent && $maxSize;
     }
 
 }

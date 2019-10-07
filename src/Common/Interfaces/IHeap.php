@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,8 +26,9 @@
 
 namespace doganoo\PHPAlgorithms\Common\Interfaces;
 
+use JsonSerializable;
 
-interface IHeap extends IComparable, \JsonSerializable {
+interface IHeap extends IComparable, JsonSerializable {
 
     /**
      * clears the heap

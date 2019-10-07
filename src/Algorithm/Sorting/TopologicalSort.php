@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -24,7 +25,6 @@
  */
 
 namespace doganoo\PHPAlgorithms\Algorithm\Sorting;
-
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraph;
 use doganoo\PHPAlgorithms\Common\Exception\InvalidGraphTypeException;
@@ -56,8 +56,8 @@ class TopologicalSort implements IGraphSortable {
             throw new InvalidGraphTypeException("the graph has a cycle. Topological sorting is only possible for directed acyclic graphs");
         }
         $allNodes = $graph->getNodes();
-        $result = new Stack();
-        $visited = new ArrayList();
+        $result   = new Stack();
+        $visited  = new ArrayList();
 
         /*
          * starting with any node, it is first necessary to determine
@@ -102,4 +102,5 @@ class TopologicalSort implements IGraphSortable {
         //add node to result stack
         $result->push($node);
     }
+
 }

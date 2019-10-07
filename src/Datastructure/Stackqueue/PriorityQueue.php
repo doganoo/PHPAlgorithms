@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -28,13 +29,15 @@ namespace doganoo\PHPAlgorithms\Datastructure\Stackqueue;
 use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Heap\MinHeap;
+use JsonSerializable;
 
 /**
  * Class PriorityQueue
  *
  * @package doganoo\PHPAlgorithms\Datastructure\Stackqueue
  */
-class PriorityQueue implements IComparable, \JsonSerializable {
+class PriorityQueue implements IComparable, JsonSerializable {
+
     /** @var MinHeap|null $minHeap */
     private $minHeap = null;
 
@@ -77,6 +80,7 @@ class PriorityQueue implements IComparable, \JsonSerializable {
      *
      * @param int $element
      * @return bool
+     * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
      */
     public function add(int $element): bool {
         $this->minHeap->insert($element);
@@ -108,7 +112,7 @@ class PriorityQueue implements IComparable, \JsonSerializable {
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
      * @return mixed data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
@@ -118,4 +122,5 @@ class PriorityQueue implements IComparable, \JsonSerializable {
             "heap" => $this->minHeap,
         ];
     }
+
 }

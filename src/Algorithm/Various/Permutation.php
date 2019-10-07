@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,11 +26,11 @@
 
 namespace doganoo\PHPAlgorithms\Algorithm\Various;
 
+use doganoo\PHPUtil\Util\NumberUtil;
+use doganoo\PHPUtil\Util\StringUtil;
 use function array_merge;
 use function array_slice;
 use function count;
-use doganoo\PHPUtil\Util\NumberUtil;
-use doganoo\PHPUtil\Util\StringUtil;
 use function settype;
 use function strlen;
 
@@ -39,6 +40,7 @@ use function strlen;
  * @package doganoo\PHPAlgorithms\Algorithm\Various
  */
 class Permutation {
+
     /**
      * returns all permutations of a given string
      *
@@ -115,11 +117,12 @@ class Permutation {
      */
     public function numberPermutations(int $number) {
         $result = [];
-        $array = NumberUtil::intToArray($number);
+        $array  = NumberUtil::intToArray($number);
         $result = $this->permute($array, "", $result);
         foreach ($result as &$item) {
             settype($item, "integer");
         }
         return $result;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,7 +26,6 @@
 
 namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
-
 use doganoo\PHPAlgorithms\Algorithm\Traversal\InOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PostOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PreOrder;
@@ -33,7 +33,6 @@ use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
 use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use JsonSerializable;
-use function max;
 
 /**
  * Class AbstractTree
@@ -41,8 +40,9 @@ use function max;
  * @package doganoo\PHPAlgorithms\Common\Abstracts
  */
 abstract class AbstractTree implements IComparable, JsonSerializable {
-    public const ARRAY_IN_ORDER = 1;
-    public const ARRAY_PRE_ORDER = 2;
+
+    public const ARRAY_IN_ORDER   = 1;
+    public const ARRAY_PRE_ORDER  = 2;
     public const ARRAY_POST_ORDER = 3;
     /** @var null|IBinaryNode $root */
     private $root = null;
@@ -218,10 +218,17 @@ abstract class AbstractTree implements IComparable, JsonSerializable {
      */
     public function toArray($order = AbstractTree::ARRAY_PRE_ORDER): array {
         $traversal = null;
-        if ($order === AbstractTree::ARRAY_IN_ORDER) $traversal = new InOrder($this);
-        else if ($order === AbstractTree::ARRAY_PRE_ORDER) $traversal = new PreOrder($this);
-        else if ($order === AbstractTree::ARRAY_POST_ORDER) $traversal = new PostOrder($this);
-        else $traversal = new PreOrder($this);
+        if ($order === AbstractTree::ARRAY_IN_ORDER) {
+            $traversal = new InOrder($this);
+        } else {
+            if ($order === AbstractTree::ARRAY_PRE_ORDER) {
+                $traversal = new PreOrder($this);
+            } else {
+                if ($order === AbstractTree::ARRAY_POST_ORDER) {
+                    $traversal = new PostOrder($this);
+                } else $traversal = new PreOrder($this);
+            }
+        }
         $array = [];
         $traversal->setCallable(function ($value) use (&$array) {
             $array[] = $value;
@@ -253,7 +260,7 @@ abstract class AbstractTree implements IComparable, JsonSerializable {
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
      * @return mixed data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
@@ -263,4 +270,5 @@ abstract class AbstractTree implements IComparable, JsonSerializable {
             "nodes" => $this->root
         ];
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -32,5 +33,7 @@ use Exception;
  * @package doganoo\PHPAlgorithms\Common\Exception
  */
 class PHPAlgorithmsException extends Exception {
+
     protected $message = 'no message specified ¯\_(ツ)_/¯';
+
 }

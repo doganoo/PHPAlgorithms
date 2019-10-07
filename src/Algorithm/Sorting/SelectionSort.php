@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,9 +26,10 @@
 
 namespace doganoo\PHPAlgorithms\Algorithm\Sorting;
 
-
 use doganoo\PHPAlgorithms\Common\Interfaces\ISortable;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
+use function array_values;
+use function count;
 
 /**
  * Class SelectionSort
@@ -45,8 +47,8 @@ class SelectionSort implements ISortable {
      * @return array
      */
     public function sort(array $array): array {
-        $array = \array_values($array);
-        $length = \count($array);
+        $array = array_values($array);
+        $length = count($array);
 
         if (0 === $length || 1 === $length) return $array;
 

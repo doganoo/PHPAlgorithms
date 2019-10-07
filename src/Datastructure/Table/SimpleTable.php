@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -32,6 +33,7 @@ use doganoo\PHPAlgorithms\Common\Abstracts\AbstractTable;
  * @package doganoo\PHPAlgorithms\Datastructure\Table
  */
 class SimpleTable extends AbstractTable {
+
     /** @var array|null $table */
     private $table = null;
 
@@ -57,4 +59,5 @@ class SimpleTable extends AbstractTable {
     public function get($key) {
         return $this->table[$key] ?? null;
     }
+
 }

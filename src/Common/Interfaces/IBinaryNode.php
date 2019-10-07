@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -31,6 +32,7 @@ namespace doganoo\PHPAlgorithms\Common\Interfaces;
  * @package doganoo\PHPAlgorithms\Common\Interfaces
  */
 interface IBinaryNode extends INode {
+
     /**
      * @return mixed
      */
@@ -59,7 +61,6 @@ interface IBinaryNode extends INode {
     /**
      * @return int
      */
-    public function getHeight():int;
-
+    public function getHeight(): int;
 
 }

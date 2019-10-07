@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -24,7 +25,6 @@
  */
 
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree;
-
 
 use function count;
 use doganoo\PHPAlgorithms\Algorithm\Sorting\MergeSort;

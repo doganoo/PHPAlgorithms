@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,7 +26,6 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists;
 
-
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractLinkedList;
 use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
 
@@ -35,6 +35,7 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
  * @package doganoo\PHPAlgorithms\LinkedLists
  */
 class DoublyLinkedList extends AbstractLinkedList {
+
     public function append(?Node $node): bool {
         if ($node === null) {
             return false;
@@ -107,4 +108,5 @@ class DoublyLinkedList extends AbstractLinkedList {
     protected function getEmptyInstance(): AbstractLinkedList {
         return new DoublyLinkedList();
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -115,4 +116,5 @@ class DirectedGraph extends AbstractGraph {
         return false;
 
     }
+
 }

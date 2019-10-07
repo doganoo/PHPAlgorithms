@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -28,6 +29,12 @@ namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Heap;
 use doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException;
 use doganoo\PHPAlgorithms\Common\Interfaces\IHeap;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
+use function array_diff;
+use function array_fill;
+use function array_filter;
+use function count;
+use const ARRAY_FILTER_USE_BOTH;
+use const PHP_INT_MIN;
 
 /**
  * Class MinHeap
@@ -59,9 +66,9 @@ class MinHeap implements IHeap {
      * @return bool
      */
     public function clear(): bool {
-        $this->heap = \array_fill(0, $this->maxSize, null);
-        $this->heap[0] = \PHP_INT_MIN;
-        return \count($this->heap) === 1 && $this->heap[0] === \PHP_INT_MIN;
+        $this->heap = array_fill(0, $this->maxSize, null);
+        $this->heap[0] = PHP_INT_MIN;
+        return count($this->heap) === 1 && $this->heap[0] === PHP_INT_MIN;
     }
 
     /**
@@ -99,10 +106,10 @@ class MinHeap implements IHeap {
      * @return int
      */
     public function length(): int {
-        $array = \array_filter($this->heap, function ($v, $k) {
+        $array = array_filter($this->heap, function ($v, $k) {
             return $v !== null;
-        }, \ARRAY_FILTER_USE_BOTH);
-        return \count($array) - 1;
+        }, ARRAY_FILTER_USE_BOTH);
+        return count($array) - 1;
     }
 
     /**
@@ -169,9 +176,9 @@ class MinHeap implements IHeap {
      */
     public function compareTo($object): int {
         if ($object instanceof MinHeap) {
-            if (\count(\array_diff($this->heap, $object->heap)) === 0) return 0;
-            if (\count($this->heap) < \count($object->heap)) return -1;
-            if (\count($this->heap) > \count($object->heap)) return 1;
+            if (count(array_diff($this->heap, $object->heap)) === 0) return 0;
+            if (count($this->heap) < count($object->heap)) return -1;
+            if (count($this->heap) > count($object->heap)) return 1;
         }
         return -1;
     }

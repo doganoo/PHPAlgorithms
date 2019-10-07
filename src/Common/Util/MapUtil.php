@@ -56,6 +56,7 @@ class MapUtil {
      * private constructor in order to prevent instantiation
      */
     private function __construct() {
+
     }
 
     /**
@@ -156,7 +157,7 @@ class MapUtil {
      * @return int
      */
     public static function doubleToKey(float $double): int {
-        return ceil($double);
+        return (int) ceil($double);
     }
 
     /**

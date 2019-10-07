@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,7 +26,6 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists;
 
-
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractLinkedList;
 use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
 
@@ -35,6 +35,7 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
  * @package doganoo\PHPAlgorithms\LinkedLists
  */
 class SinglyLinkedList extends AbstractLinkedList {
+
     /**
      * $node is added to the end of the list.
      * The method checks the following:

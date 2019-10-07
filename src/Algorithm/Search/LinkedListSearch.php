@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -35,6 +36,7 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
  * @package doganoo\PHPAlgorithms\Lists
  */
 class LinkedListSearch {
+
     /**
      * also known as the Runner Technique
      *
@@ -44,7 +46,7 @@ class LinkedListSearch {
      */
     public function hasLoop(AbstractLinkedList $linkedList): bool {
         $tortoise = $linkedList->getHead();
-        $hare = $linkedList->getHead();
+        $hare     = $linkedList->getHead();
 
         while ($tortoise !== null && $hare->getNext() !== null &&
             $hare->getNext()->getNext() !== null) {
@@ -61,12 +63,12 @@ class LinkedListSearch {
 
     /**
      * @param AbstractLinkedList $linkedList
-     * @param int $k
+     * @param int                $k
      * @return \doganoo\PHPAlgorithms\Datastructure\Lists\Node|null
      */
     public function findKthElementFromEnd(AbstractLinkedList $linkedList, int $k): ?Node {
         $listSize = 0;
-        $temp = $linkedList->getHead();
+        $temp     = $linkedList->getHead();
         while ($temp !== null) {
             $temp = $temp->getNext();
             $listSize++;
@@ -81,4 +83,5 @@ class LinkedListSearch {
         return $resultNode;
 
     }
+
 }
