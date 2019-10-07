@@ -16,3 +16,5 @@ Please note we have a code of conduct, please follow it in all your interactions
 ````
 @author Copyright (c) year, Firstname Lastname <mail [at] example.com>
 ````
+
+4. Unit tests are required! Please add or extend unit tests. Untested code and/or skips are not allowed! 
