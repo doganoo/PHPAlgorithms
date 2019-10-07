@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,9 +26,11 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Vector\BitVector;
 
-
 use doganoo\PHPAlgorithms\Common\Exception\InvalidBitLengthException;
 use doganoo\PHPAlgorithms\Common\Interfaces\IVector;
+use function array_diff;
+use function count;
+use function is_int;
 
 /**
  * Class Vector
@@ -61,7 +64,7 @@ class IntegerVector implements IVector {
      */
     public function set($value): bool {
         //TODO throw exception instead?
-        if (\is_int($value)) {
+        if (is_int($value)) {
             $info = $this->getIndexAndMask($value);
             $i = $info["i"];
             $k = $info["k"];
@@ -97,7 +100,7 @@ class IntegerVector implements IVector {
      */
     public function get($value) {
         //TODO throw exception instead?!
-        if (\is_int($value)) {
+        if (is_int($value)) {
             $info = $this->getIndexAndMask($value);
             $i = $info["i"];
             $k = $info["k"];
@@ -119,7 +122,7 @@ class IntegerVector implements IVector {
      */
     public function clear($value): bool {
         //TODO throw exception insted?!
-        if (\is_int($value)) {
+        if (is_int($value)) {
             $info = $this->getIndexAndMask($value);
             $i = $info["i"];
             $k = $info["k"];
@@ -143,11 +146,13 @@ class IntegerVector implements IVector {
      * @return int
      */
     public function compareTo($object): int {
+
         if ($object instanceof IntegerVector) {
-            if (\count(\array_diff($this->array, $object->array)) === 0) return 0;
-            if (\count($this->array) < \count($object->array)) return -1;
-            if (\count($this->array) > \count($object->array)) return 1;
+            if (count(array_diff($this->array, $object->array)) === 0) return 0;
+            if (count($this->array) < count($object->array)) return -1;
+            if (count($this->array) > count($object->array)) return 1;
         }
+
         return -1;
     }
 

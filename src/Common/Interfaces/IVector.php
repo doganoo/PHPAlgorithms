@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,12 +26,14 @@
 
 namespace doganoo\PHPAlgorithms\Common\Interfaces;
 
+use JsonSerializable;
+
 /**
  * Interface IVector
  *
  * @package doganoo\PHPAlgorithms\Common\Interfaces
  */
-interface IVector extends IComparable, \JsonSerializable {
+interface IVector extends IComparable, JsonSerializable {
     /**
      * sets a value in the vector
      *

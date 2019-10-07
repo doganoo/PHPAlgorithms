@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -26,6 +27,10 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Stackqueue;
 
 use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
+use JsonSerializable;
+use function array_diff;
+use function array_fill;
+use function count;
 
 /**
  * Class CircularBuffer
@@ -34,7 +39,7 @@ use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
  *
  * @package doganoo\PHPAlgorithms\Datastructure\Stackqueue
  */
-class CircularBuffer implements IComparable, \JsonSerializable {
+class CircularBuffer implements IComparable, JsonSerializable {
     private $elements = null;
     private $head = 0;
     private $tail = 0;
@@ -47,7 +52,7 @@ class CircularBuffer implements IComparable, \JsonSerializable {
      */
     public function __construct(int $size = 128) {
         $this->size = $size;
-        $this->elements = \array_fill(0, $size, null);
+        $this->elements = array_fill(0, $size, null);
         $this->clear();
     }
 
@@ -132,9 +137,9 @@ class CircularBuffer implements IComparable, \JsonSerializable {
      */
     public function compareTo($object): int {
         if ($object instanceof CircularBuffer) {
-            if (\count(\array_diff($this->elements, $object->elements)) === 0) return 0;
-            if (\count($this->elements) < \count($object->elements)) return -1;
-            if (\count($this->elements) > \count($object->elements)) return 1;
+            if (count(array_diff($this->elements, $object->elements)) === 0) return 0;
+            if (count($this->elements) < count($object->elements)) return -1;
+            if (count($this->elements) > count($object->elements)) return 1;
         }
         return -1;
     }

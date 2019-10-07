@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -27,6 +28,7 @@ namespace doganoo\PHPAlgorithms\Algorithm\Sorting;
 
 use doganoo\PHPAlgorithms\Common\Interfaces\ISortable;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
+use function array_values;
 
 /**
  * Class MergeSort
@@ -37,22 +39,23 @@ use doganoo\PHPAlgorithms\Common\Util\Comparator;
  * @package doganoo\PHPAlgorithms\Algorithm\Sorting
  */
 class MergeSort implements ISortable {
+
     /**
      * @param array $array
      * @return array
      */
     public function sort(array $array): array {
-        $array = \array_values($array);
+        $array     = array_values($array);
         $arraySize = count($array);
 
         if (0 === $arraySize) return [];
         if ($arraySize == 1) return $array;
 
-        $middle = floor($arraySize / 2);
-        $left = array_slice($array, 0, $middle);
-        $right = array_slice($array, $middle);
-        $left = $this->sort($left);
-        $right = $this->sort($right);
+        $middle = (int) floor($arraySize / 2);
+        $left   = array_slice($array, 0, $middle);
+        $right  = array_slice($array, $middle);
+        $left   = $this->sort($left);
+        $right  = $this->sort($right);
         return $this->merge($left, $right);
     }
 
@@ -67,28 +70,29 @@ class MergeSort implements ISortable {
         if (null === $right) return [];
 
         $result = [];
-        $left = \array_values($left);
-        $right = \array_values($right);
+        $left   = array_values($left);
+        $right  = array_values($right);
 
         while (count($left) !== 0 && count($right) !== 0) {
             if (Comparator::greaterThan($left[0], $right[0])) {
                 $result[] = $right[0];
-                $right = array_slice($right, 1);
+                $right    = array_slice($right, 1);
             } else {
                 $result[] = $left[0];
-                $left = array_slice($left, 1);
+                $left     = array_slice($left, 1);
             }
         }
 
         while (count($left) !== 0) {
             $result[] = $left[0];
-            $left = array_slice($left, 1);
+            $left     = array_slice($left, 1);
         }
 
         while (count($right) !== 0) {
             $result[] = $right[0];
-            $right = array_slice($right, 1);
+            $right    = array_slice($right, 1);
         }
         return $result;
     }
+
 }

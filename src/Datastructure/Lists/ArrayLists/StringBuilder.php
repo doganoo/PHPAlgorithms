@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,8 +26,12 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists;
 
+use doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException;
 use doganoo\PHPAlgorithms\Datastructure\Stackqueue\Queue;
 use doganoo\PHPAlgorithms\Datastructure\Stackqueue\Stack;
+use function is_int;
+use function is_string;
+use function strlen;
 
 /**
  * Class StringBuilder
@@ -44,9 +49,9 @@ class StringBuilder {
      */
     public function __construct($value = null) {
         $this->arrayList = new ArrayList();
-        if (\is_string($value)) {
+        if (is_string($value)) {
             $this->append($value);
-        } else if (\is_int($value)) {
+        } else if (is_int($value)) {
             for ($i = 0; $i < $value; $i++) {
                 $this->arrayList->add("");
             }
@@ -59,7 +64,7 @@ class StringBuilder {
      * @param string $string
      */
     public function append(string $string) {
-        for ($i = 0; $i < \strlen($string); $i++) {
+        for ($i = 0; $i < strlen($string); $i++) {
             $this->arrayList->add($string[$i]);
         }
     }
@@ -78,7 +83,7 @@ class StringBuilder {
      *
      * @param int $index
      * @return mixed
-     * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException
      */
     public function charAt(int $index) {
         return $this->arrayList->get($index);
@@ -120,7 +125,7 @@ class StringBuilder {
      * @param string $string
      */
     public function insert(int $index, string $string) {
-        if (\strlen($string) > 1) {
+        if (strlen($string) > 1) {
             $string = $string[0];
         }
         $this->arrayList->addToIndex($index, $string);
@@ -211,4 +216,5 @@ class StringBuilder {
         }
         return $string;
     }
+
 }

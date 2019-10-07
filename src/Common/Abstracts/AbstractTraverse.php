@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,8 +26,8 @@
 
 namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
-
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
+use function is_callable;
 
 /**
  * Class AbstractTraverse
@@ -34,6 +35,7 @@ use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
  * @package doganoo\PHPAlgorithms\common\Abstracts
  */
 abstract class AbstractTraverse {
+
     /** @var $callable callable|null */
     protected $callable = null;
 
@@ -54,7 +56,7 @@ abstract class AbstractTraverse {
     public function visit($value) {
         $callable = $this->callable;
         if (null === $this->callable
-            && !\is_callable($this->callable)) {
+            && !is_callable($this->callable)) {
             $callable = function ($otherValue) {
                 echo $otherValue;
             };

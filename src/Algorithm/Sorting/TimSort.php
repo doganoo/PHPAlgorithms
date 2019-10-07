@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,10 +26,18 @@
 
 namespace doganoo\PHPAlgorithms\Algorithm\Sorting;
 
-
 use doganoo\PHPAlgorithms\Common\Interfaces\ISortable;
+use function array_merge;
+use function array_slice;
+use function array_values;
+use function count;
 
+/**
+ * Class TimSort
+ * @package doganoo\PHPAlgorithms\Algorithm\Sorting
+ */
 class TimSort implements ISortable {
+
     public const RUN = 32;
 
     /**
@@ -36,21 +45,22 @@ class TimSort implements ISortable {
      * @return array
      */
     public function sort(array $array): array {
-        $array = \array_values($array);
-        $size = \count($array);
+        $array = array_values($array);
+        $size  = count($array);
 
         if (0 === $size) return [];
         if (1 === $size) return $array;
 
         $insertionSort = new InsertionSort();
-        $mergeSort = new MergeSort();
+        $mergeSort     = new MergeSort();
 
         $result = [];
         for ($i = 0; $i < $size; $i = $i + self::RUN) {
-            $arr = $insertionSort->sort(\array_slice($array, $i, min(($i + self::RUN), ($size))));
-            $arr = $mergeSort->sort($arr);
-            $result = \array_merge($result, $arr);
+            $arr    = $insertionSort->sort(array_slice($array, $i, min(($i + self::RUN), ($size))));
+            $arr    = $mergeSort->sort($arr);
+            $result = array_merge($result, $arr);
         }
         return $result;
     }
+
 }

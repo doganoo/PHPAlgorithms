@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,7 +26,6 @@
 
 namespace doganoo\PHPAlgorithms\Common\Util;
 
-
 use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
 use function is_object;
 
@@ -40,6 +40,7 @@ class Comparator {
      * Comparator constructor.
      */
     private function __construct() {
+
     }
 
     /**

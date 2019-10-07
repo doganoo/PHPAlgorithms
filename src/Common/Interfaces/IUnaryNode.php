@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,12 +26,14 @@
 
 namespace doganoo\PHPAlgorithms\Common\Interfaces;
 
+use JsonSerializable;
+
 /**
  * Interface IUnaryNode
  *
  * @package doganoo\PHPAlgorithms\common\Interfaces
  */
-interface IUnaryNode extends IComparable, \JsonSerializable {
+interface IUnaryNode extends IComparable, JsonSerializable {
     /**
      * @return mixed
      */

@@ -44,12 +44,13 @@ use JsonSerializable;
  *
  * @package doganoo\PHPAlgorithms\common\Abstracts
  */
-abstract class AbstractGraph implements IComparable, JsonSerializable {
-    public const DIRECTED_GRAPH = 1;
+abstract class AbstractGraph implements IComparable, \JsonSerializable {
+
+    public const DIRECTED_GRAPH   = 1;
     public const UNDIRECTED_GRAPH = 2;
-    protected $nodeList = null;
-    private $type = 0;
-    private $converter = null;
+    protected $nodeList  = null;
+    private   $type      = 0;
+    private   $converter = null;
 
     /**
      * AbstractGraph constructor.
@@ -58,7 +59,7 @@ abstract class AbstractGraph implements IComparable, JsonSerializable {
      * @throws InvalidGraphTypeException
      */
     protected function __construct($type = self::DIRECTED_GRAPH) {
-        $this->nodeList = new ArrayList();
+        $this->nodeList  = new ArrayList();
         $this->converter = new Converter();
         if ($type === self::DIRECTED_GRAPH || $type === self::UNDIRECTED_GRAPH) {
             $this->type = $type;
@@ -118,7 +119,7 @@ abstract class AbstractGraph implements IComparable, JsonSerializable {
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
      * @return mixed data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
@@ -126,7 +127,7 @@ abstract class AbstractGraph implements IComparable, JsonSerializable {
     public function jsonSerialize() {
         return [
             "node_list" => $this->nodeList
-            , "type" => $this->type,
+            , "type"    => $this->type,
         ];
     }
 
@@ -171,7 +172,7 @@ abstract class AbstractGraph implements IComparable, JsonSerializable {
                 }
             }
 
-            $nodeList = $this->converter->hashTableToArrayList($m);
+            $nodeList       = $this->converter->hashMapToArrayList($m);
             $this->nodeList = $nodeList;
             return $this;
         }
@@ -203,7 +204,7 @@ abstract class AbstractGraph implements IComparable, JsonSerializable {
     }
 
     /**
-     * @param Node $node
+     * @param Node      $node
      * @param ArrayList $v
      */
     private function flood(Node $node, ArrayList &$v): void {

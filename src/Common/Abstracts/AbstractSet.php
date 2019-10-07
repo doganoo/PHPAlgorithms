@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,8 +26,9 @@
 
 namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
-
 use doganoo\PHPAlgorithms\Common\Interfaces\ISet;
+use function crc32;
+use function spl_object_hash;
 
 /**
  * Class AbstractSet
@@ -34,6 +36,7 @@ use doganoo\PHPAlgorithms\Common\Interfaces\ISet;
  * @package doganoo\PHPAlgorithms\Common\Abstracts
  */
 abstract class AbstractSet implements ISet {
+
     /**
      * Compares the specified object with this set for equality.
      *
@@ -50,7 +53,7 @@ abstract class AbstractSet implements ISet {
      * @return int
      */
     public function hashCode(): int {
-        return \crc32(\spl_object_hash($this));
+        return crc32(spl_object_hash($this));
     }
 
     /**
@@ -66,4 +69,5 @@ abstract class AbstractSet implements ISet {
         }
         return $removed;
     }
+
 }

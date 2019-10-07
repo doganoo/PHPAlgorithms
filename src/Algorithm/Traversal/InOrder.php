@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,7 +26,6 @@
 
 namespace doganoo\PHPAlgorithms\Algorithm\Traversal;
 
-
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractTraverse;
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractTree;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
@@ -36,6 +36,7 @@ use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
  * @package doganoo\PHPAlgorithms\Algorithm\Traversal
  */
 class InOrder extends AbstractTraverse {
+
     /** @var AbstractTree|null */
     private $binarySearchTree = null;
 
@@ -71,4 +72,5 @@ class InOrder extends AbstractTraverse {
             }
         }
     }
+
 }

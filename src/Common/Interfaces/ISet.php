@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,12 +26,14 @@
 
 namespace doganoo\PHPAlgorithms\Common\Interfaces;
 
+use JsonSerializable;
+
 /**
  * Interface Set
  *
  * @package doganoo\PHPAlgorithms\common\Interfaces
  */
-interface ISet extends IComparable, \JsonSerializable {
+interface ISet extends IComparable, JsonSerializable {
     /**
      * Adds the specified element to this set if it is not already present (optional operation).
      *

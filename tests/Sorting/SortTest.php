@@ -90,6 +90,7 @@ class SortTest extends TestCase {
     }
 
     public function testTimSort() {
+
         $timSort = new TimSort();
         $arr = [12, 40, 9, 55, 1, 13];
         $result = $timSort->sort($arr);

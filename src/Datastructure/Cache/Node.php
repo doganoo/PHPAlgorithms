@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -33,6 +34,7 @@ use doganoo\PHPAlgorithms\Common\Interfaces\INode;
  * @package doganoo\PHPAlgorithms\Datastructure\Cache
  */
 class Node implements INode {
+
     private $key;
     private $value;
     private $previous;
@@ -78,19 +80,6 @@ class Node implements INode {
     }
 
     /**
-     * @param $object
-     * @return int
-     */
-    public function compareTo($object): int {
-        if ($object instanceof Node) {
-            if ($this->getValue() === $object->getValue()) return 0;
-            if ($this->getValue() < $object->getValue()) return -1;
-            if ($this->getValue() > $object->getValue()) return 1;
-        }
-        return -1;
-    }
-
-    /**
      * @return mixed
      */
     public function getValue() {
@@ -116,6 +105,19 @@ class Node implements INode {
      */
     public function setKey($key): void {
         $this->key = $key;
+    }
+
+    /**
+     * @param $object
+     * @return int
+     */
+    public function compareTo($object): int {
+        if ($object instanceof Node) {
+            if ($this->getValue() === $object->getValue()) return 0;
+            if ($this->getValue() < $object->getValue()) return -1;
+            if ($this->getValue() > $object->getValue()) return 1;
+        }
+        return -1;
     }
 
     /**

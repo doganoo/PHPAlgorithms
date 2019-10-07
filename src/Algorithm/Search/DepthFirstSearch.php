@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -64,4 +65,5 @@ class DepthFirstSearch extends AbstractGraphSearch {
             }
         }
     }
+
 }

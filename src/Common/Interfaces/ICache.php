@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -31,6 +32,7 @@ namespace doganoo\PHPAlgorithms\Common\Interfaces;
  * @package doganoo\PHPAlgorithms\common\Interfaces
  */
 interface ICache extends IComparable, \JsonSerializable {
+
     /**
      * adds a new key value pair
      *
@@ -62,4 +64,5 @@ interface ICache extends IComparable, \JsonSerializable {
      * @return bool
      */
     public function delete($key): bool;
+
 }

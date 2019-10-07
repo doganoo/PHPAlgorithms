@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,11 +26,17 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Vector;
 
+use function array_diff;
+use function array_filter;
+use function count;
+use const ARRAY_FILTER_USE_BOTH;
+
 /**
  * Class IntegerVector
  * @package doganoo\PHPAlgorithms\Datastructure\Vector
  */
 class IntegerVector {
+
     /** @var array|null $array */
     private $array = null;
 
@@ -45,11 +52,13 @@ class IntegerVector {
      * @return int
      */
     public function compareTo($object): int {
+
         if ($object instanceof IntegerVector) {
-            if (\count(\array_diff($this->array, $object->array)) === 0) return 0;
-            if (\count($this->array) < \count($object->array)) return -1;
-            if (\count($this->array) > \count($object->array)) return 1;
+            if (count(array_diff($this->array, $object->array)) === 0) return 0;
+            if (count($this->array) < count($object->array)) return -1;
+            if (count($this->array) > count($object->array)) return 1;
         }
+
         return -1;
     }
 
@@ -69,10 +78,10 @@ class IntegerVector {
     }
 
     public function size(): int {
-        $array = \array_filter($this->array, function ($k, $v) {
+        $array = array_filter($this->array, function ($k, $v) {
             return null !== $v;
-        }, \ARRAY_FILTER_USE_BOTH);
-        return \count($array);
+        }, ARRAY_FILTER_USE_BOTH);
+        return count($array);
     }
 
     /**
@@ -82,8 +91,8 @@ class IntegerVector {
      * @return int
      */
     public function dotProduct(IntegerVector $vector): int {
-        $i = 0;
-        $j = 0;
+        $i      = 0;
+        $j      = 0;
         $result = 0;
 
         while ($i < $this->size() && $j < $vector->size()) {
@@ -109,7 +118,7 @@ class IntegerVector {
 
     /**
      * Specify data which should be serialized to JSON
-     * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @link  https://php.net/manual/en/jsonserializable.jsonserialize.php
      * @return mixed data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
@@ -119,4 +128,5 @@ class IntegerVector {
             "array" => $this->array
         ];
     }
+
 }

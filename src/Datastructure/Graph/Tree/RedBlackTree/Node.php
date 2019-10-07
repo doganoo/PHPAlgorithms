@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -32,6 +33,8 @@ use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree\BinarySearchNode;
 /**
  * Class Node
  * @package doganoo\PHPAlgorithms\Datastructure\Graph\Tree\RedBlackTree
+ *
+ * TODO implement! actually implemented the half way
  */
 class Node extends BinarySearchNode {
     public const BLACK = 1;

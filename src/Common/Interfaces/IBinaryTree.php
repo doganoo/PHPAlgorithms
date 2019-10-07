@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -42,4 +43,5 @@ interface IBinaryTree extends IComparable, \JsonSerializable {
      * @return mixed
      */
     public function insert(?IBinaryNode $node);
+
 }

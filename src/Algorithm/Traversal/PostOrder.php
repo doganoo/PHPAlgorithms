@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -35,6 +36,7 @@ use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
  * @package doganoo\PHPAlgorithms\Algorithm\Traversal
  */
 class PostOrder extends AbstractTraverse {
+
     /** @var AbstractTree|null */
     private $tree = null;
 
@@ -70,4 +72,5 @@ class PostOrder extends AbstractTraverse {
             parent::visit($node->getValue());
         }
     }
+
 }
