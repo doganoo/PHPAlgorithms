@@ -45,7 +45,8 @@ produces
 
 ## Contributions
 
-Feel free to send a pull request to add more algorithms and data structures. Please make sure that you read https://github.com/doganoo/PHPAlgorithms/wiki/Best-Practices before opening a PR. 
+Feel free to send a pull request to add more algorithms and data structures. Please make sure that you read https://github.com/doganoo/PHPAlgorithms/wiki/Best-Practices before opening a PR.
+Please also consider https://github.com/doganoo/PHPAlgorithms/blob/master/CONTRIBUTING.md.
 
 ## Maintainer/Creator
 
