@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -26,6 +27,10 @@
 namespace doganoo\PHPAlgorithms\Datastructure\Maps;
 
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
+use function array_fill;
+use function array_filter;
+use function count;
+use const ARRAY_FILTER_USE_BOTH;
 
 /**
  * Class Map
@@ -33,6 +38,7 @@ use doganoo\PHPAlgorithms\Common\Util\Comparator;
  * @package doganoo\PHPAlgorithms\Datastructure\maps
  */
 class Map {
+
     /** @var int MAX_SIZE */
     public const MAX_SIZE = 128;
 
@@ -50,7 +56,7 @@ class Map {
      * @return bool
      */
     public function clear(): bool {
-        $this->map = \array_fill(0, Map::MAX_SIZE, null);
+        $this->map = array_fill(0, Map::MAX_SIZE, null);
         return true;
     }
 
@@ -66,10 +72,10 @@ class Map {
      * @return int
      */
     public function size(): int {
-        $array = \array_filter($this->map, function ($v, $k) {
+        $array = array_filter($this->map, function ($v, $k) {
             return $v !== null;
-        }, \ARRAY_FILTER_USE_BOTH);
-        return \count($array);
+        }, ARRAY_FILTER_USE_BOTH);
+        return count($array);
     }
 
     /**

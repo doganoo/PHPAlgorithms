@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,28 +26,28 @@
 
 namespace doganoo\PHPAlgorithms\Algorithm\Various;
 
-
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
-use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
+use doganoo\PHPAlgorithms\Datastructure\Table\HashTable;
 
 /**
  * Class Converter
  * @package doganoo\PHPAlgorithms\Algorithm\Various
  */
 class Converter {
+
     /**
-     * @param HashMap|null $map
+     * @param HashTable|null $table
      * @return ArrayList|null
      * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
      * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
      */
-    public function hashMapToArrayList(?HashMap $map): ?ArrayList {
-        if (null === $map) return null;
+    public function hashTableToArrayList(?HashTable $table): ?ArrayList {
+        if (null === $table) return null;
 
-        $keySet = $map->keySet();
-        $list = new ArrayList();
+        $keySet = $table->keySet();
+        $list   = new ArrayList();
         foreach ($keySet as $key) {
-            $value = $map->get($key);
+            $value = $table->get($key);
             $list->add($value);
         }
 

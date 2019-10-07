@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -25,11 +26,13 @@
 
 namespace doganoo\PHPAlgorithms\Datastructure\Sets;
 
-
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractSet;
+use doganoo\PHPAlgorithms\Common\Exception\InvalidKeyTypeException;
+use doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException;
 use doganoo\PHPAlgorithms\Common\Interfaces\ISet;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
-use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
+use doganoo\PHPAlgorithms\Datastructure\Table\HashTable;
+use function is_iterable;
 
 /**
  * Class HashSet
@@ -37,10 +40,11 @@ use doganoo\PHPAlgorithms\Datastructure\Maps\HashMap;
  * @package doganoo\PHPAlgorithms\Datastructure\Sets
  */
 class HashSet extends AbstractSet implements ISet {
+
     private $hashMap = null;
 
     public function __construct() {
-        $this->hashMap = new HashMap();
+        $this->hashMap = new HashTable();
     }
 
     /**
@@ -49,14 +53,15 @@ class HashSet extends AbstractSet implements ISet {
      *
      * @param $elements
      * @return bool
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
+     * @throws InvalidKeyTypeException
+     * @throws UnsupportedKeyTypeException
      */
     public function addAll($elements): bool {
         $added = false;
-        if (\is_iterable($elements)) {
+        if (is_iterable($elements)) {
             foreach ($elements as $element) {
-                $added |= $this->add($element);
+                $elementAdded = $this->add($element);
+                $added        = $added || $elementAdded;
             }
         }
         return $added;
@@ -67,8 +72,8 @@ class HashSet extends AbstractSet implements ISet {
      *
      * @param $element
      * @return bool
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
+     * @throws InvalidKeyTypeException
+     * @throws UnsupportedKeyTypeException
      */
     public function add($element): bool {
         $contains = $this->contains($element);
@@ -103,9 +108,10 @@ class HashSet extends AbstractSet implements ISet {
      */
     public function containsAll($elements): bool {
         $contains = false;
-        if (\is_iterable($elements)) {
+        if (is_iterable($elements)) {
             foreach ($elements as $element) {
-                $contains &= $this->contains($element);
+                $containsElement = $this->contains($element);
+                $contains        = $contains && $containsElement;
             }
         }
         return $contains;
@@ -125,8 +131,8 @@ class HashSet extends AbstractSet implements ISet {
      *
      * @param $object
      * @return bool
-     * @throws \doganoo\PHPAlgorithms\Common\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException
+     * @throws InvalidKeyTypeException
+     * @throws UnsupportedKeyTypeException
      */
     public function remove($object): bool {
         return $this->hashMap->remove($object);
@@ -177,7 +183,7 @@ class HashSet extends AbstractSet implements ISet {
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
      * @return mixed data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
@@ -187,4 +193,5 @@ class HashSet extends AbstractSet implements ISet {
             "hash_map" => $this->hashMap,
         ];
     }
+
 }
