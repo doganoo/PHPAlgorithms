@@ -5,6 +5,8 @@ declare(strict_types=1);
  *
  * Copyright (c) 2018 Dogan Ucar
  *
+ * @author Alexey Berezuev <alexey@berezuev.ru>
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -51,7 +53,7 @@ class QuickSort implements ISortable {
         $pivot = $array[0];
         $left  = $right = [];
 
-        for ($i = 1; $i < count($array); $i++) {
+        for ($i = 1; $i < $size; $i++) {
             if (Comparator::lessThan($array[$i], $pivot)) {
                 $left[] = $array[$i];
             } else {
