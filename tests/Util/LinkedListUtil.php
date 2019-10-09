@@ -5,6 +5,8 @@ declare(strict_types=1);
  *
  * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
+ * @author Eugene Kirillov <eug.krlv@gmail.com>
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -26,8 +28,8 @@ declare(strict_types=1);
 
 namespace doganoo\PHPAlgorithmsTest\Util;
 
-use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists\DoublyLinkedList;
-use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedLists\SinglyLinkedList;
+use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedList\DoublyLinkedList;
+use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedList\SinglyLinkedList;
 use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
 use stdClass;
 

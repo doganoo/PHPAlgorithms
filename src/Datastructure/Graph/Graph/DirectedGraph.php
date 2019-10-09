@@ -3,7 +3,9 @@ declare(strict_types=1);
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar
+ * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
+ *
+ * @author Eugene Kirillov <eug.krlv@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +29,7 @@ declare(strict_types=1);
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Graph;
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraph;
-use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayLists\ArrayList;
+use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayList\ArrayList;
 
 /**
  * Class Graph

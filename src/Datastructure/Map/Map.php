@@ -5,6 +5,8 @@ declare(strict_types=1);
  *
  * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
+ * @author Eugene Kirillov <eug.krlv@gmail.com>
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -24,7 +26,7 @@ declare(strict_types=1);
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Datastructure\Maps;
+namespace doganoo\PHPAlgorithms\Datastructure\Map;
 
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use function array_fill;
@@ -35,7 +37,7 @@ use const ARRAY_FILTER_USE_BOTH;
 /**
  * Class Map
  *
- * @package doganoo\PHPAlgorithms\Datastructure\maps
+ * @package doganoo\PHPAlgorithms\Datastructure\Map
  */
 class Map {
 

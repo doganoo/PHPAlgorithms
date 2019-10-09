@@ -5,6 +5,8 @@ declare(strict_types=1);
  *
  * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
  *
+ * @author Eugene Kirillov <eug.krlv@gmail.com>
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -24,11 +26,11 @@ declare(strict_types=1);
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithmsTest\Sets;
+namespace doganoo\PHPAlgorithmsTest\Set;
 
 use doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException;
 use doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException;
-use doganoo\PHPAlgorithms\Datastructure\Sets\HashSet;
+use doganoo\PHPAlgorithms\Datastructure\Set\HashSet;
 use PHPUnit\Framework\TestCase;
 
 /**
