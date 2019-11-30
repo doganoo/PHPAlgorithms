@@ -1,9 +1,8 @@
 <?php
-declare(strict_types=1);
 /**
  * MIT License
  *
- * Copyright (c) 2018 Dogan Ucar, <dogan@dogan-ucar.de>
+ * Copyright (c) 2018 Dogan Ucar
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,23 +23,12 @@ declare(strict_types=1);
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Common\Interfaces;
+namespace doganoo\PHPAlgorithms\Common\Exception;
 
 /**
- * Interface IComparable
- *
- * @package doganoo\PHPAlgorithms\Common\Interfaces
+ * Class ValueNotAllowedException
+ * @package doganoo\PHPAlgorithms\Common\Exception
  */
-interface IComparable {
-
-    public const IS_LESS    = -1;
-    public const EQUAL      = 0;
-    public const IS_GREATER = 1;
-
-    /**
-     * @param $object
-     * @return int
-     */
-    public function compareTo($object): int;
+class ValueNotAllowedException extends PHPAlgorithmsException {
 
 }

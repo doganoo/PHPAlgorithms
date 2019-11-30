@@ -24,23 +24,44 @@ declare(strict_types=1);
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Common\Interfaces;
+namespace doganoo\PHPAlgorithmsTest\Various;
+
+use doganoo\PHPAlgorithms\Common\Exception\NullNotAllowedException;
+use doganoo\PHPAlgorithms\Common\Exception\ValueNotAllowedException;
+use doganoo\PHPAlgorithms\Datastructure\Various\Enum;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Interface IComparable
- *
- * @package doganoo\PHPAlgorithms\Common\Interfaces
+ * Class EnumTest
+ * @package doganoo\PHPAlgorithmsTest\Various
  */
-interface IComparable {
-
-    public const IS_LESS    = -1;
-    public const EQUAL      = 0;
-    public const IS_GREATER = 1;
+class EnumTest extends TestCase {
 
     /**
-     * @param $object
-     * @return int
+     * @throws NullNotAllowedException
+     * @throws ValueNotAllowedException
      */
-    public function compareTo($object): int;
+    public function testEnum() {
+        $enum     = new Enum([
+            "1"
+            , "2"
+        ]);
+        $assigned = false;
+
+        $enum->setValue("2");
+
+        $this->assertTrue("2" === $enum->getValue());
+
+        try {
+            $enum->setValue("5");
+            $assigned = true;
+        } catch (NullNotAllowedException $e) {
+            $assigned = false;
+        } catch (ValueNotAllowedException $e) {
+            $assigned = false;
+        }
+
+        $this->assertTrue(false === $assigned);
+    }
 
 }
