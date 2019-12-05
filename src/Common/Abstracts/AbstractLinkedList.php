@@ -215,25 +215,6 @@ abstract class AbstractLinkedList
         return $list;
     }
 
-    ////This problem cannot be solved if the node to be deleted is
-    ////the last node in the linked list
-    ////node could be marked as dummy
-    // TODO transfer to Node class
-    //public function deleteGivenNode(Node $node) {
-    //    if ($node == null || $node->getNext() == null) {
-    //        return null;
-    //    }
-    //    /**
-    //     * a given node should be deleted from itself.
-    //     * To do this, we simply take the next instance and
-    //     * append it to the actual one
-    //     */
-    //    $tmp = $node->getNext();
-    //    $node->setValue($tmp->getValue());
-    //    $node->setNext($tmp->getNext());
-    //    return $node;
-    //}
-
     /**
      * iterates $number times over the head and returns a list that
      * contains $number elements
