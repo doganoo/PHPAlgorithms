@@ -42,6 +42,7 @@ class DoublyLinkedList extends AbstractLinkedList {
         if ($node === null) {
             return false;
         }
+
         /*
          * need to clone the object otherwise the object
          * references are going crazy.
@@ -73,7 +74,7 @@ class DoublyLinkedList extends AbstractLinkedList {
     /**
      * prepends a node on top of the list
      *
-     * @param \doganoo\PHPAlgorithms\Datastructure\Lists\Node|null $node
+     * @param Node|null $node
      * @return bool
      */
     public function prepend(?Node $node): bool {
@@ -100,15 +101,6 @@ class DoublyLinkedList extends AbstractLinkedList {
         $newNode->setNext($head);
         $this->setHead($newNode);
         return true;
-    }
-
-    /**
-     * returns a new instance of DoublyLinkedList
-     *
-     * @return AbstractLinkedList
-     */
-    protected function getEmptyInstance(): AbstractLinkedList {
-        return new DoublyLinkedList();
     }
 
 }

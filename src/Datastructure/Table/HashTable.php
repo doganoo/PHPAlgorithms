@@ -269,6 +269,16 @@ class HashTable extends AbstractTable implements JsonSerializable {
     }
 
     /**
+     * wrapper method for containsValue()
+     *
+     * @param $value
+     * @return bool
+     */
+    public function contains($value):bool {
+        return $this->containsValue($value);
+    }
+
+    /**
      * determines whether the HashMap contains a key.
      *
      * @param $key

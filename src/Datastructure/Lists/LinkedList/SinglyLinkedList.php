@@ -30,6 +30,8 @@ namespace doganoo\PHPAlgorithms\Datastructure\Lists\LinkedList;
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractLinkedList;
 use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
+use Exception;
+use Traversable;
 
 /**
  * Class SinglyLinkedList
@@ -75,7 +77,7 @@ class SinglyLinkedList extends AbstractLinkedList {
      * set to head and the head is set to the new node in order to create
      * the new head.
      *
-     * @param \doganoo\PHPAlgorithms\Datastructure\Lists\Node $node
+     * @param Node $node
      * @return bool
      */
     public function prepend(?Node $node): bool {
@@ -85,15 +87,6 @@ class SinglyLinkedList extends AbstractLinkedList {
         $node->setNext($this->getHead());
         $this->setHead($node);
         return true;
-    }
-
-    /**
-     * returns a new instance of SinglyLinkedList
-     *
-     * @return AbstractLinkedList
-     */
-    protected function getEmptyInstance(): AbstractLinkedList {
-        return new SinglyLinkedList();
     }
 
 }

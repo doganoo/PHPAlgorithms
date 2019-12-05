@@ -28,6 +28,7 @@ declare(strict_types=1);
 
 namespace doganoo\PHPAlgorithmsTest\Lists\LinkedList;
 
+use doganoo\PHPAlgorithms\Datastructure\Lists\LinkedList\SinglyLinkedList;
 use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
 use doganoo\PHPAlgorithmsTest\Util\LinkedListUtil;
 use PHPUnit\Framework\TestCase;
@@ -106,6 +107,37 @@ class DoublyLinkedListTest extends TestCase {
         $list->add(4, 1);
         $list->removeDuplicates();
         $this->assertTrue($list->size() === 3);
+    }
+
+    public function testIterator() {
+        $list = new SinglyLinkedList();
+        $list->add(1, 1);
+        $list->add(2, 2);
+        $list->add(3, 3);
+        $list->add(4, 4);
+
+        $i = 1;
+        /**
+         * @var int $key
+         * @var Node $value
+         */
+        foreach ($list as $key => $value) {
+            $this->assertTrue($i === $key);
+            $this->assertTrue($i === $value->getValue());
+            $i++;
+        }
+
+        $i = 1;
+        /**
+         * @var int $key
+         * @var Node $value
+         */
+        foreach ($list as $key => $value) {
+            $this->assertTrue($i === $key);
+            $this->assertTrue($i === $value->getValue());
+            $i++;
+        }
+
     }
 
     /**
