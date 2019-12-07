@@ -26,88 +26,13 @@ declare(strict_types=1);
 
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree;
 
-use doganoo\PHPAlgorithms\Algorithm\Traversal\InOrder;
-use doganoo\PHPAlgorithms\Common\Abstracts\AbstractTree;
-use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
-use doganoo\PHPAlgorithms\Common\Util\Comparator;
-use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree\BinaryNode;
-
 /**
  * Class BinaryTree
  *
  * @package doganoo\PHPAlgorithms\Datastructure\Graph\Tree
  */
-class BinaryTree extends AbstractTree {
-    /** @var int $size number of nodes in the tree */
-    private $size = 0;
+class BinaryTree extends BinarySearchTree {
 
-    /**
-     * @param int $value
-     * @return bool
-     */
-    public function insertValue(int $value) {
-        return $this->insert(new BinaryNode($value));
-    }
+    // TODO implement
 
-    /**
-     * inserts a new value
-     *
-     * TODO find the right way of insertion - currently acting as a BST
-     *
-     * @param IBinaryNode|null $node
-     * @return bool
-     */
-    public function insert(?IBinaryNode $node) {
-        if (!$node instanceof IBinaryNode) {
-            return false;
-        }
-        if (null === $this->getRoot()) {
-            $this->setRoot($node);
-            $this->size++;
-            return true;
-        }
-        /** @var BinaryNode $current */
-        $current = $this->getRoot();
-        if ($node->getValue() < $current->getValue()) {
-            while (null !== $current->getLeft()) {
-                $current = $current->getLeft();
-            }
-            $this->size++;
-            $current->setLeft($node);
-            return true;
-        } else if ($node->getValue() > $current->getValue()) {
-            while (null !== $current->getRight()) {
-                $current = $current->getRight();
-            }
-            $current->setRight($node);
-            $this->size++;
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * @param $value
-     * @return null
-     */
-    public function search($value) {
-        $node = null;
-        $traversal = new InOrder($this);
-        $traversal->setCallable(function ($val) use ($value, &$node) {
-            if (Comparator::equals($value, $val)) {
-                $node = new BinaryNode($value);
-            }
-        });
-        $traversal->traverse();
-        return $node;
-    }
-
-    /**
-     * returns the number of nodes in the tree
-     *
-     * @return int
-     */
-    public function getSize(): int {
-        return $this->size;
-    }
 }

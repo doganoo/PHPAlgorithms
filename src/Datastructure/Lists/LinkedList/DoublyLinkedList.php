@@ -38,6 +38,12 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
  */
 class DoublyLinkedList extends AbstractLinkedList {
 
+    /**
+     * appends an node on top of the list
+     *
+     * @param Node|null $node
+     * @return bool
+     */
     public function append(?Node $node): bool {
         if ($node === null) {
             return false;
@@ -60,9 +66,8 @@ class DoublyLinkedList extends AbstractLinkedList {
         }
 
         $head = $this->getHead();
-        $i = 0;
+        $i    = 0;
         while ($head->getNext() !== null) {
-            if ($i == 10) break;
             $head = $head->getNext();
             $i++;
         }

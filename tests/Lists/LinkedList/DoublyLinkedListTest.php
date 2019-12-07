@@ -73,6 +73,39 @@ class DoublyLinkedListTest extends TestCase {
         $this->assertTrue($value instanceof stdClass);
     }
 
+    public function testPartition() {
+        $list   = LinkedListUtil::createDoublyLinkedListFromArray([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        $result = $list->partition(5);
+
+        $this->assertTrue($result->size() === 2);
+
+        $lower = $result->get('lower');
+
+        $i = 0;
+        /**
+         * @var int  $key
+         * @var Node $value
+         */
+        foreach ($lower as $key => $value) {
+            $this->assertTrue($i === $key);
+            $this->assertTrue($i === $value->getValue());
+            $i++;
+        }
+
+        $upper = $result->get('upper');
+
+        /**
+         * @var int  $key
+         * @var Node $value
+         */
+        foreach ($upper as $key => $value) {
+            $this->assertTrue($i === $key);
+            $this->assertTrue($i === $value->getValue());
+            $i++;
+        }
+
+    }
+
     /**
      * tests setting the head to a new value
      */
@@ -118,7 +151,7 @@ class DoublyLinkedListTest extends TestCase {
 
         $i = 1;
         /**
-         * @var int $key
+         * @var int  $key
          * @var Node $value
          */
         foreach ($list as $key => $value) {
@@ -127,13 +160,19 @@ class DoublyLinkedListTest extends TestCase {
             $i++;
         }
 
+        $list = new SinglyLinkedList();
+        $list->add(null, 1);
+        $list->add(null, 2);
+        $list->add(null, 3);
+        $list->add(null, 4);
+
         $i = 1;
         /**
-         * @var int $key
+         * @var int  $key
          * @var Node $value
          */
         foreach ($list as $key => $value) {
-            $this->assertTrue($i === $key);
+            $this->assertTrue($list->size() + $i === $key);
             $this->assertTrue($i === $value->getValue());
             $i++;
         }

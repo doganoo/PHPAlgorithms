@@ -26,7 +26,7 @@ declare(strict_types=1);
 
 namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
-use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
+use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
 use doganoo\PHPAlgorithms\Common\Interfaces\INode;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 
@@ -36,13 +36,21 @@ use doganoo\PHPAlgorithms\Common\Util\Comparator;
  */
 abstract class AbstractNode implements INode {
 
+    /** @var null|mixed $value */
     private $value = null;
 
+    /**
+     * AbstractNode constructor.
+     * @param null $value
+     */
     public function __construct($value = null) {
         $this->setValue($value);
     }
 
-    public function setValue($value):void {
+    /**
+     * @param $value
+     */
+    public function setValue($value): void {
         $this->value = $value;
     }
 
@@ -65,7 +73,7 @@ abstract class AbstractNode implements INode {
     /**
      * helper method
      *
-     * @param IBinaryNode|null $node
+     * @param AbstractNode $node
      * @return int
      */
     private function height(?AbstractNode $node): int {
@@ -82,24 +90,25 @@ abstract class AbstractNode implements INode {
      */
     public function compareTo($object): int {
         if ($object instanceof AbstractNode) {
-            if (Comparator::equals($this->getValue(), $object->getValue())) return 0;
-            if (Comparator::lessThan($this->getValue(), $object->getValue())) return -1;
-            if (Comparator::greaterThan($this->getValue(), $object->getValue())) return 1;
+            if (Comparator::equals($this->getValue(), $object->getValue())) return IComparable::EQUAL;
+            if (Comparator::lessThan($this->getValue(), $object->getValue())) return IComparable::IS_LESS;
+            if (Comparator::greaterThan($this->getValue(), $object->getValue())) return IComparable::IS_GREATER;
         }
-        return -1;
+        return IComparable::IS_LESS;
     }
 
     /**
      * Specify data which should be serialized to JSON
-     * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @link  https://php.net/manual/en/jsonserializable.jsonserialize.php
      * @return mixed data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
     public function jsonSerialize() {
         return [
-            "value" => $this->getValue()
+            "value"    => $this->getValue()
             , "height" => $this->getHeight()
         ];
     }
+
 }

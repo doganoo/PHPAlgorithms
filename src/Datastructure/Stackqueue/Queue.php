@@ -76,7 +76,7 @@ class Queue implements IComparable, JsonSerializable {
     /**
      * this method removes the first element from the queue and returns it
      *
-     * @return int
+     * @return mixed|null
      */
     public function dequeue() {
         if (null === $this->queue) return null;
@@ -89,7 +89,7 @@ class Queue implements IComparable, JsonSerializable {
     /**
      * returns the first element from the queue
      *
-     * @return int
+     * @return mixed|null
      */
     public function front() {
         if (null === $this->queue) return null;
@@ -100,7 +100,7 @@ class Queue implements IComparable, JsonSerializable {
     /**
      * returns the last item from the queue
      *
-     * @return int
+     * @return mixed|null
      */
     public function rear() {
         if (null === $this->queue) return null;
@@ -128,27 +128,16 @@ class Queue implements IComparable, JsonSerializable {
     }
 
     /**
-     * stores the number of items of the queue to the size member of this class and returns it
-     *
-     * @return int
-     * @deprecated
-     */
-    public function queueSize(): int {
-        if ($this->tail > $this->head) return 0;
-        return $this->head - $this->tail;
-    }
-
-    /**
      * @param $object
      * @return int
      */
     public function compareTo($object): int {
         if ($object instanceof Queue) {
-            if (count(array_diff($this->queue, $object->queue)) === 0) return 0;
-            if (count($this->queue) < count($object->queue)) return -1;
-            if (count($this->queue) > count($object->queue)) return 1;
+            if (count(array_diff($this->queue, $object->queue)) === 0) return IComparable::EQUAL;
+            if (count($this->queue) < count($object->queue)) return IComparable::IS_LESS;
+            if (count($this->queue) > count($object->queue)) return IComparable::IS_GREATER;
         }
-        return -1;
+        return IComparable::IS_LESS;
     }
 
     /**
@@ -163,7 +152,7 @@ class Queue implements IComparable, JsonSerializable {
         return [
             "queue"  => $this->queue
             , "head" => $this->head
-            , "tail" => $this->tail,
+            , "tail" => $this->tail
         ];
     }
 

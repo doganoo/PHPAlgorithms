@@ -26,7 +26,6 @@ declare(strict_types=1);
 
 namespace doganoo\PHPAlgorithms\Algorithm\Sorting;
 
-
 use doganoo\PHPAlgorithms\Common\Interfaces\ISortable;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use function array_values;
@@ -47,8 +46,7 @@ class BubbleSort implements ISortable {
         $array = array_values($array);
         $size  = count($array);
 
-        if (0 === $size) return [];
-        if (1 === $size) return $array;
+        if (0 === $size || 1 === $size) return $array;
 
         for ($i = 0; $i < $size; $i++) {
             for ($j = 0; $j < $size - $i - 1; $j++) {

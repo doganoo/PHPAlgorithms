@@ -26,13 +26,13 @@ declare(strict_types=1);
 
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree;
 
-use function count;
 use doganoo\PHPAlgorithms\Algorithm\Sorting\MergeSort;
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractTree;
 use doganoo\PHPAlgorithms\Common\Exception\InvalidSearchComparisionException;
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree\BinarySearchNode;
+use function count;
 
 /**
  * Class BinarySearchTree
@@ -40,34 +40,16 @@ use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree\BinarySearchNode;
  * @package doganoo\PHPAlgorithms\Datastructure\Graph\Tree
  */
 class BinarySearchTree extends AbstractTree {
-    /** @var int $size number of nodes in the tree */
+
+    /** @var int $size */
     private $size = 0;
 
     /**
-     * converts an array to an BST. Be careful using this method. If you have an ordered array
-     * you will get an non-optimal BST! Use createFromArrayWithMinimumHeight() if you want an
-     * BST with minimum height.
+     * inserts a value that is not a BinarySearchNode instance
      *
-     * @param array|null $array
-     * @return BinarySearchTree|null
+     * @param $value
+     * @return bool
      */
-    public static function createFromArray(?array $array): ?BinarySearchTree {
-        if (null === $array) {
-            return null;
-        }
-        $tree = new BinarySearchTree();
-        if (0 === count($array)) {
-            return $tree;
-        }
-        foreach ($array as $element) {
-            if (null === $element) {
-                continue;
-            }
-            $tree->insertValue($element);
-        }
-        return $tree;
-    }
-
     public function insertValue($value): bool {
         return $this->insert(new BinarySearchNode($value));
     }
@@ -79,34 +61,62 @@ class BinarySearchTree extends AbstractTree {
      * @return bool
      */
     public function insert(?IBinaryNode $node) {
-        if (!$node instanceof IBinaryNode) {
-            return false;
-        }
-        if (null === $this->getRoot()) {
+        if (null === $node) return false;
+
+        /** @var BinarySearchNode $root */
+        $root = $this->getRoot();
+
+        if (null === $root) {
             $this->setRoot($node);
             $this->size++;
             return true;
         }
-        /** @var BinarySearchNode $current */
-        $current = $this->getRoot();
 
-        if (Comparator::lessThan($node->getValue(), $current->getValue())) {
-            while (null !== $current->getLeft()) {
-                $current = $current->getLeft();
+        if (Comparator::lessThan($node->getValue(), $root->getValue())) {
+            while (null !== $root->getLeft()) {
+                $root = $root->getLeft();
             }
-            $current->setLeft($node);
+            $root->setLeft($node);
             $this->size++;
             return true;
-        } else if (Comparator::greaterThan($node->getValue(), $current->getValue())) {
-            while (null !== $current->getRight()) {
-                $current = $current->getRight();
+        } else if (Comparator::greaterThan($node->getValue(), $root->getValue())) {
+            while (null !== $root->getRight()) {
+                $root = $root->getRight();
             }
-            $current->setRight($node);
+            $root->setRight($node);
             $this->size++;
             return true;
         }
 
         return false;
+    }
+
+    /**
+     * converts an array to an BST. Be careful using this method. If you have an ordered array
+     * you will get an non-optimal BST! Use createFromArrayWithMinimumHeight() if you want an
+     * BST with minimum height.
+     *
+     * @param array|null $array
+     * @return BinarySearchTree|null
+     */
+    public static function createFromArray(?array $array): ?BinarySearchTree {
+        $tree = new BinarySearchTree();
+        if (null === $array) {
+            return null;
+        }
+
+        if (0 === count($array)) {
+            return $tree;
+        }
+
+        foreach ($array as $element) {
+            if (null === $element) {
+                continue;
+            }
+            $tree->insertValue($element);
+        }
+
+        return $tree;
     }
 
     /**
@@ -123,10 +133,10 @@ class BinarySearchTree extends AbstractTree {
         if (0 === count($array)) {
             return $tree;
         }
-        $sort = new MergeSort();
+        $sort  = new MergeSort();
         $array = $sort->sort($array);
-        $root = BinarySearchTree::_createFromArrayWithMinimumHeight($array, 0, count($array) - 1);
-        $tree = new BinarySearchTree();
+        $root  = BinarySearchTree::_createFromArrayWithMinimumHeight($array, 0, count($array) - 1);
+        $tree  = new BinarySearchTree();
         $tree->setRoot($root);
         return $tree;
     }
@@ -143,14 +153,14 @@ class BinarySearchTree extends AbstractTree {
         if ($end < $start) {
             return null;
         }
-        $middle = (int)(($start + $end) / 2);
-        $value = $array[$middle];
+        $middle = (int) (($start + $end) / 2);
+        $value  = $array[$middle];
 
         if (null === $value) {
             return null;
         }
-        $node = new BinarySearchNode($array[$middle]);
-        $leftNode = BinarySearchTree::_createFromArrayWithMinimumHeight($array, $start, $middle - 1);
+        $node      = new BinarySearchNode($array[$middle]);
+        $leftNode  = BinarySearchTree::_createFromArrayWithMinimumHeight($array, $start, $middle - 1);
         $rightNode = BinarySearchTree::_createFromArrayWithMinimumHeight($array, $middle + 1, $end);
         $node->setLeft($leftNode);
         $node->setRight($rightNode);
@@ -181,7 +191,6 @@ class BinarySearchTree extends AbstractTree {
         return null;
     }
 
-
     /**
      * returns the number of nodes in the tree
      *
@@ -192,18 +201,15 @@ class BinarySearchTree extends AbstractTree {
     }
 
     /**
-     * @param int $size
+     * @return array|mixed
      */
-    protected function setSize(int $size):void {
-        $this->size = $size;
+    public function jsonSerialize() {
+        return
+            parent::jsonSerialize() +
+            [
+                "root"   => $this->getRoot()
+                , "size" => $this->getSize()
+            ];
     }
 
-    public function jsonSerialize() {
-        return array_merge(
-            parent::jsonSerialize()
-            , [
-                "size" => $this->getSize()
-            ]
-        );
-    }
 }

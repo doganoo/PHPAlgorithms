@@ -44,54 +44,22 @@ abstract class AbstractTree implements IComparable, JsonSerializable {
     public const ARRAY_IN_ORDER   = 1;
     public const ARRAY_PRE_ORDER  = 2;
     public const ARRAY_POST_ORDER = 3;
+
     /** @var null|IBinaryNode $root */
     private $root = null;
 
     /**
-     * @param IBinaryNode $p
-     * @param IBinaryNode $q
      * @return IBinaryNode|null
      */
-    public function getCommonAncestor(IBinaryNode $p, IBinaryNode $q): ?IBinaryNode {
-        if (!$this->inNode($this->root, $p) || !$this->inNode($this->root, $q)) return null;
-        return $this->commonAncestor($this->root, $p, $q);
-    }
-
-    /**
-     * @param IBinaryNode $haystack
-     * @param IBinaryNode $needle
-     * @return bool
-     */
-    private function inNode(?IBinaryNode $haystack, IBinaryNode $needle): bool {
-        if (null === $haystack) return false;
-        if (Comparator::equals($haystack, $needle)) return true;
-        return $this->inNode($haystack->getLeft(), $needle) || $this->inNode($haystack->getRight(), $needle);
+    public function getRoot(): ?IBinaryNode {
+        return $this->root;
     }
 
     /**
      * @param IBinaryNode|null $root
-     * @param IBinaryNode      $p
-     * @param IBinaryNode      $q
-     * @return IBinaryNode|null
      */
-    private function commonAncestor(?IBinaryNode $root, IBinaryNode $p, IBinaryNode $q): ?IBinaryNode {
-        if (null === $root || Comparator::equals($root, $p) || Comparator::equals($root, $q)) return $root;
-
-        $pOnLeft = $this->inNode($root->getLeft(), $p);
-        $qOnLeft = $this->inNode($root->getLeft(), $q);
-
-        if ($pOnLeft !== $qOnLeft) return $root;
-
-        $childSide = $pOnLeft === true ? $root->getLeft() : $root->getRight();
-        return $this->commonAncestor($childSide, $p, $q);
-    }
-
-    /**
-     * @param IBinaryNode $node
-     * @return bool
-     */
-    public function inTree(IBinaryNode $node): bool {
-        return $this->inNode($this->root, $node);
+    public function setRoot(?IBinaryNode $root): void {
+        $this->root = $root;
     }
 
     /**
@@ -107,13 +75,14 @@ abstract class AbstractTree implements IComparable, JsonSerializable {
      * helper method for isBST()
      *
      * @param IBinaryNode|null $root
-     * @param int|null         $min
-     * @param int|null         $max
+     * @param mixed|null       $min
+     * @param mixed|null       $max
      * @return bool
      */
-    private function _isBST(?IBinaryNode $root, ?int $min = null, ?int $max = null): bool {
+    private function _isBST(?IBinaryNode $root, $min = null, $max = null): bool {
         //if the root is null, the BST condition is met
         if (null === $root) return true;
+
         /*
          * since the whole left subtree has to be smaller than the root,
          * it is not enough to just check for
@@ -124,8 +93,9 @@ abstract class AbstractTree implements IComparable, JsonSerializable {
          * root's value. When we branch right, we check the value is between
          * roots'value and NULL.
          */
-        if ((null !== $min) && (Comparator::lessThanEqual($root->getValue(), $min))) return false;
+        if ((null !== $min) && (Comparator::lessThan($root->getValue(), $min))) return false;
         if ((null !== $max) && (Comparator::greaterThanEqual($root->getValue(), $max))) return false;
+
         /*
          * If we branch left, $max gets updated (to the root's value). If we
          * branch right, $min gets updated (to the roots's value).
@@ -136,20 +106,6 @@ abstract class AbstractTree implements IComparable, JsonSerializable {
         if (!$this->_isBST($root->getLeft(), $min, $root->getValue())) return false;
         if (!$this->_isBST($root->getRight(), $root->getValue(), $max)) return false;
         return true;
-    }
-
-    /**
-     * @return IBinaryNode|null
-     */
-    public function getRoot(): ?IBinaryNode {
-        return $this->root;
-    }
-
-    /**
-     * @param IBinaryNode|null $root
-     */
-    public function setRoot(?IBinaryNode $root) {
-        $this->root = $root;
     }
 
     /**
@@ -218,17 +174,20 @@ abstract class AbstractTree implements IComparable, JsonSerializable {
      */
     public function toArray($order = AbstractTree::ARRAY_PRE_ORDER): array {
         $traversal = null;
-        if ($order === AbstractTree::ARRAY_IN_ORDER) {
-            $traversal = new InOrder($this);
-        } else {
-            if ($order === AbstractTree::ARRAY_PRE_ORDER) {
+
+        switch ($order) {
+            case AbstractTree::ARRAY_IN_ORDER:
+                $traversal = new InOrder($this);
+                break;
+            case AbstractTree::ARRAY_PRE_ORDER:
                 $traversal = new PreOrder($this);
-            } else {
-                if ($order === AbstractTree::ARRAY_POST_ORDER) {
-                    $traversal = new PostOrder($this);
-                } else $traversal = new PreOrder($this);
-            }
+                break;
+            case AbstractTree::ARRAY_POST_ORDER:
+            default:
+                $traversal = new PostOrder($this);
+                break;
         }
+
         $array = [];
         $traversal->setCallable(function ($value) use (&$array) {
             $array[] = $value;
@@ -243,6 +202,53 @@ abstract class AbstractTree implements IComparable, JsonSerializable {
      * @return int
      */
     public abstract function getSize(): int;
+
+    /**
+     * @param IBinaryNode $node
+     * @return bool
+     */
+    public function inTree(IBinaryNode $node): bool {
+        return $this->inNode($this->root, $node);
+    }
+
+    /**
+     * @param IBinaryNode $p
+     * @param IBinaryNode $q
+     * @return IBinaryNode|null
+     */
+    public function getCommonAncestor(IBinaryNode $p, IBinaryNode $q): ?IBinaryNode {
+        if (!$this->inNode($this->root, $p) || !$this->inNode($this->root, $q)) return null;
+        return $this->commonAncestor($this->root, $p, $q);
+    }
+
+    /**
+     * @param IBinaryNode|null $root
+     * @param IBinaryNode      $p
+     * @param IBinaryNode      $q
+     * @return IBinaryNode|null
+     */
+    private function commonAncestor(?IBinaryNode $root, IBinaryNode $p, IBinaryNode $q): ?IBinaryNode {
+        if (null === $root || Comparator::equals($root, $p) || Comparator::equals($root, $q)) return $root;
+
+        $pOnLeft = $this->inNode($root->getLeft(), $p);
+        $qOnLeft = $this->inNode($root->getLeft(), $q);
+
+        if ($pOnLeft !== $qOnLeft) return $root;
+
+        $childSide = $pOnLeft === true ? $root->getLeft() : $root->getRight();
+        return $this->commonAncestor($childSide, $p, $q);
+    }
+
+    /**
+     * @param IBinaryNode $haystack
+     * @param IBinaryNode $needle
+     * @return bool
+     */
+    private function inNode(?IBinaryNode $haystack, IBinaryNode $needle): bool {
+        if (null === $haystack) return false;
+        if (Comparator::equals($haystack, $needle)) return true;
+        return $this->inNode($haystack->getLeft(), $needle) || $this->inNode($haystack->getRight(), $needle);
+    }
 
     /**
      * @param $object
@@ -267,7 +273,9 @@ abstract class AbstractTree implements IComparable, JsonSerializable {
      */
     public function jsonSerialize() {
         return [
-            "nodes" => $this->root
+            "nodes"    => $this->getRoot()
+            , "size"   => $this->getSize()
+            , "is_bst" => $this->isBST()
         ];
     }
 

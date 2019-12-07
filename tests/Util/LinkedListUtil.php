@@ -133,4 +133,12 @@ class LinkedListUtil {
         return $list;
     }
 
+    public static function createDoublyLinkedListFromArray(array $array): DoublyLinkedList {
+        $list = new DoublyLinkedList();
+        foreach ($array as $key => $value) {
+            $list->add($key, $value);
+        }
+        return $list;
+    }
+
 }

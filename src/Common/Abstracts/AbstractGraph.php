@@ -46,7 +46,7 @@ use JsonSerializable;
  *
  * @package doganoo\PHPAlgorithms\common\Abstracts
  */
-abstract class AbstractGraph implements IComparable, \JsonSerializable {
+abstract class AbstractGraph implements IComparable, JsonSerializable {
 
     public const DIRECTED_GRAPH   = 1;
     public const UNDIRECTED_GRAPH = 2;
@@ -214,6 +214,39 @@ abstract class AbstractGraph implements IComparable, \JsonSerializable {
             if ($v->containsValue($adjacent)) continue;
             $v->add($adjacent);
         }
+    }
+
+    /**
+     * Whether a connection between start and end exists
+     *
+     * @param Node $start
+     * @param Node $end
+     * @return bool
+     */
+    public function connectionExists(Node $start, Node $end): bool {
+        $v = new ArrayList();
+        $q = new Queue();
+
+        $q->enqueue($start);
+
+        while (false === $q->isEmpty()) {
+            /** @var Node $n */
+            $n = $q->dequeue();
+
+            /** @var Node $adjacent */
+            foreach ($n->getAdjacents() as $adjacent) {
+
+                if (true === $v->containsValue($adjacent)) continue;
+
+                if (Comparator::equals($n, $end)) return true;
+
+                $q->enqueue($n);
+                $v->add($n);
+
+            }
+        }
+
+        return false;
     }
 
 }

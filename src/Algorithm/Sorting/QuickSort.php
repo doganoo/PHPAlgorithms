@@ -48,7 +48,7 @@ class QuickSort implements ISortable {
         $array = array_values($array);
         $size  = count($array);
 
-        if ($size <= 1) return $array;
+        if (0 === $size || 1 === $size) return $array;
 
         $pivot = $array[0];
         $left  = $right = [];

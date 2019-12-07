@@ -102,38 +102,28 @@ class Stack implements IComparable, JsonSerializable {
     }
 
     /**
-     * stores the number of items in the stack to the size member of this class and returns it
-     *
-     * @return int
-     * @deprecated
-     */
-    public function stackSize(): int {
-        return $this->size;
-    }
-
-    /**
      * pop() removes an item from the top of the stack.
      *
+     * @return mixed|null
      */
     public function pop() {
         if (null === $this->stack) return null;
         if ($this->isEmpty()) return null;
 
         $this->size--;
-        $value = $this->stack[$this->size];
-        return $value;
+        return $this->stack[$this->size];
     }
 
     /**
      * peek() returns the element 'on top' of the stack
      *
+     * @return mixed|null
      */
     public function peek() {
         if (null === $this->stack) return null;
         if ($this->isEmpty()) return null;
 
-        $value = $this->stack[$this->size];
-        return $value;
+        return $this->stack[$this->size];
     }
 
     /**
@@ -174,11 +164,11 @@ class Stack implements IComparable, JsonSerializable {
      */
     public function compareTo($object): int {
         if ($object instanceof Stack) {
-            if (count(array_diff($this->stack, $object->stack)) === 0) return 0;
-            if (count($this->stack) < count($object->stack)) return -1;
-            if (count($this->stack) > count($object->stack)) return 1;
+            if (count(array_diff($this->stack, $object->stack)) === 0) return IComparable::EQUAL;
+            if (count($this->stack) < count($object->stack)) return IComparable::IS_LESS;
+            if (count($this->stack) > count($object->stack)) return IComparable::IS_GREATER;
         }
-        return -1;
+        return IComparable::IS_LESS;
     }
 
     /**
@@ -191,8 +181,8 @@ class Stack implements IComparable, JsonSerializable {
      */
     public function jsonSerialize() {
         return [
-            "stack" => $this->stack,
-            "size"  => $this->size,
+            "stack"  => $this->stack
+            , "size" => $this->size
         ];
     }
 

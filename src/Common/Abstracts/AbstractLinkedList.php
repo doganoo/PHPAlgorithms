@@ -26,12 +26,15 @@ declare(strict_types=1);
 
 namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
+use doganoo\PHPAlgorithms\Common\Exception\InvalidKeyTypeException;
+use doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException;
 use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
 use doganoo\PHPAlgorithms\Common\Interfaces\INode;
 use doganoo\PHPAlgorithms\Common\Interfaces\IUnaryNode;
 use doganoo\PHPAlgorithms\Common\Iterator\LinkedListIterator;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
+use doganoo\PHPAlgorithms\Datastructure\Table\HashTable;
 use IteratorAggregate;
 use JsonSerializable;
 
@@ -57,45 +60,6 @@ abstract class AbstractLinkedList
     private $head = null;
 
     /**
-     * there are three pointers needed in order to reverse a
-     * list:
-     *
-     * 1. the previous one, which is initialized to null
-     * 2. the next one, which is initialized to null
-     * 3. the current which is the head
-     *
-     * at the end of this operation, $previous will contain the reversed
-     * list as we append all $prev instances to $current and then
-     * set $current equal to $prev.
-     * $next servers as a temporary instance in order to ensure the
-     * head is not lost.
-     *
-     * suppose we have the following list: 1 -> 2 -> 3 -> 4 -> 5 -> NULL
-     *
-     *          1. NULL <- 1 -> 2 -> 3 -> 4 -> 5
-     *          2. NULL <- 1 <- 2 -> 3 -> 4 -> 5
-     *          3. NULL <- 1 <- 2 <- 3 -> 4 -> 5
-     *          4. NULL <- 1 <- 2 <- 3 <- 4 -> 5
-     *          5. NULL <- 1 <- 2 <- 3 <- 4 <- 5
-     *          ================================
-     *             5 -> 4 -> 3 -> 2 -> 1 -> NULL
-     */
-    public function reverse(): void {
-        $current = $this->getHead();
-        $prev    = null;
-        $next    = null;
-
-        while ($current !== null) {
-            $next = $current->getNext();
-            $current->setNext($prev);
-            $prev    = $current;
-            $current = $next;
-        }
-
-        $this->setHead($prev);
-    }
-
-    /**
      * returns the head node or null, if no head is set
      *
      * @return Node|null
@@ -111,6 +75,126 @@ abstract class AbstractLinkedList
      */
     public function setHead(?Node $node): void {
         $this->head = $node;
+    }
+
+    /**
+     * abstract method that requires inheritors to implement the way how
+     * values are prepended to the list
+     *
+     * @param Node|null $node
+     * @return bool
+     */
+    public abstract function append(?Node $node): bool;
+
+    /**
+     * abstract method that requires inheritors to implement the way how
+     * values are prepended to the list
+     *
+     * @param Node|null $node
+     * @return bool
+     */
+    public abstract function prepend(?Node $node): bool;
+
+    /**
+     * adds a Node instance to the list
+     *
+     * TODO decide whether using add or append/prepend
+     *
+     * @param Node $node
+     */
+    public function addNode(Node $node) {
+        $this->add($node->getKey(), $node->getValue());
+    }
+
+    /**
+     * adds a key/value pair to the hashmap.
+     *
+     * TODO decide whether this method or append/prepend should be used
+     *
+     * @param $key
+     * @param $value
+     */
+    public function add($key, $value) {
+        $node = new Node();
+        $node->setKey($key);
+        $node->setValue($value);
+        $this->append($node);
+    }
+
+    /**
+     * searches the list for a node by a given key
+     *
+     * @param $value
+     * @return Node|null
+     */
+    public function getNodeByValue($value): ?Node {
+        if (!$this->containsValue($value)) {
+            return null;
+        }
+        $tmp = $this->getHead();
+        while ($tmp !== null) {
+            $val = $tmp->getValue();
+            if (Comparator::equals($val, $value)) {
+                //if the value is found then return it
+                return $tmp;
+            }
+            $tmp = $tmp->getNext();
+        }
+        return null;
+    }
+
+    /**
+     * searches the list for a given value
+     *
+     * @param $value
+     * @return bool
+     */
+    public function containsValue($value): bool {
+        $node = $this->getHead();
+        while ($node !== null) {
+            if (Comparator::equals($node->getValue(), $value)) {
+                return true;
+            }
+            $node = $node->getNext();
+        }
+        return false;
+    }
+
+    /**
+     * returns a node by a given key
+     *
+     * @param $key
+     * @return Node|null
+     */
+    public function getNodeByKey($key): ?Node {
+        if (!$this->containsKey($key)) {
+            return null;
+        }
+        $head = $this->getHead();
+        while ($head !== null) {
+            if (Comparator::equals($head->getKey(), $key)) {
+                return $head;
+            }
+            $head = $head->getNext();
+        }
+        return null;
+    }
+
+    /**
+     * searches the list for a given key
+     *
+     * @param $key
+     * @return bool
+     */
+    public function containsKey($key): bool {
+        $node = $this->getHead();
+        while (null !== $node) {
+            if (Comparator::equals($node->getKey(), $key)) {
+                return true;
+            }
+            $node = $node->getNext();
+        }
+        return false;
     }
 
     /**
@@ -238,143 +322,42 @@ abstract class AbstractLinkedList
     }
 
     /**
-     * abstract method that requires inheritors to implement the way how
-     * values are prepended to the list
-     *
-     * @param Node|null $node
-     * @return bool
-     */
-    public abstract function append(?Node $node): bool;
-
-    /**
-     * abstract method that requires inheritors to implement the way how
-     * values are prepended to the list
-     *
-     * @param Node|null $node
-     * @return bool
-     */
-    public abstract function prepend(?Node $node): bool;
-
-    //TODO FIXME partition works actually only for singly linked lists
-    //public function partition(int $value) {
-    //    $head = $this->getHead();
-    //    $list = $this->getEmptyInstance();
-    //    $i = 0;
-    //    while ($head !== null) {
-    //        $node = new Node();
-    //        $node->setKey($head->getKey());
-    //        $node->setValue($head->getValue());
-    //        if ($head->getValue() < $value) {
-    //            $list->prepend($node);
-    //        } else {
-    //            $list->append($node);
-    //        }
-    //        $head = $head->getNext();
-    //        $i++;
-    //    }
-    //    return $list;
-    //}
-
-    /**
-     * adds a Node instance to the list
-     *
-     * TODO decide whether using add or append/prepend
-     *
-     * @param Node $node
-     */
-    public function addNode(Node $node) {
-        $this->add($node->getKey(), $node->getValue());
-    }
-
-    /**
-     * adds a key/value pair to the hashmap.
-     *
-     * TODO decide whether this method or append/prepend should be used
-     *
-     * @param $key
      * @param $value
+     * @return HashTable
+     * @throws InvalidKeyTypeException
+     * @throws UnsupportedKeyTypeException
      */
-    public function add($key, $value) {
-        $node = new Node();
-        $node->setKey($key);
-        $node->setValue($value);
-        $this->append($node);
-    }
+    public function partition($value): HashTable {
+        $result = new HashTable();
+        $head   = $this->getHead();
+        $lower  = new static();
+        $upper  = new static();
 
-    /**
-     * searches the list for a node by a given key
-     *
-     * @param $value
-     * @return Node|null
-     */
-    public function getNodeByValue($value): ?Node {
-        if (!$this->containsValue($value)) {
-            return null;
+        if (null === $head) {
+            return $result;
         }
-        $tmp = $this->getHead();
-        while ($tmp !== null) {
-            $val = $tmp->getValue();
-            if (Comparator::equals($val, $value)) {
-                //if the value is found then return it
-                return $tmp;
-            }
-            $tmp = $tmp->getNext();
-        }
-        return null;
-    }
 
-    /**
-     * searches the list for a given value
-     *
-     * @param $value
-     * @return bool
-     */
-    public function containsValue($value): bool {
-        $node = $this->getHead();
-        while ($node !== null) {
-            if (Comparator::equals($node->getValue(), $value)) {
-                return true;
-            }
-            $node = $node->getNext();
-        }
-        return false;
-    }
+        while (null !== $head) {
 
-    /**
-     * returns a node by a given key
-     *
-     * @param $key
-     * @return Node|null
-     */
-    public function getNodeByKey($key): ?Node {
-        if (!$this->containsKey($key)) {
-            return null;
-        }
-        $head = $this->getHead();
-        while ($head !== null) {
-            if (Comparator::equals($head->getKey(), $key)) {
-                return $head;
+            $n = new Node();
+            $n->setKey($head->getKey());
+            $n->setValue($head->getValue());
+            $n->setNext(null);
+            $n->setPrevious(null);
+
+            if (Comparator::lessThan($head->getValue(), $value)) {
+                $lower->append($n);
+            } else {
+                $upper->append($n);
             }
+
             $head = $head->getNext();
         }
-        return null;
-    }
 
-    /**
-     * searches the list for a given key
-     *
-     * @param $key
-     * @return bool
-     */
-    public function containsKey($key): bool {
-        $node = $this->getHead();
-        while (null !== $node) {
-            if (Comparator::equals($node->getKey(), $key)) {
-                return true;
-            }
-            $node = $node->getNext();
-        }
-        return false;
+        $result->put('lower', $lower);
+        $result->put('upper', $upper);
+
+        return $result;
     }
 
     /**
@@ -568,6 +551,45 @@ abstract class AbstractLinkedList
     }
 
     /**
+     * there are three pointers needed in order to reverse a
+     * list:
+     *
+     * 1. the previous one, which is initialized to null
+     * 2. the next one, which is initialized to null
+     * 3. the current which is the head
+     *
+     * at the end of this operation, $previous will contain the reversed
+     * list as we append all $prev instances to $current and then
+     * set $current equal to $prev.
+     * $next servers as a temporary instance in order to ensure the
+     * head is not lost.
+     *
+     * suppose we have the following list: 1 -> 2 -> 3 -> 4 -> 5 -> NULL
+     *
+     *          1. NULL <- 1 -> 2 -> 3 -> 4 -> 5
+     *          2. NULL <- 1 <- 2 -> 3 -> 4 -> 5
+     *          3. NULL <- 1 <- 2 <- 3 -> 4 -> 5
+     *          4. NULL <- 1 <- 2 <- 3 <- 4 -> 5
+     *          5. NULL <- 1 <- 2 <- 3 <- 4 <- 5
+     *          ================================
+     *             5 -> 4 -> 3 -> 2 -> 1 -> NULL
+     */
+    public function reverse(): void {
+        $current = $this->getHead();
+        $prev    = null;
+        $next    = null;
+
+        while ($current !== null) {
+            $next = $current->getNext();
+            $current->setNext($prev);
+            $prev    = $current;
+            $current = $next;
+        }
+
+        $this->setHead($prev);
+    }
+
+    /**
      * returns the number of elements in a list
      *
      * @return int
@@ -605,7 +627,10 @@ abstract class AbstractLinkedList
      */
     public function jsonSerialize() {
         return [
-            "head" => $this->getHead(),
+            "head"       => $this->getHead()
+            , "size"     => $this->size()
+            , "is_empty" => $this->isEmpty()
+            , "has_loop" => $this->hasLoop()
         ];
     }
 

@@ -45,13 +45,12 @@ class MergeSort implements ISortable {
      * @return array
      */
     public function sort(array $array): array {
-        $array     = array_values($array);
-        $arraySize = count($array);
+        $array = array_values($array);
+        $size  = count($array);
 
-        if (0 === $arraySize) return [];
-        if ($arraySize == 1) return $array;
+        if (0 === $size || 1 === $size) return $array;
 
-        $middle = (int) floor($arraySize / 2);
+        $middle = (int) floor($size / 2);
         $left   = array_slice($array, 0, $middle);
         $right  = array_slice($array, $middle);
         $left   = $this->sort($left);

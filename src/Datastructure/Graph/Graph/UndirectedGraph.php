@@ -27,6 +27,8 @@ declare(strict_types=1);
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Graph;
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraph;
+use doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException;
+use doganoo\PHPAlgorithms\common\Exception\InvalidGraphTypeException;
 use doganoo\PHPAlgorithms\Common\Exception\NodeNotFoundException;
 
 /**
@@ -39,7 +41,7 @@ class UndirectedGraph extends AbstractGraph {
     /**
      * DirectedGraph constructor.
      *
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidGraphTypeException
+     * @throws InvalidGraphTypeException
      */
     public function __construct() {
         parent::__construct(self::UNDIRECTED_GRAPH);
@@ -57,7 +59,7 @@ class UndirectedGraph extends AbstractGraph {
      * @param Node $startNode
      * @param Node $endNode
      * @return bool
-     * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException
      * @throws NodeNotFoundException
      */
     public function addEdge(Node $startNode, Node $endNode): bool {

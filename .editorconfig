@@ -1,10 +1,12 @@
 root = true
 
 [*]
+ij_php_special_else_if_treatment = false
+ij_any_special_else_if_treatment = false
 ij_php_block_brace_style = end_of_line
 ij_php_class_brace_style = end_of_line
 ij_php_for_brace_force = always
-ij_php_if_brace_force = if_multiline
+ij_php_if_brace_force = never
 ij_php_method_brace_style = end_of_line
 ij_php_space_after_type_cast = true
 ij_php_space_after_colon_in_return_type = true

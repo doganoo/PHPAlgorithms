@@ -39,7 +39,8 @@ class LinkedListIterator implements Iterator {
     /** @var AbstractLinkedList $linkedList */
     private $linkedList = null;
     /** @var Node $root */
-    private $root       = null;
+    private $root = null;
+    private $i    = 0;
 
     /**
      * LinkedListIterator constructor.
@@ -48,6 +49,7 @@ class LinkedListIterator implements Iterator {
     public function __construct(AbstractLinkedList $linkedList) {
         $this->linkedList = $linkedList;
         $this->root       = $this->linkedList->getHead();
+        $this->i          = $this->root->size() + 1;
     }
 
     /**
@@ -62,6 +64,7 @@ class LinkedListIterator implements Iterator {
      */
     public function next() {
         $this->root = $this->root->getNext();
+        $this->i++;
         return $this->root;
     }
 
@@ -69,7 +72,13 @@ class LinkedListIterator implements Iterator {
      * @inheritDoc
      */
     public function key() {
-        return $this->root->getKey();
+        $key = $this->root->getKey();
+
+        if (true === is_int($key) || true === is_string($key)) {
+            return $key;
+        }
+
+        return $this->i;
     }
 
     /**
@@ -83,6 +92,7 @@ class LinkedListIterator implements Iterator {
      * @inheritDoc
      */
     public function rewind() {
+        $this->i    = $this->root->size() + 1;
         $this->root = $this->linkedList->getHead();
     }
 

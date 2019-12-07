@@ -47,7 +47,7 @@ class SelectionSort implements ISortable {
      * @return array
      */
     public function sort(array $array): array {
-        $array = array_values($array);
+        $array  = array_values($array);
         $length = count($array);
 
         if (0 === $length || 1 === $length) return $array;
@@ -59,10 +59,11 @@ class SelectionSort implements ISortable {
                     $min = $j;
                 }
             }
-            $tmp = $array[$min];
+            $tmp         = $array[$min];
             $array[$min] = $array[$i];
-            $array[$i] = $tmp;
+            $array[$i]   = $tmp;
         }
         return $array;
     }
+
 }

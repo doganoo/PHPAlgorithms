@@ -43,13 +43,13 @@ class RadixSort implements ISortable {
         $n = count($array);
         if (0 === $n || 1 === $n) return $array;
 
-        $max = $this->getMax($array);
+        $max      = $this->getMax($array);
         $exponent = 1;
 
         while (Comparator::greaterThan($max / $exponent, 0)) {
             $this->countSort($array, $exponent);
             $exponent = $exponent * 10;
-            $exponent = (int)$exponent;
+            $exponent = (int) $exponent;
         }
 
         return $array;
@@ -57,12 +57,12 @@ class RadixSort implements ISortable {
 
     /**
      * @param array $array
-     * @param int $exponent
+     * @param int   $exponent
      */
     private function countSort(array &$array, int $exponent) {
-        $n = count($array);
+        $n      = count($array);
         $output = [];
-        $count = array_fill(0,10,0);
+        $count  = array_fill(0, 10, 0);
 
         for ($i = 0; $i < $n; $i++) {
             $count[($array[$i] / $exponent) % 10]++;
@@ -98,4 +98,5 @@ class RadixSort implements ISortable {
         }
         return $max;
     }
+
 }
