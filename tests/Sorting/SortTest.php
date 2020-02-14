@@ -111,6 +111,12 @@ class SortTest extends TestCase {
         $arr = [1];
         $result = $timSort->sort($arr);
         $this->assertTrue($result === [1]);
+
+        $expected = range(1, 42, 1);
+        $arr = $expected;
+        shuffle($arr);
+        $result = $timSort->sort($arr);
+        $this->assertTrue($result === $expected, 'unexpected result: ' . implode(', ', $result));
     }
 
     public function testQuickSort() {
