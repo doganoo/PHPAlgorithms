@@ -38,7 +38,8 @@ interface IComparable {
     public const IS_GREATER = 1;
 
     /**
-     * @param $object
+     * @param mixed $object
+     *
      * @return int
      */
     public function compareTo($object): int;
