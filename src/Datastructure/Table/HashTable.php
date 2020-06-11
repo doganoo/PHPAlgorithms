@@ -83,6 +83,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
      * adds a node to the hash map
      *
      * @param Node $node
+     *
      * @return bool
      * @throws InvalidKeyTypeException
      * @throws UnsupportedKeyTypeException
@@ -98,6 +99,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
      *
      * @param $key
      * @param $value
+     *
      * @return bool
      * @throws InvalidKeyTypeException
      * @throws UnsupportedKeyTypeException
@@ -128,6 +130,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
      * Solution: use universal hashing
      *
      * @param $key
+     *
      * @return int
      * @throws InvalidKeyTypeException
      * @throws UnsupportedKeyTypeException
@@ -150,6 +153,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
      * bucket index.
      *
      * @param $key
+     *
      * @return int
      * @throws InvalidKeyTypeException
      * @throws UnsupportedKeyTypeException
@@ -163,6 +167,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
      * calculates the bucket index for a given hash
      *
      * @param int $hash
+     *
      * @return int
      */
     private function getArrayIndex(int $hash): int {
@@ -175,50 +180,13 @@ class HashTable extends AbstractTable implements JsonSerializable {
      *
      * @param $key
      * @param $value
+     *
      * @return bool
      * @throws InvalidKeyTypeException
      * @throws UnsupportedKeyTypeException
      */
     public function put($key, $value): bool {
         return $this->add($key, $value);
-    }
-
-    /**
-     * @param $key
-     * @return mixed|null
-     * @throws InvalidKeyTypeException
-     * @throws UnsupportedKeyTypeException
-     */
-    public function get($key) {
-        $node = $this->getNodeByKey($key);
-        if (null === $node) return null;
-        return $node->getValue();
-    }
-
-    /**
-     * searches the hash map for a node by a given key.
-     *
-     * @param $key
-     * @return Node|null
-     * @throws InvalidKeyTypeException
-     * @throws UnsupportedKeyTypeException
-     */
-    public function getNodeByKey($key): ?Node {
-        $arrayIndex = $this->getBucketIndex($key);
-        /*
-         * the list is requested from the array based on
-         * the array index hash.
-         */
-        /** @var SinglyLinkedList $list */
-        if (!isset($this->bucket[$arrayIndex])) {
-            return null;
-        }
-        $list = $this->bucket[$arrayIndex];
-        if (!$list->containsKey($key)) {
-            return null;
-        }
-        $node = $list->getNodeByKey($key);
-        return $node;
     }
 
     /**
@@ -240,9 +208,21 @@ class HashTable extends AbstractTable implements JsonSerializable {
     }
 
     /**
+     * wrapper method for containsValue()
+     *
+     * @param $value
+     *
+     * @return bool
+     */
+    public function contains($value): bool {
+        return $this->containsValue($value);
+    }
+
+    /**
      * determines whether the HashMap contains a value.
      *
      * @param $value
+     *
      * @return bool
      */
     public function containsValue($value): bool {
@@ -269,19 +249,10 @@ class HashTable extends AbstractTable implements JsonSerializable {
     }
 
     /**
-     * wrapper method for containsValue()
-     *
-     * @param $value
-     * @return bool
-     */
-    public function contains($value):bool {
-        return $this->containsValue($value);
-    }
-
-    /**
      * determines whether the HashMap contains a key.
      *
      * @param $key
+     *
      * @return bool
      */
     public function containsKey($key): bool {
@@ -315,6 +286,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
      *
      *
      * @param $value
+     *
      * @return Node|null
      */
     public function getNodeByValue($value): ?Node {
@@ -344,6 +316,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
      * removes a node by a given key
      *
      * @param $key
+     *
      * @return bool
      * @throws InvalidKeyTypeException
      * @throws UnsupportedKeyTypeException
@@ -392,6 +365,32 @@ class HashTable extends AbstractTable implements JsonSerializable {
     }
 
     /**
+     * @return array
+     */
+    public function countPerBucket() {
+        $i     = 0;
+        $array = [];
+        /** @var SinglyLinkedList $list */
+        foreach ($this->bucket as $list) {
+            $array[$i] = $list->size();
+            $i++;
+        }
+        return $array;
+    }
+
+    /**
+     * returns the hash table as an array
+     * @return array
+     */
+    public function toArray(): array {
+        $array = [];
+        foreach ($this->keySet() as $key) {
+            $array[$key] = $this->get($key);
+        }
+        return $array;
+    }
+
+    /**
      * basic implementation of Java-like keySet().
      * The method returns an array containing the node keys.
      *
@@ -417,19 +416,44 @@ class HashTable extends AbstractTable implements JsonSerializable {
     }
 
     /**
-     * @return array
+     * @param $key
+     *
+     * @return mixed|null
+     * @throws InvalidKeyTypeException
+     * @throws UnsupportedKeyTypeException
      */
-    public function countPerBucket() {
-        $i     = 0;
-        $array = [];
-        /** @var SinglyLinkedList $list */
-        foreach ($this->bucket as $list) {
-            $array[$i] = $list->size();
-            $i++;
-        }
-        return $array;
+    public function get($key) {
+        $node = $this->getNodeByKey($key);
+        if (null === $node) return null;
+        return $node->getValue();
     }
 
+    /**
+     * searches the hash map for a node by a given key.
+     *
+     * @param $key
+     *
+     * @return Node|null
+     * @throws InvalidKeyTypeException
+     * @throws UnsupportedKeyTypeException
+     */
+    public function getNodeByKey($key): ?Node {
+        $arrayIndex = $this->getBucketIndex($key);
+        /*
+         * the list is requested from the array based on
+         * the array index hash.
+         */
+        /** @var SinglyLinkedList $list */
+        if (!isset($this->bucket[$arrayIndex])) {
+            return null;
+        }
+        $list = $this->bucket[$arrayIndex];
+        if (!$list->containsKey($key)) {
+            return null;
+        }
+        $node = $list->getNodeByKey($key);
+        return $node;
+    }
 
     /**
      * Specify data which should be serialized to JSON
