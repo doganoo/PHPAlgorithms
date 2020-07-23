@@ -380,6 +380,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
 
     /**
      * returns the hash table as an array
+     *
      * @return array
      */
     public function toArray(): array {
@@ -443,16 +444,17 @@ class HashTable extends AbstractTable implements JsonSerializable {
          * the list is requested from the array based on
          * the array index hash.
          */
-        /** @var SinglyLinkedList $list */
         if (!isset($this->bucket[$arrayIndex])) {
             return null;
         }
+        /** @var AbstractLinkedList $list */
         $list = $this->bucket[$arrayIndex];
-        if (!$list->containsKey($key)) {
+
+        if (!$list instanceof AbstractLinkedList) {
             return null;
         }
-        $node = $list->getNodeByKey($key);
-        return $node;
+
+        return $list->getNodeByKey($key);
     }
 
     /**
