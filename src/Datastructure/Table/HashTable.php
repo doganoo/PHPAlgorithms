@@ -92,8 +92,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
      * @throws UnsupportedKeyTypeException
      */
     public function addNode(Node $node): bool {
-        $added = $this->add($node->getKey(), $node->getValue());
-        return $added;
+        return $this->add($node->getKey(), $node->getValue());
     }
 
     /**
@@ -120,7 +119,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
         }
         $list->add($key, $value);
         $this->bucket[$arrayIndex] = $list;
-        $this->keySet[$key]        = $key;
+        $this->keySet[]            = $key;
         return true;
     }
 
@@ -147,9 +146,8 @@ class HashTable extends AbstractTable implements JsonSerializable {
          *
          * Doing this avoids hash collisions.
          */
-        $hash       = $this->getHash($key);
-        $arrayIndex = $this->getArrayIndex($hash);
-        return $arrayIndex;
+        $hash = $this->getHash($key);
+        return $this->getArrayIndex($hash);
     }
 
     /**
@@ -259,7 +257,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
      * @return bool
      */
     public function containsKey($key): bool {
-        return true === isset($this->keySet[$key]);
+        return true === in_array($key, $this->keySet);
     }
 
     /**
@@ -332,7 +330,9 @@ class HashTable extends AbstractTable implements JsonSerializable {
          */
         if ($list->size() == 1 && $head->getKey() === $key) {
             unset($this->bucket[$arrayIndex]);
-            unset($this->keySet[$key]);
+            foreach (array_keys($this->keySet, $key) as $keyKey) {
+                unset($this->keySet[$keyKey]);
+            }
             return true;
         }
         return $list->remove($key);
@@ -381,7 +381,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
      * @return array
      */
     public function keySet(): array {
-        return $this->keySet;
+        return array_values($this->keySet);
     }
 
     /**
