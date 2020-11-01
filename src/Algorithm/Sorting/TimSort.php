@@ -40,6 +40,10 @@ class TimSort implements ISortable {
 
     public const RUN = 32;
 
+    public function __construct() {
+        var_dump('Notice, the sorting algorithm seems to be broken, according to: https://github.com/doganoo/PHPAlgorithms/issues/23. Feel free to open a PR or use another sorting algorithm instead :)');
+    }
+
     /**
      * @param array $array
      * @return array
