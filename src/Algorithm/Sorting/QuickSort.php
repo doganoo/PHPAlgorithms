@@ -45,27 +45,38 @@ class QuickSort implements ISortable {
      * @return array
      */
     public function sort(array $array): array {
-        $array = array_values($array);
-        $size  = count($array);
+        $this->quickSort($array, 0, count($array) - 1);
+        return $array;
+    }
 
-        if (0 === $size || 1 === $size) return $array;
+    private function quickSort(array &$array, int $left, int $right): void {
+        if ($left >= $right) {
+            return;
+        }
+        $pivotIndex = $this->partition($array, $left, $right);
+        $this->quicksort($array, $left, $pivotIndex - 1);
+        $this->quicksort($array, $pivotIndex, $right);
+    }
 
-        $pivot = $array[0];
-        $left  = $right = [];
-
-        for ($i = 1; $i < $size; $i++) {
-            if (Comparator::lessThan($array[$i], $pivot)) {
-                $left[] = $array[$i];
-            } else {
-                $right[] = $array[$i];
+    private function partition(array &$array, int $left, int $right): int {
+        $pivotIndex = floor(($right + $left) / 2);
+        $pivot      = $array[$pivotIndex];
+        while ($left <= $right) {
+            while (Comparator::lessThan($array[$left], $pivot)) {
+                $left++;
+            }
+            while (Comparator::greaterThan($array[$right], $pivot)) {
+                $right--;
+            }
+            if ($left <= $right) {
+                $temp          = $array[$left];
+                $array[$left]  = $array[$right];
+                $array[$right] = $temp;
+                $left++;
+                $right--;
             }
         }
-
-        return array_merge(
-            $this->sort($left)
-            , [$pivot]
-            , $this->sort($right)
-        );
+        return $left;
     }
 
 }
