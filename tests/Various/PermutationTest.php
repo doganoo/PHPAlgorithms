@@ -32,7 +32,7 @@ use PHPUnit\Framework\TestCase;
 class PermutationTest extends TestCase {
 
 
-    public function testStringPermutation() {
+    public function testStringPermutation(): void {
         $permutation  = new Permutation();
         $permutations = $permutation->stringPermutations("abcd");
         $this->assertTrue(24 === \count($permutations));
@@ -46,7 +46,7 @@ class PermutationTest extends TestCase {
         $this->assertTrue(1 === \count($permutations));
     }
 
-    public function testNumberPermutation() {
+    public function testNumberPermutation(): void {
         $permutation  = new Permutation();
         $permutations = $permutation->numberPermutations(1234);
         $this->assertTrue(24 === \count($permutations));

@@ -41,7 +41,7 @@ class EnumTest extends TestCase {
      * @throws NullNotAllowedException
      * @throws ValueNotAllowedException
      */
-    public function testEnum() {
+    public function testEnum(): void {
         $enum     = new Enum([
             "1"
             , "2"
