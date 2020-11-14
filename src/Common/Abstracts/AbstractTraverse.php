@@ -45,12 +45,6 @@ abstract class AbstractTraverse {
     public abstract function traverse();
 
     /**
-     * @param IBinaryNode|null $node
-     * @return mixed
-     */
-    public abstract function _traverse(?IBinaryNode $node);
-
-    /**
      * @param $value
      */
     public function visit($value) {

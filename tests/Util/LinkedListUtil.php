@@ -110,10 +110,10 @@ class LinkedListUtil {
     /**
      * creates a node instance with the given parameters
      *
-     * @param      $key
-     * @param      $value
-     * @param null $next
-     * @param null $prev
+     * @param mixed $key
+     * @param mixed $value
+     * @param null  $next
+     * @param null  $prev
      * @return Node
      */
     public static function getNode($key, $value, $next = null, $prev = null): Node {

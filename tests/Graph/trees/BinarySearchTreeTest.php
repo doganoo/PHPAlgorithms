@@ -27,8 +27,10 @@ declare(strict_types=1);
 namespace doganoo\PHPAlgorithmsTest\Graph\trees;
 
 use doganoo\PHPAlgorithms\Algorithm\Traversal\InOrder;
+use doganoo\PHPAlgorithms\Algorithm\Traversal\LevelOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PostOrder;
 use doganoo\PHPAlgorithms\Algorithm\Traversal\PreOrder;
+use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
 use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinarySearchTree;
 use doganoo\PHPAlgorithmsTest\Util\TreeUtil;
@@ -102,6 +104,27 @@ class BinarySearchTreeTest extends TestCase {
         });
         $traversal->traverse();
         $this->assertTrue($array === [1, 2, 6, 5]);
+    }
+
+    /**
+     * tests post order Traversal
+     */
+    public function testLevelOrder(): void {
+        $bst       = TreeUtil::getBinarySearchTree();
+        $array     = [];
+        $traversal = new LevelOrder($bst);
+        $traversal->setCallable(
+        /** @var IBinaryNode[] $values */
+            function (array $values) use (&$array) {
+                $array[] = array_map(
+                    function (IBinaryNode $node) {
+                        return $node->getValue();
+                    }
+                    , $values
+                );
+            });
+        $traversal->traverse();
+        $this->assertTrue($array === [[5], [2, 6], [1]]);
     }
 
     public function testWithObjects() {

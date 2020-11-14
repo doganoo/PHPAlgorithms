@@ -36,7 +36,7 @@ class HashTableTest extends TestCase {
     /**
      * tests adding new elements to the map
      */
-    public function testAddition() {
+    public function testAddition(): void {
         $class   = stdClass::class;
         $hashMap = new HashTable();
         $boolean = $hashMap->add(1, $class);
@@ -45,7 +45,7 @@ class HashTableTest extends TestCase {
         $this->assertTrue(null !== $has);
     }
 
-    public function testSize() {
+    public function testSize(): void {
         $class   = stdClass::class;
         $hashMap = new HashTable();
         $hashMap->add(1, $class);
@@ -60,7 +60,7 @@ class HashTableTest extends TestCase {
     /**
      * tests querying the map for a value
      */
-    public function testContains() {
+    public function testContains(): void {
         $class   = stdClass::class;
         $hashMap = new HashTable();
         $hashMap->add(1, $class);
@@ -71,7 +71,7 @@ class HashTableTest extends TestCase {
     /**
      * tests retrieving a node from the map
      */
-    public function testGetNodeByValue() {
+    public function testGetNodeByValue(): void {
         $class   = stdClass::class;
         $hashMap = new HashTable();
         $hashMap->add(1, $class);
@@ -82,23 +82,53 @@ class HashTableTest extends TestCase {
     /**
      * tests removing a value from the map
      */
-    public function testRemove() {
+    public function testRemove(): void {
         $hashTable = new HashTable();
-        $hashTable->put("about", new class{});
-        $hashTable->put("account", new class{});
-        $hashTable->put("apps", new class{});
-        $hashTable->put("calorie_tracker", new class{});
-        $hashTable->put("tnc", new class{});
-        $hashTable->put("forgot_password", new class{});
-        $hashTable->put("general_api", new class{});
-        $hashTable->put("install", new class{});
-        $hashTable->put("login", new class{});
-        $hashTable->put("logout", new class{});
-        $hashTable->put("maintenance", new class{});
-        $hashTable->put("password_manager", new class{});
-        $hashTable->put("promotion", new class{});
-        $hashTable->put("register", new class{});
-        $hashTable->put("users", new class{});
+        $hashTable->put("about", new class {
+
+        });
+        $hashTable->put("account", new class {
+
+        });
+        $hashTable->put("apps", new class {
+
+        });
+        $hashTable->put("calorie_tracker", new class {
+
+        });
+        $hashTable->put("tnc", new class {
+
+        });
+        $hashTable->put("forgot_password", new class {
+
+        });
+        $hashTable->put("general_api", new class {
+
+        });
+        $hashTable->put("install", new class {
+
+        });
+        $hashTable->put("login", new class {
+
+        });
+        $hashTable->put("logout", new class {
+
+        });
+        $hashTable->put("maintenance", new class {
+
+        });
+        $hashTable->put("password_manager", new class {
+
+        });
+        $hashTable->put("promotion", new class {
+
+        });
+        $hashTable->put("register", new class {
+
+        });
+        $hashTable->put("users", new class {
+
+        });
         $this->assertTrue(null !== $hashTable->get("calorie_tracker"));
         $hashTable->remove("calorie_tracker");
         $this->assertTrue(null === $hashTable->get("calorie_tracker"));
@@ -107,7 +137,7 @@ class HashTableTest extends TestCase {
     /**
      * tests adding different key types to the map
      */
-    public function testKeyTypes() {
+    public function testKeyTypes(): void {
         $hashMap = new HashTable();
         $added   = $hashMap->add(new stdClass(), "stdClass");
         $this->assertTrue($added);
@@ -116,13 +146,13 @@ class HashTableTest extends TestCase {
     /**
      * tests retrieving all keys from the map
      */
-    public function testKeySet() {
+    public function testKeySet(): void {
         $hashMap = HashTableUtil::getHashTable(10);
         $keySet  = $hashMap->keySet();
         $this->assertTrue(count($keySet) == 10);
     }
 
-    public function testClosure() {
+    public function testClosure(): void {
         $hashMap = new HashTable();
         $added   = $hashMap->add("test", function () {
             return new stdClass();
@@ -130,7 +160,7 @@ class HashTableTest extends TestCase {
         $this->assertTrue($added);
         $added = $hashMap->add("test2", new class {
 
-            public function x() {
+            public function x():void {
             }
 
         });
