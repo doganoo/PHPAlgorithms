@@ -40,7 +40,7 @@ class FixedStackTest extends TestCase {
     /**
      * Stack class test
      */
-    public function testStack() {
+    public function testStack(): void {
         $stack = new FixedStack(2);
         $added = $stack->push(new stdClass());
         $this->assertTrue($added === true);
@@ -63,7 +63,7 @@ class FixedStackTest extends TestCase {
     /**
      * Queue class test
      */
-    public function testQueue() {
+    public function testQueue(): void {
         $queue = new FixedQueue(2);
         $queue->enqueue(new stdClass());
         $queue->enqueue(new Exception());

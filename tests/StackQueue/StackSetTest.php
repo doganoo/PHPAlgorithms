@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace doganoo\PHPAlgorithmsTest\StackQueue;
 
+use doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException;
 use doganoo\PHPAlgorithms\Datastructure\Stackqueue\StackSet;
 use PHPUnit\Framework\TestCase;
 
@@ -37,9 +38,9 @@ use PHPUnit\Framework\TestCase;
 class StackSetTest extends TestCase {
 
     /**
-     * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException
      */
-    public function testStackSet() {
+    public function testStackSet(): void {
         $stackSet = new StackSet(2);
         $stackSet->push("Hallo");
         $stackSet->push("Hallo 2");
@@ -52,9 +53,9 @@ class StackSetTest extends TestCase {
     }
 
     /**
-     * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException
      */
-    public function testHugeStackSet() {
+    public function testHugeStackSet(): void {
         $setSize  = 1024;
         $factor   = 4;
         $stackSet = new StackSet(1024);

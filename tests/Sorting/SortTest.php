@@ -39,9 +39,10 @@ use PHPUnit\Framework\TestCase;
  * Class SortTest
  */
 class SortTest extends TestCase {
-    public function testBubbleSort() {
+
+    public function testBubbleSort(): void {
         $bubbleSort = new BubbleSort();
-        $result = $bubbleSort->sort([12, 40, 9, 55, 1, 13]);
+        $result     = $bubbleSort->sort([12, 40, 9, 55, 1, 13]);
         $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
 
         $result = $bubbleSort->sort([]);
@@ -51,9 +52,9 @@ class SortTest extends TestCase {
         $this->assertTrue($result === [9]);
     }
 
-    public function testSelectionSort() {
+    public function testSelectionSort(): void {
         $selectionSort = new SelectionSort();
-        $result = $selectionSort->sort([12, 40, 9, 55, 1, 13]);
+        $result        = $selectionSort->sort([12, 40, 9, 55, 1, 13]);
         $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
 
         $result = $selectionSort->sort([]);
@@ -63,10 +64,10 @@ class SortTest extends TestCase {
         $this->assertTrue($result === [9]);
     }
 
-    public function testMergeSort() {
+    public function testMergeSort(): void {
         $mergeSort = new MergeSort();
-        $arr = [12, 40, 9, 55, 1, 13];
-        $result = $mergeSort->sort($arr);
+        $arr       = [12, 40, 9, 55, 1, 13];
+        $result    = $mergeSort->sort($arr);
         $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
 
         $result = $mergeSort->sort([]);
@@ -76,10 +77,10 @@ class SortTest extends TestCase {
         $this->assertTrue($result === [9]);
     }
 
-    public function testInsertionSort() {
+    public function testInsertionSort(): void {
         $insertionSort = new InsertionSort();
-        $arr = [12, 40, 9, 55, 1, 13];
-        $result = $insertionSort->sort($arr);
+        $arr           = [12, 40, 9, 55, 1, 13];
+        $result        = $insertionSort->sort($arr);
         $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
 
         $result = $insertionSort->sort([]);
@@ -89,56 +90,56 @@ class SortTest extends TestCase {
         $this->assertTrue($result === [9]);
     }
 
-    public function testTimSort() {
+    public function testTimSort(): void {
 
         $timSort = new TimSort();
-        $arr = [12, 40, 9, 55, 1, 13];
-        $result = $timSort->sort($arr);
+        $arr     = [12, 40, 9, 55, 1, 13];
+        $result  = $timSort->sort($arr);
         $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
 
-        $arr = [5, 21, 7, 23, 19];
+        $arr    = [5, 21, 7, 23, 19];
         $result = $timSort->sort($arr);
         $this->assertTrue($result === [5, 7, 19, 21, 23]);
 
-        $arr = [2, 3, 1, 5, 6, 7];
+        $arr    = [2, 3, 1, 5, 6, 7];
         $result = $timSort->sort($arr);
         $this->assertTrue($result === [1, 2, 3, 5, 6, 7]);
 
-        $arr = [];
+        $arr    = [];
         $result = $timSort->sort($arr);
         $this->assertTrue($result === []);
 
-        $arr = [1];
+        $arr    = [1];
         $result = $timSort->sort($arr);
         $this->assertTrue($result === [1]);
     }
 
-    public function testQuickSort() {
+    public function testQuickSort(): void {
         $quickSort = new QuickSort();
-        $arr = [12, 40, 9, 55, 1, 13];
-        $result = $quickSort->sort($arr);
+        $arr       = [12, 40, 9, 55, 1, 13];
+        $result    = $quickSort->sort($arr);
         $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
 
-        $arr = [5, 21, 7, 23, 19];
+        $arr    = [5, 21, 7, 23, 19];
         $result = $quickSort->sort($arr);
         $this->assertTrue($result === [5, 7, 19, 21, 23]);
 
-        $arr = [2, 3, 1, 5, 6, 7];
+        $arr    = [2, 3, 1, 5, 6, 7];
         $result = $quickSort->sort($arr);
         $this->assertTrue($result === [1, 2, 3, 5, 6, 7]);
 
-        $arr = [];
+        $arr    = [];
         $result = $quickSort->sort($arr);
         $this->assertTrue($result === []);
 
-        $arr = [1];
+        $arr    = [1];
         $result = $quickSort->sort($arr);
         $this->assertTrue($result === [1]);
     }
 
-    public function testRadixSort() {
+    public function testRadixSort(): void {
         $radixSort = new RadixSort();
-        $result = $radixSort->sort([12, 40, 9, 55, 1, 13]);
+        $result    = $radixSort->sort([12, 40, 9, 55, 1, 13]);
         $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
 
         $result = $radixSort->sort([]);
@@ -147,4 +148,5 @@ class SortTest extends TestCase {
         $result = $radixSort->sort([9]);
         $this->assertTrue($result === [9]);
     }
+
 }

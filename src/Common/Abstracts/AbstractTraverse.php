@@ -26,7 +26,6 @@ declare(strict_types=1);
 
 namespace doganoo\PHPAlgorithms\Common\Abstracts;
 
-use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
 use function is_callable;
 
 /**

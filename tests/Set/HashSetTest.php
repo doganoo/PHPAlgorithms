@@ -42,7 +42,7 @@ class HashSetTest extends TestCase {
      * @throws InvalidKeyTypeException
      * @throws UnsupportedKeyTypeException
      */
-    public function testAdd() {
+    public function testAdd(): void {
         $hashSet = new HashSet();
         $hashSet->add("test");
         $this->assertTrue($hashSet->size() === 1);
@@ -58,7 +58,7 @@ class HashSetTest extends TestCase {
      * @throws UnsupportedKeyTypeException
      * @throws InvalidKeyTypeException
      */
-    public function testContains() {
+    public function testContains(): void {
         $hashSet = new HashSet();
         $hashSet->add("test");
 
@@ -82,7 +82,7 @@ class HashSetTest extends TestCase {
      * @throws InvalidKeyTypeException
      * @throws UnsupportedKeyTypeException
      */
-    public function testClear() {
+    public function testClear(): void {
         $hashSet = new HashSet();
         $hashSet->addAll(["one", "two", "three", "four"]);
         $this->assertTrue($hashSet->size() === 4);
@@ -95,7 +95,7 @@ class HashSetTest extends TestCase {
      * @throws UnsupportedKeyTypeException
      * @throws InvalidKeyTypeException
      */
-    public function testRemove() {
+    public function testRemove(): void {
         $hashSet = new HashSet();
         $hashSet->addAll(["one", "two", "three", "four"]);
         $this->assertTrue($hashSet->contains("one") === true);

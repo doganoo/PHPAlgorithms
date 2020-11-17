@@ -26,8 +26,6 @@ declare(strict_types=1);
 
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\RedBlackTree;
 
-use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
-use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree\BinarySearchNode;
 
 /**

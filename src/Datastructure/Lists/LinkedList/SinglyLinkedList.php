@@ -30,8 +30,6 @@ namespace doganoo\PHPAlgorithms\Datastructure\Lists\LinkedList;
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractLinkedList;
 use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
-use Exception;
-use Traversable;
 
 /**
  * Class SinglyLinkedList

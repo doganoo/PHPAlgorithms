@@ -40,7 +40,7 @@ class StackTest extends TestCase {
     /**
      * Stack class test
      */
-    public function testStack() {
+    public function testStack(): void {
         $stack = new Stack();
         $stack->push(new stdClass());
         $stack->push(new Exception());
@@ -58,7 +58,7 @@ class StackTest extends TestCase {
     /**
      * Queue class test
      */
-    public function testQueue() {
+    public function testQueue(): void {
         $queue = new Queue();
         $queue->enqueue(new stdClass());
         $queue->enqueue(new Exception());

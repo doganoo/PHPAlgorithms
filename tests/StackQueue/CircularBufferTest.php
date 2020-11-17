@@ -34,7 +34,7 @@ use PHPUnit\Framework\TestCase;
  */
 class CircularBufferTest extends TestCase {
 
-    public function testMinimalSize() {
+    public function testMinimalSize(): void {
         $buffer = new CircularBuffer(2);
         $this->assertTrue($buffer->isEmpty() === true);
         $buffer->enqueue("A");
@@ -42,7 +42,7 @@ class CircularBufferTest extends TestCase {
         $this->assertTrue($buffer->isFull() === true);
     }
 
-    public function testBigBuffer() {
+    public function testBigBuffer(): void {
         $buffer = new CircularBuffer(8);
         $this->assertTrue($buffer->isEmpty() === true);
         $buffer->enqueue("A");

@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * MIT License
  *
@@ -30,10 +31,11 @@ use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Trie\Trie;
  * Class TrieTest
  */
 class TrieTest extends \PHPUnit\Framework\TestCase {
+
     /**
      * tests inserting and searching
      */
-    public function testAdd() {
+    public function testAdd(): void {
         $trie = new Trie();
         $trie->insert("Test");
         $found = $trie->search("Test");
@@ -42,7 +44,7 @@ class TrieTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($found === true);
     }
 
-    public function testWordCount() {
+    public function testWordCount(): void {
         $this->markTestSkipped("need to repair :-(");
         $trie = new Trie();
         $trie->insert("this");

@@ -39,7 +39,7 @@ class NodeTest extends TestCase {
     /**
      * tests node assignments
      */
-    public function testNodeReference() {
+    public function testNodeReference(): void {
         $a = new Node();
         $a->setKey(1);
         $a->setValue("1");
@@ -57,8 +57,8 @@ class NodeTest extends TestCase {
 
         $d = $a;
         $d = $d->getNext();
-        $this->assertTrue($d->size() == 2);
-        $this->assertTrue($a->size() == 3);
+        $this->assertTrue(null !== $d && $d->size() == 2);
+        $this->assertTrue(null !== $d && $a->size() == 3);
     }
 
 }

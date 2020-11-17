@@ -30,7 +30,6 @@ namespace doganoo\PHPAlgorithms\Algorithm\Sorting;
 
 use doganoo\PHPAlgorithms\Common\Interfaces\ISortable;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
-use function array_values;
 use function count;
 
 /**
