@@ -264,4 +264,17 @@ class ArrayListTest extends TestCase {
         $this->assertTrue(6 === $arrayList->get(5));
     }
 
+    public function testToArray(): void {
+        $arrayList = new ArrayList();
+        $arrayList->add(1);
+        $arrayList->add(2);
+        $arrayList->add(3);
+        $arrayList->add(4);
+        $arrayList->add(5);
+
+        $this->assertTrue(
+            [1, 2, 3, 4, 5] === $arrayList->toArray()
+        );
+    }
+
 }

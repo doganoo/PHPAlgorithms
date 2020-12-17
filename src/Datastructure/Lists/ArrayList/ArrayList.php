@@ -485,7 +485,6 @@ class ArrayList implements IteratorAggregate, JsonSerializable, IComparable {
             return $value !== null;
         }, ARRAY_FILTER_USE_BOTH);
 
-
         $timSort = new TimSort();
         $array   = $timSort->sort($array);
 
@@ -497,6 +496,21 @@ class ArrayList implements IteratorAggregate, JsonSerializable, IComparable {
 
         $this->addAllArray($array);
         return true;
+    }
+
+    /**
+     * Returns the content as an array
+     *
+     * @return array
+     */
+    public function toArray(): array {
+        return array_filter(
+            $this->array
+            , static function ($value, $key) {
+            return $value !== null;
+        }
+            , ARRAY_FILTER_USE_BOTH
+        );
     }
 
     /**
