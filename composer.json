@@ -36,6 +36,9 @@
   },
   "scripts": {
     "run-test": "vendor/bin/phpunit tests",
-    "phpstan": "vendor/bin/phpstan analyse --level=8 --memory-limit=2G src tests"
+    "phpstan": "vendor/bin/phpstan analyse --level=8 --memory-limit=2G src tests",
+    "post-install-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility",
+    "post-update-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility",
+    "php-compatibility": "./vendor/bin/phpcs -p . --standard=PHPCompatibility --runtime-set testVersion 7.1-8.0 --extensions=php --ignore=vendor/"
   }
 }

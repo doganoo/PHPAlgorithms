@@ -527,7 +527,7 @@ class ArrayList implements IteratorAggregate, JsonSerializable, IComparable {
             , "capacity"       => $this->getCapacity()
             , "size"           => $this->size()
             , "length"         => $this->length()
-            , "content"        => $this->array
+            , "content"        => $this->toArray()
         ];
     }
 
