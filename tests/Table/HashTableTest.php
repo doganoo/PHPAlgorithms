@@ -26,7 +26,9 @@ declare(strict_types=1);
 
 namespace doganoo\PHPAlgorithmsTest\Table;
 
+use doganoo\PHPAlgorithms\Common\Interfaces\IHashable;
 use doganoo\PHPAlgorithms\Datastructure\Table\HashTable;
+use doganoo\PHPAlgorithmsTest\Table\Entity\HashableObject;
 use doganoo\PHPAlgorithmsTest\Util\HashTableUtil;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -160,11 +162,33 @@ class HashTableTest extends TestCase {
         $this->assertTrue($added);
         $added = $hashMap->add("test2", new class {
 
-            public function x():void {
+            public function x(): void {
             }
 
         });
         $this->assertTrue($added);
+    }
+
+    public function testHashableObject(): void {
+        $obj   = new HashableObject("1");
+        $table = new HashTable();
+        $table->put($obj, "1");
+
+        $this->assertTrue($table->size() === 1 && $table->get($obj) === "1");
+
+        $obj2 = new HashableObject("1");
+        $table->put($obj2, "2");
+        $this->assertTrue($table->size() === 1 && $table->get($obj) === "2");
+
+        $table->put("1", "3");
+        $this->assertTrue(
+            $table->size() === 2
+            && $table->get($obj) === "2"
+            && $table->get("1") === "3"
+        );
+
+        $this->assertInstanceOf(IHashable::class, $table->keySet()[0]);
+        $this->assertTrue(is_string($table->keySet()[1]));
     }
 
 }

@@ -28,8 +28,10 @@ namespace doganoo\PHPAlgorithms\Common\Util;
 
 use doganoo\PHPAlgorithms\Common\Exception\InvalidKeyTypeException;
 use doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException;
+use doganoo\PHPAlgorithms\Common\Interfaces\IHashable;
 use function array_walk_recursive;
 use function ceil;
+use function doubleval;
 use function gettype;
 use function is_array;
 use function is_bool;
@@ -83,20 +85,23 @@ class MapUtil {
          */
         if (is_string($key)) {
             $key = MapUtil::stringToKey($key);
-        } else if (is_object($key)) {
-                $objectString = MapUtil::objectToString($key);
-                $key          = MapUtil::stringToKey($objectString);
+        } else if ($key instanceof IHashable) {
+            $key = $key->getHash();
+            $key = MapUtil::stringToKey($key);
+        } else if (is_object($key) && !($key instanceof IHashable)) {
+            $objectString = MapUtil::objectToString($key);
+            $key          = MapUtil::stringToKey($objectString);
         } else if (is_array($key)) {
-                    $arrayString = MapUtil::arrayToKey($key);
-                    $key         = MapUtil::stringToKey($arrayString);
+            $arrayString = MapUtil::arrayToKey($key);
+            $key         = MapUtil::stringToKey($arrayString);
         } else if (is_double($key)) {
-                        $key = MapUtil::doubleToKey($key);
+            $key = MapUtil::doubleToKey($key);
         } else if (is_float($key)) {
-            $key = MapUtil::doubleToKey(\doubleval($key));
+            $key = MapUtil::doubleToKey(doubleval($key));
         } else if (is_bool($key)) {
-                                $key = MapUtil::booleanToKey($key);
+            $key = MapUtil::booleanToKey($key);
         } else if (is_resource($key) || $key === null) {
-                                    $key = MapUtil::booleanToKey(true);
+            $key = MapUtil::booleanToKey(true);
         } else if (is_int($key)) {
             return $key;
         } else {
