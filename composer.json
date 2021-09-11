@@ -16,10 +16,10 @@
     }
   ],
   "require": {
-    "php": ">=7.1",
+    "php": ">=7.4",
     "ext-json": "*",
     "ext-pdo": "*",
-    "doganoo/php-util": "0.3.*"
+    "doganoo/php-util": "0.5.*"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.9",
@@ -39,6 +39,6 @@
     "phpstan": "vendor/bin/phpstan analyse --level=8 --memory-limit=2G src tests",
     "post-install-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility",
     "post-update-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility",
-    "php-compatibility": "./vendor/bin/phpcs -p . --standard=PHPCompatibility --runtime-set testVersion 7.1-8.0 --extensions=php --ignore=vendor/"
+    "php-compatibility": "./vendor/bin/phpcs -p . --standard=PHPCompatibility --runtime-set testVersion 7.4-8.0 --extensions=php --ignore=vendor/"
   }
 }

@@ -44,6 +44,7 @@ use const PHP_INT_MIN;
  * @package doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Heap
  */
 class MinHeap implements IHeap {
+
     /**
      * @var array|null $size the heap
      */
@@ -66,7 +67,7 @@ class MinHeap implements IHeap {
      * @return bool
      */
     public function clear(): bool {
-        $this->heap = array_fill(0, $this->maxSize, null);
+        $this->heap    = array_fill(0, $this->maxSize, null);
         $this->heap[0] = PHP_INT_MIN;
         return count($this->heap) === 1 && $this->heap[0] === PHP_INT_MIN;
     }
@@ -76,13 +77,13 @@ class MinHeap implements IHeap {
      * @throws IndexOutOfBoundsException
      */
     public function insert(int $element): void {
-        $length = $this->length();
+        $length                  = $this->length();
         $this->heap[$length + 1] = $element;
-        $currentPosition = $this->length();
-        $parentPosition = $this->getParentPosition($currentPosition);
+        $currentPosition         = $this->length();
+        $parentPosition          = $this->getParentPosition($currentPosition);
 
         $current = $this->heap[$currentPosition];
-        $parent = $this->heap[$parentPosition];
+        $parent  = $this->heap[$parentPosition];
 
         //this could be implemented in recursive way as well!
         while (Comparator::lessThan($current, $parent)) {
@@ -94,9 +95,9 @@ class MinHeap implements IHeap {
             //parent position is the parent position of the current position
             //(i know, it is confusing :-))
             $currentPosition = $this->getParentPosition($currentPosition);
-            $parentPosition = $this->getParentPosition($currentPosition);
-            $current = $this->heap[$currentPosition];
-            $parent = $this->heap[$parentPosition];
+            $parentPosition  = $this->getParentPosition($currentPosition);
+            $current         = $this->heap[$currentPosition];
+            $parent          = $this->heap[$parentPosition];
         }
     }
 
@@ -134,13 +135,13 @@ class MinHeap implements IHeap {
      *         13     17
      *
      *
-     * @param int $pos
+     * @param int $position
      * @return int
      * @throws IndexOutOfBoundsException
      */
-    public function getParentPosition(int $pos): int {
-        if ($pos < 0) throw new IndexOutOfBoundsException("$pos < 0");
-        return $pos === 0 ? 0 : intval($pos / 2);
+    public function getParentPosition(int $position): int {
+        if ($position < 0) throw new IndexOutOfBoundsException("$position < 0");
+        return $position === 0 ? 0 : intval($position / 2);
     }
 
     /**
@@ -150,9 +151,9 @@ class MinHeap implements IHeap {
      * @param int $parent
      */
     public function swap(int $current, int $parent): void {
-        $tmp = $this->heap[$current];
+        $tmp                  = $this->heap[$current];
         $this->heap[$current] = $this->heap[$parent];
-        $this->heap[$parent] = $tmp;
+        $this->heap[$parent]  = $tmp;
     }
 
     /**
@@ -162,7 +163,7 @@ class MinHeap implements IHeap {
      * @return bool
      */
     public function inHeap(int $element): bool {
-        foreach ($this->heap as $key => $value) {
+        foreach ($this->heap as $value) {
             if (Comparator::equals($element, $value)) {
                 return true;
             }
@@ -186,16 +187,16 @@ class MinHeap implements IHeap {
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
-            "heap" => $this->heap
+            "heap"       => $this->heap
             , "max_size" => $this->maxSize
-            , "type" => "MIN_HEAP",
+            , "type"     => "MIN_HEAP",
         ];
     }
 
@@ -207,4 +208,5 @@ class MinHeap implements IHeap {
     public function getHeap(): ?array {
         return $this->heap;
     }
+
 }

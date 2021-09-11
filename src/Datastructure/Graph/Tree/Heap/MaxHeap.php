@@ -135,13 +135,13 @@ class MaxHeap implements IHeap {
      *         13     17
      *
      *
-     * @param int $pos
+     * @param int $position
      * @return int
      * @throws IndexOutOfBoundsException
      */
-    public function getParentPosition(int $pos): int {
-        if ($pos < 0) throw new IndexOutOfBoundsException("$pos < 0");
-        return $pos === 0 ? 0 : intval($pos / 2);
+    public function getParentPosition(int $position): int {
+        if ($position < 0) throw new IndexOutOfBoundsException("$position < 0");
+        return $position === 0 ? 0 : intval($position / 2);
     }
 
     /**

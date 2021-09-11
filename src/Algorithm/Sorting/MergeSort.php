@@ -59,14 +59,11 @@ class MergeSort implements ISortable {
     }
 
     /**
-     * @param array|null $left
-     * @param array|null $right
+     * @param array $left
+     * @param array $right
      * @return array
      */
-    private function merge(?array $left, ?array $right): array {
-
-        if (null === $left) return [];
-        if (null === $right) return [];
+    private function merge(array $left, array $right): array {
 
         $result = [];
         $left   = array_values($left);
@@ -74,11 +71,9 @@ class MergeSort implements ISortable {
 
         while (count($left) !== 0 && count($right) !== 0) {
             if (Comparator::greaterThan($left[0], $right[0])) {
-                $result[] = $right[0];
-                $right    = array_slice($right, 1);
+                $result[] = array_shift($right);
             } else {
-                $result[] = $left[0];
-                $left     = array_slice($left, 1);
+                $result[] = array_shift($left);
             }
         }
 

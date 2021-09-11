@@ -59,8 +59,7 @@ class Permutation {
         }
         $array = StringUtil::stringToArray($string);
 
-        $result = $this->permute($array, "", $result);
-        return $result;
+        return $this->permute($array, "", $result);
     }
 
     /**
@@ -71,7 +70,7 @@ class Permutation {
      * @param array        $result
      * @return array
      */
-    private function permute(array $objects, $prefix, array $result) {
+    private function permute(array $objects, $prefix, array $result): array {
         $length = count($objects);
         //if there are no elements in the array,
         //a permutation is found. The permutation is
@@ -115,7 +114,7 @@ class Permutation {
      * @param int $number
      * @return array
      */
-    public function numberPermutations(int $number) {
+    public function numberPermutations(int $number): array {
         $result = [];
         $array  = NumberUtil::intToArray($number);
         $result = $this->permute($array, "", $result);

@@ -68,7 +68,7 @@ class Misc {
 
         /*
          * We need to sort the lists. This is critical
-         * for the following alogorithm, as we need to
+         * for the following algorithm, as we need to
          * know the chronological sequence.
          */
         $arrivals->sort();
