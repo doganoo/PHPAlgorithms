@@ -24,7 +24,7 @@ declare(strict_types=1);
  * SOFTWARE.
  */
 
-namespace doganoo\PHPAlgorithms\Trees\Search;
+namespace doganoo\PHPAlgorithms\Algorithm\Search;
 
 
 use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
