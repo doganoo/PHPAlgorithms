@@ -27,6 +27,7 @@ declare(strict_types=1);
 namespace doganoo\PHPAlgorithmsTest\Sorting;
 
 use doganoo\PHPAlgorithms\Algorithm\Sorting\BubbleSort;
+use doganoo\PHPAlgorithms\Algorithm\Sorting\BucketSort;
 use doganoo\PHPAlgorithms\Algorithm\Sorting\InsertionSort;
 use doganoo\PHPAlgorithms\Algorithm\Sorting\MergeSort;
 use doganoo\PHPAlgorithms\Algorithm\Sorting\QuickSort;
@@ -147,6 +148,25 @@ class SortTest extends TestCase {
 
         $result = $radixSort->sort([9]);
         $this->assertTrue($result === [9]);
+    }
+
+    public function testBucketSort(): void {
+        $bucketSort = new BucketSort();
+
+        $result = $bucketSort->sort([12, 40, 9, 55, 1, 13]);
+        $this->assertTrue($result === [1, 9, 12, 13, 40, 55]);
+
+        $result = $bucketSort->sort([5, 21, 7, 23, 19]);
+        $this->assertTrue($result === [5, 7, 19, 21, 23]);
+
+        $result = $bucketSort->sort([201, 3, 0, 98, 97, 53, 132, 89, 32, 35, 32]);
+        $this->assertTrue($result === [0, 3, 32, 32, 35, 53, 89, 97, 98, 132, 201]);
+
+        $result = $bucketSort->sort([]);
+        $this->assertTrue($result === []);
+
+        $result = $bucketSort->sort([1]);
+        $this->assertTrue($result === [1]);
     }
 
 }
