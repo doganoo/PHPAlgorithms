@@ -46,7 +46,7 @@ abstract class AbstractTraverse {
     /**
      * @param $value
      */
-    public function visit($value) {
+    public function visit($value): void {
         $callable = $this->callable;
         if (null === $this->callable
             && !is_callable($this->callable)) {
@@ -60,7 +60,7 @@ abstract class AbstractTraverse {
     /**
      * @param callable $callable
      */
-    public function setCallable(callable $callable) {
+    public function setCallable(callable $callable): void {
         $this->callable = $callable;
     }
 

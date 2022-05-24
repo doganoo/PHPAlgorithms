@@ -46,9 +46,9 @@ use function count;
  */
 class Queue implements IComparable, JsonSerializable {
 
-    private $queue = [];
-    private $head  = 0;
-    private $tail  = 0;
+    private array $queue = [];
+    private int   $head  = 0;
+    private int   $tail  = 0;
 
     /**
      * this methods adds an item to the queue to the last index
@@ -65,12 +65,12 @@ class Queue implements IComparable, JsonSerializable {
     }
 
     /**
-     * checks if the stack element (the array) is null
+     * checks if the stack element (the array) is valid
      *
      * @return bool
      */
     protected function isValid(): bool {
-        return $this->queue !== null;
+        return true;
     }
 
     /**
@@ -79,7 +79,6 @@ class Queue implements IComparable, JsonSerializable {
      * @return mixed|null
      */
     public function dequeue() {
-        if (null === $this->queue) return null;
         if ($this->tail > $this->head) return null;
         $item = $this->queue[$this->tail];
         $this->tail++;
@@ -92,7 +91,6 @@ class Queue implements IComparable, JsonSerializable {
      * @return mixed|null
      */
     public function front() {
-        if (null === $this->queue) return null;
         if ($this->tail > $this->head) return null;
         return $this->queue[$this->tail];
     }
@@ -103,7 +101,6 @@ class Queue implements IComparable, JsonSerializable {
      * @return mixed|null
      */
     public function rear() {
-        if (null === $this->queue) return null;
         if (!isset($this->queue[$this->head])) return null;
         return $this->queue[$this->head];
     }
@@ -144,11 +141,11 @@ class Queue implements IComparable, JsonSerializable {
      * Specify data which should be serialized to JSON
      *
      * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
             "queue"  => $this->queue
             , "head" => $this->head

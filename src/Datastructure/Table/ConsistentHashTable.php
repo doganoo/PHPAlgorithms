@@ -38,13 +38,19 @@ use doganoo\PHPAlgorithms\Common\Util\MapUtil;
  */
 class ConsistentHashTable {
 
-    private $nodes;
-    private $ringSize = PHP_INT_MAX;
+    private HashTable $nodes;
+    private int       $ringSize = PHP_INT_MAX;
 
     public function __construct() {
         $this->nodes = new HashTable();
     }
 
+    /**
+     * @param mixed $key
+     * @return mixed|null
+     * @throws InvalidKeyTypeException
+     * @throws UnsupportedKeyTypeException
+     */
     public function getNode($key) {
         $angle = $this->getAngle($this->getHash($key));
         $i     = $angle;
@@ -60,7 +66,7 @@ class ConsistentHashTable {
         return null;
     }
 
-    public function addNode($key, $node) {
+    public function addNode($key, $node): void {
         $angle = $this->getAngle($this->getHash($key));
         $this->nodes->put($angle, $node);
     }

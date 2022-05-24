@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -23,18 +24,22 @@
  * SOFTWARE.
  */
 
-
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Trie;
 
 use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
+use JsonSerializable;
+use function ord;
+use function strlen;
+use function substr;
 
 /**
  * Class Trie
  *
  * @package doganoo\PHPAlgorithms\Datastructure\Trie
  */
-class Trie implements IComparable, \JsonSerializable {
+class Trie implements IComparable, JsonSerializable {
+
     /**
      * number of characters in english alphabet
      */
@@ -42,7 +47,7 @@ class Trie implements IComparable, \JsonSerializable {
     /**
      * @var RootNode
      */
-    private $root;
+    private RootNode $root;
 
     /**
      * Trie constructor.
@@ -56,9 +61,9 @@ class Trie implements IComparable, \JsonSerializable {
      *
      * @param string $string
      */
-    public function insert(string $string) {
+    public function insert(string $string): void {
         $node = $this->root;
-        for ($i = 0; $i < \strlen($string); $i++) {
+        for ($i = 0; $i < strlen($string); $i++) {
             $charIndex = $this->getCharIndex($string[$i]);
             if (!$node->hasChild($charIndex)) {
                 $node->createChildNode($charIndex);
@@ -75,8 +80,8 @@ class Trie implements IComparable, \JsonSerializable {
      * @return int
      */
     private function getCharIndex(string $char): int {
-        if (\strlen($char) > 1) $char = \substr($char, 0, 1);
-        return \ord($char) - \ord('a');
+        if (strlen($char) > 1) $char = substr($char, 0, 1);
+        return ord($char) - ord('a');
     }
 
     /**
@@ -84,12 +89,12 @@ class Trie implements IComparable, \JsonSerializable {
      * the method should search for the entire word.
      *
      * @param string $key
-     * @param bool $isPrefix
+     * @param bool   $isPrefix
      * @return bool
      */
     public function search(string $key, bool $isPrefix = false): bool {
-        $length = \strlen($key);
-        $node = $this->root;
+        $length = strlen($key);
+        $node   = $this->root;
 
         for ($i = 0; $i < $length; $i++) {
             $charIndex = $this->getCharIndex($key[$i]);
@@ -130,7 +135,7 @@ class Trie implements IComparable, \JsonSerializable {
     /**
      * helper method for counting number of words in the trie
      *
-     * @param Node $node
+     * @param ?Node $node
      * @return int
      */
     private function _countWords(?Node $node): int {
@@ -139,7 +144,7 @@ class Trie implements IComparable, \JsonSerializable {
         if ($node->isEndOfWordNode()) $result++;
         for ($i = 0; $i < self::ALPHABET_SIZE; $i++) {
             if ($node->hasChild($i)) {
-                $child = $node->getChildNode($i);
+                $child  = $node->getChildNode($i);
                 $result += $this->_countWords($child);
             }
         }
@@ -149,14 +154,15 @@ class Trie implements IComparable, \JsonSerializable {
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
             "root" => $this->root,
         ];
     }
+
 }

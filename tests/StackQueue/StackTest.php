@@ -62,7 +62,7 @@ class StackTest extends TestCase {
         $queue = new Queue();
         $queue->enqueue(new stdClass());
         $queue->enqueue(new Exception());
-        $this->assertTrue($queue->isEmpty() == false);
+        $this->assertTrue($queue->isEmpty() === false);
 
         $class = $queue->dequeue();
         $this->assertTrue($class instanceof stdClass);

@@ -30,9 +30,9 @@ use doganoo\PHPAlgorithms\Common\Interfaces\IHashable;
 
 class HashableObject implements IHashable {
 
-    private $id;
+    private string $id;
 
-    public function __construct($id) {
+    public function __construct(string $id) {
         $this->id = $id;
     }
 

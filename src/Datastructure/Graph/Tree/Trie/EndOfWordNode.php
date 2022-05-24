@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -31,6 +32,7 @@ namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Trie;
  * @package doganoo\PHPAlgorithms\Datastructure\Trie
  */
 class EndOfWordNode extends Node {
+
     /**
      * @const END_OF_WORD
      */
@@ -40,7 +42,6 @@ class EndOfWordNode extends Node {
      * EndOfWordNode constructor.
      */
     public function __construct() {
-        parent::__construct();
         parent::setValue(self::END_OF_WORD);
     }
 
@@ -60,14 +61,15 @@ class EndOfWordNode extends Node {
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
-        $serializable = parent::jsonSerialize();
-        $serializable["type"] = EndOfWordNode::END_OF_WORD();
+    public function jsonSerialize():array {
+        $serializable         = parent::jsonSerialize();
+        $serializable["type"] = EndOfWordNode::END_OF_WORD;
         return $serializable;
     }
+
 }

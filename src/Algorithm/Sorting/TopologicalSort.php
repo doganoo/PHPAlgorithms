@@ -30,6 +30,8 @@ namespace doganoo\PHPAlgorithms\Algorithm\Sorting;
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraph;
 use doganoo\PHPAlgorithms\Common\Exception\InvalidGraphTypeException;
+use doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException;
+use doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException;
 use doganoo\PHPAlgorithms\Common\Interfaces\IGraphSortable;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Graph\DirectedGraph;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Graph\Node;
@@ -46,8 +48,8 @@ class TopologicalSort implements IGraphSortable {
     /**
      * @param AbstractGraph $graph
      * @return Stack
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
+     * @throws InvalidKeyTypeException
+     * @throws UnsupportedKeyTypeException
      * @throws InvalidGraphTypeException
      */
     public function sort(AbstractGraph $graph): Stack {
@@ -84,8 +86,8 @@ class TopologicalSort implements IGraphSortable {
      * @param ArrayList $visited
      * @return void
      * @throws InvalidGraphTypeException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
+     * @throws InvalidKeyTypeException
+     * @throws UnsupportedKeyTypeException
      */
     private function _sort(Node $node, Stack &$result, ArrayList &$visited): void {
         $visited->add($node);

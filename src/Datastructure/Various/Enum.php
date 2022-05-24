@@ -36,9 +36,9 @@ use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
  */
 class Enum implements IComparable {
 
-    private $nullAllowed   = false;
-    private $allowedValues = null;
-    private $value         = null;
+    private bool  $nullAllowed;
+    private array $allowedValues;
+    private       $value = null;
 
     /**
      * Enum constructor.

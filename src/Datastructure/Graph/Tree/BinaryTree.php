@@ -34,5 +34,4 @@ namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree;
 class BinaryTree extends BinarySearchTree {
 
     // TODO implement
-
 }

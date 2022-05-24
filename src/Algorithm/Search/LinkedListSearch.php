@@ -64,7 +64,7 @@ class LinkedListSearch {
     /**
      * @param AbstractLinkedList $linkedList
      * @param int                $k
-     * @return \doganoo\PHPAlgorithms\Datastructure\Lists\Node|null
+     * @return Node|null
      */
     public function findKthElementFromEnd(AbstractLinkedList $linkedList, int $k): ?Node {
         $listSize = 0;

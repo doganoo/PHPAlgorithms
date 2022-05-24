@@ -37,8 +37,8 @@ use const ARRAY_FILTER_USE_BOTH;
  */
 class IntegerVector {
 
-    /** @var array|null $array */
-    private $array = null;
+    /** @var array $array */
+    private array $array;
 
     /**
      * IntegerVector constructor.
@@ -119,11 +119,11 @@ class IntegerVector {
     /**
      * Specify data which should be serialized to JSON
      * @link  https://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
             "array" => $this->array
         ];

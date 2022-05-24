@@ -45,8 +45,7 @@ abstract class AbstractTree implements IComparable, JsonSerializable {
     public const ARRAY_PRE_ORDER  = 2;
     public const ARRAY_POST_ORDER = 3;
 
-    /** @var null|IBinaryNode $root */
-    private $root = null;
+    private ?IBinaryNode $root = null;
 
     /**
      * @return IBinaryNode|null
@@ -172,7 +171,7 @@ abstract class AbstractTree implements IComparable, JsonSerializable {
      * @param int $order
      * @return array
      */
-    public function toArray($order = AbstractTree::ARRAY_PRE_ORDER): array {
+    public function toArray(int $order = AbstractTree::ARRAY_PRE_ORDER): array {
         $traversal = null;
 
         switch ($order) {
@@ -189,9 +188,11 @@ abstract class AbstractTree implements IComparable, JsonSerializable {
         }
 
         $array = [];
-        $traversal->setCallable(function ($value) use (&$array) {
-            $array[] = $value;
-        });
+        $traversal->setCallable(
+            static function ($value) use (&$array) {
+                $array[] = $value;
+            }
+        );
         $traversal->traverse();
         return $array;
     }
@@ -240,8 +241,8 @@ abstract class AbstractTree implements IComparable, JsonSerializable {
     }
 
     /**
-     * @param IBinaryNode $haystack
-     * @param IBinaryNode $needle
+     * @param ?IBinaryNode $haystack
+     * @param IBinaryNode  $needle
      * @return bool
      */
     private function inNode(?IBinaryNode $haystack, IBinaryNode $needle): bool {
@@ -267,11 +268,11 @@ abstract class AbstractTree implements IComparable, JsonSerializable {
      * Specify data which should be serialized to JSON
      *
      * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
             "nodes"    => $this->getRoot()
             , "size"   => $this->getSize()

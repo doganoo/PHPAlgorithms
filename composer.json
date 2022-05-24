@@ -1,13 +1,12 @@
 {
   "name": "doganoo/php-algorithms",
-  "type": "library",
   "description": "A collection of common algorithms implemented in PHP. The collection is based on \"Cracking the Coding Interview\" by Gayle Laakmann McDowell",
+  "license": "MIT",
+  "type": "library",
   "keywords": [
     "algorithms",
     "data structures"
   ],
-  "homepage": "https://www.dogan-ucar.de/phpalgorithms-2/",
-  "license": "MIT",
   "authors": [
     {
       "name": "Dogan Ucar",
@@ -15,10 +14,10 @@
       "homepage": "https://www.dogan-ucar.de"
     }
   ],
+  "homepage": "https://www.dogan-ucar.de/phpalgorithms-2/",
   "require": {
     "php": ">=7.4",
     "ext-json": "*",
-    "ext-pdo": "*",
     "doganoo/php-util": "0.5.*"
   },
   "require-dev": {
@@ -26,6 +25,7 @@
     "phpcompatibility/php-compatibility": "^9.3",
     "phpstan/phpstan": "^0.12.54",
     "phpunit/phpunit": "6.5",
+    "roave/security-advisories": "dev-latest",
     "squizlabs/php_codesniffer": "^3.5"
   },
   "autoload": {
@@ -34,11 +34,17 @@
       "doganoo\\PHPAlgorithmsTest\\": "tests/"
     }
   },
+  "config": {
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true
+    }
+  },
   "scripts": {
-    "run-test": "vendor/bin/phpunit tests",
-    "phpstan": "vendor/bin/phpstan analyse --level=8 --memory-limit=2G src tests",
     "post-install-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility",
     "post-update-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility",
-    "php-compatibility": "./vendor/bin/phpcs -p . --standard=PHPCompatibility --runtime-set testVersion 7.4-8.0 --extensions=php --ignore=vendor/"
+    "add-php-compatibility": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility",
+    "php-compatibility": "./vendor/bin/phpcs -p . --standard=PHPCompatibility --runtime-set testVersion 7.4-8.1 --extensions=php --ignore=vendor/",
+    "phpstan": "vendor/bin/phpstan analyse --level=8 --memory-limit=2G src tests",
+    "test": "vendor/bin/phpunit tests"
   }
 }

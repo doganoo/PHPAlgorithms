@@ -65,10 +65,10 @@ class Stack implements IComparable, JsonSerializable {
      *
      * @var array $stack
      */
-    private $stack = [];
+    private array $stack = [];
 
     /** @var int $size */
-    private $size = 0;
+    private int $size = 0;
 
     /**
      * sorts the stack in descending order
@@ -107,7 +107,7 @@ class Stack implements IComparable, JsonSerializable {
      * @return mixed|null
      */
     public function pop() {
-        if (null === $this->stack) return null;
+        if (count($this->stack) === 0) return null;
         if ($this->isEmpty()) return null;
 
         $this->size--;
@@ -120,7 +120,7 @@ class Stack implements IComparable, JsonSerializable {
      * @return mixed|null
      */
     public function peek() {
-        if (null === $this->stack) return null;
+        if (count($this->stack) === 0) return null;
         if ($this->isEmpty()) return null;
 
         return $this->stack[$this->size];
@@ -146,7 +146,7 @@ class Stack implements IComparable, JsonSerializable {
      * @return bool
      */
     protected function isValid(): bool {
-        return $this->stack !== null;
+        return true;
     }
 
     /**
@@ -175,11 +175,11 @@ class Stack implements IComparable, JsonSerializable {
      * Specify data which should be serialized to JSON
      *
      * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
             "stack"  => $this->stack
             , "size" => $this->size

@@ -28,6 +28,7 @@ namespace doganoo\PHPAlgorithms\Algorithm\Search;
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraph;
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraphSearch;
+use doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Graph\Node;
 
 /**
@@ -39,10 +40,10 @@ class DepthFirstSearch extends AbstractGraphSearch {
 
     /**
      * @param AbstractGraph $graph
-     * @return mixed|void
-     * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
+     * @return void
+     * @throws IndexOutOfBoundsException
      */
-    public function search(AbstractGraph $graph) {
+    public function search(AbstractGraph $graph): void {
         $this->searchByNode($graph->getRoot());
     }
 

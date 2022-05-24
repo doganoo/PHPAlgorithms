@@ -32,7 +32,6 @@ use doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayList\ArrayList;
 
-
 /**
  * Class Misc
  * @package doganoo\PHPAlgorithms\Algorithm\Various

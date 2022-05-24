@@ -38,14 +38,13 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayList\ArrayList;
  * @package doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Tree
  */
 class Node implements INode {
+
     /**
      * @var null
      */
     private $value = null;
-    /**
-     * @var ArrayList|null
-     */
-    private $children = null;
+
+    private ArrayList $children;
 
     /**
      * Node constructor.
@@ -53,7 +52,7 @@ class Node implements INode {
      * @param $value
      */
     public function __construct($value) {
-        $this->value = $value;
+        $this->value    = $value;
         $this->children = new ArrayList();
     }
 
@@ -92,7 +91,7 @@ class Node implements INode {
      * @param ArrayList|null $children
      * @return Node|null
      */
-    public function findChild($value, ArrayList $children = null) {
+    public function findChild($value, ArrayList $children = null): ?Node {
         if (null === $children) {
             $children = $this->children;
         }
@@ -112,7 +111,7 @@ class Node implements INode {
     }
 
     /**
-     * @return null
+     * @return mixed
      */
     public function getValue() {
         return $this->value;
@@ -129,7 +128,7 @@ class Node implements INode {
      * @param $value
      * @return Node|null
      */
-    public function getChild($value) {
+    public function getChild($value): ?Node {
         return $this->findChild($value);
     }
 
@@ -149,15 +148,16 @@ class Node implements INode {
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
-            "value" => $this->value
+            "value"      => $this->value
             , "children" => $this->children,
         ];
     }
+
 }

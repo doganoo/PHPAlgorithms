@@ -36,8 +36,8 @@ use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
  * @package doganoo\PHPAlgorithms\Algorithm\Traversal
  */
 class PreOrder extends AbstractTraverse {
-    /** @var AbstractTree|null */
-    private $tree = null;
+
+    private AbstractTree $tree;
 
     /**
      * PreOrder constructor.
@@ -51,7 +51,7 @@ class PreOrder extends AbstractTraverse {
     /**
      * traverses a tre in preorder
      */
-    public function traverse() {
+    public function traverse(): void {
         $this->_traverse($this->tree->getRoot());
     }
 
@@ -60,7 +60,7 @@ class PreOrder extends AbstractTraverse {
      *
      * @param IBinaryNode|null $node
      */
-    public function _traverse(?IBinaryNode $node) {
+    public function _traverse(?IBinaryNode $node): void {
         if (null !== $node) {
             parent::visit($node->getValue());
             if (null !== $node->getLeft()) {
@@ -71,4 +71,5 @@ class PreOrder extends AbstractTraverse {
             }
         }
     }
+
 }

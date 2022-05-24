@@ -28,7 +28,7 @@ declare(strict_types=1);
 
 namespace doganoo\PHPAlgorithmsTest\Set;
 
-use doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException;
+use doganoo\PHPAlgorithms\Common\Exception\InvalidKeyTypeException;
 use doganoo\PHPAlgorithms\Common\Exception\UnsupportedKeyTypeException;
 use doganoo\PHPAlgorithms\Datastructure\Set\HashSet;
 use PHPUnit\Framework\TestCase;

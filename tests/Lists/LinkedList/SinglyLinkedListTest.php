@@ -43,7 +43,7 @@ class SinglyLinkedListTest extends TestCase {
      * note that the underlying LinkedList methods are already tested
      * by DoublyLinkedListTest class and do not need to be tested here.
      */
-    public function testAppend() {
+    public function testAppend(): void {
         $list = LinkedListUtil::getSinglyLinkedList();
         $node = LinkedListUtil::getNode(4, 1);
         $list->append($node);
@@ -55,7 +55,7 @@ class SinglyLinkedListTest extends TestCase {
     /**
      * tests prepending a new node to the list
      */
-    public function testPrepend() {
+    public function testPrepend(): void {
         $list = LinkedListUtil::getSinglyLinkedList();
         $node = LinkedListUtil::getNode(4, 1);
         $list->prepend($node);
@@ -64,7 +64,7 @@ class SinglyLinkedListTest extends TestCase {
         $this->assertTrue($list->getHead()->getValue() === 1);
     }
 
-    public function testContains() {
+    public function testContains(): void {
         $list     = LinkedListUtil::getSinglyLinkedList();
         $contains = $list->containsKey(1);
         $this->assertTrue($contains === true);
@@ -75,7 +75,7 @@ class SinglyLinkedListTest extends TestCase {
         $this->assertTrue($list->containsKey("test") === true);
     }
 
-    public function testRemove() {
+    public function testRemove(): void {
         $singlyLinkedList = new SinglyLinkedList();
         $singlyLinkedList->add("calorie_tracker", new class {
 
@@ -87,7 +87,6 @@ class SinglyLinkedListTest extends TestCase {
         $this->assertTrue(2 === $singlyLinkedList->size());
         $singlyLinkedList->remove("calorie_tracker");
         $this->assertTrue(1 === $singlyLinkedList->size());
-
     }
 
 }

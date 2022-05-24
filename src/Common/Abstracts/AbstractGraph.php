@@ -32,6 +32,7 @@ use doganoo\PHPAlgorithms\Algorithm\Various\Converter;
 use doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException;
 use doganoo\PHPAlgorithms\Common\Exception\InvalidGraphTypeException;
 use doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException;
+use doganoo\PHPAlgorithms\Common\Exception\PHPAlgorithmsException;
 use doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException;
 use doganoo\PHPAlgorithms\Common\Interfaces\IComparable;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
@@ -50,9 +51,9 @@ abstract class AbstractGraph implements IComparable, JsonSerializable {
 
     public const DIRECTED_GRAPH   = 1;
     public const UNDIRECTED_GRAPH = 2;
-    protected $nodeList  = null;
-    private   $type      = 0;
-    private   $converter = null;
+    protected ArrayList $nodeList;
+    private int         $type = 0;
+    private Converter   $converter;
 
     /**
      * AbstractGraph constructor.
@@ -60,7 +61,7 @@ abstract class AbstractGraph implements IComparable, JsonSerializable {
      * @param int $type
      * @throws InvalidGraphTypeException
      */
-    protected function __construct($type = self::DIRECTED_GRAPH) {
+    protected function __construct(int $type = self::DIRECTED_GRAPH) {
         $this->nodeList  = new ArrayList();
         $this->converter = new Converter();
         if ($type === self::DIRECTED_GRAPH || $type === self::UNDIRECTED_GRAPH) {
@@ -113,8 +114,7 @@ abstract class AbstractGraph implements IComparable, JsonSerializable {
      * @throws IndexOutOfBoundsException
      */
     public function getRoot(): ?Node {
-        return ($this->nodeList === null ||
-            $this->nodeList->size() === 0)
+        return ($this->nodeList->size() === 0)
             ? null : $this->nodeList->get(0);
     }
 
@@ -122,11 +122,11 @@ abstract class AbstractGraph implements IComparable, JsonSerializable {
      * Specify data which should be serialized to JSON
      *
      * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
             "node_list" => $this->nodeList
             , "type"    => $this->type,
@@ -138,7 +138,7 @@ abstract class AbstractGraph implements IComparable, JsonSerializable {
      * @return AbstractGraph|null
      * @throws IndexOutOfBoundsException
      * @throws InvalidKeyTypeException
-     * @throws UnsupportedKeyTypeException
+     * @throws UnsupportedKeyTypeException|PHPAlgorithmsException
      */
     public function deepCopy(AbstractGraph $graph): ?AbstractGraph {
         $root = $graph->getRoot();
@@ -174,10 +174,11 @@ abstract class AbstractGraph implements IComparable, JsonSerializable {
                 }
             }
 
-            $nodeList       = $this->converter->hashMapToArrayList($m);
+            $nodeList       = $this->converter->hashTableToArrayList($m);
             $this->nodeList = $nodeList;
             return $this;
         }
+        throw new PHPAlgorithmsException('unknown beheviour');
     }
 
     /**

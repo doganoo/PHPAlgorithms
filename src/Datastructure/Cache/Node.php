@@ -47,7 +47,7 @@ class Node implements INode {
      * @param null $value
      */
     public function __construct($key = null, $value = null) {
-        $this->key = $key;
+        $this->key   = $key;
         $this->value = $value;
     }
 
@@ -123,17 +123,18 @@ class Node implements INode {
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
-            "value" => $this->value
-            , "key" => $this->key
-            , "next" => $this->next
+            "value"      => $this->value
+            , "key"      => $this->key
+            , "next"     => $this->next
             , "previous" => $this->previous,
         ];
     }
+
 }

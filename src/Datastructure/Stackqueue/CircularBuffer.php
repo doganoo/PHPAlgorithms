@@ -40,10 +40,11 @@ use function count;
  * @package doganoo\PHPAlgorithms\Datastructure\Stackqueue
  */
 class CircularBuffer implements IComparable, JsonSerializable {
-    private $elements = null;
-    private $head = 0;
-    private $tail = 0;
-    private $size = 0;
+
+    private array $elements;
+    private int   $head = 0;
+    private int   $tail = 0;
+    private int   $size;
 
     /**
      * CircularBuffer constructor.
@@ -51,7 +52,7 @@ class CircularBuffer implements IComparable, JsonSerializable {
      * @param int $size
      */
     public function __construct(int $size = 128) {
-        $this->size = $size;
+        $this->size     = $size;
         $this->elements = array_fill(0, $size, null);
         $this->clear();
     }
@@ -60,7 +61,7 @@ class CircularBuffer implements IComparable, JsonSerializable {
      * resets the pointers of the buffer so that all indices
      * are free to rewrite.
      */
-    public function clear() {
+    public function clear(): void {
         $this->head = 0;
         $this->tail = 0;
     }
@@ -86,7 +87,7 @@ class CircularBuffer implements IComparable, JsonSerializable {
         if ($this->isFull()) {
             return false;
         }
-        $this->head = $this->head % $this->size;
+        $this->head                  = $this->head % $this->size;
         $this->elements[$this->head] = $data;
         $this->head++;
         return true;
@@ -117,7 +118,7 @@ class CircularBuffer implements IComparable, JsonSerializable {
             return false;
         }
         $this->tail = $this->tail % $this->size;
-        $data = $this->elements[$this->tail];
+        $data       = $this->elements[$this->tail];
         $this->tail++;
         return $data;
     }
@@ -147,17 +148,18 @@ class CircularBuffer implements IComparable, JsonSerializable {
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
             "elements" => $this->elements
-            , "head" => $this->head
-            , "tail" => $this->tail
-            , "size" => $this->size,
+            , "head"   => $this->head
+            , "tail"   => $this->tail
+            , "size"   => $this->size,
         ];
     }
+
 }

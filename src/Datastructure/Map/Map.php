@@ -44,8 +44,7 @@ class Map {
     /** @var int MAX_SIZE */
     public const MAX_SIZE = 128;
 
-    /** @var array|null $map */
-    private $map = null;
+    private array $map = [];
 
     /**
      * Map constructor.
@@ -66,7 +65,7 @@ class Map {
      * @param $key
      * @param $value
      */
-    public function add($key, $value) {
+    public function add($key, $value): void {
         $this->map[$key] = $value;
     }
 
@@ -74,9 +73,13 @@ class Map {
      * @return int
      */
     public function size(): int {
-        $array = array_filter($this->map, function ($v, $k) {
-            return $v !== null;
-        }, ARRAY_FILTER_USE_BOTH);
+        $array = array_filter(
+            $this->map,
+            static function ($v, $k) {
+                return $v !== null;
+            },
+            ARRAY_FILTER_USE_BOTH
+        );
         return count($array);
     }
 

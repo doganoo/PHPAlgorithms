@@ -57,15 +57,15 @@ class HashTable extends AbstractTable implements JsonSerializable {
     /**
      * @var array $bucket the buckets containing the nodes
      */
-    private $bucket = null;
+    private array $bucket = [];
 
     /**
      * @var int $maxSize the maximum number of buckets
      */
-    private $maxSize = 128;
+    private int $maxSize = 128;
 
     /** @var array */
-    private $keySet = [];
+    private array $keySet = [];
 
     /**
      * HashMap constructor creates an empty array.
@@ -138,7 +138,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
      * @throws InvalidKeyTypeException
      * @throws UnsupportedKeyTypeException
      */
-    private function getBucketIndex($key) {
+    private function getBucketIndex($key): int {
         /*
          * next, the keys hash is calculated by a
          * private method. Next, the array index
@@ -341,14 +341,14 @@ class HashTable extends AbstractTable implements JsonSerializable {
     /**
      * removes all buckets and their nodes.
      */
-    public function clear() {
+    public function clear(): void {
         $this->initializeBucket();
     }
 
     /**
      * @return array
      */
-    public function countPerBucket() {
+    public function countPerBucket(): array {
         $i     = 0;
         $array = [];
         /** @var SinglyLinkedList $list */
@@ -429,11 +429,11 @@ class HashTable extends AbstractTable implements JsonSerializable {
      * Specify data which should be serialized to JSON
      *
      * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
             "buckets"    => $this->bucket
             , "max_size" => $this->maxSize

@@ -43,10 +43,10 @@ use function is_iterable;
  */
 class HashSet extends AbstractSet implements ISet {
 
-    private $hashMap = null;
+    private HashTable $hashTable;
 
     public function __construct() {
-        $this->hashMap = new HashTable();
+        $this->hashTable = new HashTable();
     }
 
     /**
@@ -82,7 +82,7 @@ class HashSet extends AbstractSet implements ISet {
         if ($contains) {
             return false;
         }
-        return $this->hashMap->add($element, true);
+        return $this->hashTable->add($element, true);
     }
 
     /**
@@ -92,14 +92,14 @@ class HashSet extends AbstractSet implements ISet {
      * @return bool
      */
     public function contains($object): bool {
-        return $this->hashMap->containsKey($object);
+        return $this->hashTable->containsKey($object);
     }
 
     /**
      * Removes all of the elements from this set (optional operation).
      */
     public function clear(): void {
-        $this->hashMap->clear();
+        $this->hashTable->clear();
     }
 
     /**
@@ -125,7 +125,7 @@ class HashSet extends AbstractSet implements ISet {
      * @return bool
      */
     public function isEmpty(): bool {
-        return $this->hashMap->size() === 0;
+        return $this->hashTable->size() === 0;
     }
 
     /**
@@ -137,7 +137,7 @@ class HashSet extends AbstractSet implements ISet {
      * @throws UnsupportedKeyTypeException
      */
     public function remove($object): bool {
-        return $this->hashMap->remove($object);
+        return $this->hashTable->remove($object);
     }
 
     /**
@@ -157,7 +157,7 @@ class HashSet extends AbstractSet implements ISet {
      * @return int
      */
     public function size(): int {
-        return $this->hashMap->size();
+        return $this->hashTable->size();
     }
 
     /**
@@ -166,7 +166,7 @@ class HashSet extends AbstractSet implements ISet {
      * @return array
      */
     public function toArray(): array {
-        return $this->hashMap->keySet();
+        return $this->hashTable->keySet();
     }
 
     /**
@@ -175,9 +175,9 @@ class HashSet extends AbstractSet implements ISet {
      */
     public function compareTo($object): int {
         if ($object instanceof HashSet) {
-            if (Comparator::equals($this->hashMap, $object->hashMap)) return 0;
-            if (Comparator::lessThan($this->hashMap, $object->hashMap)) return -1;
-            if (Comparator::greaterThan($this->hashMap, $object->hashMap)) return 1;
+            if (Comparator::equals($this->hashTable, $object->hashTable)) return 0;
+            if (Comparator::lessThan($this->hashTable, $object->hashTable)) return -1;
+            if (Comparator::greaterThan($this->hashTable, $object->hashTable)) return 1;
         }
         return -1;
     }
@@ -186,13 +186,13 @@ class HashSet extends AbstractSet implements ISet {
      * Specify data which should be serialized to JSON
      *
      * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
-            "hash_map" => $this->hashMap,
+            "hash_map" => $this->hashTable,
         ];
     }
 

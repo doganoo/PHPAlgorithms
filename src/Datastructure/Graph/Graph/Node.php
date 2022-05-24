@@ -38,12 +38,11 @@ use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayList\ArrayList;
  * @package doganoo\PHPAlgorithms\Graph
  */
 class Node implements INode {
+
     /** @var mixed $value */
-    private $value;
-    /** @var ArrayList|null $adjacent */
-    private $adjacent = null;
-    /** @var int $inbound */
-    private $inbound = 0;
+    private           $value;
+    private ArrayList $adjacent;
+    private int       $inbound;
 
 
     /**
@@ -52,9 +51,9 @@ class Node implements INode {
      * @param $value
      */
     public function __construct($value) {
-        $this->value = $value;
+        $this->value    = $value;
         $this->adjacent = new ArrayList();
-        $this->inbound = 0;
+        $this->inbound  = 0;
     }
 
     /**
@@ -83,7 +82,7 @@ class Node implements INode {
      * @param Node $node
      * @return bool
      */
-    public function hasAdjacent(Node $node) {
+    public function hasAdjacent(Node $node): bool {
         /**
          * @var      $key
          * @var Node $value
@@ -125,9 +124,9 @@ class Node implements INode {
     }
 
     /**
-     * @return ArrayList|null
+     * @return ArrayList
      */
-    public function getAdjacents(): ?ArrayList {
+    public function getAdjacents(): ArrayList {
         return $this->adjacent;
     }
 
@@ -141,16 +140,17 @@ class Node implements INode {
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
-            "value" => $this->value
+            "value"      => $this->value
             , "adjacent" => $this->adjacent
-            , "inbound" => $this->inbound,
+            , "inbound"  => $this->inbound,
         ];
     }
+
 }

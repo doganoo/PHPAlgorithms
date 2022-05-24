@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -33,6 +34,7 @@ use doganoo\PHPAlgorithms\Common\Interfaces\INode;
  * @package doganoo\PHPAlgorithms\Datastructure\Trie
  */
 class RootNode extends Node implements INode {
+
     /**
      * @const ROOT_NODE
      */
@@ -42,7 +44,6 @@ class RootNode extends Node implements INode {
      * RootNode constructor.
      */
     public function __construct() {
-        parent::__construct();
         $this->setValue(self::ROOT_NODE);
     }
 
@@ -59,9 +60,10 @@ class RootNode extends Node implements INode {
         return -1;
     }
 
-    public function jsonSerialize() {
-        $serializable = parent::jsonSerialize();
+    public function jsonSerialize(): array {
+        $serializable         = parent::jsonSerialize();
         $serializable["type"] = RootNode::ROOT_NODE;
         return $serializable;
     }
+
 }

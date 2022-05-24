@@ -32,8 +32,9 @@ namespace doganoo\PHPAlgorithms\Datastructure\Stackqueue;
  * @package doganoo\PHPAlgorithms\Datastructure\Stackqueue
  */
 class FixedStack extends Stack {
+
     /** @var int $maxSize the maximum number of elements which is capable by the stack */
-    private $maxSize = 0;
+    private int $maxSize = 0;
 
     /**
      * FixedStack constructor.
@@ -51,7 +52,7 @@ class FixedStack extends Stack {
      * @return bool
      */
     protected function isValid(): bool {
-        $parent = parent::isValid();
+        $parent  = parent::isValid();
         $maxSize = parent::size() < $this->maxSize;
         return $parent && $maxSize;
     }
@@ -59,13 +60,13 @@ class FixedStack extends Stack {
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
      * @return mixed data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
-        $serializable = parent::jsonSerialize();
+    public function jsonSerialize(): array {
+        $serializable             = parent::jsonSerialize();
         $serializable["max_size"] = $this->maxSize;
         return $serializable;
     }

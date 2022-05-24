@@ -40,9 +40,8 @@ use function is_callable;
 abstract class AbstractGraphSearch {
 
     /** @var $callable callable|null */
-    protected $callable = null;
-    /** @var ArrayList|null $visited */
-    protected $visited = null;
+    protected           $callable = null;
+    protected ArrayList $visited;
 
     public function __construct() {
         $this->visited  = new ArrayList();
@@ -59,9 +58,9 @@ abstract class AbstractGraphSearch {
     public abstract function search(AbstractGraph $graph);
 
     /**
-     * @param $value
+     * @param Node $value
      */
-    public function visit(Node $value) {
+    public function visit(Node $value): void {
         $callable = $this->callable;
         if (null === $this->callable
             && !is_callable($this->callable)) {
@@ -80,7 +79,7 @@ abstract class AbstractGraphSearch {
     /**
      * @param callable $callable
      */
-    public function setCallable(callable $callable) {
+    public function setCallable(callable $callable): void {
         $this->callable = $callable;
     }
 

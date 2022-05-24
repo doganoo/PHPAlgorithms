@@ -37,10 +37,8 @@ use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinarySearchTree;
  */
 class LevelOrder extends AbstractTraverse {
 
-    /** @var BinarySearchTree $binarySearchTree */
-    private $binarySearchTree;
-    /** @var array $levels */
-    private $levels;
+    private BinarySearchTree $binarySearchTree;
+    private array            $levels = [];
 
     /**
      * LevelOrder constructor.
@@ -48,7 +46,6 @@ class LevelOrder extends AbstractTraverse {
      */
     public function __construct(BinarySearchTree $binarySearchTree) {
         $this->binarySearchTree = $binarySearchTree;
-        $this->levels           = [];
 
         $this->setCallable(
             function (array $values) {
@@ -67,7 +64,6 @@ class LevelOrder extends AbstractTraverse {
             , $result
             , $level
         );
-
 
         /**
          * @var int           $level

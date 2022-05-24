@@ -41,9 +41,9 @@ use JsonSerializable;
  */
 class StackSet implements IComparable, JsonSerializable {
 
-    private $maxSize   = 0;
-    private $counter   = 0;
-    private $stackList = null;
+    private int       $maxSize;
+    private int       $counter = 0;
+    private ArrayList $stackList;
 
     /**
      * StackSet constructor.
@@ -59,7 +59,7 @@ class StackSet implements IComparable, JsonSerializable {
      * @param $element
      * @throws IndexOutOfBoundsException
      */
-    public function push($element) {
+    public function push($element): void {
         $stack = $this->getLastStack();
         $this->addToStack($stack, $element);
     }
@@ -83,7 +83,7 @@ class StackSet implements IComparable, JsonSerializable {
      * @param       $element
      * @throws IndexOutOfBoundsException
      */
-    private function addToStack(Stack $stack, $element) {
+    private function addToStack(Stack $stack, $element): void {
         $stack->push($element);
         $this->counter++;
         if (1 === $stack->size()) {
@@ -136,11 +136,11 @@ class StackSet implements IComparable, JsonSerializable {
      * Specify data which should be serialized to JSON
      *
      * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
             "stack_list" => $this->stackList
             , "max_size" => $this->maxSize

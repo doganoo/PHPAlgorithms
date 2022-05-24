@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace doganoo\PHPAlgorithms\Datastructure\Cache;
 
+use doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException;
+use doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException;
 use doganoo\PHPAlgorithms\Common\Interfaces\ICache;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Table\HashTable;
@@ -36,20 +38,18 @@ use doganoo\PHPAlgorithms\Datastructure\Table\HashTable;
  * @package doganoo\PHPAlgorithms\Datastructure\Cache
  */
 class LRUCache implements ICache {
-    /** @var HashTable|null $hashMap */
-    private $hashMap = null;
-    /** @var Node $head */
-    private $head = null;
-    /** @var int $capacity */
-    private $capacity = 0;
+
+    private HashTable $hashMap;
+    private ?Node     $head = null;
+    private int       $capacity;
 
     /**
      * LRUCache constructor.
      *
      * @param int $capacity
      */
-    public function __construct($capacity = 128) {
-        $this->hashMap = new HashTable();
+    public function __construct(int $capacity = 128) {
+        $this->hashMap  = new HashTable();
         $this->capacity = $capacity;
     }
 
@@ -59,8 +59,8 @@ class LRUCache implements ICache {
      * @param $key
      * @param $value
      * @return bool
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
+     * @throws InvalidKeyTypeException
+     * @throws UnsupportedKeyTypeException
      */
     public function put($key, $value): bool {
         if ($this->hashMap->containsKey($key)) {
@@ -86,6 +86,10 @@ class LRUCache implements ICache {
         return true;
     }
 
+    /**
+     * @param $key
+     * @return Node|mixed|null
+     */
     private function getNodeFromHead($key) {
         $head = $this->head;
         while (null !== $head) {
@@ -100,10 +104,7 @@ class LRUCache implements ICache {
     /**
      * @param Node $node
      */
-    private function unset(Node $node) {
-        if (null === $node) {
-            return;
-        }
+    private function unset(Node $node): void {
         if (Comparator::equals($this->head, $node)) {
             $this->head = $node->getNext();
         }
@@ -119,7 +120,7 @@ class LRUCache implements ICache {
     /**
      * @param Node $node
      */
-    private function updateHead(Node $node) {
+    private function updateHead(Node $node): void {
         $node->setPrevious(null);
         $node->setNext($this->head);
 
@@ -174,8 +175,8 @@ class LRUCache implements ICache {
      *
      * @param $key
      * @return bool
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
+     * @throws InvalidKeyTypeException
+     * @throws UnsupportedKeyTypeException
      */
     public function delete($key): bool {
         $node = $this->getNodeFromHead($key);
@@ -211,16 +212,17 @@ class LRUCache implements ICache {
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
-            "map" => $this->hashMap
-            , "head" => $this->head
+            "map"        => $this->hashMap
+            , "head"     => $this->head
             , "capacity" => $this->capacity,
         ];
     }
+
 }

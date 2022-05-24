@@ -38,14 +38,14 @@ use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\AVLTree\Node;
  */
 class AVLTree extends BinarySearchTree {
 
-    public const BALANCE_VALUE_ONE = 1;
+    public const BALANCE_VALUE_ONE       = 1;
     public const BALANCE_VALUE_MINUS_ONE = -1;
 
     /**
-     * @param Node $node
+     * @param ?IBinaryNode $node
      * @return bool
      */
-    public function insert(?IBinaryNode $node) {
+    public function insert(?IBinaryNode $node): bool {
         return false;
         if (false === $node instanceof Node) return false;
 
@@ -54,7 +54,7 @@ class AVLTree extends BinarySearchTree {
         if (false === $inserted) return false;
 
         /** @var Node $root */
-        $root = parent::getRoot();
+        $root  = parent::getRoot();
         $value = $root->getValue();
 
         $balance = $root->getBalance();
@@ -64,8 +64,7 @@ class AVLTree extends BinarySearchTree {
             $childValue =
                 null === $root->getLeft()
                     ? null
-                    : $root->getLeft()->getValue()
-            ;
+                    : $root->getLeft()->getValue();
 
             if (Comparator::lessThan($value, $childValue)) {
                 $this->setRoot(
@@ -85,14 +84,13 @@ class AVLTree extends BinarySearchTree {
             }
         }
 
-        if ($balance < AVLTree::BALANCE_VALUE_MINUS_ONE){
+        if ($balance < AVLTree::BALANCE_VALUE_MINUS_ONE) {
 
             $this->log($balance);
             $childValue =
                 null === $root->getRight()
                     ? null
-                    : $root->getRight()->getValue()
-            ;
+                    : $root->getRight()->getValue();
 
             if (Comparator::greaterThan($value, $childValue)) {
                 $this->setRoot(
@@ -123,7 +121,7 @@ class AVLTree extends BinarySearchTree {
         return $this->insert($avlNode);
     }
 
-    private function rightRotate(Node $y):Node {
+    private function rightRotate(Node $y): Node {
         /** @var Node $x */
         $x = $y->getLeft();
         /** @var Node $t2 */
@@ -135,7 +133,7 @@ class AVLTree extends BinarySearchTree {
         return $x;
     }
 
-    private function leftRotate(Node $x):Node{
+    private function leftRotate(Node $x): Node {
         /** @var Node $y */
         $y = $x->getRight();
         /** @var Node $t2 */

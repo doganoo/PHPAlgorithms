@@ -36,12 +36,13 @@ use doganoo\PHPAlgorithms\Common\Util\Comparator;
  * @package doganoo\PHPAlgorithms\Trees\Search
  */
 class RecursiveSearch {
+
     /**
      * @param IBinaryNode|null $node
      * @param                  $needle
      * @return bool
      */
-    public function search(?IBinaryNode $node, $needle) {
+    public function search(?IBinaryNode $node, $needle): bool {
         if (null === $node) {
             return false;
         }
@@ -54,4 +55,5 @@ class RecursiveSearch {
         }
         return false;
     }
+
 }

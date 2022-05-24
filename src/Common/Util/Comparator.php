@@ -72,7 +72,7 @@ class Comparator {
      * @param $other
      * @return bool
      */
-    public static function notEquals($that, $other):bool {
+    public static function notEquals($that, $other): bool {
         return false === Comparator::equals($that, $other);
     }
 

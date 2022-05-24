@@ -37,8 +37,7 @@ use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
  */
 class InOrder extends AbstractTraverse {
 
-    /** @var AbstractTree|null */
-    private $binarySearchTree = null;
+    private AbstractTree $binarySearchTree;
 
     /**
      * InOrder constructor.
@@ -52,7 +51,7 @@ class InOrder extends AbstractTraverse {
     /**
      * traverses the tree in in order
      */
-    public function traverse() {
+    public function traverse(): void {
         $this->_traverse($this->binarySearchTree->getRoot());
     }
 
@@ -61,7 +60,7 @@ class InOrder extends AbstractTraverse {
      *
      * @param IBinaryNode|null $node
      */
-    public function _traverse(?IBinaryNode $node) {
+    public function _traverse(?IBinaryNode $node): void {
         if (null !== $node) {
             if (null !== $node->getLeft()) {
                 $this->_traverse($node->getLeft());

@@ -54,11 +54,10 @@ class Node extends BinarySearchNode {
     /**
      * @return int
      */
-    public function getBalance():int{
-        $leftHeight = (null === $this->getLeft()) ? 0 : $this->getLeft()->getHeight();
+    public function getBalance(): int {
+        $leftHeight  = (null === $this->getLeft()) ? 0 : $this->getLeft()->getHeight();
         $rightHeight = (null === $this->getRight()) ? 0 : $this->getRight()->getHeight();
-        $result = (int)$leftHeight - (int)$rightHeight;
-        return $result;
+        return $leftHeight - $rightHeight;
     }
 
 }

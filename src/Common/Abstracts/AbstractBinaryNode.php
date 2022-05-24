@@ -34,10 +34,8 @@ use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
  */
 abstract class AbstractBinaryNode extends AbstractNode implements IBinaryNode {
 
-    /** @var AbstractBinaryNode $right */
-    private $right = null;
-    /** @var AbstractBinaryNode $left */
-    private $left = null;
+    private ?AbstractBinaryNode $right = null;
+    private ?AbstractBinaryNode $left  = null;
 
     /**
      * @return IBinaryNode|null
@@ -68,9 +66,9 @@ abstract class AbstractBinaryNode extends AbstractNode implements IBinaryNode {
     }
 
     /**
-     * @return array|mixed
+     * @return array
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return parent::jsonSerialize() +
             [
                 "left"    => $this->getLeft()

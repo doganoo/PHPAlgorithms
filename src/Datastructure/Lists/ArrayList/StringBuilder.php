@@ -41,8 +41,8 @@ use function strlen;
  * @package doganoo\PHPAlgorithms\Lists\ArrayList
  */
 class StringBuilder {
-    /** @var ArrayList $arrayList */
-    private $arrayList = null;
+
+    private ArrayList $arrayList;
 
     /**
      * StringBuilder constructor.
@@ -65,7 +65,7 @@ class StringBuilder {
      *
      * @param string $string
      */
-    public function append(string $string) {
+    public function append(string $string): void {
         for ($i = 0; $i < strlen($string); $i++) {
             $this->arrayList->add($string[$i]);
         }
@@ -84,10 +84,10 @@ class StringBuilder {
      * returns the char at $index
      *
      * @param int $index
-     * @return mixed
+     * @return string
      * @throws IndexOutOfBoundsException
      */
-    public function charAt(int $index) {
+    public function charAt(int $index): string {
         return $this->arrayList->get($index);
     }
 
@@ -97,7 +97,7 @@ class StringBuilder {
      * @param int $start
      * @param int $end
      */
-    public function delete(int $start, int $end) {
+    public function delete(int $start, int $end): void {
         $this->arrayList->removeRange($start, $end);
     }
 
@@ -106,7 +106,7 @@ class StringBuilder {
      *
      * @param $index
      */
-    public function deleteCharAt($index) {
+    public function deleteCharAt($index): void {
         $this->arrayList->removeRange($index, $index);
     }
 
@@ -114,9 +114,9 @@ class StringBuilder {
      * returns the index of $value
      *
      * @param string $value
-     * @return string
+     * @return int
      */
-    public function indexOf(string $value) {
+    public function indexOf(string $value): int {
         return $this->arrayList->indexOf($value);
     }
 
@@ -126,7 +126,7 @@ class StringBuilder {
      * @param int    $index
      * @param string $string
      */
-    public function insert(int $index, string $string) {
+    public function insert(int $index, string $string): void {
         if (strlen($string) > 1) {
             $string = $string[0];
         }
@@ -138,7 +138,7 @@ class StringBuilder {
      *
      * @return int
      */
-    public function length() {
+    public function length(): int {
         return $this->arrayList->length();
     }
 
@@ -147,9 +147,8 @@ class StringBuilder {
      *
      * @return StringBuilder
      */
-    public function reverse() {
-        $stringBuilder = $this->arrayListToStringBuilder($this->arrayList, true);
-        return $stringBuilder;
+    public function reverse(): StringBuilder {
+        return $this->arrayListToStringBuilder($this->arrayList, true);
     }
 
     /**
@@ -159,7 +158,7 @@ class StringBuilder {
      * @param bool      $reverse
      * @return StringBuilder
      */
-    private function arrayListToStringBuilder(ArrayList $arrayList, bool $reverse = false) {
+    private function arrayListToStringBuilder(ArrayList $arrayList, bool $reverse = false): StringBuilder {
         $stringBuilder = new StringBuilder();
         if ($reverse) {
             $stack = new Stack();
@@ -193,8 +192,8 @@ class StringBuilder {
      * @param int $end
      * @return StringBuilder
      */
-    public function subSequence(int $start, int $end) {
-        $arrayList = $this->arrayList->subList($start, $end);
+    public function subSequence(int $start, int $end): StringBuilder {
+        $arrayList     = $this->arrayList->subList($start, $end);
         $stringBuilder = $this->arrayListToStringBuilder($arrayList);
         return $stringBuilder;
     }
@@ -202,7 +201,7 @@ class StringBuilder {
     /**
      * trims the number of elements to the real size
      */
-    public function trimToSize() {
+    public function trimToSize(): void {
         $this->arrayList->trimToSize();
     }
 
@@ -211,7 +210,7 @@ class StringBuilder {
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString(): string {
         $string = "";
         foreach ($this->arrayList as $item) {
             $string .= $item;

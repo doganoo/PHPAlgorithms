@@ -29,6 +29,8 @@ declare(strict_types=1);
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Graph;
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraph;
+use doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException;
+use doganoo\PHPAlgorithms\common\Exception\InvalidGraphTypeException;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayList\ArrayList;
 
 /**
@@ -41,7 +43,7 @@ class DirectedGraph extends AbstractGraph {
     /**
      * DirectedGraph constructor.
      *
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidGraphTypeException
+     * @throws InvalidGraphTypeException
      */
     public function __construct() {
         parent::__construct(self::DIRECTED_GRAPH);
@@ -51,11 +53,11 @@ class DirectedGraph extends AbstractGraph {
      * @param Node $startNode
      * @param Node $endNode
      * @return bool
-     * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException
      */
     public function addEdge(Node $startNode, Node $endNode): bool {
         $hasStart = $this->nodeList->containsValue($startNode);
-        $hasEnd = $this->nodeList->containsValue($endNode);
+        $hasEnd   = $this->nodeList->containsValue($endNode);
         if (false === $hasStart) {
             //TODO notify caller
             return false;
@@ -66,7 +68,7 @@ class DirectedGraph extends AbstractGraph {
         }
         $indexOfStartNode = $this->nodeList->indexOf($startNode);
         /** @var Node $startNode */
-        $startNode = $this->nodeList->get($indexOfStartNode);
+        $startNode      = $this->nodeList->get($indexOfStartNode);
         $indexOfEndNode = $this->nodeList->indexOf($endNode);
         /** @var Node $endNode */
         $endNode = $this->nodeList->get($indexOfEndNode);
@@ -90,7 +92,7 @@ class DirectedGraph extends AbstractGraph {
      * @return bool
      */
     public function hasCycle(): bool {
-        $visited = new ArrayList();
+        $visited   = new ArrayList();
         $recursive = new ArrayList();
         foreach ($this->getNodes() as $node) {
             if ($this->_hasCycle($node, $visited, $recursive)) return true;
@@ -104,7 +106,7 @@ class DirectedGraph extends AbstractGraph {
      * @param ArrayList $rec
      * @return bool
      */
-    private function _hasCycle(Node $node, ArrayList &$visited, ArrayList &$rec) {
+    private function _hasCycle(Node $node, ArrayList &$visited, ArrayList &$rec): bool {
         if ($rec->containsValue($node)) return true;
         if ($visited->containsValue($node)) return false;
 
@@ -116,7 +118,6 @@ class DirectedGraph extends AbstractGraph {
         }
         $rec->removeByValue($node);
         return false;
-
     }
 
 }

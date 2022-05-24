@@ -34,8 +34,7 @@ use doganoo\PHPAlgorithms\Common\Abstracts\AbstractTable;
  */
 class SimpleTable extends AbstractTable {
 
-    /** @var array|null $table */
-    private $table = null;
+    private array $table;
 
     /**
      * SimpleTable constructor.

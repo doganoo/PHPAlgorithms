@@ -36,11 +36,9 @@ use Iterator;
  */
 class LinkedListIterator implements Iterator {
 
-    /** @var AbstractLinkedList $linkedList */
-    private $linkedList = null;
-    /** @var Node $root */
-    private $root = null;
-    private $i    = 0;
+    private AbstractLinkedList $linkedList;
+    private ?Node              $root;
+    private int                $i;
 
     /**
      * LinkedListIterator constructor.
@@ -84,14 +82,14 @@ class LinkedListIterator implements Iterator {
     /**
      * @inheritDoc
      */
-    public function valid() {
+    public function valid(): bool {
         return null !== $this->root;
     }
 
     /**
      * @inheritDoc
      */
-    public function rewind() {
+    public function rewind(): void {
         $this->i    = $this->root->size() + 1;
         $this->root = $this->linkedList->getHead();
     }

@@ -41,8 +41,7 @@ use function count;
  */
 class BinarySearchTree extends AbstractTree {
 
-    /** @var int $size */
-    private $size = 0;
+    private int $size = 0;
 
     /**
      * inserts a value that is not a BinarySearchNode instance
@@ -60,7 +59,7 @@ class BinarySearchTree extends AbstractTree {
      * @param IBinaryNode|null $node
      * @return bool
      */
-    public function insert(?IBinaryNode $node) {
+    public function insert(?IBinaryNode $node): bool {
         if (null === $node) return false;
 
         /** @var BinarySearchNode $root */
@@ -201,9 +200,9 @@ class BinarySearchTree extends AbstractTree {
     }
 
     /**
-     * @return array|mixed
+     * @return array
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return
             parent::jsonSerialize() +
             [

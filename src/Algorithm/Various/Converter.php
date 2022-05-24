@@ -28,6 +28,8 @@ declare(strict_types=1);
 
 namespace doganoo\PHPAlgorithms\Algorithm\Various;
 
+use doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException;
+use doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayList\ArrayList;
 use doganoo\PHPAlgorithms\Datastructure\Table\HashTable;
 
@@ -40,8 +42,8 @@ class Converter {
     /**
      * @param HashTable|null $table
      * @return ArrayList|null
-     * @throws \doganoo\PHPAlgorithms\common\Exception\InvalidKeyTypeException
-     * @throws \doganoo\PHPAlgorithms\common\Exception\UnsupportedKeyTypeException
+     * @throws InvalidKeyTypeException
+     * @throws UnsupportedKeyTypeException
      */
     public function hashTableToArrayList(?HashTable $table): ?ArrayList {
         if (null === $table) return null;

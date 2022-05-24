@@ -38,10 +38,11 @@ use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\RedBlackTree\Node;
  * TODO implement
  */
 class RedBlackTree {
-    /** @var Node|null $root */
-    private $root = null;
 
-    public function insertValue($value) {
+    /** @var Node|null $root */
+    private ?Node $root = null;
+
+    public function insertValue($value): void {
         return;
         $node = new Node($value);
         $this->insert($node);
@@ -87,7 +88,7 @@ class RedBlackTree {
         $this->fixUp($node);
     }
 
-    private function fixUp(Node $node) {
+    private function fixUp(Node $node): void {
 
         while (Comparator::equals($node->getParentsColor(), Node::RED)) {
 

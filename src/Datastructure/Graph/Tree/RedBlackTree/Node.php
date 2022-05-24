@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace doganoo\PHPAlgorithms\Datastructure\Graph\Tree\RedBlackTree;
 
+use doganoo\PHPAlgorithms\Common\Interfaces\IBinaryNode;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree\BinarySearchNode;
 
 /**
@@ -35,15 +36,16 @@ use doganoo\PHPAlgorithms\Datastructure\Graph\Tree\BinaryTree\BinarySearchNode;
  * TODO implement! actually implemented the half way
  */
 class Node extends BinarySearchNode {
-    public const BLACK = 1;
-    public const RED = 2;
 
-    public const SIDE_LEFT = 3;
+    public const BLACK = 1;
+    public const RED   = 2;
+
+    public const SIDE_LEFT  = 3;
     public const SIDE_RIGHT = 4;
 
-    private $color = Node::BLACK;
+    private int $color = Node::BLACK;
 
-    private $parent = null;
+    private ?Node $parent = null;
 
     /**
      * @return int
@@ -52,7 +54,7 @@ class Node extends BinarySearchNode {
         return $this->color;
     }
 
-    public function getColorName():string{
+    public function getColorName(): string {
         if (Node::BLACK === $this->getColor()) return "BLACK";
         return "RED";
     }
@@ -64,26 +66,26 @@ class Node extends BinarySearchNode {
         $this->color = $color;
     }
 
-    public function setParent(?Node $parent):void {
+    public function setParent(?Node $parent): void {
         $this->parent = $parent;
     }
 
-    public function getParent():?Node{
+    public function getParent(): ?Node {
         return $this->parent;
     }
 
-    public function getGrandParent():?Node{
+    public function getGrandParent(): ?Node {
         $parent = $this->getParent();
         if (null === $parent) return null;
         return $parent->getParent();
     }
 
-    public function getGrandParentsColor():int{
+    public function getGrandParentsColor(): int {
         $parent = $this->getParent();
         return $parent->getParentsColor();
     }
 
-    public function getUncle(int $side): ?Node {
+    public function getUncle(int $side): ?IBinaryNode {
         $grandParent = $this->getGrandParent();
         if (null === $grandParent) return null;
 
@@ -92,18 +94,18 @@ class Node extends BinarySearchNode {
         return null;
     }
 
-    public function getParentsColor():int{
+    public function getParentsColor(): int {
         $parent = null;
         if (null === $parent) return Node::BLACK;
         return $parent->getColor();
     }
 
-    public function getParentsColorName():string{
+    public function getParentsColorName(): string {
         if (Node::BLACK === $this->getParentsColor()) return "BLACK";
         return "RED";
     }
 
-    public function setParentsColor(int $color):bool {
+    public function setParentsColor(int $color): bool {
 
         $parent = $this->getParent();
         if (null === $parent) return false;
@@ -119,9 +121,9 @@ class Node extends BinarySearchNode {
         return false;
     }
 
-    public function setGrandParentsColor(int $color):bool {
+    public function setGrandParentsColor(int $color): bool {
         $parent = $this->getParent();
-        if (null === $parent) return null;
+        if (null === $parent) return false;
 
         return $parent->setParentsColor($color);
     }

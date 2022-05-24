@@ -28,6 +28,7 @@ namespace doganoo\PHPAlgorithms\Algorithm\Search;
 
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraph;
 use doganoo\PHPAlgorithms\Common\Abstracts\AbstractGraphSearch;
+use doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException;
 use doganoo\PHPAlgorithms\Datastructure\Graph\Graph\Node;
 use doganoo\PHPAlgorithms\Datastructure\Stackqueue\Queue;
 
@@ -41,7 +42,7 @@ class BreadthFirstSearch extends AbstractGraphSearch {
     /**
      * @param AbstractGraph $graph
      * @return mixed|void
-     * @throws \doganoo\PHPAlgorithms\Common\Exception\IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException
      */
     public function search(AbstractGraph $graph) {
         $this->searchByNode($graph->getRoot());
@@ -49,9 +50,9 @@ class BreadthFirstSearch extends AbstractGraphSearch {
 
     /**
      * @param Node|null $node
-     * @return mixed|void
+     * @return void
      */
-    public function searchByNode(?Node $node) {
+    public function searchByNode(?Node $node): void {
         if (null === $node) return;
         $queue = new Queue();
         $this->visited->add($node);

@@ -28,7 +28,6 @@ declare(strict_types=1);
 
 namespace doganoo\PHPAlgorithms\Algorithm\Search;
 
-
 use doganoo\PHPAlgorithms\Datastructure\Graph\Graph\Node;
 use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayList\ArrayList;
 

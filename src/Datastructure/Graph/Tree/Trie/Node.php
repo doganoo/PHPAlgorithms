@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * MIT License
  *
@@ -34,15 +35,9 @@ use doganoo\PHPAlgorithms\Common\Interfaces\INode;
  * @package doganoo\PHPAlgorithms\Datastructure\Trie
  */
 class Node implements INode {
-    private $value;
-    private $children;
 
-    /**
-     * Node constructor.
-     */
-    public function __construct() {
-        $this->children = [];
-    }
+    private       $value;
+    private array $children = [];
 
     /**
      * @param int $position
@@ -66,7 +61,7 @@ class Node implements INode {
     /**
      * @param int $position
      */
-    public function createChildNode(int $position) {
+    public function createChildNode(int $position): void {
         $node = new Node();
         $node->setValue($position);
         $this->children[$position] = $node;
@@ -75,7 +70,7 @@ class Node implements INode {
     /**
      * creates an node that indicates the end of the word
      */
-    public function createEndOfWordNode() {
+    public function createEndOfWordNode(): void {
         $this->children[] = new EndOfWordNode();
     }
 
@@ -83,7 +78,7 @@ class Node implements INode {
      * indicates whether it is the end of the node
      * @return bool
      */
-    public function isEndOfWordNode() {
+    public function isEndOfWordNode(): bool {
         return $this->children[0] instanceof EndOfWordNode;
     }
 
@@ -117,15 +112,16 @@ class Node implements INode {
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
-            "value" => $this->getValue()
+            "value"      => $this->getValue()
             , "children" => $this->children,
         ];
     }
+
 }

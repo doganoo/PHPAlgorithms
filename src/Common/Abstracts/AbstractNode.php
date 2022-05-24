@@ -73,7 +73,7 @@ abstract class AbstractNode implements INode {
     /**
      * helper method
      *
-     * @param AbstractNode $node
+     * @param ?AbstractNode $node
      * @return int
      */
     private function height(?AbstractNode $node): int {
@@ -100,11 +100,11 @@ abstract class AbstractNode implements INode {
     /**
      * Specify data which should be serialized to JSON
      * @link  https://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
             "value"    => $this->getValue()
             , "height" => $this->getHeight()

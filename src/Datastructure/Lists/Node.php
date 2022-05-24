@@ -38,10 +38,11 @@ use doganoo\PHPAlgorithms\Common\Interfaces\IUnaryNode;
  * @package doganoo\PHPAlgorithms\Maps
  */
 class Node implements INode, IUnaryNode {
-    private $value;
-    private $key;
-    private $next = null;
-    private $previous = null;
+
+    private             $value;
+    private             $key;
+    private ?IUnaryNode $next     = null;
+    private ?IUnaryNode $previous = null;
 
     /**
      * returns the key
@@ -66,7 +67,7 @@ class Node implements INode, IUnaryNode {
      *
      * @return int
      */
-    public function size() {
+    public function size(): int {
         /** @var Node $node */
         $node = $this->next;
         $size = 1;
@@ -108,10 +109,10 @@ class Node implements INode, IUnaryNode {
     /**
      * sets the previous node
      *
-     * @param IUnaryNode|null $node
+     * @param IUnaryNode|null $previous
      */
-    public function setPrevious(?IUnaryNode $node): void {
-        $this->previous = $node;
+    public function setPrevious(?IUnaryNode $previous): void {
+        $this->previous = $previous;
     }
 
     /**
@@ -146,17 +147,18 @@ class Node implements INode, IUnaryNode {
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
-            "value" => $this->value
-            , "key" => $this->key
-            , "next" => $this->next
+            "value"      => $this->value
+            , "key"      => $this->key
+            , "next"     => $this->next
             , "previous" => $this->previous,
         ];
     }
+
 }

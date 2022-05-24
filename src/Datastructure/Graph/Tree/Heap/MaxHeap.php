@@ -45,14 +45,15 @@ use const PHP_INT_MIN;
  * @package doganoo\PHPAlgorithms\Datastructure\Graph\Tree\Heap
  */
 class MaxHeap implements IHeap {
+
     /**
-     * @var array|null $size the heap
+     * @var array $heap the heap
      */
-    private $heap = null;
+    private array $heap = [];
     /**
      * @var int $maxSize the maximum size
      */
-    private $maxSize = 128;
+    private int $maxSize = 128;
 
     /**
      * MinHeap constructor.
@@ -67,7 +68,7 @@ class MaxHeap implements IHeap {
      * @return bool
      */
     public function clear(): bool {
-        $this->heap = array_fill(0, $this->maxSize, null);
+        $this->heap    = array_fill(0, $this->maxSize, null);
         $this->heap[0] = PHP_INT_MIN;
         return count($this->heap) === 1 && $this->heap[0] == PHP_INT_MIN;
     }
@@ -77,13 +78,13 @@ class MaxHeap implements IHeap {
      * @throws IndexOutOfBoundsException
      */
     public function insert(int $element): void {
-        $length = $this->length();
+        $length                  = $this->length();
         $this->heap[$length + 1] = $element;
-        $currentPosition = $this->length();
-        $parentPosition = $this->getParentPosition($currentPosition);
+        $currentPosition         = $this->length();
+        $parentPosition          = $this->getParentPosition($currentPosition);
 
         $current = $this->heap[$currentPosition];
-        $parent = $this->heap[$parentPosition];
+        $parent  = $this->heap[$parentPosition];
 
         //this could be implemented in recursive way as well!
         while (Comparator::greaterThan($current, $parent)) {
@@ -95,9 +96,9 @@ class MaxHeap implements IHeap {
             //parent position is the parent position of the current position
             //(i know, it is confusing :-))
             $currentPosition = $this->getParentPosition($currentPosition);
-            $parentPosition = $this->getParentPosition($currentPosition);
-            $current = $this->heap[$currentPosition];
-            $parent = $this->heap[$parentPosition];
+            $parentPosition  = $this->getParentPosition($currentPosition);
+            $current         = $this->heap[$currentPosition];
+            $parent          = $this->heap[$parentPosition];
         }
     }
 
@@ -107,9 +108,12 @@ class MaxHeap implements IHeap {
      * @return int
      */
     public function length(): int {
-        $array = array_filter($this->heap, function ($v, $k) {
-            return $v !== null;
-        }, ARRAY_FILTER_USE_BOTH);
+        $array = array_filter(
+            $this->heap,
+            static function ($v, $k) {
+                return $v !== null;
+            },
+            ARRAY_FILTER_USE_BOTH);
         return count($array) - 1;
     }
 
@@ -151,9 +155,9 @@ class MaxHeap implements IHeap {
      * @param int $parent
      */
     public function swap(int $current, int $parent): void {
-        $tmp = $this->heap[$current];
+        $tmp                  = $this->heap[$current];
         $this->heap[$current] = $this->heap[$parent];
-        $this->heap[$parent] = $tmp;
+        $this->heap[$parent]  = $tmp;
     }
 
     /**
@@ -187,25 +191,26 @@ class MaxHeap implements IHeap {
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
-            "heap" => $this->heap
+            "heap"       => $this->heap
             , "max_size" => $this->maxSize
-            , "type" => "MAX_HEAP",
+            , "type"     => "MAX_HEAP",
         ];
     }
 
     /**
      * returns the heap as an array
      *
-     * @return array|null
+     * @return array
      */
-    public function getHeap(): ?array {
+    public function getHeap(): array {
         return $this->heap;
     }
+
 }

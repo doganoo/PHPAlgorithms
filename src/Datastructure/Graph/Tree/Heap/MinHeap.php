@@ -46,13 +46,13 @@ use const PHP_INT_MIN;
 class MinHeap implements IHeap {
 
     /**
-     * @var array|null $size the heap
+     * @var array|null $heap the heap
      */
-    private $heap = null;
+    private array $heap = [];
     /**
      * @var int $maxSize the maximum size
      */
-    private $maxSize = 128;
+    private int $maxSize = 128;
 
     /**
      * MinHeap constructor.
@@ -107,9 +107,13 @@ class MinHeap implements IHeap {
      * @return int
      */
     public function length(): int {
-        $array = array_filter($this->heap, function ($v, $k) {
-            return $v !== null;
-        }, ARRAY_FILTER_USE_BOTH);
+        $array = array_filter(
+            $this->heap,
+            static function ($v, $k) {
+                return $v !== null;
+            },
+            ARRAY_FILTER_USE_BOTH
+        );
         return count($array) - 1;
     }
 

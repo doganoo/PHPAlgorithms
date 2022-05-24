@@ -35,8 +35,10 @@ use doganoo\PHPAlgorithms\Common\Iterator\LinkedListIterator;
 use doganoo\PHPAlgorithms\Common\Util\Comparator;
 use doganoo\PHPAlgorithms\Datastructure\Lists\Node;
 use doganoo\PHPAlgorithms\Datastructure\Table\HashTable;
+use Iterator;
 use IteratorAggregate;
 use JsonSerializable;
+use Traversable;
 
 /**
  * Class LinkedList
@@ -56,8 +58,7 @@ abstract class AbstractLinkedList
     , JsonSerializable
     , IteratorAggregate {
 
-    /** @var Node */
-    private $head = null;
+    private ?Node $head = null;
 
     /**
      * returns the head node or null, if no head is set
@@ -102,7 +103,7 @@ abstract class AbstractLinkedList
      *
      * @param Node $node
      */
-    public function addNode(Node $node) {
+    public function addNode(Node $node): void {
         $this->add($node->getKey(), $node->getValue());
     }
 
@@ -114,7 +115,7 @@ abstract class AbstractLinkedList
      * @param $key
      * @param $value
      */
-    public function add($key, $value) {
+    public function add($key, $value): void {
         $node = new Node();
         $node->setKey($key);
         $node->setValue($value);
@@ -606,14 +607,14 @@ abstract class AbstractLinkedList
      *
      * @return bool
      */
-    public function isEmpty() {
+    public function isEmpty(): bool {
         return $this->head == null;
     }
 
     /**
      * @inheritDoc
      */
-    public function getIterator() {
+    public function getIterator(): Traversable {
         return new LinkedListIterator($this);
     }
 
@@ -621,11 +622,11 @@ abstract class AbstractLinkedList
      * Specify data which should be serialized to JSON
      *
      * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
             "head"       => $this->getHead()
             , "size"     => $this->size()

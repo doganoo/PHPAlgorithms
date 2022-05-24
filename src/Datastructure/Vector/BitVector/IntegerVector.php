@@ -38,10 +38,11 @@ use function is_int;
  * @package doganoo\PHPAlgorithms\Datastructure\Maps
  */
 class IntegerVector implements IVector {
-    /** @var array|null $array */
-    private $array = null;
+
+    /** @var array $array */
+    private array $array;
     /** @var int $bitLength */
-    private $bitLength = 32;
+    private int $bitLength = 32;
 
     /**
      * Vector constructor.
@@ -66,8 +67,8 @@ class IntegerVector implements IVector {
         //TODO throw exception instead?
         if (is_int($value)) {
             $info = $this->getIndexAndMask($value);
-            $i = $info["i"];
-            $k = $info["k"];
+            $i    = $info["i"];
+            $k    = $info["k"];
 
             $flag = 1;
             $flag = $flag << $k;
@@ -86,7 +87,7 @@ class IntegerVector implements IVector {
         $i = $value / $this->bitLength;
         $k = $value % $this->bitLength;
 
-        $info = [];
+        $info      = [];
         $info["i"] = $i;
         $info["k"] = $k;
         return $info;
@@ -102,8 +103,8 @@ class IntegerVector implements IVector {
         //TODO throw exception instead?!
         if (is_int($value)) {
             $info = $this->getIndexAndMask($value);
-            $i = $info["i"];
-            $k = $info["k"];
+            $i    = $info["i"];
+            $k    = $info["k"];
 
             $flag = 1;
             $flag = $flag << $k;
@@ -124,8 +125,8 @@ class IntegerVector implements IVector {
         //TODO throw exception insted?!
         if (is_int($value)) {
             $info = $this->getIndexAndMask($value);
-            $i = $info["i"];
-            $k = $info["k"];
+            $i    = $info["i"];
+            $k    = $info["k"];
 
             $flag = 1;
             $flag = $flag << $k;
@@ -159,15 +160,16 @@ class IntegerVector implements IVector {
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
-            "array" => $this->array
+            "array"        => $this->array
             , "bit_length" => $this->bitLength,
         ];
     }
+
 }
