@@ -27,6 +27,7 @@ declare(strict_types=1);
 namespace doganoo\PHPAlgorithmsTest\Table;
 
 use doganoo\PHPAlgorithms\Common\Interfaces\IHashable;
+use doganoo\PHPAlgorithms\Datastructure\Lists\ArrayList\ArrayList;
 use doganoo\PHPAlgorithms\Datastructure\Table\HashTable;
 use doganoo\PHPAlgorithmsTest\Table\Entity\HashableObject;
 use doganoo\PHPAlgorithmsTest\Util\HashTableUtil;
@@ -143,6 +144,35 @@ class HashTableTest extends TestCase {
         $hashMap = new HashTable();
         $added   = $hashMap->add(new stdClass(), "stdClass");
         $this->assertTrue($added);
+    }
+
+    /**
+     * tests adding different key types to the map
+     */
+    public function testFromIterable(): void {
+        $array     = [1, 2, 3];
+        $hashTable = HashTable::fromIterable($array);
+
+        $this->assertTrue($hashTable->size() === 3);
+        $this->assertTrue($hashTable->get(0) === 1);
+        $this->assertTrue($hashTable->get(1) === 2);
+        $this->assertTrue($hashTable->get(2) === 3);
+    }
+
+    /**
+     * tests adding different key types to the map
+     */
+    public function testFromIterableArrayList(): void {
+        $arrayList = new ArrayList();
+        $arrayList->add(1);
+        $arrayList->add(2);
+        $arrayList->add(3);
+        $hashTable = HashTable::fromIterable($arrayList);
+
+        $this->assertTrue($hashTable->size() === 3);
+        $this->assertTrue($hashTable->get(0) === 1);
+        $this->assertTrue($hashTable->get(1) === 2);
+        $this->assertTrue($hashTable->get(2) === 3);
     }
 
     /**

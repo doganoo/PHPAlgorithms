@@ -373,6 +373,20 @@ class HashTable extends AbstractTable implements JsonSerializable {
     }
 
     /**
+     * @param iterable $iterable
+     * @return HashTable
+     * @throws InvalidKeyTypeException
+     * @throws UnsupportedKeyTypeException
+     */
+    public static function fromIterable(iterable $iterable): HashTable {
+        $hashTable = new HashTable();
+        foreach ($iterable as $key => $value) {
+            $hashTable->put($key, $value);
+        }
+        return $hashTable;
+    }
+
+    /**
      * basic implementation of Java-like keySet().
      * The method returns an array containing the node keys.
      *
