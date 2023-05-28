@@ -53,23 +53,22 @@ class LinkedListIterator implements Iterator {
     /**
      * @inheritDoc
      */
-    public function current() {
+    public function current(): mixed {
         return $this->root;
     }
 
     /**
      * @inheritDoc
      */
-    public function next() {
+    public function next(): void {
         $this->root = $this->root->getNext();
         $this->i++;
-        return $this->root;
     }
 
     /**
      * @inheritDoc
      */
-    public function key() {
+    public function key(): mixed {
         $key = $this->root->getKey();
 
         if (true === is_int($key) || true === is_string($key)) {

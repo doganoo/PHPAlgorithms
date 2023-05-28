@@ -16,7 +16,7 @@
   ],
   "homepage": "https://www.dogan-ucar.de/phpalgorithms-2/",
   "require": {
-    "php": ">=7.4",
+    "php": ">=8.0",
     "ext-json": "*",
     "doganoo/php-util": "0.5.*"
   },
@@ -24,7 +24,7 @@
     "ergebnis/composer-normalize": "^2.9",
     "phpcompatibility/php-compatibility": "^9.3",
     "phpstan/phpstan": "^0.12.54",
-    "phpunit/phpunit": "6.5",
+    "phpunit/phpunit": "^8.0",
     "roave/security-advisories": "dev-latest",
     "squizlabs/php_codesniffer": "^3.5"
   },
