@@ -20,6 +20,9 @@
     "ext-json": "*",
     "doganoo/php-util": "0.5.*"
   },
+  "conflict": {
+    "stevebauman/unfinalize": "*"
+  },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.9",
     "phpcompatibility/php-compatibility": "^9.3",
