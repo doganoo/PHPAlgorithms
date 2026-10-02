@@ -467,7 +467,7 @@ abstract class AbstractLinkedList
         while ($tortoise !== null && $hare->getNext() !== null) {
             $hare = $hare->getNext()->getNext();
 
-            if (Comparator::equals($tortoise->getValue(), $hare->getValue())) {
+            if (Comparator::equals($tortoise->getValue(), $hare?->getValue())) {
                 return true;
             }
 

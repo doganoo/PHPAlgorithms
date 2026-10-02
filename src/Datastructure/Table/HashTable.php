@@ -367,7 +367,7 @@ class HashTable extends AbstractTable implements JsonSerializable {
     public function toArray(): array {
         $array = [];
         foreach ($this->keySet() as $key) {
-            $array[$key] = $this->get($key);
+            $array[$key ?? ""] = $this->get($key);
         }
         return $array;
     }

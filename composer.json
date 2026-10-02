@@ -46,7 +46,7 @@
     "post-install-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility",
     "post-update-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility",
     "add-php-compatibility": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility",
-    "php-compatibility": "./vendor/bin/phpcs -p . --standard=PHPCompatibility --runtime-set testVersion 7.4-8.1 --extensions=php --ignore=vendor/",
+    "php-compatibility": "./vendor/bin/phpcs -p . --standard=PHPCompatibility --runtime-set testVersion 8.0-8.5--extensions=php --ignore=vendor/",
     "phpstan": "vendor/bin/phpstan analyse --level=8 --memory-limit=2G src tests",
     "test": "vendor/bin/phpunit tests"
   }

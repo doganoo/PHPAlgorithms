@@ -132,10 +132,10 @@ class IntegerVector implements IVector {
             $flag = $flag << $k;
             $flag = !$flag;
 
-            if (isset($this->array[$i])) {
-                $this->array[$i] &= $flag;
+            if (isset($this->array[(int) $i])) {
+                $this->array[(int) $i] &= $flag;
             } else {
-                $this->array[$i] = $this->array[$i] & $flag;
+                $this->array[(int) $i] = $this->array[(int) $i] & $flag;
             }
             return true;
         }

@@ -91,7 +91,7 @@ class Node implements INode {
      * @param ArrayList|null $children
      * @return Node|null
      */
-    public function findChild($value, ArrayList $children = null): ?Node {
+    public function findChild($value, ?ArrayList $children = null): ?Node {
         if (null === $children) {
             $children = $this->children;
         }
