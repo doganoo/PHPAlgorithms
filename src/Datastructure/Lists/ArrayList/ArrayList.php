@@ -83,6 +83,12 @@ class ArrayList implements IteratorAggregate, JsonSerializable, IComparable {
     private int $capacity = 0;
 
     /**
+     * @var bool whether the list holds exactly $size non-null values at the indexes 0 to $size - 1.
+     *           Then length() equals $size and add() does not need to count.
+     */
+    private bool $dense = true;
+
+    /**
      * ArrayList constructor initializes the array.
      * @param int $capacity
      */
@@ -95,7 +101,8 @@ class ArrayList implements IteratorAggregate, JsonSerializable, IComparable {
      * removes all elements of the array
      */
     public function clear(): void {
-        $this->size = 0;
+        $this->size  = 0;
+        $this->dense = true;
         $this->ensureCapacity(
             $this->getCapacity()
         );
@@ -266,9 +273,21 @@ class ArrayList implements IteratorAggregate, JsonSerializable, IComparable {
     public function remove($key): bool {
         if (isset($this->array[$key])) {
             unset($this->array[$key]);
+            $this->closeGaps(1);
             return true;
         }
         return false;
+    }
+
+    /**
+     * moves the values behind removed fields forward, so that the positions stay continuous
+     *
+     * @param int $removed the number of values that have been removed
+     */
+    private function closeGaps(int $removed): void {
+        ksort($this->array);
+        $this->array = array_values($this->array);
+        $this->size  = max(0, $this->size - $removed);
     }
 
     /**
@@ -307,13 +326,18 @@ class ArrayList implements IteratorAggregate, JsonSerializable, IComparable {
      */
     public function removeRange(int $start, int $end): bool {
         $removed = true;
+        $count   = 0;
         foreach ($this->array as $key => $item) {
             if ($key >= $start && $key <= $end) {
-                $keyRemoved = $this->remove($key);
-                $removed    = $removed && $keyRemoved;
+                if (null === $item) {
+                    $removed = false;
+                    continue;
+                }
+                unset($this->array[$key]);
+                $count++;
             }
         }
-        $this->array = array_values($this->array);
+        $this->closeGaps($count);
         return $removed;
     }
 
@@ -332,6 +356,7 @@ class ArrayList implements IteratorAggregate, JsonSerializable, IComparable {
         }
         $result      = $this->array !== $newArray;
         $this->array = $newArray;
+        $this->dense = false;
         return $result;
     }
 
@@ -348,6 +373,7 @@ class ArrayList implements IteratorAggregate, JsonSerializable, IComparable {
             throw new IndexOutOfBoundsException();
         }
         $this->array[$index] = $value;
+        $this->dense         = false;
         return true;
     }
 
@@ -396,7 +422,10 @@ class ArrayList implements IteratorAggregate, JsonSerializable, IComparable {
      * @return bool
      */
     public function add($item): bool {
-        return $this->addToIndex($this->length(), $item);
+        return $this->addToIndex(
+            $this->dense && null !== $item ? $this->size() : $this->length(),
+            $item
+        );
     }
 
     /**
@@ -412,6 +441,7 @@ class ArrayList implements IteratorAggregate, JsonSerializable, IComparable {
         if (count($this->array) === $this->size()) {
             $this->ensureCapacity($this->size() * 2 + 1);
         }
+        $this->dense         = $this->dense && $index === $this->size() && null !== $item;
         $this->array[$index] = $item;
         $this->size++;
         return true;
@@ -504,6 +534,7 @@ class ArrayList implements IteratorAggregate, JsonSerializable, IComparable {
             , $this->getCapacity()
             , null
         );
+        $this->dense = false;
 
         $this->addAllArray($array);
         return true;

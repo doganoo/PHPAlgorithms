@@ -277,4 +277,92 @@ class ArrayListTest extends TestCase {
         );
     }
 
+    public function testAddAppendsInOrderAcrossAGrowingCapacity(): void {
+        $list = new ArrayList(2);
+        for ($i = 0; $i < 300; $i++) {
+            $list->add($i);
+        }
+
+        $this->assertSame(300, $list->length());
+        $this->assertSame(range(0, 299), array_values(iterator_to_array($list)));
+    }
+
+    public function testAddAfterANullValueReusesItsPlace(): void {
+        $list = new ArrayList();
+        $list->add('a');
+        $list->add(null);
+        $list->add('b');
+
+        $this->assertSame(2, $list->length());
+        $this->assertSame(['a', 'b'], array_values(iterator_to_array($list)));
+    }
+
+    public function testAddAfterARemoveCountsTheRemainingValues(): void {
+        $list = new ArrayList();
+        $list->add('a');
+        $list->add('b');
+        $list->add('c');
+        $list->remove(2);
+        $list->add('d');
+
+        $this->assertSame(3, $list->length());
+        $this->assertSame(3, $list->size());
+        $this->assertSame(['a', 'b', 'd'], iterator_to_array($list));
+    }
+
+    public function testAddAfterRemovingTheFirstValueKeepsAllOthers(): void {
+        $list = new ArrayList();
+        $list->add('a');
+        $list->add('b');
+        $list->add('c');
+        $list->remove(0);
+        $list->add('d');
+
+        $this->assertSame(['b', 'c', 'd'], iterator_to_array($list));
+        $this->assertSame('b', $list->get(0));
+        $this->assertSame(['b', 'c', 'd'], $list->toArray());
+    }
+
+    public function testRemoveOfAnEmptyPlaceChangesNothing(): void {
+        $list = new ArrayList();
+        $list->add('a');
+
+        $this->assertFalse($list->remove(5));
+        $this->assertSame(1, $list->size());
+        $this->assertSame(['a'], iterator_to_array($list));
+    }
+
+    public function testAddAfterARemovedRangeAppendsBehindTheRest(): void {
+        $list = new ArrayList();
+        $list->add('a');
+        $list->add('b');
+        $list->add('c');
+        $list->add('d');
+        $list->removeRange(1, 2);
+        $list->add('e');
+
+        $this->assertSame(['a', 'd', 'e'], iterator_to_array($list));
+        $this->assertSame(3, $list->size());
+    }
+
+    public function testAddAfterASortAppendsBehindTheSortedValues(): void {
+        $list = new ArrayList();
+        $list->add(3);
+        $list->add(1);
+        $list->sort();
+        $list->add(9);
+
+        $this->assertSame([1, 3, 9], array_values(iterator_to_array($list)));
+    }
+
+    public function testClearMakesAddStartAtTheBeginningAgain(): void {
+        $list = new ArrayList();
+        $list->add('a');
+        $list->remove(0);
+        $list->clear();
+        $list->add('b');
+
+        $this->assertSame(['b'], array_values(iterator_to_array($list)));
+    }
+
 }
